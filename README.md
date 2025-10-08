@@ -16,8 +16,7 @@ pip install .
 
 ### Project Structure
 
-*   **`data/`**: This directory is used for storing datasets. Raw data should be placed in `data/code_classification_dataset/`. The preprocessing notebook generates parquet files (`dataset.parquet`, `preprocessed_dataset.parquet`) in this directory. I put the models I trained
-*   in this directory.
+*   **`data/`**: This directory is used for storing datasets. Raw data should be placed in `data/code_classification_dataset/`. The preprocessing notebook generates parquet files (`dataset.parquet`, `preprocessed_dataset.parquet`) in this directory.
 *   **`models/`**: Trained models and preprocessing objects (TF-IDF vectorizer, scaler) are saved here as `.pkl` files by the training script.
 
 ### Notebooks
@@ -69,3 +68,4 @@ python predict_cli.py evaluate --input data/sample_0.json --model models/text_mo
 python predict_cli.py evaluate --input data/test_samples/ --model models/text_model.pkl
 
 ```
+
