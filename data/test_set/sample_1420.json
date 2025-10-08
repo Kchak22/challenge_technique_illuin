@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"6 1\", \"24 50\", \"0 0\"]",
+    "src_uid": "dcca7c58ba7111125608f659a577c3a2",
+    "prob_desc_notes": "NoteIn the first example note that there is not enough time between 1:20 and 3:21, because each landing and the takeoff take one minute.In the second example there is no gaps in the schedule, so Arkady can only add takeoff after all landings. Note that it is possible that one should wait more than $$$24$$$ hours to insert the takeoff.In the third example Arkady can insert the takeoff even between the first landing.",
+    "prob_desc_description": "These days Arkady works as an air traffic controller at a large airport. He controls a runway which is usually used for landings only. Thus, he has a schedule of planes that are landing in the nearest future, each landing lasts $$$1$$$ minute.He was asked to insert one takeoff in the schedule. The takeoff takes $$$1$$$ minute itself, but for safety reasons there should be a time space between the takeoff and any landing of at least $$$s$$$ minutes from both sides.Find the earliest time when Arkady can insert the takeoff.",
+    "prob_desc_output_spec": "Print two integers $$$h$$$ and $$$m$$$ — the hour and the minute from the current moment of the earliest time Arkady can insert the takeoff.",
+    "prob_desc_input_spec": "The first line of input contains two integers $$$n$$$ and $$$s$$$ ($$$1 \\le n \\le 100$$$, $$$1 \\le s \\le 60$$$) — the number of landings on the schedule and the minimum allowed time (in minutes) between a landing and a takeoff. Each of next $$$n$$$ lines contains two integers $$$h$$$ and $$$m$$$ ($$$0 \\le h \\le 23$$$, $$$0 \\le m \\le 59$$$) — the time, in hours and minutes, when a plane will land, starting from current moment (i. e. the current time is $$$0$$$ $$$0$$$). These times are given in increasing order.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1100,
+    "file_name": "train_009.jsonl",
+    "code_uid": "a6ba6169e6a66a410b9f2726da603652",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6 60\\n0 0\\n1 20\\n3 21\\n5 0\\n19 30\\n23 40\", \"16 50\\n0 30\\n1 20\\n3 0\\n4 30\\n6 10\\n7 50\\n9 30\\n11 10\\n12 50\\n14 30\\n16 10\\n17 50\\n19 30\\n21 10\\n22 50\\n23 59\", \"3 17\\n0 30\\n1 0\\n12 0\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n,s=(int(i) for i in input().split())\ntimes=[0]\nfor i in range(n):\n  h,m=(int(j) for j in input().split())\n  time=h*60+m\n  times.append(time)\nrequiredTime=-1\n\nif times[1]>=s+1:\n  requiredTime=times[0]\nelse:\n  for i in range(1, n):\n    if times[i+1]-times[i]>s+s+1:\n      # 1 - длительность посадки, s - пауза перед взлетом\n      requiredTime=times[i]+1+s\n      break\n    \nif requiredTime==-1:\n  requiredTime=times[n]+1+s\n  \nh=requiredTime//60\nm=requiredTime%60\nprint(h,m)",
+    "prob_desc_created_at": "1525007700",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

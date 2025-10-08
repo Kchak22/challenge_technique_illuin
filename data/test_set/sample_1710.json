@@ -1,0 +1,30 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"2\"]",
+    "src_uid": "c01da186ee69936eb274dce6e1222e43",
+    "prob_desc_notes": "NoteNote that numbers which you remove don't impact the procedure of telling whether the resulting sequence is good.It is possible that for some numbers $$$b_i$$$ and $$$b_j$$$, you will try to add the edge between them twice. Nevertheless, you will add this edge only once.",
+    "prob_desc_description": "For a given sequence of distinct non-negative integers $$$(b_1, b_2, \\dots, b_k)$$$ we determine if it is good in the following way:  Consider a graph on $$$k$$$ nodes, with numbers from $$$b_1$$$ to $$$b_k$$$ written on them. For every $$$i$$$ from $$$1$$$ to $$$k$$$: find such $$$j$$$ ($$$1 \\le j \\le k$$$, $$$j\\neq i$$$), for which $$$(b_i \\oplus b_j)$$$ is the smallest among all such $$$j$$$, where $$$\\oplus$$$ denotes the operation of bitwise XOR (https://en.wikipedia.org/wiki/Bitwise_operation#XOR). Next, draw an undirected edge between vertices with numbers $$$b_i$$$ and $$$b_j$$$ in this graph. We say that the sequence is good if and only if the resulting graph forms a tree (is connected and doesn't have any simple cycles). It is possible that for some numbers $$$b_i$$$ and $$$b_j$$$, you will try to add the edge between them twice. Nevertheless, you will add this edge only once.You can find an example below (the picture corresponding to the first test case). Sequence $$$(0, 1, 5, 2, 6)$$$ is not good as we cannot reach $$$1$$$ from $$$5$$$.However, sequence $$$(0, 1, 5, 2)$$$ is good.   You are given a sequence $$$(a_1, a_2, \\dots, a_n)$$$ of distinct non-negative integers. You would like to remove some of the elements (possibly none) to make the remaining sequence good. What is the minimum possible number of removals required to achieve this goal?It can be shown that for any sequence, we can remove some number of elements, leaving at least $$$2$$$, so that the remaining sequence is good.",
+    "prob_desc_output_spec": "You should output exactly one integer — the minimum possible number of elements to remove in order to make the remaining sequence good.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$2 \\le n \\le 200,000$$$) — length of the sequence. The second line contains $$$n$$$ distinct non-negative integers $$$a_1, a_2, \\ldots, a_n$$$ ($$$0 \\le a_i \\le 10^9$$$) — the elements of the sequence.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2100,
+    "file_name": "train_012.jsonl",
+    "code_uid": "653fe61bde06bed578df895538ea6ef7",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n0 1 5 2 6\", \"7\\n6 9 8 7 3 5 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(input())\nl = list(map(int,input().split()))\n\ndef fun(a):\n    if len(a) <= 3:\n        return len(a)\n    \n    maxE = max(a)\n    \n    if maxE == 0:\n        return len(a)\n        \n    msb = 1\n    \n    while 2 * msb <= maxE:\n        msb *= 2\n    \n        \n    l1 = []\n    l2 = []\n\n    for x in a:\n        if x >= msb:\n            l1.append(x-msb)\n        else:\n            l2.append(x)\n        \n        \n\n    max1 = fun(l1)\n    max2 = fun(l2)\n    \n    if max1 == 0:\n        return max2\n    if max2 == 0:\n        return max1\n    \n    return max(1+max1,1+max2)\n\nprint(n - fun(l))\n\n\n\n\n\n\n ",
+    "prob_desc_created_at": "1605450900",
+    "tags": [
+        "dp",
+        "bitmasks",
+        "divide and conquer",
+        "data structures",
+        "binary search",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

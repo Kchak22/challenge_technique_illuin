@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"6\", \"20\"]",
+    "src_uid": "240a2b88ded6016d0fd7157d0ee2beea",
+    "prob_desc_notes": "NoteIn the first sample, the following pairs (i, j) match: (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9).In the second sample, the following pairs (i, j) match: (1,  4), (1,  5), (1,  6), (1,  7), (1,  8), (1,  9), (1,  10), (1,  11), (2,  10), (2,  11), (3,  10), (3,  11), (4,  10), (4,  11), (5,  10), (5,  11), (6,  10), (6,  11), (7,  10), (7,  11).",
+    "prob_desc_description": "The bear has a string s = s1s2... s|s| (record |s| is the string's length), consisting of lowercase English letters. The bear wants to count the number of such pairs of indices i, j (1 ≤ i ≤ j ≤ |s|), that string x(i, j) = sisi + 1... sj contains at least one string \"bear\" as a substring.String x(i, j) contains string \"bear\", if there is such index k (i ≤ k ≤ j - 3), that sk = b, sk + 1 = e, sk + 2 = a, sk + 3 = r.Help the bear cope with the given problem.",
+    "prob_desc_output_spec": "Print a single number — the answer to the problem.",
+    "prob_desc_input_spec": "The first line contains a non-empty string s (1 ≤ |s| ≤ 5000). It is guaranteed that the string only consists of lowercase English letters.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_008.jsonl",
+    "code_uid": "9c43fb84415cac25180fee36d0902b6b",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"bearbtear\", \"bearaabearc\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys, math\ndef rs():\n    return sys.stdin.readline().strip()\ndef ri():\n    return int(sys.stdin.readline().strip())\ndef ras():\n    return list(sys.stdin.readline().strip())\ndef rai():\n    return map(int,sys.stdin.readline().strip().split())\n\n\n\n\ndef solve():\n    # s = \"bear\"*(5000/4)\n    s = rs()\n    l = len(s)\n\n    sm = 0\n\n    bears = 0\n\n    c = 0\n\n    for x in xrange(l - 3):\n        if s[x] == \"b\" and s[x+1] == \"e\" and s[x+2] == \"a\" and s[x+3] == \"r\":\n            if bears:\n                con = (x-c)\n            else:\n                con = (x+1)\n            sm += con*(l-3-x)\n            c = x\n            bears +=1\n    return sm\n\nprint solve()",
+    "prob_desc_created_at": "1390577700",
+    "tags": [
+        "greedy",
+        "math",
+        "implementation",
+        "brute force",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

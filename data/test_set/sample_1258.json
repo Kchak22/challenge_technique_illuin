@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"YES\\n0 0 1 1\", \"NO\"]",
+    "src_uid": "1a46737540d253583234193a026008e3",
+    "prob_desc_notes": "NoteIt's OK if all the numbers are in the same set, and the other one is empty.",
+    "prob_desc_description": "Little X has n distinct integers: p1, p2, ..., pn. He wants to divide all of them into two sets A and B. The following two conditions must be satisfied:  If number x belongs to set A, then number a - x must also belong to set A.  If number x belongs to set B, then number b - x must also belong to set B. Help Little X divide the numbers into two sets or determine that it's impossible.",
+    "prob_desc_output_spec": "If there is a way to divide the numbers into two sets, then print \"YES\" in the first line. Then print n integers: b1, b2, ..., bn (bi equals either 0, or 1), describing the division. If bi equals to 0, then pi belongs to set A, otherwise it belongs to set B. If it's impossible, print \"NO\" (without the quotes).",
+    "prob_desc_input_spec": "The first line contains three space-separated integers n, a, b (1 ≤ n ≤ 105; 1 ≤ a, b ≤ 109). The next line contains n space-separated distinct integers p1, p2, ..., pn (1 ≤ pi ≤ 109).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_007.jsonl",
+    "code_uid": "6fab7d727dd2de2f61d366630bfc95cc",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 5 9\\n2 3 4 5\", \"3 3 4\\n1 2 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "class DisjointSet:\n    def __init__(self, n):\n        self._fa = list(range(n))\n    def union(self, x, y):\n        x = self.get_father(x)\n        y = self.get_father(y)\n        self._fa[x] = y\n        return y\n    def get_father(self, x):\n        y = self._fa[x]\n        if self._fa[y] == y:\n            return y\n        else:\n            z = self._fa[y] = self.get_father(y)\n            return z\n    def __repr__(self):\n        return repr([self.get_father(i) for i in range(len(self._fa))])\n\ndef solve(n, a, b, xs):\n    h = {x: i for i, x in enumerate(xs)}\n    if a == b:\n        if all(a - x in h for x in xs):\n            return [0] * n\n        return False\n    g1 = n\n    g2 = n + 1\n    ds = DisjointSet(n + 2)\n    for i, x in enumerate(xs):\n        for t in (a, b):\n            if t - x in h:\n                ds.union(i, h[t-x])\n    for i, x in enumerate(xs):\n        b1 = (a - x) in h\n        b2 = (b - x) in h\n        if b1 + b2 == 0:\n            return False\n        if b1 + b2 == 1:\n            if b1:\n                ds.union(i, g1)\n            else:\n                ds.union(i, g2)\n            if ds.get_father(g1) == ds.get_father(g2):\n                return False\n    group = [None] * n\n    for i, x in enumerate(xs):\n        f = ds.get_father(i)\n        if f < n:\n            return False\n        group[i] = f - n\n    return group\n\nn, a, b = map(int, input().split())\nxs = list(map(int, input().split()))\ngroup = solve(n, a, b, xs)\nif isinstance(group, list):\n    print('YES')\n    print('  '.join(map(str, group)))\nelse:\n    print('NO')\n",
+    "prob_desc_created_at": "1411218000",
+    "tags": [
+        "data structures",
+        "graph matchings",
+        "greedy",
+        "2-sat"
+    ],
+    "hidden_unit_tests": ""
+}

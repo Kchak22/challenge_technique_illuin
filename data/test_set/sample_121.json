@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"YES\", \"NO\", \"YES\"]",
+    "src_uid": "4fc1ca3517168842cc85d74ba0066598",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Recently Vasya got interested in finding extra-terrestrial intelligence. He made a simple extra-terrestrial signals’ receiver and was keeping a record of the signals for n days in a row. Each of those n days Vasya wrote a 1 in his notebook if he had received a signal that day and a 0 if he hadn’t. Vasya thinks that he has found extra-terrestrial intelligence if there is a system in the way the signals has been received, i.e. if all the intervals between successive signals are equal. Otherwise, Vasya thinks that the signals were sent by some stupid aliens no one cares about. Help Vasya to deduce from the information given by the receiver if he has found extra-terrestrial intelligence or not.",
+    "prob_desc_output_spec": "If Vasya has found extra-terrestrial intelligence, output YES, otherwise output NO.",
+    "prob_desc_input_spec": "The first line contains integer n (3 ≤ n ≤ 100) — amount of days during which Vasya checked if there were any signals. The second line contains n characters 1 or 0 — the record Vasya kept each of those n days. It’s guaranteed that the given record sequence contains at least three 1s.",
+    "prob_desc_output_to": "output.txt",
+    "prob_desc_input_from": "input.txt",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1300,
+    "file_name": "train_000.jsonl",
+    "code_uid": "73059f5b109b9d1739f0fafac2b1b06f",
+    "prob_desc_memory_limit": "64 megabytes",
+    "prob_desc_sample_inputs": "[\"8\\n00111000\", \"7\\n1001011\", \"7\\n1010100\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "inp = open('input.txt', 'r')\nout = open('output.txt', 'w')\nn=int(inp.readline())\na=inp.readline()\nans=[]\nfor i in range(len(a)):\n    if a[i]=='1': ans.append(i)\nflag=0\nd=ans[1]-ans[0]\nfor i in range(len(ans)-1):\n    if ans[i+1]-ans[i]!=d:\n        flag=1\nout.write('YES' if flag==0 else 'NO')\n        \n        ",
+    "prob_desc_created_at": "1287482400",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

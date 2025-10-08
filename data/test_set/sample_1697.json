@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"11\\n20\\n3\"]",
+    "src_uid": "ee32db8e7cdd9561d9215651ff8a262e",
+    "prob_desc_notes": "NoteIn the first test case:   you should take $$$3$$$ swords and $$$3$$$ war axes: $$$3 \\cdot 5 + 3 \\cdot 6 = 33 \\le 33$$$  and your follower — $$$3$$$ swords and $$$2$$$ war axes: $$$3 \\cdot 5 + 2 \\cdot 6 = 27 \\le 27$$$.  $$$3 + 3 + 3 + 2 = 11$$$ weapons in total.In the second test case, you can take all available weapons even without your follower's help, since $$$5 \\cdot 10 + 5 \\cdot 10 \\le 100$$$.In the third test case, you can't take anything, but your follower can take $$$3$$$ war axes: $$$3 \\cdot 5 \\le 19$$$.",
+    "prob_desc_description": "You are playing one RPG from the 2010s. You are planning to raise your smithing skill, so you need as many resources as possible. So how to get resources? By stealing, of course.You decided to rob a town's blacksmith and you take a follower with you. You can carry at most $$$p$$$ units and your follower — at most $$$f$$$ units.In the blacksmith shop, you found $$$cnt_s$$$ swords and $$$cnt_w$$$ war axes. Each sword weights $$$s$$$ units and each war axe — $$$w$$$ units. You don't care what to take, since each of them will melt into one steel ingot.What is the maximum number of weapons (both swords and war axes) you and your follower can carry out from the shop?",
+    "prob_desc_output_spec": "For each test case, print the maximum number of weapons (both swords and war axes) you and your follower can carry.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$t$$$ ($$$1 \\le t \\le 10^4$$$) — the number of test cases. The first line of each test case contains two integers $$$p$$$ and $$$f$$$ ($$$1 \\le p, f \\le 10^9$$$) — yours and your follower's capacities. The second line of each test case contains two integers $$$cnt_s$$$ and $$$cnt_w$$$ ($$$1 \\le cnt_s, cnt_w \\le 2 \\cdot 10^5$$$) — the number of swords and war axes in the shop. The third line of each test case contains two integers $$$s$$$ and $$$w$$$ ($$$1 \\le s, w \\le 10^9$$$) — the weights of each sword and each war axe. It's guaranteed that the total number of swords and the total number of war axes in all test cases don't exceed $$$2 \\cdot 10^5$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_011.jsonl",
+    "code_uid": "cf15903dc834983b43574a24cc3a3abf",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n33 27\\n6 10\\n5 6\\n100 200\\n10 10\\n5 5\\n1 19\\n1 3\\n19 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def controller(p, f, cnt_s, cnt_w, s, w):\n    def proc(cap_p, cap_f, cnt, weight):\n        sp, sf = cap_p//weight, cap_f//weight\n        if cnt >= sp + sf:\n            return (0, sp, sf)  # if total == 0, then total == sp + sf\n        sp, sf = min(cnt,sp), min(cnt,sf)\n        return (cnt, sp, sf)\n    if s > w:\n        s, w, cnt_s, cnt_w = w, s, cnt_w, cnt_s\n    elif s == w:\n        cnt_s, cnt_w = cnt_s + cnt_w, 0\n    total, sp, sf = proc(p, f, cnt_s, s)\n    if total == 0:\n        return sp + sf\n    elif cnt_w == 0:\n        return cnt_s\n    pot_p = p - s*sp\n    pot_f = f - s*(cnt_s-sp)\n    total, sp2, sf2 = proc(pot_p, pot_f, cnt_w, w)\n    total = total or sp2 + sf2\n    total += cnt_s\n    rem = pot_p % w + pot_f % w\n    if rem >= w and cnt_w > sp2 + sf2:\n        for i in range(sp-(cnt_s-sf)):  # why not sp+1-(cnt_s-sf)? since first choice outside loop\n            pot_p += s\n            pot_f -= s\n            if pot_p % w + pot_f % w < w:\n                return total + 1\n    return total\n\ndef c_in():\n    import sys, os.path\n    try:\n        file = open(os.path.join(sys.argv[0], r'../in-b.txt'))\n    except:\n        file = sys.stdin\n    n_test_case = int(file.readline())\n    # print(n_test_case)\n    for i in range(n_test_case):\n        p, f = [int(i) for i in file.readline().split()]\n        cnt_s, cnt_w = [int(i) for i in file.readline().split()]\n        s, w = [int(i) for i in file.readline().split()]\n        inputs = p, f, cnt_s, cnt_w, s, w\n        # print(inputs)\n        print(controller(*inputs))\n\nif __name__ == '__main__':\n    c_in()\n",
+    "prob_desc_created_at": "1598366100",
+    "tags": [
+        "greedy",
+        "math",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

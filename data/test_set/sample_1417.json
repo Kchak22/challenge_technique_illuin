@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2 3 3 3\", \"0 0 1 1 1 2\"]",
+    "src_uid": "4585419ab2b7200770cfe1e607161e9f",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Mishka is trying really hard to avoid being kicked out of the university. In particular, he was doing absolutely nothing for the whole semester, miraculously passed some exams so that just one is left.There were $$$n$$$ classes of that subject during the semester and on $$$i$$$-th class professor mentioned some non-negative integer $$$a_i$$$ to the students. It turned out, the exam was to tell the whole sequence back to the professor. Sounds easy enough for those who attended every class, doesn't it?Obviously Mishka didn't attend any classes. However, professor left some clues on the values of $$$a$$$ to help out students like Mishka:   $$$a$$$ was sorted in non-decreasing order ($$$a_1 \\le a_2 \\le \\dots \\le a_n$$$);  $$$n$$$ was even;  the following sequence $$$b$$$, consisting of $$$\\frac n 2$$$ elements, was formed and given out to students: $$$b_i = a_i + a_{n - i + 1}$$$. Professor also mentioned that any sequence $$$a$$$, which produces sequence $$$b$$$ with the presented technique, will be acceptable.Help Mishka to pass that last exam. Restore any sorted sequence $$$a$$$ of non-negative integers, which produces sequence $$$b$$$ with the presented technique. It is guaranteed that there exists at least one correct sequence $$$a$$$, which produces the given sequence $$$b$$$.",
+    "prob_desc_output_spec": "Print $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$0 \\le a_i \\le 10^{18}$$$) in a single line. $$$a_1 \\le a_2 \\le \\dots \\le a_n$$$ should be satisfied. $$$b_i = a_i + a_{n - i + 1}$$$ should be satisfied for all valid $$$i$$$.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$2 \\le n \\le 2 \\cdot 10^5$$$) — the length of sequence $$$a$$$. $$$n$$$ is always even. The second line contains $$$\\frac n 2$$$ integers $$$b_1, b_2, \\dots, b_{\\frac n 2}$$$ ($$$0 \\le b_i \\le 10^{18}$$$) — sequence $$$b$$$, where $$$b_i = a_i + a_{n - i + 1}$$$. It is guaranteed that there exists at least one correct sequence $$$a$$$, which produces the given sequence $$$b$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1300,
+    "file_name": "train_009.jsonl",
+    "code_uid": "6bd874f00761cbbf6274f4395730ce70",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n5 6\", \"6\\n2 1 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def read_input():\n    n = int(input())\n    line = input()\n    line = line.strip().split()\n    b = [int(num) for num in line]\n\n    return n, b\n\n\ndef mishka_and_the_last_exam(n, b):\n    l = [0] * n\n    half = n // 2\n    for i, sum_ in enumerate(b[::-1]):\n        if i == 0:\n            l[half - 1 - i] = sum_ // 2\n            l[half + i] = sum_ - (sum_ // 2)\n        elif i < half - 1:\n            l[half -1 - i] = l[half - 1 - i + 1]\n            l[half + i] = sum_ - l[half -1 - i]\n\n            if l[half + i - 1] > l[half + i]:\n                diff = l[half + i - 1] - l[half + i]\n                l[half -1 - i] -= diff\n                l[half + i] += diff\n        else:\n            l[0] = 0\n            l[-1] = sum_\n        \n    return l\n\n\ndef print_results(result):\n    result = [str(el) for el in result]\n    print(\" \".join(result))\n\n\nif __name__ == \"__main__\":\n    n, b = read_input()\n    result = mishka_and_the_last_exam(n, b)\n    print_results(result)\n",
+    "prob_desc_created_at": "1544884500",
+    "tags": [
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

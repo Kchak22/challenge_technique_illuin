@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1 4 2 3 5\"]",
+    "src_uid": "635f07ad34941907f1f69bdf01c95c75",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Bob is an avid fan of the video game \"League of Leesins\", and today he celebrates as the League of Leesins World Championship comes to an end! The tournament consisted of $$$n$$$ ($$$n \\ge 5$$$) teams around the world. Before the tournament starts, Bob has made a prediction of the rankings of each team, from $$$1$$$-st to $$$n$$$-th. After the final, he compared the prediction with the actual result and found out that the $$$i$$$-th team according to his prediction ended up at the $$$p_i$$$-th position ($$$1 \\le p_i \\le n$$$, all $$$p_i$$$ are unique). In other words, $$$p$$$ is a permutation of $$$1, 2, \\dots, n$$$.As Bob's favorite League player is the famous \"3ga\", he decided to write down every $$$3$$$ consecutive elements of the permutation $$$p$$$. Formally, Bob created an array $$$q$$$ of $$$n-2$$$ triples, where $$$q_i = (p_i, p_{i+1}, p_{i+2})$$$ for each $$$1 \\le i \\le n-2$$$. Bob was very proud of his array, so he showed it to his friend Alice.After learning of Bob's array, Alice declared that she could retrieve the permutation $$$p$$$ even if Bob rearranges the elements of $$$q$$$ and the elements within each triple. Of course, Bob did not believe in such magic, so he did just the same as above to see Alice's respond.For example, if $$$n = 5$$$ and $$$p = [1, 4, 2, 3, 5]$$$, then the original array $$$q$$$ will be $$$[(1, 4, 2), (4, 2, 3), (2, 3, 5)]$$$. Bob can then rearrange the numbers within each triple and the positions of the triples to get $$$[(4, 3, 2), (2, 3, 5), (4, 1, 2)]$$$. Note that $$$[(1, 4, 2), (4, 2, 2), (3, 3, 5)]$$$ is not a valid rearrangement of $$$q$$$, as Bob is not allowed to swap numbers belong to different triples.As Alice's friend, you know for sure that Alice was just trying to show off, so you decided to save her some face by giving her any permutation $$$p$$$ that is consistent with the array $$$q$$$ she was given. ",
+    "prob_desc_output_spec": "Print $$$n$$$ distinct integers $$$p_1, p_2, \\ldots, p_n$$$ ($$$1 \\le p_i \\le n$$$) such that $$$p$$$ is consistent with array $$$q$$$.  If there are multiple answers, print any. ",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$5 \\le n \\le 10^5$$$) — the size of permutation $$$p$$$. The $$$i$$$-th of the next $$$n-2$$$ lines contains $$$3$$$ integers $$$q_{i, 1}$$$, $$$q_{i, 2}$$$, $$$q_{i, 3}$$$ ($$$1 \\le q_{i, j} \\le n$$$) — the elements of the $$$i$$$-th triple of the rearranged (shuffled) array $$$q_i$$$, in random order. Remember, that the numbers within each triple can be rearranged and also the positions of the triples can be rearranged. It is guaranteed that there is at least one permutation $$$p$$$ that is consistent with the input. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_011.jsonl",
+    "code_uid": "bc03df03630264cc483c5759e6a4eed2",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n4 3 2\\n2 3 5\\n4 1 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n=int(input())\nvis=[0]*(n+1)\nc=[0]*(n+1)\nfrom collections import defaultdict\nd=defaultdict(list)\nfor i in range(n-2):\n    a,b,e=list(map(int,input().split()))\n    c[a]+=1\n    c[b]+=1\n    c[e]+=1\n    d[a].extend([a,b,e])\n    d[b].extend([a,b,e])\n    d[e].extend([a,b,e])\nres=[]\nfor i in range(1,n+1):\n    if c[i]==1:\n        res.append(i)\n        vis[i]=1\n        break\nk=1\nwhile k<n:\n    if c[res[-1]]==3:\n        ar={}\n        for j in d[res[-1]]:\n            if j in ar:\n                ar[j]+=1\n            else:\n                ar[j]=1\n            \n                \n        for j in ar:\n            if ar[j]==2 and vis[j]==0:\n                res.append(j)\n                vis[j]=1\n        #print(res)\n    elif c[res[-1]]==1:\n        for i in d[res[-1]]:\n            if c[i]==2:\n                res.append(i)\n                vis[i]=1\n                break\n    else:\n        ar={}\n        if k==2:\n            for j in d[res[-1]]:\n                if j in ar:\n                    ar[j]+=1\n                else:\n                    ar[j]=1\n            \n                \n            for j in ar:\n                if ar[j]==2 and vis[j]==0:\n                    res.append(j)\n                    vis[j]=1\n        else:\n            for i in d[res[-1]]:\n                if c[i]==1:\n                    res.append(i)\n                    vis[i]=1\n                    break\n                \n            \n            \n            \n    k+=1\nprint(*res)",
+    "prob_desc_created_at": "1574174100",
+    "tags": [
+        "constructive algorithms",
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

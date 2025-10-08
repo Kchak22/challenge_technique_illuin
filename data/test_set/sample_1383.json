@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"7\", \"9\", \"8\"]",
+    "src_uid": "7324428d9e6d808f55ad4f3217046455",
+    "prob_desc_notes": "NoteIn the first sample, Kevin must pack his two cowbells into the same box. In the second sample, Kevin can pack together the following sets of cowbells: {2, 3}, {5} and {9}.In the third sample, the optimal solution is {3, 5} and {7}.",
+    "prob_desc_description": "Kevin Sun wants to move his precious collection of n cowbells from Naperthrill to Exeter, where there is actually grass instead of corn. Before moving, he must pack his cowbells into k boxes of a fixed size. In order to keep his collection safe during transportation, he won't place more than two cowbells into a single box. Since Kevin wishes to minimize expenses, he is curious about the smallest size box he can use to pack his entire collection. Kevin is a meticulous cowbell collector and knows that the size of his i-th (1 ≤ i ≤ n) cowbell is an integer si. In fact, he keeps his cowbells sorted by size, so si - 1 ≤ si for any i &gt; 1. Also an expert packer, Kevin can fit one or two cowbells into a box of size s if and only if the sum of their sizes does not exceed s. Given this information, help Kevin determine the smallest s for which it is possible to put all of his cowbells into k boxes of size s.",
+    "prob_desc_output_spec": "Print a single integer, the smallest s for which it is possible for Kevin to put all of his cowbells into k boxes of size s.",
+    "prob_desc_input_spec": "The first line of the input contains two space-separated integers n and k (1 ≤ n ≤ 2·k ≤ 100 000), denoting the number of cowbells and the number of boxes, respectively. The next line contains n space-separated integers s1, s2, ..., sn (1 ≤ s1 ≤ s2 ≤ ... ≤ sn ≤ 1 000 000), the sizes of Kevin's cowbells. It is guaranteed that the sizes si are given in non-decreasing order.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_008.jsonl",
+    "code_uid": "40cec726ca17e0ef6b0dddead62acf74",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2 1\\n2 5\", \"4 3\\n2 3 5 9\", \"3 2\\n3 5 7\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n,k=map(int,raw_input().split())\nar=map(int,raw_input().split())\nsz=0\nst=0\nen=n-1\nwhile n!=0:\n\tif 2*k>n:\n\t\tsz=max(sz,ar[en])\n\t\ten-=1\n\t\tk-=1\n\t\tn-=1\n\telse:\n\t\tif(st!=en):\n\t\t\tsz=max(sz,ar[st]+ar[en])\n\t\t\tst+=1\n\t\t\ten-=1\n\t\t\tn-=2\n\t\telse:\n\t\t\tsz=max(sz,ar[st])\n\t\t\tn-=1\n\t\tk-=1\nprint sz",
+    "prob_desc_created_at": "1448984100",
+    "tags": [
+        "binary search",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

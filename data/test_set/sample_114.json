@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\", \"0\", \"3\"]",
+    "src_uid": "a8f3e94845cb15a483ce8f774779efac",
+    "prob_desc_notes": "NoteIn the first example, Pavel can, for example, make this set of triangles (the lengths of the sides of the triangles are listed): $$$(2^0, 2^4, 2^4)$$$, $$$(2^1, 2^3, 2^3)$$$, $$$(2^1, 2^2, 2^2)$$$.In the second example, Pavel cannot make a single triangle.In the third example, Pavel can, for example, create this set of triangles (the lengths of the sides of the triangles are listed): $$$(2^0, 2^0, 2^0)$$$, $$$(2^1, 2^1, 2^1)$$$, $$$(2^2, 2^2, 2^2)$$$.",
+    "prob_desc_description": "Pavel has several sticks with lengths equal to powers of two.He has $$$a_0$$$ sticks of length $$$2^0 = 1$$$, $$$a_1$$$ sticks of length $$$2^1 = 2$$$, ..., $$$a_{n-1}$$$ sticks of length $$$2^{n-1}$$$. Pavel wants to make the maximum possible number of triangles using these sticks. The triangles should have strictly positive area, each stick can be used in at most one triangle.It is forbidden to break sticks, and each triangle should consist of exactly three sticks.Find the maximum possible number of triangles.",
+    "prob_desc_output_spec": "Print a single integer — the maximum possible number of non-degenerate triangles that Pavel can make.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$1 \\leq n \\leq 300\\,000$$$) — the number of different lengths of sticks. The second line contains $$$n$$$ integers $$$a_0$$$, $$$a_1$$$, ..., $$$a_{n-1}$$$ ($$$1 \\leq a_i \\leq 10^9$$$), where $$$a_i$$$ is the number of sticks with the length equal to $$$2^i$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_000.jsonl",
+    "code_uid": "055a5dbda2f4b6b49345076737ac2f3f",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1 2 2 2 2\", \"3\\n1 1 1\", \"3\\n3 3 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom collections import defaultdict\nfrom math import factorial as f\nfrom fractions import gcd as g\n\nN = int(raw_input ())\nl = [int(i) for i in raw_input ().split()]\nret = l[0] / 3\nleft = l [0] % 3\nfor i in range(1, N):\n    x = left * 2\n    if l [i] >= x:\n        ret += left\n        left = 0\n        l [i] -= x\n    else:\n        ret += l [i] / 2\n        left -= l [i] / 2\n        l [i] %= 2\n    ret += l [i] / 3\n    left += (l [i] % 3)\nprint ret\n",
+    "prob_desc_created_at": "1554550500",
+    "tags": [
+        "dp",
+        "greedy",
+        "fft",
+        "ternary search",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

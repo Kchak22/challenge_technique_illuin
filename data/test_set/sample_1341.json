@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"30021\", \"3036366999\"]",
+    "src_uid": "5c3cec98676675355bb870d818704be6",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Vasya decided to pass a very large integer n to Kate. First, he wrote that number as a string, then he appended to the right integer k — the number of digits in n. Magically, all the numbers were shuffled in arbitrary order while this note was passed to Kate. The only thing that Vasya remembers, is a non-empty substring of n (a substring of n is a sequence of consecutive digits of the number n).Vasya knows that there may be more than one way to restore the number n. Your task is to find the smallest possible initial integer n. Note that decimal representation of number n contained no leading zeroes, except the case the integer n was equal to zero itself (in this case a single digit 0 was used).",
+    "prob_desc_output_spec": "Print the smalles integer n which Vasya could pass to Kate.",
+    "prob_desc_input_spec": "The first line of the input contains the string received by Kate. The number of digits in this string does not exceed 1 000 000. The second line contains the substring of n which Vasya remembers. This string can contain leading zeroes.  It is guaranteed that the input data is correct, and the answer always exists.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2300,
+    "file_name": "train_008.jsonl",
+    "code_uid": "f212734180961a1b67416873754493c6",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"003512\\n021\", \"199966633300\\n63\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\n\ndef main():\n    a = sys.stdin.readline().strip()\n    b = sys.stdin.readline().strip()\n\n    if a == \"01\" or a == \"10\":\n        print(\"0\")\n        return\n\n    cnt = [0] * 256\n    for i in map(ord, a):\n        cnt[i] += 1\n    n = sum(cnt)\n\n    l = 0\n    for i in range(1, 8):\n        if i == len(str(n - i)):\n            l = n - i\n            break;\n\n    for s in b, str(l):\n        for i in map(ord, s):\n            cnt[i] -= 1\n\n    res = [\"\".join([b] + [chr(k) * v for k, v in enumerate(cnt) if v > 0 ])] if b[0] > \"0\" else []\n\n    for i in range(ord(\"1\"), ord(\"9\") + 1):\n        if cnt[i] > 0:\n            cnt[i] -= 1\n            others = [chr(k) * v for k, v in enumerate(cnt) if v > 0]\n            others.append(b)\n            res.append(\"\".join([chr(i)] + sorted(others)))\n            break\n\n    print(min(res))\n\nif __name__ == \"__main__\":\n    main()",
+    "prob_desc_created_at": "1462464300",
+    "tags": [
+        "constructive algorithms",
+        "brute force",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

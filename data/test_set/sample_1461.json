@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "5 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"0\", \"4\", \"1\"]",
+    "src_uid": "463d4e6badd3aa110cc87ae7049214b4",
+    "prob_desc_notes": null,
+    "prob_desc_description": "The Romans have attacked again. This time they are much more than the Persians but Shapur is ready to defeat them. He says: \"A lion is never afraid of a hundred sheep\". Nevertheless Shapur has to find weaknesses in the Roman army to defeat them. So he gives the army a weakness number.In Shapur's opinion the weakness of an army is equal to the number of triplets i, j, k such that i &lt; j &lt; k and ai &gt; aj &gt; ak where ax is the power of man standing at position x. The Roman army has one special trait — powers of all the people in it are distinct.Help Shapur find out how weak the Romans are.",
+    "prob_desc_output_spec": "A single integer number, the weakness of the Roman army.  Please, do not use %lld specificator to read or write 64-bit integers in C++. It is preffered to use cout (also you may use %I64d).",
+    "prob_desc_input_spec": "The first line of input contains a single number n (3 ≤ n ≤ 106) — the number of men in Roman army. Next line contains n different positive integers ai (1 ≤ i ≤ n, 1 ≤ ai ≤ 109) — powers of men in the Roman army. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_009.jsonl",
+    "code_uid": "5eb189e0a0f8c3d0458ca836514d5fc5",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n3 2 1\", \"3\\n2 3 1\", \"4\\n10 8 3 1\", \"4\\n1 5 4 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def fast2():\n    import os, sys, atexit\n    from cStringIO import StringIO as BytesIO\n    # range = xrange\n    sys.stdout = BytesIO()\n    atexit.register(lambda: os.write(1, sys.stdout.getvalue()))\n    return BytesIO(os.read(0, os.fstat(0).st_size)).readline\n\n\nclass order_tree:\n    def __init__(self, n):\n        self.tree, self.n = [[0, 0] for _ in range(n << 1)], n\n\n    # get interval[l,r)\n    def query(self, r, col):\n        res = 0\n        l = self.n\n        r += self.n\n\n        while l < r:\n            if l & 1:\n                res += self.tree[l][col]\n                l += 1\n\n            if r & 1:\n                r -= 1\n                res += self.tree[r][col]\n\n            l >>= 1\n            r >>= 1\n\n        return res\n\n    def update(self, ix, val, col):\n        ix += self.n\n\n        # set new value\n        self.tree[ix][col] += val\n\n        # move up\n        while ix > 1:\n            self.tree[ix >> 1][col] = self.tree[ix][col] + self.tree[ix ^ 1][col]\n            ix >>= 1\n\n\ninput = fast2()\nn, a = int(input()), [int(x) for x in input().split()]\ntree, ans = order_tree(n), 0\nmem = {i: j for j, i in enumerate(sorted(a))}\n\nfor i in range(n - 1, -1, -1):\n    cur = mem[a[i]]\n    ans += tree.query(cur, 1)\n    tree.update(cur, 1, 0)\n    tree.update(cur, tree.query(cur, 0), 1)\n\nprint(ans)\n",
+    "prob_desc_created_at": "1298390400",
+    "tags": [
+        "data structures",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"2\", \"0\"]",
+    "src_uid": "ed1a2ae733121af6486568e528fe2d84",
+    "prob_desc_notes": null,
+    "prob_desc_description": "The only difference between easy and hard versions is the number of elements in the array.You are given an array $$$a$$$ consisting of $$$n$$$ integers. In one move you can choose any $$$a_i$$$ and divide it by $$$2$$$ rounding down (in other words, in one move you can set $$$a_i := \\lfloor\\frac{a_i}{2}\\rfloor$$$).You can perform such an operation any (possibly, zero) number of times with any $$$a_i$$$.Your task is to calculate the minimum possible number of operations required to obtain at least $$$k$$$ equal numbers in the array.Don't forget that it is possible to have $$$a_i = 0$$$ after some operations, thus the answer always exists.",
+    "prob_desc_output_spec": "Print one integer — the minimum possible number of operations required to obtain at least $$$k$$$ equal numbers in the array.",
+    "prob_desc_input_spec": "The first line of the input contains two integers $$$n$$$ and $$$k$$$ ($$$1 \\le k \\le n \\le 50$$$) — the number of elements in the array and the number of equal numbers required. The second line of the input contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 2 \\cdot 10^5$$$), where $$$a_i$$$ is the $$$i$$$-th element of $$$a$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_007.jsonl",
+    "code_uid": "20827176678794a9807f8b9258b034e0",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 3\\n1 2 2 4 5\", \"5 3\\n1 2 3 4 5\", \"5 3\\n1 2 3 3 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, k = [int(i) for i in input().split()]\ndata = [int(i) for i in input().split()]\n\ndic = [[0]*20 for j in range(200001)] \n\nfor d in data:\n    s = 0\n    while d:\n        dic[d][s] += 1\n        d >>= 1\n        s += 1\n    dic[0][s] += 1\n\nmn = 1<<30\n\nfor d in dic:\n    if sum(d) >= k:\n        left = k\n        val = 0\n        for i in range(20):\n            if d[i] >= left:\n                val += i * (left)\n                break\n            else:\n                val += i * d[i]\n                left -= d[i]\n\n        if val < mn:\n            mn = val\nprint(mn)\n",
+    "prob_desc_created_at": "1567175700",
+    "tags": [
+        "sortings",
+        "brute force",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

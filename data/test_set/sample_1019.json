@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"YES\", \"NO\"]",
+    "src_uid": "52f4f2a48063c9d0e412a5f78c873e6f",
+    "prob_desc_notes": "NoteIn the first example, you can make all elements equal to zero in $$$3$$$ operations:   Decrease $$$a_1$$$ and $$$a_2$$$,  Decrease $$$a_3$$$ and $$$a_4$$$,  Decrease $$$a_3$$$ and $$$a_4$$$ In the second example, one can show that it is impossible to make all elements equal to zero.",
+    "prob_desc_description": "You are given an array $$$a_1, a_2, \\ldots, a_n$$$.In one operation you can choose two elements $$$a_i$$$ and $$$a_j$$$ ($$$i \\ne j$$$) and decrease each of them by one.You need to check whether it is possible to make all the elements equal to zero or not.",
+    "prob_desc_output_spec": "Print \"YES\" if it is possible to make all elements zero, otherwise print \"NO\".",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$2 \\le n \\le 10^5$$$) — the size of the array. The second line contains $$$n$$$ integers $$$a_1, a_2, \\ldots, a_n$$$ ($$$1 \\le a_i \\le 10^9$$$) — the elements of the array.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_005.jsonl",
+    "code_uid": "c5ab9a828ef6ba4a275b204bbec3c526",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1 1 2 2\", \"6\\n1 2 3 4 5 6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "x=int(input())\na=list(map(int,input().split()))\nc=sum(a)\nd=max(a)\nif d<=c//2 and x>1 and c%2==0:\n    print(\"YES\")\nelse:\n    print(\"NO\")",
+    "prob_desc_created_at": "1564936500",
+    "tags": [
+        "greedy",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

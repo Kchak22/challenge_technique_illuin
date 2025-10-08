@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1\\n2\\n1073741824\"]",
+    "src_uid": "a896ba035e56dc707f8123b1e2f2b11c",
+    "prob_desc_notes": "NoteLet's define the bitwise exclusive OR (XOR) operation. Given two integers $$$x$$$ and $$$y$$$, consider their binary representations (possibly with leading zeroes): $$$x_k \\dots x_2 x_1 x_0$$$ and $$$y_k \\dots y_2 y_1 y_0$$$. Here, $$$x_i$$$ is the $$$i$$$-th bit of the number $$$x$$$ and $$$y_i$$$ is the $$$i$$$-th bit of the number $$$y$$$. Let $$$r = x \\oplus y$$$ be the result of the XOR operation of $$$x$$$ and $$$y$$$. Then $$$r$$$ is defined as $$$r_k \\dots r_2 r_1 r_0$$$ where:$$$$$$ r_i = \\left\\{ \\begin{aligned} 1, ~ \\text{if} ~ x_i \\ne y_i \\\\ 0, ~ \\text{if} ~ x_i = y_i \\end{aligned} \\right. $$$$$$For the first value of the parameter, only $$$x = 0$$$ is a solution of the equation.For the second value of the parameter, solutions are $$$x = 0$$$ and $$$x = 2$$$.",
+    "prob_desc_description": "Colossal! — exclaimed Hawk-nose. — A programmer! That's exactly what we are looking for.Arkadi and Boris Strugatsky. Monday starts on SaturdayReading the book \"Equations of Mathematical Magic\" Roman Oira-Oira and Cristobal Junta found an interesting equation: $$$a - (a \\oplus x) - x = 0$$$ for some given $$$a$$$, where $$$\\oplus$$$ stands for a bitwise exclusive or (XOR) of two integers (this operation is denoted as ^ or xor in many modern programming languages). Oira-Oira quickly found some $$$x$$$, which is the solution of the equation, but Cristobal Junta decided that Oira-Oira's result is not interesting enough, so he asked his colleague how many non-negative solutions of this equation exist. This task turned out to be too difficult for Oira-Oira, so he asks you to help.",
+    "prob_desc_output_spec": "For each value of $$$a$$$ print exactly one integer — the number of non-negative solutions of the equation for the given value of the parameter. Print answers in the same order as values of $$$a$$$ appear in the input. One can show that the number of solutions is always finite.",
+    "prob_desc_input_spec": "Each test contains several possible values of $$$a$$$ and your task is to find the number of equation's solution for each of them. The first line contains an integer $$$t$$$ ($$$1 \\le t \\le 1000$$$) — the number of these values. The following $$$t$$$ lines contain the values of parameter $$$a$$$, each value is an integer from $$$0$$$ to $$$2^{30} - 1$$$ inclusive.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_010.jsonl",
+    "code_uid": "49d3cec47f32480abcd7deeea67fad4d",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n0\\n2\\n1073741823\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def solve(a):\n\tbinary = f\"{a:b}\"\n\treturn 2 ** binary.count(\"1\")\n\nn = int(input())\nfor i in range(n):\n\ta = int(input())\n\tprint(solve(a))\n",
+    "prob_desc_created_at": "1539511500",
+    "tags": [
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

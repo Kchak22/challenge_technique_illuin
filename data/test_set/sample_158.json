@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"2.5000000000\", \"2.0000000000\"]",
+    "src_uid": "d79166497eb61d81fdfa4ef80ec1c8e8",
+    "prob_desc_notes": "NoteConsider the second sample. At d = 2 the first lantern will light the segment [0, 4] of the street, and the second lantern will light segment [3, 5]. Thus, the whole street will be lit.",
+    "prob_desc_description": "Vanya walks late at night along a straight street of length l, lit by n lanterns. Consider the coordinate system with the beginning of the street corresponding to the point 0, and its end corresponding to the point l. Then the i-th lantern is at the point ai. The lantern lights all points of the street that are at the distance of at most d from it, where d is some positive number, common for all lanterns. Vanya wonders: what is the minimum light radius d should the lanterns have to light the whole street?",
+    "prob_desc_output_spec": "Print the minimum light radius d, needed to light the whole street. The answer will be considered correct if its absolute or relative error doesn't exceed 10 - 9.",
+    "prob_desc_input_spec": "The first line contains two integers n, l (1 ≤ n ≤ 1000, 1 ≤ l ≤ 109) — the number of lanterns and the length of the street respectively.  The next line contains n integers ai (0 ≤ ai ≤ l). Multiple lanterns can be located at the same point. The lanterns may be located at the ends of the street.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_000.jsonl",
+    "code_uid": "3bc2feb6d2d9d557e6445f1256210d72",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"7 15\\n15 5 3 7 9 14 0\", \"2 5\\n2 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "y=int(raw_input().split()[1])\nb=raw_input().split()\nfor c in range(len(b)):\n    b[c]=int(b[c])\nb.sort()\np=float(b[0]-0)\nq=float(y-b[-1])\n#print p,q\nz=0\nans=0\nwhile z+1<=len(b)-1:\n    m=b[z+1]-b[z]\n    if m>ans:\n        ans=m\n    z+=1   \nans=ans/2.0\n#print ans\nprint max(p,q,ans)",
+    "prob_desc_created_at": "1417451400",
+    "tags": [
+        "sortings",
+        "binary search",
+        "implementation",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

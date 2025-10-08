@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"0\", \"4\"]",
+    "src_uid": "6ecf80528aecd95d97583dc1aa309044",
+    "prob_desc_notes": "NoteIn the first sample, Sagheer can only win if he swapped node 1 with node 3. In this case, both leaves will have 2 apples. If Soliman makes a move in a leaf node, Sagheer can make the same move in the other leaf. If Soliman moved some apples from a root to a leaf, Sagheer will eat those moved apples. Eventually, Soliman will not find a move.In the second sample, There is no swap that will make Sagheer win the game.Note that Sagheer must make the swap even if he can win with the initial tree.",
+    "prob_desc_description": "Sagheer is playing a game with his best friend Soliman. He brought a tree with n nodes numbered from 1 to n and rooted at node 1. The i-th node has ai apples. This tree has a special property: the lengths of all paths from the root to any leaf have the same parity (i.e. all paths have even length or all paths have odd length).Sagheer and Soliman will take turns to play. Soliman will make the first move. The player who can't make a move loses.In each move, the current player will pick a single node, take a non-empty subset of apples from it and do one of the following two things:  eat the apples, if the node is a leaf.  move the apples to one of the children, if the node is non-leaf. Before Soliman comes to start playing, Sagheer will make exactly one change to the tree. He will pick two different nodes u and v and swap the apples of u with the apples of v.Can you help Sagheer count the number of ways to make the swap (i.e. to choose u and v) after which he will win the game if both players play optimally? (u, v) and (v, u) are considered to be the same pair.",
+    "prob_desc_output_spec": "On a single line, print the number of different pairs of nodes (u, v), u ≠ v such that if they start playing after swapping the apples of both nodes, Sagheer will win the game. (u, v) and (v, u) are considered to be the same pair.",
+    "prob_desc_input_spec": "The first line will contain one integer n (2 ≤ n ≤ 105) — the number of nodes in the apple tree. The second line will contain n integers a1, a2, ..., an (1 ≤ ai ≤ 107) — the number of apples on each node of the tree. The third line will contain n - 1 integers p2, p3, ..., pn (1 ≤ pi ≤ n) — the parent of each node of the tree. Node i has parent pi (for 2 ≤ i ≤ n). Node 1 is the root of the tree. It is guaranteed that the input describes a valid tree, and the lengths of all paths from the root to any leaf will have the same parity.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2300,
+    "file_name": "train_013.jsonl",
+    "code_uid": "f2b1fa185f73ef26d939af9c6bcb1b11",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n2 2 3\\n1 1\", \"3\\n1 2 3\\n1 1\", \"8\\n7 2 2 5 4 3 1 1\\n1 1 1 4 4 5 6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n= int(input())\na = [int(_) for _ in input().split()]\nc = [int(_) for _ in input().split()]\ndepth = [0] * (n)\nfor i in range(1,n):\n  depth[i] = depth[c[i-1]-1] + 1\nMAX = max(depth)\nt = 0\nstore = {}\ntodo = []\np = 0\n\nfor i in range(n):\n    if (MAX-depth[i]) % 2 == 0: # odd, useful\n        t ^= a[i]\n        todo.append(a[i])\n    else:\n        store[a[i]]  = store.get(a[i],0) + 1\n        p += 1\n\nans = 0\nfor i in todo:\n    ans += store.get(i^t,0)\n\nif t == 0:\n    ans += (p*(p-1)//2) + (n-p)*(n-p-1)//2\n\nprint(ans)",
+    "prob_desc_created_at": "1496326500",
+    "tags": [
+        "trees",
+        "games"
+    ],
+    "hidden_unit_tests": ""
+}

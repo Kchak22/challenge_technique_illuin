@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"FastestFinger\\nAshishgup\\nAshishgup\\nFastestFinger\\nAshishgup\\nFastestFinger\\nAshishgup\"]",
+    "src_uid": "b533572dd6d5fe7350589c7f4d5e1c8c",
+    "prob_desc_notes": "NoteIn the first test case, $$$n = 1$$$, Ashishgup cannot make a move. He loses.In the second test case, $$$n = 2$$$, Ashishgup subtracts $$$1$$$ on the first move. Now $$$n = 1$$$, FastestFinger cannot make a move, so he loses.In the third test case, $$$n = 3$$$, Ashishgup divides by $$$3$$$ on the first move. Now $$$n = 1$$$, FastestFinger cannot make a move, so he loses.In the last test case, $$$n = 12$$$, Ashishgup divides it by $$$3$$$. Now $$$n = 4$$$, FastestFinger is forced to subtract $$$1$$$, and Ashishgup gets $$$3$$$, so he wins by dividing it by $$$3$$$.",
+    "prob_desc_description": "Ashishgup and FastestFinger play a game. They start with a number $$$n$$$ and play in turns. In each turn, a player can make any one of the following moves:  Divide $$$n$$$ by any of its odd divisors greater than $$$1$$$.  Subtract $$$1$$$ from $$$n$$$ if $$$n$$$ is greater than $$$1$$$. Divisors of a number include the number itself.The player who is unable to make a move loses the game.Ashishgup moves first. Determine the winner of the game if both of them play optimally.",
+    "prob_desc_output_spec": "For each test case, print \"Ashishgup\" if he wins, and \"FastestFinger\" otherwise (without quotes).",
+    "prob_desc_input_spec": "The first line contains a single integer $$$t$$$ ($$$1 \\leq t \\leq 100$$$)  — the number of test cases. The description of the test cases follows. The only line of each test case contains a single integer  — $$$n$$$ ($$$1 \\leq n \\leq 10^9$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_008.jsonl",
+    "code_uid": "fd30ce82caffe8b0dfd84efacf3ca154",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"7\\n1\\n2\\n3\\n4\\n5\\n6\\n12\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "for t in range(int(input())):\n\tn = int(input())\n\tN = n\n\t\n\tif n == 1:\n\t\twinner = 2\n\telif n == 2 or n % 2 != 0:\n\t\twinner = 1\n\telse:\n\t\tnumTwo = 0\n\n\t\twhile n % 2 == 0:\n\t\t\tn //= 2\n\t\t\tnumTwo += 1\n\n\t\tnumOdd = 0\n\n\t\tfor i in range(3, int(N ** 0.5 + 2), 2):\n\t\t\twhile n > 0 and n % i == 0:\n\t\t\t\tn //= i\n\t\t\t\tnumOdd += 1\n\n\t\t# print(n)\n\t\tif n > 2:\n\t\t\tnumOdd += 1\n\n\t\tif numOdd == 0 and numTwo > 1:\n\t\t\twinner = 2\n\t\telif numOdd == 1 and numTwo == 1:\n\t\t\twinner = 2\n\t\telse:\n\t\t\twinner = 1\n\n\tif winner == 1:\n\t\tprint(\"Ashishgup\")\n\n\telse:\n\t\tprint(\"FastestFinger\")",
+    "prob_desc_created_at": "1592663700",
+    "tags": [
+        "number theory",
+        "games",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

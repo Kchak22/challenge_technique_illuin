@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"5\\n1 2 3 5\", \"22\\n2 4 6 22\\n14 18 10 16\"]",
+    "src_uid": "5e7b4d1e11628152e33d3e18e30f4530",
+    "prob_desc_notes": "NoteFor the first example it's easy to see that set {1, 2, 3, 4} isn't a valid set of rank 1 since .",
+    "prob_desc_description": "Dreamoon likes to play with sets, integers and .  is defined as the largest positive integer that divides both a and b.Let S be a set of exactly four distinct integers greater than 0. Define S to be of rank k if and only if for all pairs of distinct elements si, sj from S, .Given k and n, Dreamoon wants to make up n sets of rank k using integers from 1 to m such that no integer is used in two different sets (of course you can leave some integers without use). Calculate the minimum m that makes it possible and print one possible solution.",
+    "prob_desc_output_spec": "On the first line print a single integer — the minimal possible m.  On each of the next n lines print four space separated integers representing the i-th set. Neither the order of the sets nor the order of integers within a set is important. If there are multiple possible solutions with minimal m, print any one of them.",
+    "prob_desc_input_spec": "The single line of the input contains two space separated integers n, k (1 ≤ n ≤ 10 000, 1 ≤ k ≤ 100).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_010.jsonl",
+    "code_uid": "4a06140d6ae1016f81af4d9242313e61",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"1 1\", \"2 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "load = [int(i) for i in input().split()]\nn = load[0]\nk = load[1]\nprint(k * (6 * n - 1))\nfor i in range(1, n + 1):\n    buff = \"\"\n    buff += str(k * (6 * i - 5)) + ' '\n    buff += str(k * (6 * i - 3)) + ' '\n    buff += str(k * (6 * i - 2)) + ' '\n    buff += str(k * (6 * i - 1)) + ' '\n    print(buff)\n",
+    "prob_desc_created_at": "1413122400",
+    "tags": [
+        "constructive algorithms",
+        "greedy",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

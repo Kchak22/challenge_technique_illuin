@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"FILIPINO\\nJAPANESE\\nJAPANESE\\nKOREAN\\nFILIPINO\\nFILIPINO\\nJAPANESE\\nJAPANESE\"]",
+    "src_uid": "816907d873bce3573ce1e5ae3f494768",
+    "prob_desc_notes": "NoteThe first sentence ends with \"po\", so it is written in Filipino.The second and third sentences end with \"desu\" and \"masu\", so they are written in Japanese.The fourth sentence ends with \"mnida\", so it is written in Korean.",
+    "prob_desc_description": "We just discovered a new data structure in our research group: a suffix three!It's very useful for natural language processing. Given three languages and three suffixes, a suffix three can determine which language a sentence is written in.It's super simple, 100% accurate, and doesn't involve advanced machine learning algorithms.Let us tell you how it works.  If a sentence ends with \"po\" the language is Filipino.  If a sentence ends with \"desu\" or \"masu\" the language is Japanese.  If a sentence ends with \"mnida\" the language is Korean. Given this, we need you to implement a suffix three that can differentiate Filipino, Japanese, and Korean.Oh, did I say three suffixes? I meant four.",
+    "prob_desc_output_spec": "For each test case, print a single line containing either \"FILIPINO\", \"JAPANESE\", or \"KOREAN\" (all in uppercase, without quotes), depending on the detected language.",
+    "prob_desc_input_spec": "The first line of input contains a single integer $$$t$$$ ($$$1 \\leq t \\leq 30$$$) denoting the number of test cases. The next lines contain descriptions of the test cases.  Each test case consists of a single line containing a single string denoting the sentence. Spaces are represented as underscores (the symbol \"_\") for ease of reading. The sentence has at least $$$1$$$ and at most $$$1000$$$ characters, and consists only of lowercase English letters and underscores. The sentence has no leading or trailing underscores and no two consecutive underscores. It is guaranteed that the sentence ends with one of the four suffixes mentioned above.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_006.jsonl",
+    "code_uid": "2385291be84ccab7e3f31a1f08ad5e29",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"8\\nkamusta_po\\ngenki_desu\\nohayou_gozaimasu\\nannyeong_hashimnida\\nhajime_no_ippo\\nbensamu_no_sentou_houhou_ga_okama_kenpo\\nang_halaman_doon_ay_sarisari_singkamasu\\nsi_roy_mustang_ay_namamasu\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def main():\n    l = input()\n    # print(l)\n    if \"po\" == l[-2:]:\n        print(\"FILIPINO\")\n        return\n    if \"mnida\" == l[-5:]:\n        print(\"KOREAN\")\n        return\n    else:\n        print(\"JAPANESE\")\n\n\ntc = 1\ntc = int(input())\nfor _ in range(tc):\n    main()",
+    "prob_desc_created_at": "1576386300",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

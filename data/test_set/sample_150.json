@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3 2 3 4\", \"8 8 20 8 10\"]",
+    "src_uid": "7b788c660fb8ca703af0030f4c84ce96",
+    "prob_desc_notes": "NoteIn the first example the balances change as follows: 1 2 3 4 $$$\\rightarrow$$$ 3 3 3 4 $$$\\rightarrow$$$ 3 2 3 4 $$$\\rightarrow$$$ 3 2 3 4In the second example the balances change as follows: 3 50 2 1 10 $$$\\rightarrow$$$ 3 0 2 1 10 $$$\\rightarrow$$$ 8 8 8 8 10 $$$\\rightarrow$$$ 8 8 20 8 10",
+    "prob_desc_description": "There is a country with $$$n$$$ citizens. The $$$i$$$-th of them initially has $$$a_{i}$$$ money. The government strictly controls the wealth of its citizens. Whenever a citizen makes a purchase or earns some money, they must send a receipt to the social services mentioning the amount of money they currently have.Sometimes the government makes payouts to the poor: all citizens who have strictly less money than $$$x$$$ are paid accordingly so that after the payout they have exactly $$$x$$$ money. In this case the citizens don't send a receipt.You know the initial wealth of every citizen and the log of all events: receipts and payouts. Restore the amount of money each citizen has after all events.",
+    "prob_desc_output_spec": "Print $$$n$$$ integers — the balances of all citizens after all events.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$1 \\le n \\le 2 \\cdot 10^{5}$$$) — the numer of citizens. The next line contains $$$n$$$ integers $$$a_1$$$, $$$a_2$$$, ..., $$$a_n$$$ ($$$0 \\le a_{i} \\le 10^{9}$$$) — the initial balances of citizens. The next line contains a single integer $$$q$$$ ($$$1 \\le q \\le 2 \\cdot 10^{5}$$$) — the number of events. Each of the next $$$q$$$ lines contains a single event. The events are given in chronological order. Each event is described as either 1 p x ($$$1 \\le p \\le n$$$, $$$0 \\le x \\le 10^{9}$$$), or 2 x ($$$0 \\le x \\le 10^{9}$$$). In the first case we have a receipt that the balance of the $$$p$$$-th person becomes equal to $$$x$$$. In the second case we have a payoff with parameter $$$x$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_000.jsonl",
+    "code_uid": "048a7efbe723a33bf82d7d3546ba06e2",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1 2 3 4\\n3\\n2 3\\n1 2 2\\n2 1\", \"5\\n3 50 2 1 10\\n3\\n1 2 0\\n2 8\\n1 3 20\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(raw_input())\na = map(int, raw_input().split())\nq = int(raw_input())\nQ = []\nb = [-1 for i in xrange(n)]\nc = -1\n\nwhile q:\n    q -= 1\n    Q.append(map(int, raw_input().split()))\n\nfor q in Q[::-1]:\n    if q[0] == 1:\n        if b[q[1]-1] == -1:\n            b[q[1]-1] = max(q[2],c)\n    else:\n        c = max(c, q[1])\n\nfor i in xrange(n):\n    if b[i] == -1:\n        b[i] = max(c, a[i])\n\nprint ' '.join(map(str, b))\n",
+    "prob_desc_created_at": "1564497300",
+    "tags": [
+        "data structures",
+        "binary search",
+        "sortings",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

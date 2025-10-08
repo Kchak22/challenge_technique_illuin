@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\\n1 3 5\", \"0\", \"3\\n1 2 3\"]",
+    "src_uid": "652c7852f1d0bab64ffd2219af4f59da",
+    "prob_desc_notes": null,
+    "prob_desc_description": "The sequence is called ordered if it is non-decreasing or non-increasing. For example, sequnces [3, 1, 1, 0] and [1, 2, 3, 100] are ordered, but the sequence [1, 3, 3, 1] is not. You are given a sequence of numbers. You are to find it's shortest subsequence which is not ordered.A subsequence is a sequence that can be derived from the given sequence by deleting zero or more elements without changing the order of the remaining elements.",
+    "prob_desc_output_spec": "If the given sequence does not contain any unordered subsequences, output 0. Otherwise, output the length k of the shortest such subsequence. Then output k integers from the range [1..n] — indexes of the elements of this subsequence. If there are several solutions, output any of them.",
+    "prob_desc_input_spec": "The first line of the input contains one integer n (1 ≤ n ≤ 105). The second line contains n space-separated integers — the given sequence. All numbers in this sequence do not exceed 106 by absolute value.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_013.jsonl",
+    "code_uid": "fedec7452a7fb34f09f02461325ff15b",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n67 499 600 42 23\", \"3\\n1 2 3\", \"3\\n2 3 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "# in the name of ALLAH, the COMPASSIONATE, the MERCIFUL\n# S.HASHEMI\n# C\n\nn = int(input())\na = map( int, raw_input().split())\n\npre = 0\nfor o in range(1, n-1):\n    if (a[pre] < a[o] and a[o+1] < a[o]) or (a[o] < a[pre] and a[o] < a[o+1]):\n        print 3\n        print pre+1, o+1, o+2\n        exit()\n    if not a[o] == a[o+1]:\n        pre = o\nprint 0",
+    "prob_desc_created_at": "1284130800",
+    "tags": [
+        "constructive algorithms",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

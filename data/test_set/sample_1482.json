@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2 1\", \"-1 -1\"]",
+    "src_uid": "0148aed9b07c4f65b2507fcb8b837360",
+    "prob_desc_notes": "NoteIn the first example the following pairs are considered correct:  (2, 1), (3, 1), (4, 1), (5, 1) — not even touching borders;  (3, 2), (4, 2), (3, 5), (4, 5) — touch one border;  (5, 2), (2, 5) — match exactly. ",
+    "prob_desc_description": "You are given a sequence a1, a2, ..., an of one-dimensional segments numbered 1 through n. Your task is to find two distinct indices i and j such that segment ai lies within segment aj.Segment [l1, r1] lies within segment [l2, r2] iff l1 ≥ l2 and r1 ≤ r2.Print indices i and j. If there are multiple answers, print any of them. If no answer exists, print -1 -1.",
+    "prob_desc_output_spec": "Print two distinct indices i and j such that segment ai lies within segment aj. If there are multiple answers, print any of them. If no answer exists, print -1 -1.",
+    "prob_desc_input_spec": "The first line contains one integer n (1 ≤ n ≤ 3·105) — the number of segments. Each of the next n lines contains two integers li and ri (1 ≤ li ≤ ri ≤ 109) — the i-th segment.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_009.jsonl",
+    "code_uid": "d18d939040a3e01c6a9c65d9dda5b950",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1 10\\n2 9\\n3 9\\n2 3\\n2 9\", \"3\\n1 5\\n2 6\\n6 20\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from __future__ import print_function,division\nimport sys\nif sys.version_info < (3, 0):\n    input = raw_input\n    range = xrange\n\nn = int(input())\nI = [([int(x) for x in line.split()],_) for _,line in enumerate(sys.stdin)]\n\n\nI.sort(key=lambda x:10000000000*x[0][0]-x[0][1])\n\nQ = [(s[1],_) for s,_ in I]\nfor i in reversed(range(len(Q)-1)):\n    Q[i] = min(Q[i],Q[i+1])\n\nlastmin = 0\n\nj = 0\nfor s,_ in I[:-1]:\n    l,r = s\n\n    m,i = Q[j+1]\n    if m <= r:\n        print(i+1,_+1)\n        sys.exit()\n    j += 1\n\nprint(-1, -1)\n\n",
+    "prob_desc_created_at": "1525099200",
+    "tags": [
+        "implementation",
+        "sortings",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

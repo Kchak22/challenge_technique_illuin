@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"YES\\nYES\\nNO\"]",
+    "src_uid": "b34f29e6fb586c22fa1b9e559c5a6c50",
+    "prob_desc_notes": "NoteIn the first test case it is possible to sort all the cubes in $$$7$$$ exchanges.In the second test case the cubes are already sorted.In the third test case we can make $$$0$$$ exchanges, but the cubes are not sorted yet, so the answer is \"NO\".",
+    "prob_desc_description": "  For god's sake, you're boxes with legs! It is literally your only purpose! Walking onto buttons! How can you not do the one thing you were designed for?Oh, that's funny, is it? Oh it's funny? Because we've been at this for twelve hours and you haven't solved it either, so I don't know why you're laughing. You've got one hour! Solve it!  Wheatley decided to try to make a test chamber. He made a nice test chamber, but there was only one detail absent — cubes.For completing the chamber Wheatley needs $$$n$$$ cubes. $$$i$$$-th cube has a volume $$$a_i$$$.Wheatley has to place cubes in such a way that they would be sorted in a non-decreasing order by their volume. Formally, for each $$$i&gt;1$$$, $$$a_{i-1} \\le a_i$$$ must hold.To achieve his goal, Wheatley can exchange two neighbouring cubes. It means that for any $$$i&gt;1$$$ you can exchange cubes on positions $$$i-1$$$ and $$$i$$$.But there is a problem: Wheatley is very impatient. If Wheatley needs more than $$$\\frac{n \\cdot (n-1)}{2}-1$$$ exchange operations, he won't do this boring work.Wheatly wants to know: can cubes be sorted under this conditions?",
+    "prob_desc_output_spec": "For each test case, print a word in a single line: \"YES\" (without quotation marks) if the cubes can be sorted and \"NO\" (without quotation marks) otherwise.",
+    "prob_desc_input_spec": "Each test contains multiple test cases. The first line contains one positive integer $$$t$$$ ($$$1 \\le t \\le 1000$$$), denoting the number of test cases. Description of the test cases follows. The first line of each test case contains one positive integer $$$n$$$ ($$$2 \\le n \\le 5 \\cdot 10^4$$$) — number of cubes. The second line contains $$$n$$$ positive integers $$$a_i$$$ ($$$1 \\le a_i \\le 10^9$$$) — volumes of cubes. It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$10^5$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 900,
+    "file_name": "train_012.jsonl",
+    "code_uid": "88967499f10d35b541afb94078133525",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n5\\n5 3 2 1 4\\n6\\n2 2 2 2 2 2\\n2\\n2 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "t = int(input())\nfor i in range(t):\n    n = int(input())\n    lst = list(map(int, input().split()))\n\n    flag = 0\n    for i in range(n-1):\n        if lst[i] <= lst[i + 1]:\n            flag = 1\n            break\n    if flag == 1:\n        print(\"YES\")\n    else:\n        print(\"NO\")\n\n",
+    "prob_desc_created_at": "1600958100",
+    "tags": [
+        "sortings",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

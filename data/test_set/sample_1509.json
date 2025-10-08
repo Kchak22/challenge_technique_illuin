@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\\nhello test one \\nok bye two \\na b\", \"2\\na \\nA a A a A\", \"4\\nA K M \\nB F H L N O \\nC D G I P \\nE J\"]",
+    "src_uid": "da08dd34ac3c05af58926f70abe5acd0",
+    "prob_desc_notes": "NoteThe first example is explained in the statements. ",
+    "prob_desc_description": "A rare article in the Internet is posted without a possibility to comment it. On a Polycarp's website each article has comments feed.Each comment on Polycarp's website is a non-empty string consisting of uppercase and lowercase letters of English alphabet. Comments have tree-like structure, that means each comment except root comments (comments of the highest level) has exactly one parent comment.When Polycarp wants to save comments to his hard drive he uses the following format. Each comment he writes in the following format:   at first, the text of the comment is written;  after that the number of comments is written, for which this comment is a parent comment (i. e. the number of the replies to this comments);  after that the comments for which this comment is a parent comment are written (the writing of these comments uses the same algorithm).  All elements in this format are separated by single comma. Similarly, the comments of the first level are separated by comma.For example, if the comments look like:  then the first comment is written as \"hello,2,ok,0,bye,0\", the second is written as \"test,0\", the third comment is written as \"one,1,two,2,a,0,b,0\". The whole comments feed is written as: \"hello,2,ok,0,bye,0,test,0,one,1,two,2,a,0,b,0\". For a given comments feed in the format specified above print the comments in a different format:   at first, print a integer d — the maximum depth of nesting comments;  after that print d lines, the i-th of them corresponds to nesting level i;  for the i-th row print comments of nesting level i in the order of their appearance in the Policarp's comments feed, separated by space. ",
+    "prob_desc_output_spec": "Print comments in a format that is given in the statement. For each level of nesting, comments should be printed in the order they are given in the input.",
+    "prob_desc_input_spec": "The first line contains non-empty comments feed in the described format. It consists of uppercase and lowercase letters of English alphabet, digits and commas.  It is guaranteed that each comment is a non-empty string consisting of uppercase and lowercase English characters. Each of the number of comments is integer (consisting of at least one digit), and either equals 0 or does not contain leading zeros. The length of the whole string does not exceed 106. It is guaranteed that given structure of comments is valid. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_009.jsonl",
+    "code_uid": "031560f123208442d5117ddda142778d",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"hello,2,ok,0,bye,0,test,0,one,1,two,2,a,0,b,0\", \"a,5,A,0,a,0,A,0,a,0,A,0\", \"A,3,B,2,C,0,D,1,E,0,F,1,G,0,H,1,I,1,J,0,K,1,L,0,M,2,N,0,O,1,P,0\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#!/usr/bin/env python3\n\nimport collections\n\n\ndef solve():\n    comments = input().split(\",\")\n    comments_by_depth = collections.defaultdict(list)\n\n    current_depth = 0\n    current_depth_limit = [10000000]\n\n    cur_cmt = [0] * 2\n\n    for i, item in enumerate(comments):\n        cur_cmt[i % 2] = item\n        if i % 2 == 1:\n            while current_depth_limit[-1] == 0:\n                current_depth_limit.pop()\n                current_depth -= 1\n            text = cur_cmt[0]\n            child_count = int(cur_cmt[1])\n            comments_by_depth[current_depth].append(text)\n            current_depth_limit[-1] -= 1\n            if child_count > 0:\n                current_depth += 1\n                current_depth_limit.append(child_count)\n\n    depths = list(sorted(comments_by_depth.keys()))\n    if depths:\n        print(depths[-1] + 1)\n    else:\n        print(0)\n    for d in depths:\n        print(\" \".join(comments_by_depth[d]))\n\n\nif __name__ == '__main__':\n    solve()\n",
+    "prob_desc_created_at": "1482113100",
+    "tags": [
+        "implementation",
+        "dfs and similar",
+        "expression parsing",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

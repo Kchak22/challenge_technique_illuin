@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1 2 3 6\\n4 6 2 10\\n9 0 7 3\\n2 8 8 2\\n\\n\\n1 1\\n1 2\\n1 3\\n2 3\\n2 4\\n3 4\\n4 4\\n\\n1 1\\n2 1\\n3 1\\n3 2\\n3 3\\n3 4\\n4 4\\n\\n1 1\\n1 2\\n1 3\\n1 4\\n2 4\\n3 4\\n4 4\"]",
+    "src_uid": "8b0ec419248bb98b5e0c3d991c7e14fb",
+    "prob_desc_notes": "NoteThe duck's three journeys are illustrated below.$$$1 + 2 + 3 + 2 + 10 + 3 + 2 = 23$$$   $$$1 + 4 + 9 + 0 + 7 + 3 + 2 = 26$$$   $$$1 + 2 + 3 + 6 + 10 + 3 + 2 = 27$$$   ",
+    "prob_desc_description": "This is an interactive problem.Omkar has just come across a duck! The duck is walking on a grid with $$$n$$$ rows and $$$n$$$ columns ($$$2 \\leq n \\leq 25$$$) so that the grid contains a total of $$$n^2$$$ cells. Let's denote by $$$(x, y)$$$ the cell in the $$$x$$$-th row from the top and the $$$y$$$-th column from the left. Right now, the duck is at the cell $$$(1, 1)$$$ (the cell in the top left corner) and would like to reach the cell $$$(n, n)$$$ (the cell in the bottom right corner) by moving either down $$$1$$$ cell or to the right $$$1$$$ cell each second.Since Omkar thinks ducks are fun, he wants to play a game with you based on the movement of the duck. First, for each cell $$$(x, y)$$$ in the grid, you will tell Omkar a nonnegative integer $$$a_{x,y}$$$ not exceeding $$$10^{16}$$$, and Omkar will then put $$$a_{x,y}$$$ uninteresting problems in the cell $$$(x, y)$$$. After that, the duck will start their journey from $$$(1, 1)$$$ to $$$(n, n)$$$. For each cell $$$(x, y)$$$ that the duck crosses during their journey (including the cells $$$(1, 1)$$$ and $$$(n, n)$$$), the duck will eat the $$$a_{x,y}$$$ uninteresting problems in that cell. Once the duck has completed their journey, Omkar will measure their mass to determine the total number $$$k$$$ of uninteresting problems that the duck ate on their journey, and then tell you $$$k$$$.Your challenge, given $$$k$$$, is to exactly reproduce the duck's path, i. e. to tell Omkar precisely which cells the duck crossed on their journey. To be sure of your mastery of this game, Omkar will have the duck complete $$$q$$$ different journeys ($$$1 \\leq q \\leq 10^3$$$). Note that all journeys are independent: at the beginning of each journey, the cell $$$(x, y)$$$ will still contain $$$a_{x,y}$$$ uninteresting tasks.",
+    "prob_desc_output_spec": null,
+    "prob_desc_input_spec": null,
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2100,
+    "file_name": "train_009.jsonl",
+    "code_uid": "baa0c91fa2f308c557ca8c9110c8c716",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n\\n\\n\\n\\n3\\n23\\n\\n\\n\\n\\n\\n\\n\\n26\\n\\n\\n\\n\\n\\n\\n\\n27\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\n \nn = int(input())\nrow = []\nfor x in range(0,n):\n    row.append(0)\nfor r in row:\n    print(r, end = ' ')\nprint()\nsys.stdout.flush()\nfor y in range(2,n+1):\n    for x in range(0,n-1):\n        row[x] = row[x+1]+pow(2,2*n-2-x-y)\n        print(row[x], end=' ')\n    if(y!=n): print(0)\n    else: print(2**(n-1)-1)\n    sys.stdout.flush()\n \nq = int(input())\nfor t in range(0,q):\n    a = int(input())\n    c = [1,1]\n    print(*c)\n    for i in range(2*n-3,-1,-1):\n        if(a&pow(2,i)): c[0]+=1\n        else: c[1]+=1\n        print(*c)\n    \n\n\n\n",
+    "prob_desc_created_at": "1597588500",
+    "tags": [
+        "math",
+        "constructive algorithms",
+        "bitmasks",
+        "interactive"
+    ],
+    "hidden_unit_tests": ""
+}

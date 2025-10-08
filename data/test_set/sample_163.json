@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\\n1 1\\n1 2\\n2 2\", \"-1\", \"0\"]",
+    "src_uid": "ad641a44ecaf78ca253b199f3d40ef96",
+    "prob_desc_notes": "NoteThe sequence of operations in the first example: $$$\\begin{matrix} 0 &amp; 0 &amp; 0 &amp; &amp; 1 &amp; 1 &amp; 0 &amp; &amp; 1 &amp; 1 &amp; 1 &amp; &amp; 1 &amp; 1 &amp; 1 \\\\ 0 &amp; 0 &amp; 0 &amp; \\rightarrow &amp; 1 &amp; 1 &amp; 0 &amp; \\rightarrow &amp; 1 &amp; 1 &amp; 1 &amp; \\rightarrow &amp; 1 &amp; 1 &amp; 1 \\\\ 0 &amp; 0 &amp; 0 &amp; &amp; 0 &amp; 0 &amp; 0 &amp; &amp; 0 &amp; 0 &amp; 0 &amp; &amp; 0 &amp; 1 &amp; 1 \\end{matrix}$$$ ",
+    "prob_desc_description": "You are given two matrices $$$A$$$ and $$$B$$$. Each matrix contains exactly $$$n$$$ rows and $$$m$$$ columns. Each element of $$$A$$$ is either $$$0$$$ or $$$1$$$; each element of $$$B$$$ is initially $$$0$$$.You may perform some operations with matrix $$$B$$$. During each operation, you choose any submatrix of $$$B$$$ having size $$$2 \\times 2$$$, and replace every element in the chosen submatrix with $$$1$$$. In other words, you choose two integers $$$x$$$ and $$$y$$$ such that $$$1 \\le x &lt; n$$$ and $$$1 \\le y &lt; m$$$, and then set $$$B_{x, y}$$$, $$$B_{x, y + 1}$$$, $$$B_{x + 1, y}$$$ and $$$B_{x + 1, y + 1}$$$ to $$$1$$$.Your goal is to make matrix $$$B$$$ equal to matrix $$$A$$$. Two matrices $$$A$$$ and $$$B$$$ are equal if and only if every element of matrix $$$A$$$ is equal to the corresponding element of matrix $$$B$$$.Is it possible to make these matrices equal? If it is, you have to come up with a sequence of operations that makes $$$B$$$ equal to $$$A$$$. Note that you don't have to minimize the number of operations.",
+    "prob_desc_output_spec": "If it is impossible to make $$$B$$$ equal to $$$A$$$, print one integer $$$-1$$$. Otherwise, print any sequence of operations that transforms $$$B$$$ into $$$A$$$ in the following format: the first line should contain one integer $$$k$$$ — the number of operations, and then $$$k$$$ lines should follow, each line containing two integers $$$x$$$ and $$$y$$$ for the corresponding operation (set $$$B_{x, y}$$$, $$$B_{x, y + 1}$$$, $$$B_{x + 1, y}$$$ and $$$B_{x + 1, y + 1}$$$ to $$$1$$$). The condition $$$0 \\le k \\le 2500$$$ should hold.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$m$$$ ($$$2 \\le n, m \\le 50$$$). Then $$$n$$$ lines follow, each containing $$$m$$$ integers. The $$$j$$$-th integer in the $$$i$$$-th line is $$$A_{i, j}$$$. Each integer is either $$$0$$$ or $$$1$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_000.jsonl",
+    "code_uid": "9b0bd597cbb603f436d7b501b27afa34",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 3\\n1 1 1\\n1 1 1\\n0 1 1\", \"3 3\\n1 0 1\\n1 0 1\\n0 0 0\", \"3 2\\n0 0\\n0 0\\n0 0\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "l, c = map(int, raw_input().split())\n\nm1 = []\nm2 = []\ncont = 0\nfor i in xrange(l):\n\tm1.append(map(int, raw_input().split()))\n\tm2.append([0] * c)\n\nans = []\n\nfor i in xrange(l -1):\n\tfor j in xrange(c - 1):\n\t\tif m1[i][j] == m1[i+1][j] == m1[i+1][j+1] == m1[i][j+1] == 1:\n\t\t\tm2[i][j] = m2[i+1][j] = m2[i+1][j+1] = m2[i][j+1] = 1\n\t\t\tans.append((i, j))\n\n\nif m1 == m2:\n\tprint len(ans)\n\tfor k in ans:\n\t\tprint k[0]+1, k[1]+1\n\nelse:\n\tprint -1\t\t\n",
+    "prob_desc_created_at": "1566484500",
+    "tags": [
+        "constructive algorithms",
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

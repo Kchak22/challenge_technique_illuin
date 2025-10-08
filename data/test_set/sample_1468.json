@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2\\n1 2 4 3\", \"0\\n4 5 6 3 2 1\", \"3\\n2 8 4 6 7 1 9 3 10 5\"]",
+    "src_uid": "0560658d84cbf91c0d86eea4be92a4d9",
+    "prob_desc_notes": "NoteIn the first example Ivan needs to replace number three in position 1 with number one, and number two in position 3 with number four. Then he will get a permutation [1, 2, 4, 3] with only two changed numbers — this permutation is lexicographically minimal among all suitable. In the second example Ivan does not need to change anything because his array already is a permutation.",
+    "prob_desc_description": "Ivan has an array consisting of n elements. Each of the elements is an integer from 1 to n.Recently Ivan learned about permutations and their lexicographical order. Now he wants to change (replace) minimum number of elements in his array in such a way that his array becomes a permutation (i.e. each of the integers from 1 to n was encountered in his array exactly once). If there are multiple ways to do it he wants to find the lexicographically minimal permutation among them.Thus minimizing the number of changes has the first priority, lexicographical minimizing has the second priority.In order to determine which of the two permutations is lexicographically smaller, we compare their first elements. If they are equal — compare the second, and so on. If we have two permutations x and y, then x is lexicographically smaller if xi &lt; yi, where i is the first index in which the permutations x and y differ.Determine the array Ivan will obtain after performing all the changes.",
+    "prob_desc_output_spec": "In the first line print q — the minimum number of elements that need to be changed in Ivan's array in order to make his array a permutation. In the second line, print the lexicographically minimal permutation which can be obtained from array with q changes.",
+    "prob_desc_input_spec": "The first line contains an single integer n (2 ≤ n ≤ 200 000) — the number of elements in Ivan's array. The second line contains a sequence of integers a1, a2, ..., an (1 ≤ ai ≤ n) — the description of Ivan's array.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_009.jsonl",
+    "code_uid": "d17bcd0f4836ae66918693521aecd5c4",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n3 2 2 3\", \"6\\n4 5 6 3 2 1\", \"10\\n6 8 4 6 7 1 6 3 4 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from collections import Counter\n\n\ndef readints():\n    return [int(item) for item in input().strip().split()]\n\n\nclass Solver:\n    def main(self):\n        n = readints()[0]\n        a = readints()\n        c = Counter(a)\n        skipped = set()\n        to_be_added = sorted(set(range(1, n+1)) - set(c.keys()))\n        changes = 0\n        for i in range(n):\n            if c[a[i]] > 1:\n                if a[i] < to_be_added[changes] and a[i] not in skipped:\n                    skipped.add(a[i])\n                else:\n                    c[a[i]] -= 1\n                    a[i] = to_be_added[changes]\n                    changes += 1\n\n        print(changes)\n        print(' '.join(map(str, a)))\n\nSolver().main()\n",
+    "prob_desc_created_at": "1506335700",
+    "tags": [
+        "implementation",
+        "greedy",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

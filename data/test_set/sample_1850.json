@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"0 0\\n0 1\\n1 0\\n1 1\", \"no solution\"]",
+    "src_uid": "a7846e4ae1f3fa5051fab9139a25539c",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Currently Tiny is learning Computational Geometry. When trying to solve a problem called \"The Closest Pair Of Points In The Plane\", he found that a code which gave a wrong time complexity got Accepted instead of Time Limit Exceeded.The problem is the follows. Given n points in the plane, find a pair of points between which the distance is minimized. Distance between (x1, y1) and (x2, y2) is .The pseudo code of the unexpected code is as follows:input nfor i from 1 to n    input the i-th point's coordinates into p[i]sort array p[] by increasing of x coordinate first and increasing of y coordinate secondd=INF        //here INF is a number big enoughtot=0for i from 1 to n    for j from (i+1) to n        ++tot        if (p[j].x-p[i].x&gt;=d) then break    //notice that \"break\" is only to be                                            //out of the loop \"for j\"        d=min(d,distance(p[i],p[j]))output dHere, tot can be regarded as the running time of the code. Due to the fact that a computer can only run a limited number of operations per second, tot should not be more than k in order not to get Time Limit Exceeded.You are a great hacker. Would you please help Tiny generate a test data and let the code get Time Limit Exceeded?",
+    "prob_desc_output_spec": "If there doesn't exist such a data which let the given code get TLE, print \"no solution\" (without quotes); else print n lines, and the i-th line contains two integers xi, yi (|xi|, |yi| ≤ 109) representing the coordinates of the i-th point. The conditions below must be held:   All the points must be distinct.  |xi|, |yi| ≤ 109.  After running the given code, the value of tot should be larger than k. ",
+    "prob_desc_input_spec": "A single line which contains two space-separated integers n and k (2 ≤ n ≤ 2000, 1 ≤ k ≤ 109).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1300,
+    "file_name": "train_013.jsonl",
+    "code_uid": "9d60e23221143f39101a621c8fcda736",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 3\", \"2 100\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, k = [int(a) for a in input().split()]\nif k >= (n*(n-1)//2):\n  print(\"no solution\")\nelse:\n  for x in range(n):\n    print(0, x)\n  ",
+    "prob_desc_created_at": "1369582200",
+    "tags": [
+        "constructive algorithms",
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

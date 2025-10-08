@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"6\\ntabbat\", \"6\\noxxxxo\", \"0\", \"20\\nababwxyzijjizyxwbaba\"]",
+    "src_uid": "554115bec46bb436a0a1ddf8c05a2d08",
+    "prob_desc_notes": "NoteIn the first example, \"battab\" is also a valid answer.In the second example, there can be 4 different valid answers including the sample output. We are not going to provide any hints for what the others are.In the third example, the empty string is the only valid palindrome string.",
+    "prob_desc_description": "Returning back to problem solving, Gildong is now studying about palindromes. He learned that a palindrome is a string that is the same as its reverse. For example, strings \"pop\", \"noon\", \"x\", and \"kkkkkk\" are palindromes, while strings \"moon\", \"tv\", and \"abab\" are not. An empty string is also a palindrome.Gildong loves this concept so much, so he wants to play with it. He has $$$n$$$ distinct strings of equal length $$$m$$$. He wants to discard some of the strings (possibly none or all) and reorder the remaining strings so that the concatenation becomes a palindrome. He also wants the palindrome to be as long as possible. Please help him find one.",
+    "prob_desc_output_spec": "In the first line, print the length of the longest palindrome string you made. In the second line, print that palindrome. If there are multiple answers, print any one of them. If the palindrome is empty, print an empty line or don't print this line at all.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1 \\le n \\le 100$$$, $$$1 \\le m \\le 50$$$) — the number of strings and the length of each string. Next $$$n$$$ lines contain a string of length $$$m$$$ each, consisting of lowercase Latin letters only. All strings are distinct.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1100,
+    "file_name": "train_007.jsonl",
+    "code_uid": "f8d9d5e737d926b02d3d943ba12a857c",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 3\\ntab\\none\\nbat\", \"4 2\\noo\\nox\\nxo\\nxx\", \"3 5\\nhello\\ncodef\\norces\", \"9 4\\nabab\\nbaba\\nabcd\\nbcde\\ncdef\\ndefg\\nwxyz\\nzyxw\\nijji\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "x,y=map(int,input().split())\na=set()\nl=[]\nfor i in range(x):\n\tl.append(input())\n\ta.add(l[-1])\ns=set()\nm=''\nfor i in a:\n\tr=i[::-1]\n\tif i!=r and r in a and r not in s:\n\t\ts.add(i)\n\telif r==i and len(i)>len(m):\n\t\tm=i\ns=''.join(list(s))\no=s+m+s[::-1]\nprint(len(o))\nprint(o)",
+    "prob_desc_created_at": "1581771900",
+    "tags": [
+        "greedy",
+        "constructive algorithms",
+        "implementation",
+        "brute force",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,32 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"17\\n18\\n286\"]",
+    "src_uid": "968b3db21bd16bc04bdb355e98079d5d",
+    "prob_desc_notes": "Note In the first test case, one of the optimal ways is on the following image:   In this case, $$$f(1,2)=1$$$, $$$f(1,3)=3$$$, $$$f(1,4)=5$$$, $$$f(2,3)=2$$$, $$$f(2,4)=4$$$, $$$f(3,4)=2$$$, so the sum of these $$$6$$$ numbers is $$$17$$$. In the second test case, one of the optimal ways is on the following image:   In this case, $$$f(1,2)=3$$$, $$$f(1,3)=1$$$, $$$f(1,4)=4$$$, $$$f(2,3)=2$$$, $$$f(2,4)=5$$$, $$$f(3,4)=3$$$, so the sum of these $$$6$$$ numbers is $$$18$$$.",
+    "prob_desc_description": "You are given a tree that consists of $$$n$$$ nodes. You should label each of its $$$n-1$$$ edges with an integer in such way that satisfies the following conditions:   each integer must be greater than $$$0$$$;  the product of all $$$n-1$$$ numbers should be equal to $$$k$$$;  the number of $$$1$$$-s among all $$$n-1$$$ integers must be minimum possible. Let's define $$$f(u,v)$$$ as the sum of the numbers on the simple path from node $$$u$$$ to node $$$v$$$. Also, let $$$\\sum\\limits_{i=1}^{n-1} \\sum\\limits_{j=i+1}^n f(i,j)$$$ be a distribution index of the tree.Find the maximum possible distribution index you can get. Since answer can be too large, print it modulo $$$10^9 + 7$$$.In this problem, since the number $$$k$$$ can be large, the result of the prime factorization of $$$k$$$ is given instead.",
+    "prob_desc_output_spec": "Print the maximum distribution index you can get. Since answer can be too large, print it modulo $$$10^9+7$$$.",
+    "prob_desc_input_spec": "The first line contains one integer $$$t$$$ ($$$1 \\le t \\le 100$$$) — the number of test cases. The first line of each test case contains a single integer $$$n$$$ ($$$2 \\le n \\le 10^5$$$) — the number of nodes in the tree. Each of the next $$$n-1$$$ lines describes an edge: the $$$i$$$-th line contains two integers $$$u_i$$$ and $$$v_i$$$ ($$$1 \\le u_i, v_i \\le n$$$; $$$u_i \\ne v_i$$$) — indices of vertices connected by the $$$i$$$-th edge. Next line contains a single integer $$$m$$$ ($$$1 \\le m \\le 6 \\cdot 10^4$$$) — the number of prime factors of $$$k$$$. Next line contains $$$m$$$ prime numbers $$$p_1, p_2, \\ldots, p_m$$$ ($$$2 \\le p_i &lt; 6 \\cdot 10^4$$$) such that $$$k = p_1 \\cdot p_2 \\cdot \\ldots \\cdot p_m$$$. It is guaranteed that the sum of $$$n$$$ over all test cases doesn't exceed $$$10^5$$$, the sum of $$$m$$$ over all test cases doesn't exceed $$$6 \\cdot 10^4$$$, and the given edges for each test cases form a tree.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_010.jsonl",
+    "code_uid": "c188a810118b7238940f50473b5efc3d",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n4\\n1 2\\n2 3\\n3 4\\n2\\n2 2\\n4\\n3 4\\n1 3\\n3 2\\n2\\n3 2\\n7\\n6 1\\n2 3\\n4 6\\n7 3\\n5 1\\n3 6\\n4\\n7 5 13 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\ndef input():\n    return sys.stdin.readline()[:-1]\n\nmod = 10**9 + 7\n\ndef main():\n    t = int(input())\n\n    for i in range(t):\n        n = int(input())\n        e_list = [[] for i in range(n)]\n        for j in range(n-1):\n            a,b = list(map(int,input().split()))\n            a,b = a-1,b-1\n            e_list[a].append(b)\n            e_list[b].append(a)\n        \n        m = int(input())\n        p = list(map(int,input().split()))\n\n        from collections import deque\n        \n        vi = 0  #change\n        INF = float('inf')\n        \n        Q = deque([vi])\n        \n        checked_list = [False]*n\n        checked_list[vi]=True\n        \n        parent_list = [-1]*n\n\n        min_path_list = [INF]*n #change\n        min_path_list[vi] = 0\n        \n        while len(Q)>0:\n            v = Q.pop()\n            for v1 in e_list[v]:\n                if not checked_list[v1]:\n                    checked_list[v1]=True\n                    Q.appendleft(v1)\n                    parent_list[v1] = v\n                    min_path_list[v1] = min_path_list[v]+1\n        \n        memo = [-1]*n\n\n        min_path = [(i,min_path_list[i]) for i in range(n)]\n        min_path.sort(key=lambda x:x[1],reverse=True)\n        for v,d in min_path:\n            if v==0:\n                continue\n            count = 0\n            for v1 in e_list[v]:\n                if v1!=parent_list[v]:\n                    #print(v1)\n                    count+=memo[v1]+1\n            memo[v] = count\n            #print(memo)\n        #print(e_list)\n        memo = [(memo[i]+1)*(n-memo[i]-1) for i in range(1,n)]\n        memo.sort(reverse=True)\n        p.sort(reverse=True)\n        #print(memo)\n        ans = 0\n        if m<=n-1:\n            for i in range(m):\n                ans+=p[i]*memo[i]\n                ans%=mod\n            for i in range(m,n-1):\n                ans+=memo[i]\n                ans%=mod\n        else:\n            a = 1\n            for i in range(m-n+2):\n                a*=p[i]\n                a%=mod\n            ans = a*memo[0]\n            ans%=mod\n            for i in range(1,n-1):\n                ans+=p[i+m-n+1]*memo[i]\n                ans%=mod\n        print(ans)\n\nif __name__ == '__main__':\n    main()\n\n",
+    "prob_desc_created_at": "1598020500",
+    "tags": [
+        "dp",
+        "greedy",
+        "number theory",
+        "math",
+        "implementation",
+        "sortings",
+        "dfs and similar",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

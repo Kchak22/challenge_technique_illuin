@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"3 12\\n3 9\\n4 7\\n5 12\", \"2 2\\n2 2\"]",
+    "src_uid": "55383f13c8d097408b0ccf5653c4563d",
+    "prob_desc_notes": null,
+    "prob_desc_description": "All cities of Lineland are located on the Ox coordinate axis. Thus, each city is associated with its position xi — a coordinate on the Ox axis. No two cities are located at a single point.Lineland residents love to send letters to each other. A person may send a letter only if the recipient lives in another city (because if they live in the same city, then it is easier to drop in).Strange but true, the cost of sending the letter is exactly equal to the distance between the sender's city and the recipient's city.For each city calculate two values ​​mini and maxi, where mini is the minimum cost of sending a letter from the i-th city to some other city, and maxi is the the maximum cost of sending a letter from the i-th city to some other city",
+    "prob_desc_output_spec": "Print n lines, the i-th line must contain two integers mini, maxi, separated by a space, where mini is the minimum cost of sending a letter from the i-th city, and maxi is the maximum cost of sending a letter from the i-th city.",
+    "prob_desc_input_spec": "The first line of the input contains integer n (2 ≤ n ≤ 105) — the number of cities in Lineland. The second line contains the sequence of n distinct integers x1, x2, ..., xn ( - 109 ≤ xi ≤ 109), where xi is the x-coordinate of the i-th city. All the xi's are distinct and follow in ascending order.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 900,
+    "file_name": "train_000.jsonl",
+    "code_uid": "27f1266342c041988ecc28518abdc609",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n-5 -2 2 7\", \"2\\n-1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import bisect\n\ndef ni():\n    return int(raw_input())\n\ndef nis():\n    return map(int, raw_input().split())\n\ndef si():\n    return raw_input()\n\ndef sis():\n    return raw_input().split()\n\nn = ni()\na = nis()\n\nfor i in range(n):\n    if i == 0:\n        print a[i + 1] - a[i], a[-1] - a[i]\n    elif i == n - 1:\n        print a[i] - a[i - 1], a[i] - a[0]\n    else:\n        print min(a[i] - a[i - 1], a[i + 1] - a[i]), max(a[-1] - a[i], a[i] - a[0])",
+    "prob_desc_created_at": "1438790400",
+    "tags": [
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"5\", \"3\", \"6\"]",
+    "src_uid": "900c85e25d457eb8092624b1d42be2a2",
+    "prob_desc_notes": "NoteIn the first example: ;;.So the answer is 2 + 1 + 2 = 5.",
+    "prob_desc_description": "Mike wants to prepare for IMO but he doesn't know geometry, so his teacher gave him an interesting geometry problem. Let's define f([l, r]) = r - l + 1 to be the number of integer points in the segment [l, r] with l ≤ r (say that ). You are given two integers n and k and n closed intervals [li, ri] on OX axis and you have to find:  In other words, you should find the sum of the number of integer points in the intersection of any k of the segments. As the answer may be very large, output it modulo 1000000007 (109 + 7).Mike can't solve this problem so he needs your help. You will help him, won't you? ",
+    "prob_desc_output_spec": "Print one integer number — the answer to Mike's problem modulo 1000000007 (109 + 7) in the only line.",
+    "prob_desc_input_spec": "The first line contains two integers n and k (1 ≤ k ≤ n ≤ 200 000) — the number of segments and the number of segments in intersection groups respectively. Then n lines follow, the i-th line contains two integers li, ri ( - 109 ≤ li ≤ ri ≤ 109), describing i-th segment bounds.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_001.jsonl",
+    "code_uid": "e5f87428b0950f99dadcdcc2c509af75",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 2\\n1 2\\n1 3\\n2 3\", \"3 3\\n1 3\\n1 3\\n1 3\", \"3 1\\n1 2\\n2 3\\n3 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin\nfrom itertools import repeat\ndef main():\n    n, k = map(int, stdin.readline().split())\n    mod = 10 ** 9 + 7\n    f = [1] * (n + 1)\n    inv = [1] * (n + 1)\n    invf = [1] * (n + 1)\n    for i in xrange(2, n + 1):\n        f[i] = f[i-1] * i % mod\n        inv[i] = mod - mod / i * inv[mod%i] % mod\n        invf[i] = invf[i-1] * inv[i] % mod\n    dat = map(int, stdin.read().split(), repeat(10, 2 * n))\n    for i in xrange(1, 2 * n, 2):\n        dat[i] += 1\n    s = list(set(dat))\n    s.sort()\n    d = {x: i for i, x in enumerate(s)}\n    l = len(d)\n    ev = [0 for _ in xrange(l)]\n    for i in xrange(n):\n        x, y = dat[i*2], dat[i*2+1]\n        ev[d[x]] += 1\n        ev[d[y]] -= 1\n    p = s[0]\n    t = ev[0]\n    ans = 0\n    def comb(a, b):\n        return f[a] * invf[b] * invf[a-b] % mod\n    for i in xrange(1, l):\n        q = s[i]\n        if t >= k:\n            ans += (q - p) * comb(t, k)\n            ans %= mod\n        t += ev[i]\n        p = q\n    print ans\nmain()\n",
+    "prob_desc_created_at": "1467822900",
+    "tags": [
+        "dp",
+        "geometry",
+        "combinatorics",
+        "implementation",
+        "data structures"
+    ],
+    "hidden_unit_tests": ""
+}

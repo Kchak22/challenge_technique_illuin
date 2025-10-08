@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"Yes\", \"No\"]",
+    "src_uid": "d1d50f0780d5c70e6773d5601d7d41e8",
+    "prob_desc_notes": "NoteIn the first sample test, the 6 in the bottom left corner is valid because it is the sum of the 2 above it and the 4 on the right. The same holds for every number not equal to 1 in this table, so the answer is \"Yes\".In the second sample test, the 5 cannot be formed as the sum of an integer in the same row and an integer in the same column. Thus the answer is \"No\".",
+    "prob_desc_description": "Okabe needs to renovate the Future Gadget Laboratory after he tried doing some crazy experiments! The lab is represented as an n by n square grid of integers. A good lab is defined as a lab in which every number not equal to 1 can be expressed as the sum of a number in the same row and a number in the same column. In other words, for every x, y such that 1 ≤ x, y ≤ n and ax, y ≠ 1, there should exist two indices s and t so that ax, y = ax, s + at, y, where ai, j denotes the integer in i-th row and j-th column.Help Okabe determine whether a given lab is good!",
+    "prob_desc_output_spec": "Print \"Yes\" if the given lab is good and \"No\" otherwise. You can output each letter in upper or lower case.",
+    "prob_desc_input_spec": "The first line of input contains the integer n (1 ≤ n ≤ 50) — the size of the lab.  The next n lines contain n space-separated integers denoting a row of the grid. The j-th integer in the i-th row is ai, j (1 ≤ ai, j ≤ 105).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_007.jsonl",
+    "code_uid": "5f7ff2d63ca14bd5eae57372016a4200",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n1 1 2\\n2 3 1\\n6 4 1\", \"3\\n1 5 2\\n1 1 1\\n1 2 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n=int(input())\np=[list(map(int,input().split())) for _ in range(n)]\nfor i,A in enumerate(p):\n    for j,B in enumerate(A):\n        if B==1 or any(B-p[t][j] in A for t in range(n)):\n            continue\n        print(\"NO\")\n        exit()\nprint(\"YES\") ",
+    "prob_desc_created_at": "1498401300",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

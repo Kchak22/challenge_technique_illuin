@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"4\", \"2\", \"2\"]",
+    "src_uid": "87b8dccfc0e5a63cd209c37cf8aebef0",
+    "prob_desc_notes": "NoteIn the first example, you can delete $$$a_3=5$$$. Then the resulting array will be equal to $$$[1, 2, 3, 4]$$$ and the length of its largest increasing subarray will be equal to $$$4$$$.",
+    "prob_desc_description": "You are given an array $$$a$$$ consisting of $$$n$$$ integers.You can remove at most one element from this array. Thus, the final length of the array is $$$n-1$$$ or $$$n$$$.Your task is to calculate the maximum possible length of the strictly increasing contiguous subarray of the remaining array.Recall that the contiguous subarray $$$a$$$ with indices from $$$l$$$ to $$$r$$$ is $$$a[l \\dots r] = a_l, a_{l + 1}, \\dots, a_r$$$. The subarray $$$a[l \\dots r]$$$ is called strictly increasing if $$$a_l &lt; a_{l+1} &lt; \\dots &lt; a_r$$$.",
+    "prob_desc_output_spec": "Print one integer — the maximum possible length of the strictly increasing contiguous subarray of the array $$$a$$$ after removing at most one element.",
+    "prob_desc_input_spec": "The first line of the input contains one integer $$$n$$$ ($$$2 \\le n \\le 2 \\cdot 10^5$$$) — the number of elements in $$$a$$$. The second line of the input contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 10^9$$$), where $$$a_i$$$ is the $$$i$$$-th element of $$$a$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_009.jsonl",
+    "code_uid": "55638e18c15ee309b17e7e400c0a0206",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1 2 5 3 4\", \"2\\n1 2\", \"7\\n6 5 4 3 2 4 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#Remove one element\nn = int(input())\nl = list(map(int,input().split()))\np = [0]*n\nz = [0]*n\ni = 0\nd = 1\nwhile i < len(l):\n    cnt = 1\n    pi = i\n    pj = i+1\n    while pj < len(l):\n        if l[pj] > l[pi]:\n            cnt += 1\n\n        else:\n            break\n\n        pj += 1\n        pi += 1\n\n    j = i\n    k1 = 1\n    k2 = cnt\n    while k1 <= cnt:\n        p[j] = (k1,k2)\n        z[j] = d\n        k1 += 1\n        k2 -= 1\n        j += 1\n\n    i = j\n    d += 1\n\nm = 0\n#print(z)\n#print(p)\nfor i in range(n):\n    if i < 2:\n        x = p[i][1]\n\n    else:\n        e1 = p[i][1]\n        e2 = -1\n        if l[i] > l[i-2] and z[i-2] != z[i]:\n            e2 = e1+p[i-2][0]\n\n        x = max(e1,e2)\n\n    if x > m:\n        m = x\n\nprint(m)",
+    "prob_desc_created_at": "1576157700",
+    "tags": [
+        "dp",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

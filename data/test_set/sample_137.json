@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"9 12\\n7 10\\n3 11\\n1 5\\n2 4\\n6 8\", \"1 2\"]",
+    "src_uid": "739e60a2fa71aff9a5c7e781db861d1e",
+    "prob_desc_notes": null,
+    "prob_desc_description": "We had a really tough time generating tests for problem D. In order to prepare strong tests, we had to solve the following problem.Given an undirected labeled tree consisting of $$$n$$$ vertices, find a set of segments such that:  both endpoints of each segment are integers from $$$1$$$ to $$$2n$$$, and each integer from $$$1$$$ to $$$2n$$$ should appear as an endpoint of exactly one segment;  all segments are non-degenerate;  for each pair $$$(i, j)$$$ such that $$$i \\ne j$$$, $$$i \\in [1, n]$$$ and $$$j \\in [1, n]$$$, the vertices $$$i$$$ and $$$j$$$ are connected with an edge if and only if the segments $$$i$$$ and $$$j$$$ intersect, but neither segment $$$i$$$ is fully contained in segment $$$j$$$, nor segment $$$j$$$ is fully contained in segment $$$i$$$. Can you solve this problem too?",
+    "prob_desc_output_spec": "Print $$$n$$$ pairs of integers, the $$$i$$$-th pair should contain two integers $$$l_i$$$ and $$$r_i$$$ ($$$1 \\le l_i &lt; r_i \\le 2n$$$) — the endpoints of the $$$i$$$-th segment. All $$$2n$$$ integers you print should be unique. It is guaranteed that the answer always exists.",
+    "prob_desc_input_spec": "The first line contains one integer $$$n$$$ ($$$1 \\le n \\le 5 \\cdot 10^5$$$) — the number of vertices in the tree. Then $$$n - 1$$$ lines follow, each containing two integers $$$x_i$$$ and $$$y_i$$$ ($$$1 \\le x_i, y_i \\le n$$$, $$$x_i \\ne y_i$$$) denoting the endpoints of the $$$i$$$-th edge. It is guaranteed that the given graph is a tree.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_000.jsonl",
+    "code_uid": "479155577366530719b3898b47485a1a",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6\\n1 2\\n1 3\\n3 4\\n3 5\\n2 6\", \"1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nimport os\nrange = xrange\ninput = raw_input\n\nS = sys.stdin.read()\nn = len(S)\nA = []\ni = 0\nwhile i < n:\n    c = 0\n    while ord(S[i]) >= 48:\n        c = 10 * c + ord(S[i]) - 48\n        i += 1\n    A.append(c)\n    i += 1 + (S[i] == '\\r')\n\ninp = A; ii = 0\nn = inp[ii]; ii += 1\n\ncoupl = [[] for _ in range(n)]\nfor _ in range(n - 1):\n    u = inp[ii] - 1; ii += 1\n    v = inp[ii] - 1; ii += 1\n    coupl[u].append(v)\n    coupl[v].append(u)\n\nbfs = [0]\nfound = [0]*n\nchildren = coupl\nfor node in bfs:\n    found[node] = 1\n    for nei in coupl[node]:\n        bfs.append(nei)\n        coupl[nei].remove(node)\n\nfamily = [1]*n\nfor node in reversed(bfs):\n    for child in children[node]:\n        family[node] += family[child]\n\nout = inp\nout.append(0)\nout[1] = 2 * n - 1\n\nmark = [0]*n\nfor node in bfs:\n    l = mark[node]\n    r = l + 2 * family[node] - 1\n    for child in children[node]:\n        mark[child] = l\n        l += 2 * family[child] - 1\n        r -= 1\n        out[2 * child + 1] = r\n    out[2 * node] = r - 1\n\nos.write(1, ' '.join(str(x + 1) for x in out))\n",
+    "prob_desc_created_at": "1576766100",
+    "tags": [
+        "constructive algorithms",
+        "divide and conquer",
+        "trees",
+        "dfs and similar"
+    ],
+    "hidden_unit_tests": ""
+}

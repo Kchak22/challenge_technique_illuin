@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"YES\\nNO\\nNO\\nYES\", \"YES\\nNO\\nYES\\nYES\"]",
+    "src_uid": "9c84eb518c273942650c7262e5d8b45f",
+    "prob_desc_notes": "NoteThe cornfield from the first example is pictured above. Grasshoppers with indices $$$1$$$ (coordinates $$$(2, 4)$$$) and $$$4$$$ (coordinates $$$(4, 5)$$$) are inside the cornfield.The cornfield from the second example is pictured below. Grasshoppers with indices $$$1$$$ (coordinates $$$(4, 4)$$$), $$$3$$$ (coordinates $$$(8, 1)$$$) and $$$4$$$ (coordinates $$$(6, 1)$$$) are inside the cornfield.   ",
+    "prob_desc_description": "Vasya owns a cornfield which can be defined with two integers $$$n$$$ and $$$d$$$. The cornfield can be represented as rectangle with vertices having Cartesian coordinates $$$(0, d), (d, 0), (n, n - d)$$$ and $$$(n - d, n)$$$.    An example of a cornfield with $$$n = 7$$$ and $$$d = 2$$$. Vasya also knows that there are $$$m$$$ grasshoppers near the field (maybe even inside it). The $$$i$$$-th grasshopper is at the point $$$(x_i, y_i)$$$. Vasya does not like when grasshoppers eat his corn, so for each grasshopper he wants to know whether its position is inside the cornfield (including the border) or outside.Help Vasya! For each grasshopper determine if it is inside the field (including the border).",
+    "prob_desc_output_spec": "Print $$$m$$$ lines. The $$$i$$$-th line should contain \"YES\" if the position of the $$$i$$$-th grasshopper lies inside or on the border of the cornfield. Otherwise the $$$i$$$-th line should contain \"NO\". You can print each letter in any case (upper or lower).",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$d$$$ ($$$1 \\le d &lt; n \\le 100$$$). The second line contains a single integer $$$m$$$ ($$$1 \\le m \\le 100$$$) — the number of grasshoppers. The $$$i$$$-th of the next $$$m$$$ lines contains two integers $$$x_i$$$ and $$$y_i$$$ ($$$0 \\le x_i, y_i \\le n$$$) — position of the $$$i$$$-th grasshopper.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1100,
+    "file_name": "train_000.jsonl",
+    "code_uid": "3efa832d96b478d2c89d224af50d44e6",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"7 2\\n4\\n2 4\\n4 1\\n6 3\\n4 5\", \"8 7\\n4\\n4 4\\n2 8\\n8 1\\n6 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#------------------------------what is this I don't know....just makes my mess faster--------------------------------------\nimport os\nimport sys\nfrom io import BytesIO, IOBase\n \nBUFSIZE = 8192\n  \nclass FastIO(IOBase):\n    newlines = 0\n \n    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable else None\n \n    def read(self):\n        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n        return self.buffer.read()\n \n    def readline(self):\n        while self.newlines == 0:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n        return self.buffer.readline()\n \n    def flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0), self.buffer.seek(0)\n \n \nclass IOWrapper(IOBase):\n    def __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n        self.writable = self.buffer.writable\n        self.write = lambda s: self.buffer.write(s.encode(\"ascii\"))\n        self.read = lambda: self.buffer.read().decode(\"ascii\")\n        self.readline = lambda: self.buffer.readline().decode(\"ascii\")\n \n \nsys.stdin, sys.stdout = IOWrapper(sys.stdin), IOWrapper(sys.stdout)\ninput = lambda: sys.stdin.readline().rstrip(\"\\r\\n\")\n \n#----------------------------------Real game starts here--------------------------------------\n'''\n\n\n___________________THIS IS AESTROIX CODE________________________\n                       KARMANYA GUPTA\n\n'''\n\nn , d = list(map(int, input().split()))\nfor i in range(int(input())):\n    x , y = list(map(int, input().split()))\n    a = y-x\n    b = y+x\n    if a < d and a > -d and b > d and b < 2*n - d:\n        print(\"YES\")\n    elif a == d or a == -d or b == d or b == 2*n - d:\n        print(\"YES\")\n    else:\n        print(\"NO\")\n\n\n\n\n\n\n\n\n",
+    "prob_desc_created_at": "1537707900",
+    "tags": [
+        "geometry"
+    ],
+    "hidden_unit_tests": ""
+}

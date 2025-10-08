@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1 1 1 2 2\", \"1 1 1 2 1 1 1 2 1\"]",
+    "src_uid": "14593b565193607dff8b6b25bf51a661",
+    "prob_desc_notes": "NoteThe first solution produces the prefix sums $$$1, \\mathbf{\\color{blue}{2}}, \\mathbf{\\color{blue}{3}}, \\mathbf{\\color{blue}{5}}, \\mathbf{\\color{blue}{7}}$$$ (four primes constructed), while the prefix sums in the second solution are $$$1, \\mathbf{\\color{blue}{2}}, \\mathbf{\\color{blue}{3}}, \\mathbf{\\color{blue}{5}}, 6, \\mathbf{\\color{blue}{7}}, 8, 10, \\mathbf{\\color{blue}{11}}$$$ (five primes). Primes are marked bold and blue. In each of these cases, the number of produced primes is maximum possible.",
+    "prob_desc_description": "We're giving away nice huge bags containing number tiles! A bag we want to present to you contains $$$n$$$ tiles. Each of them has a single number written on it — either $$$1$$$ or $$$2$$$.However, there is one condition you must fulfill in order to receive the prize. You will need to put all the tiles from the bag in a sequence, in any order you wish. We will then compute the sums of all prefixes in the sequence, and then count how many of these sums are prime numbers. If you want to keep the prize, you will need to maximize the number of primes you get.Can you win the prize? Hurry up, the bags are waiting!",
+    "prob_desc_output_spec": "Output a permutation $$$b_1, b_2, \\dots, b_n$$$ of the input sequence $$$(a_1, a_2, \\dots, a_n)$$$ maximizing the number of the prefix sums being prime numbers. If there are multiple optimal permutations, output any.",
+    "prob_desc_input_spec": "The first line of the input contains a single integer $$$n$$$ ($$$1 \\leq n \\leq 200\\,000$$$) — the number of number tiles in the bag. The following line contains $$$n$$$ space-separated integers $$$a_1, a_2, \\dots, a_n$$$ ($$$a_i \\in \\{1, 2\\}$$$) — the values written on the tiles.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_011.jsonl",
+    "code_uid": "826c38452a721eb5f59984533cfce980",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1 2 1 2 1\", \"9\\n1 1 2 1 1 1 2 1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "rr = raw_input\nrri = lambda: int(rr())\nrrm = lambda: map(int, rr().split())\n\ndef listprimes(n):\n    sieve = [True] * n\n    for i in xrange(3,int(n**0.5)+1,2):\n        if sieve[i]:\n            sieve[i*i::2*i]=[False]*((n-i*i-1)/(2*i)+1)\n    return [2] + [i for i in xrange(3,n,2) if sieve[i]]\n\ndef solve(N, A):\n    ones = twos = 0\n    for x in A:\n        if x == 1: ones += 1\n        else: twos += 1\n    primes = listprimes(ones + twos * 2 + 1)\n    i = 0\n    cur = 0\n    ans = []\n    while ones or twos:\n        while i < len(primes) and cur + 1 > primes[i]:\n            i += 1\n        if i == len(primes):\n            while ones:\n                ones -= 1\n                ans.append(1)\n            while twos:\n                twos -= 1\n                ans.append(2)\n            break\n        \n        if ones and twos:\n            if cur + 2 == primes[i] and not cur + 1 == primes[i]:\n                twos -= 1\n                ans.append(2)\n                cur += 2\n                i += 1\n            elif cur + 1 == primes[i]:\n                ones -= 1\n                ans.append(1)\n                cur += 1\n                i += 1\n            else:\n                twos -= 1\n                ans.append(2)\n                cur += 2\n        elif ones:\n            ones -= 1\n            ans.append(1)\n            cur += 1\n        elif twos:\n            twos -= 1\n            ans.append(2)\n            cur += 2\n    return ans\n\nfrom sys import stdout\nN = rri()\nA = rrm()\nstdout.write(\" \".join(map(str, solve(N, A))))\nstdout.flush()\n",
+    "prob_desc_created_at": "1556548500",
+    "tags": [
+        "constructive algorithms",
+        "number theory",
+        "greedy",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

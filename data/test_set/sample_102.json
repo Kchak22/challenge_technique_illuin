@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"72900\", \"317451037\"]",
+    "src_uid": "6fcd8713af5a108d590bc99da314cded",
+    "prob_desc_notes": "NoteIn the first example, $$$f_{4} = 90$$$, $$$f_{5} = 72900$$$.In the second example, $$$f_{17} \\approx 2.28 \\times 10^{29587}$$$.",
+    "prob_desc_description": "Let $$$f_{x} = c^{2x-6} \\cdot f_{x-1} \\cdot f_{x-2} \\cdot f_{x-3}$$$ for $$$x \\ge 4$$$.You have given integers $$$n$$$, $$$f_{1}$$$, $$$f_{2}$$$, $$$f_{3}$$$, and $$$c$$$. Find $$$f_{n} \\bmod (10^{9}+7)$$$.",
+    "prob_desc_output_spec": "Print $$$f_{n} \\bmod (10^{9} + 7)$$$.",
+    "prob_desc_input_spec": "The only line contains five integers $$$n$$$, $$$f_{1}$$$, $$$f_{2}$$$, $$$f_{3}$$$, and $$$c$$$ ($$$4 \\le n \\le 10^{18}$$$, $$$1 \\le f_{1}$$$, $$$f_{2}$$$, $$$f_{3}$$$, $$$c \\le 10^{9}$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2300,
+    "file_name": "train_000.jsonl",
+    "code_uid": "3bf934bfa45c8ccf487e4f51f1003160",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 1 2 5 3\", \"17 97 41 37 11\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def mat_mul(a, b):\n    n, m, p = len(a), len(b), len(b[0])\n    res = [[0]*p for _ in range(n)]\n\n    for i in range(n):\n        for j in range(p):\n            for k in range(m):\n                res[i][j] += a[i][k]*b[k][j]\n            res[i][j] %= 1000000006\n\n    return res\n\ndef mat_pow(a, n):\n    if n == 1: return a\n    if n%2 == 1: return mat_mul(mat_pow(a, n-1), a)\n    t = mat_pow(a, n//2)\n    return mat_mul(t, t)\n\nn, f1, f2, f3, c = map(int, input().split())\n\n\nm1 = [[3, 1000000004, 0, 1000000005, 1], [1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0]]\nm2 = [[2], [0], [0], [0], [0]]\nt1 = pow(c, mat_mul(mat_pow(m1, n), m2)[-1][0], 1000000007)\n\nm1 = [[0, 0, 1], [1, 0, 1], [0, 1, 1]]\nm2 = [[1], [0], [0]]\nm3 = mat_mul(mat_pow(m1, n-1), m2)\nt2 = pow(f1, m3[0][0], 1000000007)\nt3 = pow(f2, m3[1][0], 1000000007)\nt4 = pow(f3, m3[2][0], 1000000007)\n\nprint(t1*t2*t3*t4%1000000007)",
+    "prob_desc_created_at": "1560258300",
+    "tags": [
+        "dp",
+        "number theory",
+        "math",
+        "matrices"
+    ],
+    "hidden_unit_tests": ""
+}

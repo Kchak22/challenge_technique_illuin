@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"-1\\n1\\n2\\n2\\n2\\n1\"]",
+    "src_uid": "3dc5850220458dec9876560150b612c4",
+    "prob_desc_notes": "NoteIn the first test case, there is no possible $$$m$$$, because all elements of all arrays should be equal to $$$0$$$. But in this case, it is impossible to get $$$a_4 = 1$$$ as the sum of zeros.In the second test case, we can take $$$b_1 = [3, 3, 3]$$$. $$$1$$$ is the smallest possible value of $$$m$$$.In the third test case, we can take $$$b_1 = [0, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2]$$$ and $$$b_2 = [0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2]$$$. It's easy to see, that $$$a_i = b_{1, i} + b_{2, i}$$$ for all $$$i$$$ and the number of different elements in $$$b_1$$$ and in $$$b_2$$$ is equal to $$$3$$$ (so it is at most $$$3$$$). It can be proven that $$$2$$$ is the smallest possible value of $$$m$$$.",
+    "prob_desc_description": "You are given a non-decreasing array of non-negative integers $$$a_1, a_2, \\ldots, a_n$$$. Also you are given a positive integer $$$k$$$.You want to find $$$m$$$ non-decreasing arrays of non-negative integers $$$b_1, b_2, \\ldots, b_m$$$, such that:  The size of $$$b_i$$$ is equal to $$$n$$$ for all $$$1 \\leq i \\leq m$$$.  For all $$$1 \\leq j \\leq n$$$, $$$a_j = b_{1, j} + b_{2, j} + \\ldots + b_{m, j}$$$. In the other word, array $$$a$$$ is the sum of arrays $$$b_i$$$.  The number of different elements in the array $$$b_i$$$ is at most $$$k$$$ for all $$$1 \\leq i \\leq m$$$. Find the minimum possible value of $$$m$$$, or report that there is no possible $$$m$$$.",
+    "prob_desc_output_spec": "For each test case print a single integer: the minimum possible value of $$$m$$$. If there is no such $$$m$$$, print $$$-1$$$.",
+    "prob_desc_input_spec": "The first line contains one integer $$$t$$$ ($$$1 \\leq t \\leq 100$$$): the number of test cases. The first line of each test case contains two integers $$$n$$$, $$$k$$$ ($$$1 \\leq n \\leq 100$$$, $$$1 \\leq k \\leq n$$$). The second line contains $$$n$$$ integers $$$a_1, a_2, \\ldots, a_n$$$ ($$$0 \\leq a_1 \\leq a_2 \\leq \\ldots \\leq a_n \\leq 100$$$, $$$a_n &gt; 0$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_011.jsonl",
+    "code_uid": "6559ce04c65fa8337a20b6d94153b9dd",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6\\n4 1\\n0 0 0 1\\n3 1\\n3 3 3\\n11 3\\n0 1 2 2 3 3 3 4 4 4 4\\n5 3\\n1 2 3 4 5\\n9 4\\n2 2 3 5 7 11 13 13 17\\n10 7\\n0 1 1 2 3 3 4 5 5 6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import math\ntest = int(input())\nfor q in range(test):\n    n,k = map(int,input().split())\n    a = list(map(int,input().split()))\n    x = set()\n    if k==1:\n        if a[0]!=a[n-1]:\n            print(-1)\n            continue\n        else:\n            print(1)\n            continue\n    ans = 0\n    i = 0\n    while i<n:\n        x.add(a[i])\n        if len(x)==k+1:\n            x = set()\n            x.add(a[i])\n            ans = 1\n            break\n        i+=1\n    if i==n:\n        print(1)\n        continue\n    for j in range(i,n):\n        x.add(a[j])\n    ans += math.ceil(len(x)/(k-1))\n    print(ans)",
+    "prob_desc_created_at": "1601476500",
+    "tags": [
+        "constructive algorithms",
+        "greedy",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

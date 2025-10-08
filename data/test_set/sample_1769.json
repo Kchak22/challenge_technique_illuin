@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"BAA...\\nU.I...\\nR.R...\\nNEWTON\\n..A..O\\n..YARD\", \"AAA..\\nA.A..\\nAAAAA\\n..A.A\\n..AAA\", \"JJFS....\\nY..S....\\nN..X....\\nY..X....\\nF..Q....\\nD..O....\\nS..F....\\nG..G....\\nIXEJNDOP\\n...U...T\\n...ZGPPC\"]",
+    "src_uid": "8e89a34ab25f294b7ae4008403ef0b9f",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Vasya trains to compose crossword puzzles. He can only compose crosswords of a very simplе type so far. All of them consist of exactly six words; the words can be read only from top to bottom vertically and from the left to the right horizontally. The words are arranged in the form of a rectangular \"eight\" or infinity sign, not necessarily symmetrical.The top-left corner of the crossword coincides with the top-left corner of the rectangle. The same thing is correct for the right-bottom corners. The crossword can't degrade, i.e. it always has exactly four blank areas, two of which are surrounded by letters. Look into the output for the samples for clarification.Help Vasya — compose a crossword of the described type using the given six words. It is allowed to use the words in any order.",
+    "prob_desc_output_spec": "If it is impossible to solve the problem, print Impossible. Otherwise, print the sought crossword. All the empty squares should be marked as dots. If there can be several solutions to that problem, print the lexicographically minimum one. I.e. the solution where the first line is less than the first line of other solutions should be printed. If the two lines are equal, compare the second lines and so on. The lexicographical comparison of lines is realized by the &lt; operator in the modern programming languages.",
+    "prob_desc_input_spec": "Six lines contain the given words. Every word consists of no more than 30 and no less than 3 uppercase Latin letters. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_012.jsonl",
+    "code_uid": "d22a3e49706f25f1593893a22bb5c284",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"NOD\\nBAA\\nYARD\\nAIRWAY\\nNEWTON\\nBURN\", \"AAA\\nAAA\\nAAAAA\\nAAA\\nAAA\\nAAAAA\", \"PTC\\nJYNYFDSGI\\nZGPPC\\nIXEJNDOP\\nJJFS\\nSSXXQOFGJUZ\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from itertools import permutations\nv = []\nfor p in permutations(input() for i in range(6)):\n    if len(p[1]) != len(p[0]) + len(p[2]) - 1 or len(p[4]) != len(p[3]) + len(p[5]) - 1:\n        continue\n    elif p[0][0] != p[3][0] or p[0][-1] != p[4][0]:\n        continue\n    elif p[1][0] != p[3][-1] or p[1][len(p[0]) - 1] != p[4][len(p[3]) - 1] or p[1][-1] != p[5][0]:\n        continue\n    elif p[2][0] != p[4][-1] or p[2][-1] != p[5][-1]:\n        continue\n    else:\n        x, y, c = '.' * (len(p[1]) - len(p[0])), '.' * (len(p[1]) - len(p[2])), []\n        c.append(p[0] + x)\n        for i in range(1, len(p[3]) - 1):\n            c.append(p[3][i] + '.' * (len(p[0]) - 2) + p[4][i] + x)\n        c.append(p[1])\n        for i in range(1, len(p[5]) - 1):\n            c.append(y + p[4][len(p[3]) + i - 1] + '.' * (len(p[2]) - 2) + p[5][i])\n        c.append(y + p[2])\n        v.append(c)\nprint('\\n'.join(sorted(v)[0]) if v else 'Impossible')",
+    "prob_desc_created_at": "1291737600",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

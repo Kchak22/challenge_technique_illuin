@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"YES\\n2\", \"YES\\n2\", \"NO\"]",
+    "src_uid": "aaca5d07795a42ecab210327c1cf6be9",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Each New Year Timofey and his friends cut down a tree of n vertices and bring it home. After that they paint all the n its vertices, so that the i-th vertex gets color ci.Now it's time for Timofey birthday, and his mother asked him to remove the tree. Timofey removes the tree in the following way: he takes some vertex in hands, while all the other vertices move down so that the tree becomes rooted at the chosen vertex. After that Timofey brings the tree to a trash can.Timofey doesn't like it when many colors are mixing together. A subtree annoys him if there are vertices of different color in it. Timofey wants to find a vertex which he should take in hands so that there are no subtrees that annoy him. He doesn't consider the whole tree as a subtree since he can't see the color of the root vertex.A subtree of some vertex is a subgraph containing that vertex and all its descendants.Your task is to determine if there is a vertex, taking which in hands Timofey wouldn't be annoyed.",
+    "prob_desc_output_spec": "Print \"NO\" in a single line, if Timofey can't take the tree in such a way that it doesn't annoy him. Otherwise print \"YES\" in the first line. In the second line print the index of the vertex which Timofey should take in hands. If there are multiple answers, print any of them.",
+    "prob_desc_input_spec": "The first line contains single integer n (2 ≤ n ≤ 105) — the number of vertices in the tree. Each of the next n - 1 lines contains two integers u and v (1 ≤ u, v ≤ n, u ≠ v), denoting there is an edge between vertices u and v. It is guaranteed that the given graph is a tree. The next line contains n integers c1, c2, ..., cn (1 ≤ ci ≤ 105), denoting the colors of the vertices.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_012.jsonl",
+    "code_uid": "0ab933a56c183a04ae5ccbef481e8ff0",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1 2\\n2 3\\n3 4\\n1 2 1 1\", \"3\\n1 2\\n2 3\\n1 2 3\", \"4\\n1 2\\n2 3\\n3 4\\n1 2 1 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "\nimport sys\n\nn = int(sys.stdin.readline())\n\n\nedges = [[int(x) for x in sys.stdin.readline().split()] for _ in range(n - 1)]\ncolors = sys.stdin.readline().split()\n\nres = None\nfor edge in edges:\n    if colors[edge[0]-1] != colors[edge[1]-1]:\n        if res is None:\n            res = list(edge)\n        else:\n            res = [x for x in res if x in edge]\n            if len(res) == 0:\n                break\n\nif res is None:\n    print('YES\\n1')\nelse:\n    print('NO' if len(res) == 0 else 'YES\\n' + str(res[0]))",
+    "prob_desc_created_at": "1486042500",
+    "tags": [
+        "implementation",
+        "dfs and similar",
+        "trees",
+        "graphs"
+    ],
+    "hidden_unit_tests": ""
+}

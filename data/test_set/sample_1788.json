@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"0\", \"2\\n1 1 1\\n2 2 4\"]",
+    "src_uid": "e0ba8e0bfd9e1365daa41e1d14610200",
+    "prob_desc_notes": "NoteIn the first sample, the array is already increasing so we don't need any operations.In the second sample:In the first step: the array becomes $$$[8,6,3]$$$.In the second step: the array becomes $$$[0,2,3]$$$.",
+    "prob_desc_description": "You're given an array $$$a$$$ of length $$$n$$$. You can perform the following operations on it:  choose an index $$$i$$$ $$$(1 \\le i \\le n)$$$, an integer $$$x$$$ $$$(0 \\le x \\le 10^6)$$$, and replace $$$a_j$$$ with $$$a_j+x$$$ for all $$$(1 \\le j \\le i)$$$, which means add $$$x$$$ to all the elements in the prefix ending at $$$i$$$.  choose an index $$$i$$$ $$$(1 \\le i \\le n)$$$, an integer $$$x$$$ $$$(1 \\le x \\le 10^6)$$$, and replace $$$a_j$$$ with $$$a_j \\% x$$$ for all $$$(1 \\le j \\le i)$$$, which means replace every element in the prefix ending at $$$i$$$ with the remainder after dividing it by $$$x$$$. Can you make the array strictly increasing in no more than $$$n+1$$$ operations?",
+    "prob_desc_output_spec": "On the first line, print the number of operations you wish to perform. On the next lines, you should print the operations. To print an adding operation, use the format \"$$$1$$$ $$$i$$$ $$$x$$$\"; to print a modding operation, use the format \"$$$2$$$ $$$i$$$ $$$x$$$\". If $$$i$$$ or $$$x$$$ don't satisfy the limitations above, or you use more than $$$n+1$$$ operations, you'll get wrong answer verdict.",
+    "prob_desc_input_spec": "The first line contains an integer $$$n$$$ $$$(1 \\le n \\le 2000)$$$, the number of elements in the array $$$a$$$. The second line contains $$$n$$$ space-separated integers $$$a_1$$$, $$$a_2$$$, $$$\\dots$$$, $$$a_n$$$ $$$(0 \\le a_i \\le 10^5)$$$, the elements of the array $$$a$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_013.jsonl",
+    "code_uid": "fe88fbd0f28ddb2d023fee6f8dd64d42",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n1 2 3\", \"3\\n7 6 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = input()\na = map(int, raw_input().split())\n\nprint n + 1\n\nfor i in range(n):\n    k = n - i - 1\n    x = k - a[n - i - 1]\n    while x <= 0: x += n\n    for j in range(n - i): a[j] += x\n    print '1 %d %d' % (n - i, x)\n\nprint '2 %d %d' % (n, n)\n",
+    "prob_desc_created_at": "1543934100",
+    "tags": [
+        "constructive algorithms",
+        "greedy",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\\naca\\nba\\nca\", \"0\"]",
+    "src_uid": "dd7ccfee8c2a19bf47d65d5a62ac0071",
+    "prob_desc_notes": "NoteThe first test was analysed in the problem statement. In the second example the length of the string equals 5. The length of the root equals 5, so no string can be used as a suffix.",
+    "prob_desc_description": "First-rate specialists graduate from Berland State Institute of Peace and Friendship. You are one of the most talented students in this university. The education is not easy because you need to have fundamental knowledge in different areas, which sometimes are not related to each other. For example, you should know linguistics very well. You learn a structure of Reberland language as foreign language. In this language words are constructed according to the following rules. First you need to choose the \"root\" of the word — some string which has more than 4 letters. Then several strings with the length 2 or 3 symbols are appended to this word. The only restriction —  it is not allowed to append the same string twice in a row. All these strings are considered to be suffixes of the word (this time we use word \"suffix\" to describe a morpheme but not the few last characters of the string as you may used to). Here is one exercise that you have found in your task list. You are given the word s. Find all distinct strings with the length 2 or 3, which can be suffixes of this word according to the word constructing rules in Reberland language. Two strings are considered distinct if they have different length or there is a position in which corresponding characters do not match. Let's look at the example: the word abacabaca is given. This word can be obtained in the following ways: , where the root of the word is overlined, and suffixes are marked by \"corners\". Thus, the set of possible suffixes for this word is {aca, ba, ca}. ",
+    "prob_desc_output_spec": "On the first line print integer k — a number of distinct possible suffixes. On the next k lines print suffixes.  Print suffixes in lexicographical (alphabetical) order. ",
+    "prob_desc_input_spec": "The only line contains a string s (5 ≤ |s| ≤ 104) consisting of lowercase English letters.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_006.jsonl",
+    "code_uid": "f48d2bfb0aa9858161bdb7fd198e3620",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"abacabaca\", \"abaca\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "s = input()\nn = len(s)\nres = set()\n\nfrom collections import defaultdict\n\ntwo = [\"$\", \"\", \"$\"]\nthr = [\"$\", \"\", \"$\"]\n\nworks = lambda w, i : (two[i] != \"$\" and w != two[i]) or (thr[i] != \"$\" and w != thr[i])\n\ni = n - 2\nwhile i > 4:\n    ntwo = s[i: i + 2]\n    if works(ntwo, 1):\n        res.add(ntwo)\n    else:\n        ntwo = \"$\"    \n\n    if (i <= n - 3):\n        nthr = s[i: i + 3]\n        if works(nthr, 2):\n            res.add(nthr)\n        else:\n            nthr = \"$\"\n    else:\n        nthr = \"$\"\n\n    two = [ntwo] + two[0:2]\n    thr = [nthr] + thr[0:2]\n    i -= 1\n\nres = list(res)\nres.sort()\n\nprint(len(res))\nfor word in res:\n    print(word)",
+    "prob_desc_created_at": "1461947700",
+    "tags": [
+        "dp",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

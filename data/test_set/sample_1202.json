@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"YES\\n112323\", \"NO\"]",
+    "src_uid": "52c634955e1d78971d94098ba1c667d9",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given an undirected graph without self-loops or multiple edges which consists of $$$n$$$ vertices and $$$m$$$ edges. Also you are given three integers $$$n_1$$$, $$$n_2$$$ and $$$n_3$$$.Can you label each vertex with one of three numbers 1, 2 or 3 in such way, that:   Each vertex should be labeled by exactly one number 1, 2 or 3;  The total number of vertices with label 1 should be equal to $$$n_1$$$;  The total number of vertices with label 2 should be equal to $$$n_2$$$;  The total number of vertices with label 3 should be equal to $$$n_3$$$;  $$$|col_u - col_v| = 1$$$ for each edge $$$(u, v)$$$, where $$$col_x$$$ is the label of vertex $$$x$$$. If there are multiple valid labelings, print any of them.",
+    "prob_desc_output_spec": "If valid labeling exists then print \"YES\" (without quotes) in the first line. In the second line print string of length $$$n$$$ consisting of 1, 2 and 3. The $$$i$$$-th letter should be equal to the label of the $$$i$$$-th vertex. If there is no valid labeling, print \"NO\" (without quotes).",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1 \\le n \\le 5000$$$; $$$0 \\le m \\le 10^5$$$) — the number of vertices and edges in the graph. The second line contains three integers $$$n_1$$$, $$$n_2$$$ and $$$n_3$$$ ($$$0 \\le n_1, n_2, n_3 \\le n$$$) — the number of labels 1, 2 and 3, respectively. It's guaranteed that $$$n_1 + n_2 + n_3 = n$$$. Next $$$m$$$ lines contan description of edges: the $$$i$$$-th line contains two integers $$$u_i$$$, $$$v_i$$$ ($$$1 \\le u_i, v_i \\le n$$$; $$$u_i \\neq v_i$$$) — the vertices the $$$i$$$-th edge connects. It's guaranteed that the graph doesn't contain self-loops or multiple edges.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2100,
+    "file_name": "train_007.jsonl",
+    "code_uid": "0c6a800ffc85cbd29fb4b9e7e7581907",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6 3\\n2 2 2\\n3 1\\n5 4\\n2 5\", \"5 9\\n0 2 3\\n1 2\\n1 3\\n1 5\\n2 3\\n2 4\\n2 5\\n3 4\\n3 5\\n4 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nsys.setrecursionlimit(10**6)\n\nreadline = sys.stdin.readline\nread = sys.stdin.read\nns = lambda: readline().rstrip()\nni = lambda: int(readline().rstrip())\nnm = lambda: map(int, readline().split())\nnl = lambda: list(map(int, readline().split()))\nprn = lambda x: print(*x, sep='\\n')\n\n\ndef solve():\n    n, m = nm()\n    a = nl()\n    G = [list() for _ in range(n)]\n    for _ in range(m):\n        u, v = nm()\n        u -= 1; v -= 1\n        G[u].append(v)\n        G[v].append(u)\n\n    color = [-1]*n\n    roots = list()\n\n    def dfs(v, p):\n        siz,  bla = 1, color[v]\n        for x in G[v]:\n            if x == p: continue\n            if color[x] < 0:\n                color[x] = color[v] ^ 1\n                rs, rb = dfs(x, v)\n                siz += rs\n                bla += rb\n            elif color[x] == color[v]:\n                print('NO')\n                exit()\n        return siz, bla\n\n    for v in range(n):\n        if color[v] < 0:\n            color[v] = 0\n            siz, bla = dfs(v, -1)\n            roots.append((v, siz, bla))\n\n    dp = [1]*(len(roots) + 1)\n    for i, (v, siz, bla) in enumerate(roots):\n        dp[i+1] = dp[i] << bla | dp[i] << (siz - bla)\n    if dp[len(roots)] >> a[1] & 1 == 0:\n        print('NO')\n        return\n\n    cur = a[1]\n\n    ans = [0]*n\n\n    def dfs2(v, p, c):\n        if c ^ color[v]:\n            if a[0]:\n                ans[v] = 1\n                a[0] -= 1\n            else:\n                ans[v] = 3\n                a[2] -= 1\n        else:\n            ans[v] = 2\n            a[1] -= 1\n        for x in G[v]:\n            if not ans[x]:\n                dfs2(x, v, c)\n\n    for i in range(len(roots)-1, -1, -1):\n        v, siz, bla = roots[i]\n        if cur >= bla and dp[i] >> (cur - bla) & 1:\n            fl = 1\n            cur -= bla\n        else:\n            fl = 0\n            cur -= siz - bla\n        dfs2(v, -1, fl)\n    print('YES')\n    print(*ans, sep='')\n    return\n\n\nsolve()\n\n# T = ni()\n# for _ in range(T):\n#     solve()\n",
+    "prob_desc_created_at": "1589707200",
+    "tags": [
+        "dp",
+        "dfs and similar",
+        "graphs"
+    ],
+    "hidden_unit_tests": ""
+}

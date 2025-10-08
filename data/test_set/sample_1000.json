@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"9\", \"14\"]",
+    "src_uid": "d7fe15a027750c004e4f50175e1e20d2",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Polycarp is working on a new project called \"Polychat\". Following modern tendencies in IT, he decided, that this project should contain chat as well. To achieve this goal, Polycarp has spent several hours in front of his laptop and implemented a chat server that can process three types of commands:  Include a person to the chat ('Add' command).  Remove a person from the chat ('Remove' command).  Send a message from a person to all people, who are currently in the chat, including the one, who sends the message ('Send' command). Now Polycarp wants to find out the amount of outgoing traffic that the server will produce while processing a particular set of commands.Polycarp knows that chat server sends no traffic for 'Add' and 'Remove' commands. When 'Send' command is processed, server sends l bytes to each participant of the chat, where l is the length of the message.As Polycarp has no time, he is asking for your help in solving this problem.",
+    "prob_desc_output_spec": "Print a single number — answer to the problem.",
+    "prob_desc_input_spec": "Input file will contain not more than 100 commands, each in its own line. No line will exceed 100 characters. Formats of the commands will be the following:   +&lt;name&gt; for 'Add' command.  -&lt;name&gt; for 'Remove' command.  &lt;sender_name&gt;:&lt;message_text&gt; for 'Send' command.  &lt;name&gt; and &lt;sender_name&gt; is a non-empty sequence of Latin letters and digits. &lt;message_text&gt; can contain letters, digits and spaces, but can't start or end with a space. &lt;message_text&gt; can be an empty line. It is guaranteed, that input data are correct, i.e. there will be no 'Add' command if person with such a name is already in the chat, there will be no 'Remove' command if there is no person with such a name in the chat etc. All names are case-sensitive.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1000,
+    "file_name": "train_005.jsonl",
+    "code_uid": "68e7ea5367d538b53e8e36e804665b20",
+    "prob_desc_memory_limit": "64 megabytes",
+    "prob_desc_sample_inputs": "[\"+Mike\\nMike:hello\\n+Kate\\n+Dmitry\\n-Dmitry\\nKate:hi\\n-Kate\", \"+Mike\\n-Mike\\n+Mike\\nMike:Hi   I am here\\n-Mike\\n+Kate\\n-Kate\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nz=x=0\nfor s in sys.stdin:\n\tif s[0]=='+':\n\t\tx+=1\n\telif s[0]=='-':\n\t\tx-=1\n\telse:\n\t\tz+=(len(s)-s.find(':')-2)*x\nprint z",
+    "prob_desc_created_at": "1269100800",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

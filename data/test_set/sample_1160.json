@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"14 0\", \"1995 1995\"]",
+    "src_uid": "c19afaa6c46cd361e0e5ccee61f6f520",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given the following points with integer coordinates on the plane: M0, A0, A1, ..., An - 1, where n is odd number. Now we define the following infinite sequence of points Mi: Mi is symmetric to Mi - 1 according  (for every natural number i). Here point B is symmetric to A according M, if M is the center of the line segment AB. Given index j find the point Mj.",
+    "prob_desc_output_spec": "On a single line output the coordinates of Mj, space separated.",
+    "prob_desc_input_spec": "On the first line you will be given an integer n (1 ≤ n ≤ 105), which will be odd, and j (1 ≤ j ≤ 1018), where j is the index of the desired point. The next line contains two space separated integers, the coordinates of M0. After that n lines follow, where the i-th line contain the space separated integer coordinates of the point Ai - 1. The absolute values of all input coordinates will not be greater then 1000.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_007.jsonl",
+    "code_uid": "5888d6e920262cae6ff75cf6e79c8617",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 4\\n0 0\\n1 1\\n2 3\\n-5 3\", \"3 1\\n5 5\\n1000 1000\\n-1000 1000\\n3 100\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#!/usr/bin/env python\n\ndef mul(a, b):\n    res = []\n    for i in range(len(b)):\n        res.append(a*b[i])\n    return tuple(res)\n\ndef add(a, b):\n    res = []\n    for i in range(len(a)):\n        res.append(a[i]+b[i])\n    return tuple(res)\n\nn, j = tuple(map(int, raw_input().split()))\n\nm0 = tuple(map(int, raw_input().split()))\na = []\nfor k in range(n):\n    a.append(tuple(map(int, raw_input().split())))\n\npar = j / (2*n)\nj = j % (2*n)\nsign = 1\nif par % 2 == 1:\n    sign = -1\n\ns = 1\nsum = (0, 0)\nwhile j != 0:\n    sum = add(sum, mul(2*s, a[(j-1)%n]))\n    s = -s\n    j -= 1\nsum = add(sum, mul(s, m0))\n\nprint sum[0], sum[1]\n",
+    "prob_desc_created_at": "1280149200",
+    "tags": [
+        "implementation",
+        "geometry",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

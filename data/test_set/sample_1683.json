@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "0.5 second",
+    "prob_desc_sample_outputs": "[\"20 ml. from cup #4 to cup #1.\", \"Exemplary pages.\", \"Unrecoverable configuration.\"]",
+    "src_uid": "7bfc0927ea7abcef661263e978612cc5",
+    "prob_desc_notes": null,
+    "prob_desc_description": "In a far away kingdom young pages help to set the table for the King. As they are terribly mischievous, one needs to keep an eye on the control whether they have set everything correctly. This time the royal chef Gerasim had the impression that the pages have played a prank again: they had poured the juice from one cup to another. Now Gerasim wants to check his hypothesis. The good thing is that chef Gerasim always pour the same number of milliliters of juice to all cups in the royal kitchen. Having thoroughly measured the juice in each cup, Gerasim asked you to write a program that will determine from which cup juice was poured to which one; otherwise, the program should determine that this time the pages set the table diligently.To simplify your task we shall consider the cups to be bottomless so that the juice never overfills a cup and pours out, however much it can be. Besides, by some strange reason in a far away kingdom one can only pour to a cup or from one cup to another an integer number of milliliters of juice.",
+    "prob_desc_output_spec": "If the pages didn't pour the juice, print \"Exemplary pages.\" (without the quotes). If you can determine the volume of juice poured during exactly one juice pouring, print \"v ml. from cup #a to cup #b.\" (without the quotes), where v represents the volume of poured juice, a represents the number of the cup from which the juice was poured (the cups are numbered with consecutive positive integers starting from one in the order in which the cups are described in the input data), b represents the number of the cup into which the juice was poured. Finally, if the given juice's volumes cannot be obtained using no more than one pouring (for example, the pages poured the juice from one cup to another more than once or the royal kitchen maids poured the juice into the cups incorrectly), print \"Unrecoverable configuration.\" (without the quotes).",
+    "prob_desc_input_spec": "The first line contains integer n — the number of cups on the royal table (1 ≤ n ≤ 1000). Next n lines contain volumes of juice in each cup — non-negative integers, not exceeding 104.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1300,
+    "file_name": "train_011.jsonl",
+    "code_uid": "a2379ee58cc1f0010e8590c1a157539f",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n270\\n250\\n250\\n230\\n250\", \"5\\n250\\n250\\n250\\n250\\n250\", \"5\\n270\\n250\\n249\\n230\\n250\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "\n\n\ndef middleCount(lis, m):\n  count = 0\n\n  for a,b in lis:\n    if a == m:\n      count += 1\n\n  return count\t  \n\n\nn = int(raw_input())\n\nlis = []\n\nfirst = -1\n\nallUnique = True\n\nfor i in range(n):\n  l = int(raw_input())\n  lis.append((l, i+1))\n  \n  if first == -1:\n    first = l\n\t\n  if l != first:\n    allUnique = False  \n\nlis.sort()\n\nif allUnique:\n  print \"Exemplary pages.\"\nelif len(lis) == 2:\n  if (lis[0][0] + lis[1][0]) % 2 == 0:\n    initial = (lis[0][0] + lis[1][0]) / 2\n    print str(initial - lis[0][0]) + \" ml. from cup #\" + str(lis[0][1]) + \" to cup #\" + str(lis[-1][1]) + \".\" \t\n  else:\n    print \"Unrecoverable configuration.\"  \nelse:\n  if len(lis) == 4 and lis[1][0] != lis[-2][0]:\n    print \"Unrecoverable configuration.\" \n  elif middleCount(lis, lis[1][0]) == (len(lis) - 2) and (lis[1][0] - lis[0][0]) == (lis[-1][0] - lis[-2][0]):\n    print str(lis[1][0] - lis[0][0]) + \" ml. from cup #\" + str(lis[0][1]) + \" to cup #\" + str(lis[-1][1]) + \".\" \n  else:\n    print \"Unrecoverable configuration.\"  \n\n\n  ",
+    "prob_desc_created_at": "1311346800",
+    "tags": [
+        "implementation",
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

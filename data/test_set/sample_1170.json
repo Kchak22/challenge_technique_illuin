@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"0\\n3\\n1000000\\n0\\n1\\n0\"]",
+    "src_uid": "f98d1d426f68241bad437eb221f617f4",
+    "prob_desc_notes": "NoteIn the first test case (picture above), if we set the coordinate of $$$B$$$ as $$$2$$$ then the absolute difference will be equal to $$$|(2 - 0) - (4 - 2)| = 0$$$ and we don't have to move $$$A$$$. So the answer is $$$0$$$.In the second test case, we can increase the coordinate of $$$A$$$ by $$$3$$$ and set the coordinate of $$$B$$$ as $$$0$$$ or $$$8$$$. The absolute difference will be equal to $$$|8 - 0| = 8$$$, so the answer is $$$3$$$.  ",
+    "prob_desc_description": "We have a point $$$A$$$ with coordinate $$$x = n$$$ on $$$OX$$$-axis. We'd like to find an integer point $$$B$$$ (also on $$$OX$$$-axis), such that the absolute difference between the distance from $$$O$$$ to $$$B$$$ and the distance from $$$A$$$ to $$$B$$$ is equal to $$$k$$$.  The description of the first test case. Since sometimes it's impossible to find such point $$$B$$$, we can, in one step, increase or decrease the coordinate of $$$A$$$ by $$$1$$$. What is the minimum number of steps we should do to make such point $$$B$$$ exist?",
+    "prob_desc_output_spec": "For each test case, print the minimum number of steps to make point $$$B$$$ exist.",
+    "prob_desc_input_spec": "The first line contains one integer $$$t$$$ ($$$1 \\le t \\le 6000$$$) — the number of test cases. The only line of each test case contains two integers $$$n$$$ and $$$k$$$ ($$$0 \\le n, k \\le 10^6$$$) — the initial position of point $$$A$$$ and desirable absolute difference.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 900,
+    "file_name": "train_007.jsonl",
+    "code_uid": "98be7d52ce17342be19d418150db536f",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6\\n4 0\\n5 8\\n0 1000000\\n0 0\\n1 0\\n1000000 1000000\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "T = int(input())\nfor _ in range(T):\n    n, k = tuple(map(int, input().split()))\n\n    if n < k:\n        print(k - n)\n        continue\n\n    if n == k:\n        print(0)\n        continue\n\n    if n > k:\n        if n % 2 == k % 2:\n            print(0)\n        else:\n            print(1)",
+    "prob_desc_created_at": "1598020500",
+    "tags": [
+        "constructive algorithms",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"0\", \"1\", \"6\"]",
+    "src_uid": "fa7a44fd24fa0a8910cb7cc0aa4f2155",
+    "prob_desc_notes": "NoteIn the first sample test it is possible to change the string like the following: .In the second sample test it is possible to change the string like the following: .In the third sample test it is possible to change the string like the following: .",
+    "prob_desc_description": "Andrewid the Android is a galaxy-famous detective. In his free time he likes to think about strings containing zeros and ones.Once he thought about a string of length n consisting of zeroes and ones. Consider the following operation: we choose any two adjacent positions in the string, and if one them contains 0, and the other contains 1, then we are allowed to remove these two digits from the string, obtaining a string of length n - 2 as a result.Now Andreid thinks about what is the minimum length of the string that can remain after applying the described operation several times (possibly, zero)? Help him to calculate this number.",
+    "prob_desc_output_spec": "Output the minimum length of the string that may remain after applying the described operations several times.",
+    "prob_desc_input_spec": "First line of the input contains a single integer n (1 ≤ n ≤ 2·105), the length of the string that Andreid has. The second line contains the string of length n consisting only from zeros and ones.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 900,
+    "file_name": "train_005.jsonl",
+    "code_uid": "774f2b6d100583986ba9a2e7c30aede5",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1100\", \"5\\n01010\", \"8\\n11101111\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#   FILE: caseOfZerosAndOnes.py\n#   CodeForces 556A\n\ndef main():\n    length = int(input())\n    string = input()\n    countZero = 0\n    countOne = 0\n\n    for i in range(length):\n        if(string[i] == '0'):\n            countZero += 1\n        else:\n            countOne += 1\n\n    min = countZero\n    if(countOne < countZero):\n        min = countOne\n\n    print(length - (2 * min))\n\nmain()\n",
+    "prob_desc_created_at": "1435414200",
+    "tags": [
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

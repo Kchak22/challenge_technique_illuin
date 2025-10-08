@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2 1\", \"1 3 2\"]",
+    "src_uid": "f35d7f9c12eea4364891e0449613f6b0",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Vasya bought the collected works of a well-known Berland poet Petya in n volumes. The volumes are numbered from 1 to n. He thinks that it does not do to arrange the book simply according to their order. Vasya wants to minimize the number of the disposition’s divisors — the positive integers i such that for at least one j (1 ≤ j ≤ n) is true both: j mod i = 0 and at the same time p(j) mod i = 0, where p(j) is the number of the tome that stands on the j-th place and mod is the operation of taking the division remainder. Naturally, one volume can occupy exactly one place and in one place can stand exactly one volume.Help Vasya — find the volume disposition with the minimum number of divisors.",
+    "prob_desc_output_spec": "Print n numbers — the sought disposition with the minimum divisor number. The j-th number (1 ≤ j ≤ n) should be equal to p(j) — the number of tome that stands on the j-th place. If there are several solutions, print any of them.",
+    "prob_desc_input_spec": "The first line contains number n (1 ≤ n ≤ 100000) which represents the number of volumes and free places.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_007.jsonl",
+    "code_uid": "17218f3206b7060ec4739761660fdf0a",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2\", \"3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#Code by Sounak, IIESTS\n#------------------------------warmup----------------------------\n\nimport os\nimport sys\nimport math\nfrom io import BytesIO, IOBase\nfrom fractions import Fraction\nfrom collections import defaultdict\n \n\nBUFSIZE = 8192\n \n \nclass FastIO(IOBase):\n    newlines = 0\n    \n    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable else None\n     \n    def read(self):\n        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n        return self.buffer.read()\n \n    def readline(self):\n        while self.newlines == 0:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n        return self.buffer.readline()\n \n    def flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0), self.buffer.seek(0)\n \n \nclass IOWrapper(IOBase):\n    def __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n        self.writable = self.buffer.writable\n        self.write = lambda s: self.buffer.write(s.encode(\"ascii\"))\n        self.read = lambda: self.buffer.read().decode(\"ascii\")\n        self.readline = lambda: self.buffer.readline().decode(\"ascii\")\n  \nsys.stdin, sys.stdout = IOWrapper(sys.stdin), IOWrapper(sys.stdout)\ninput = lambda: sys.stdin.readline().rstrip(\"\\r\\n\")\n\n#-------------------game starts now-----------------------------------------------------\nn=int(input())\nl=[i for i in range(1,n)]\nl=[n]+l\nprint(*l,sep=\" \")",
+    "prob_desc_created_at": "1292601600",
+    "tags": [
+        "constructive algorithms",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

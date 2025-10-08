@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"possible\", \"impossible\"]",
+    "src_uid": "5fde461bbb54302cfa5e8d5d3e29b9db",
+    "prob_desc_notes": "NoteIn the first sample, there are n = 5 vertices. The degree of vertex 1 should be k = 2. All conditions are satisfied for a tree with edges 1 - 5, 5 - 2, 1 - 3 and 3 - 4.In the second sample, Limak remembers that none of the following edges existed: 1 - 2, 1 - 3, 1 - 4, 1 - 5 and 1 - 6. Hence, vertex 1 couldn't be connected to any other vertex and it implies that there is no suitable tree.",
+    "prob_desc_description": "A tree is a connected undirected graph consisting of n vertices and n  -  1 edges. Vertices are numbered 1 through n.Limak is a little polar bear. He once had a tree with n vertices but he lost it. He still remembers something about the lost tree though.You are given m pairs of vertices (a1, b1), (a2, b2), ..., (am, bm). Limak remembers that for each i there was no edge between ai and bi. He also remembers that vertex 1 was incident to exactly k edges (its degree was equal to k).Is it possible that Limak remembers everything correctly? Check whether there exists a tree satisfying the given conditions.",
+    "prob_desc_output_spec": "Print \"possible\" (without quotes) if there exists at least one tree satisfying the given conditions. Otherwise, print \"impossible\" (without quotes).",
+    "prob_desc_input_spec": "The first line of the input contains three integers n, m and k () — the number of vertices in Limak's tree, the number of forbidden pairs of vertices, and the degree of vertex 1, respectively. The i-th of next m lines contains two distinct integers ai and bi (1 ≤ ai, bi ≤ n, ai ≠ bi) — the i-th pair that is forbidden. It's guaranteed that each pair of vertices will appear at most once in the input.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 2400,
+    "file_name": "train_012.jsonl",
+    "code_uid": "285ec371e9d40d7dc9d2c86d6dfea1d5",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 4 2\\n1 2\\n2 3\\n4 2\\n4 1\", \"6 5 3\\n1 2\\n1 3\\n1 4\\n1 5\\n1 6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nn,m,k = map(int, sys.stdin.readline().split(' '))\nV = map(set, [set()]*n)\nfor _ in range(m):\n  u,v = map(int, sys.stdin.readline().rstrip('\\n').split(' '))\n  u-=1\n  v-=1\n  V[u].add(v)\n  V[v].add(u)\nif n-1-len(V[0])<k:\n  print 'impossible'\n  exit()\n  \nvisited = set(range(1,n))\ncomp = 0\nfor i in range(1,n):\n  if i in visited:\n    visited.remove(i)\n    comp += 1\n    if comp>k:\n      print 'impossible'\n      exit()\n    can_connect_to_root = False\n    stack = [i]\n    for s in stack:\n      can_connect_to_root |= s not in V[0]\n      removed = set()\n      for x in visited:\n        if x not in V[s]:\n          removed.add(x)\n          stack.append(x)\n      visited.difference_update(removed)\n    if not can_connect_to_root:\n      print 'impossible'\n      exit()\nprint 'possible'\n",
+    "prob_desc_created_at": "1458376500",
+    "tags": [
+        "dsu",
+        "dfs and similar",
+        "trees",
+        "graphs"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1\", \"1\", \"0\", \"4\"]",
+    "src_uid": "4ed5b8055ce48b5ad4e43ed4b06d1b07",
+    "prob_desc_notes": "NoteIn the first sample Valera will wash a bowl only on the third day, so the answer is one.In the second sample, Valera will have the first type of the dish during all four days, and since there are only three bowls, he will wash a bowl exactly once.In the third sample, Valera will have the second type of dish for all three days, and as they can be eaten from either a plate or a bowl, he will never need to wash a plate/bowl.",
+    "prob_desc_description": "Valera is a lazy student. He has m clean bowls and k clean plates. Valera has made an eating plan for the next n days. As Valera is lazy, he will eat exactly one dish per day. At that, in order to eat a dish, he needs exactly one clean plate or bowl. We know that Valera can cook only two types of dishes. He can eat dishes of the first type from bowls and dishes of the second type from either bowls or plates. When Valera finishes eating, he leaves a dirty plate/bowl behind. His life philosophy doesn't let him eat from dirty kitchenware. So sometimes he needs to wash his plate/bowl before eating. Find the minimum number of times Valera will need to wash a plate/bowl, if he acts optimally.",
+    "prob_desc_output_spec": "Print a single integer — the minimum number of times Valera will need to wash a plate/bowl.",
+    "prob_desc_input_spec": "The first line of the input contains three integers n, m, k (1 ≤ n, m, k ≤ 1000) — the number of the planned days, the number of clean bowls and the number of clean plates. The second line contains n integers a1, a2, ..., an (1 ≤ ai ≤ 2). If ai equals one, then on day i Valera will eat a first type dish. If ai equals two, then on day i Valera will eat a second type dish. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 900,
+    "file_name": "train_008.jsonl",
+    "code_uid": "05ae7790d958c961f83f83c457ecc622",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 1 1\\n1 2 1\", \"4 3 1\\n1 1 1 1\", \"3 1 2\\n2 2 2\", \"8 2 2\\n1 2 1 2 1 2 1 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "strOne = raw_input('')\nstrTwo = raw_input('')\n\nlst = strOne.split(' ')\n\nn = int(lst[0])\nm = int(lst[1])\nk = int(lst[2])\n\nlst = strTwo.split(' ')\n\nresult = 0\n\nfor x in range(0,n):\n    if lst[x] == '1':\n        if m != 0:\n            m -= 1\n        else:\n            result += 1\n    else:\n        if k != 0:\n            k -= 1\n        elif m != 0:\n            m -= 1\n        else:\n            result += 1\n\nprint result\n",
+    "prob_desc_created_at": "1385739000",
+    "tags": [
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

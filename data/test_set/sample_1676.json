@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1\\n1 3 10\", \"0\", \"2\\n1 2 60\\n3 4 50\"]",
+    "src_uid": "e83a8bfabd7ea096fae66dcc8c243be7",
+    "prob_desc_notes": null,
+    "prob_desc_description": "The German University in Cairo (GUC) dorm houses are numbered from 1 to n. Underground water pipes connect these houses together. Each pipe has certain direction (water can flow only in this direction and not vice versa), and diameter (which characterizes the maximal amount of water it can handle).For each house, there is at most one pipe going into it and at most one pipe going out of it. With the new semester starting, GUC student and dorm resident, Lulu, wants to install tanks and taps at the dorms. For every house with an outgoing water pipe and without an incoming water pipe, Lulu should install a water tank at that house. For every house with an incoming water pipe and without an outgoing water pipe, Lulu should install a water tap at that house. Each tank house will convey water to all houses that have a sequence of pipes from the tank to it. Accordingly, each tap house will receive water originating from some tank house.In order to avoid pipes from bursting one week later (like what happened last semester), Lulu also has to consider the diameter of the pipes. The amount of water each tank conveys should not exceed the diameter of the pipes connecting a tank to its corresponding tap. Lulu wants to find the maximal amount of water that can be safely conveyed from each tank to its corresponding tap.",
+    "prob_desc_output_spec": "Print integer t in the first line — the number of tank-tap pairs of houses. For the next t lines, print 3 integers per line, separated by spaces: tanki, tapi, and diameteri, where tanki ≠ tapi (1 ≤ i ≤ t). Here tanki and tapi are indexes of tank and tap houses respectively, and diameteri is the maximum amount of water that can be conveyed. All the t lines should be ordered (increasingly) by tanki.",
+    "prob_desc_input_spec": "The first line contains two space-separated integers n and p (1 ≤ n ≤ 1000, 0 ≤ p ≤ n) — the number of houses and the number of pipes correspondingly.  Then p lines follow — the description of p pipes. The i-th line contains three integers ai bi di, indicating a pipe of diameter di going from house ai to house bi (1 ≤ ai, bi ≤ n, ai ≠ bi, 1 ≤ di ≤ 106). It is guaranteed that for each house there is at most one pipe going into it and at most one pipe going out of it.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_011.jsonl",
+    "code_uid": "f94278a7d072af5b5edefbaf175bea40",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 2\\n1 2 10\\n2 3 20\", \"3 3\\n1 2 20\\n2 3 10\\n3 1 5\", \"4 2\\n1 2 60\\n3 4 50\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "houses, pipes = [int(x) for x in input().strip().split()]\n \nhouseToHouseDict = {}\npipeDict = {}\noutgoingList = []\nincomingList = []\nmaxFlow = 0\ndef DFSmaxPipe(origin):\n\tend = []\n\tlowestDiam = maxFlow\n\twhile (origin in houseToHouseDict):\n\t\tdiam = pipeDict[origin]\n\t\tif diam < lowestDiam:\n\t\t\tlowestDiam = diam\n\t\torigin = houseToHouseDict[origin]\n\tend.append(origin)\n\tend.append(lowestDiam)\n\treturn end\n \n \n \nfor x in range(pipes):\n\tahouse, bhouse, diameter = [int(x) for x in input().strip().split()]\n\tpipeDict[ahouse] = diameter\n\thouseToHouseDict[ahouse] = bhouse\n\toutgoingList.append(ahouse)\n\tincomingList.append(bhouse)\n\tif diameter > maxFlow:\n\t\tmaxFlow = diameter\n \n \nfor pipe in incomingList:\n\ttry:\n\t\toutgoingList.remove(pipe)\n\texcept ValueError:\n\t\tpass\n \noutgoingList.sort()\n \nprint(len(outgoingList))\n \nfor origin in outgoingList:\n\toutString = str(origin)\n\t\n\tendPipe = DFSmaxPipe(origin)\n\toutString += \" \" + str(endPipe[0]) + \" \" + str(endPipe[1])\n\tprint(outString)",
+    "prob_desc_created_at": "1314111600",
+    "tags": [
+        "dfs and similar",
+        "graphs"
+    ],
+    "hidden_unit_tests": ""
+}

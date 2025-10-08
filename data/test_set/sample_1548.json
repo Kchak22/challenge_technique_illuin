@@ -1,0 +1,30 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"5\\nAAAAA\\nBBBBB\\nBBBBB\\nCCCCC\\nCCCCC\", \"6\\nBBBBBB\\nBBBBBB\\nAAAACC\\nAAAACC\\nAAAACC\\nAAAACC\"]",
+    "src_uid": "2befe5da2df57d23934601cbe4d4f151",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Three companies decided to order a billboard with pictures of their logos. A billboard is a big square board. A logo of each company is a rectangle of a non-zero area. Advertisers will put up the ad only if it is possible to place all three logos on the billboard so that they do not overlap and the billboard has no empty space left. When you put a logo on the billboard, you should rotate it so that the sides were parallel to the sides of the billboard.Your task is to determine if it is possible to put the logos of all the three companies on some square billboard without breaking any of the described rules.",
+    "prob_desc_output_spec": "If it is impossible to place all the three logos on a square shield, print a single integer \"-1\" (without the quotes). If it is possible, print in the first line the length of a side of square n, where you can place all the three logos. Each of the next n lines should contain n uppercase English letters \"A\", \"B\" or \"C\". The sets of the same letters should form solid rectangles, provided that:   the sizes of the rectangle composed from letters \"A\" should be equal to the sizes of the logo of the first company,  the sizes of the rectangle composed from letters \"B\" should be equal to the sizes of the logo of the second company,  the sizes of the rectangle composed from letters \"C\" should be equal to the sizes of the logo of the third company,  Note that the logos of the companies can be rotated for printing on the billboard. The billboard mustn't have any empty space. If a square billboard can be filled with the logos in multiple ways, you are allowed to print any of them. See the samples to better understand the statement.",
+    "prob_desc_input_spec": "The first line of the input contains six positive integers x1, y1, x2, y2, x3, y3 (1 ≤ x1, y1, x2, y2, x3, y3 ≤ 100), where xi and yi determine the length and width of the logo of the i-th company respectively.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_010.jsonl",
+    "code_uid": "dd3a98511c6453d3b89f04b2d2cfea9a",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 1 2 5 5 2\", \"4 4 2 6 4 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "w1,h1, w2,h2, w3,h3 = map(int, input().split())\nr1, r2, r3 = sorted((w1,h1)), sorted((w2,h2)), sorted((w3,h3))\nfor i in range(3):\n    ra, ca = (r1,r2,r3)[i], \"ABC\"[i]\n    rb, cb = (r1,r2,r3)[(i+1)%3], \"ABC\"[(i+1)%3]\n    rc, cc = (r1,r2,r3)[(i+2)%3], \"ABC\"[(i+2)%3]\n    if ra[0] == ra[1]: continue\n    # solve a ra[1]-ra[0] x ra[1] rectangle with 2 remaining rectangles\n    w, h = ra[1]-ra[0], ra[1]\n    rs = []\n    wtot, whit, ws = 0, 0, []\n    htot, hhit, hs = 0, 0, []\n    for r in (rb, rc):\n        rs.append(r)\n        if r[0] != r[1]:\n            rs.append((r[1], r[0]))\n    for r in rs:\n        if r[0] == w:\n            wtot += r[1]\n            whit += 1\n            ws.append(r[1])\n        if r[0] == h:\n            htot += r[1]\n            hhit += 1\n            hs.append(r[1])\n    if whit == 2 and wtot == h:\n        n = ra[1]\n        xb = rb[0] if rb[1] == w else rb[1]\n        xc = rc[0] if rc[1] == w else rc[1]\n        print(n)\n        print((ca * n + '\\n') * ra[0], end='')\n        print((cb * xb + cc * xc + '\\n') * w, end='')\n        break\n    if hhit == 2 and htot == w:\n        n = ra[1]\n        xb = rb[0] if rb[1] == h else rb[1]\n        xc = rc[0] if rc[1] == h else rc[1]\n        print(n)\n        print((ca * n + '\\n') * ra[0], end='')\n        print((cb * n + '\\n') * xb, end='')\n        print((cc * n + '\\n') * xc, end='')\n        break\nelse:\n    print(-1)\n",
+    "prob_desc_created_at": "1443430800",
+    "tags": [
+        "geometry",
+        "constructive algorithms",
+        "bitmasks",
+        "math",
+        "implementation",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

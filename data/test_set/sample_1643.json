@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"aa.b\\nc.hg\", \"a!aa\", \"aa|a\"]",
+    "src_uid": "0f04f757dc734208d803ee0f6be5d1f0",
+    "prob_desc_notes": null,
+    "prob_desc_description": "BerOilGasDiamondBank has branches in n cities, at that n is an even number. The bank management wants to publish a calendar with the names of all those cities written in two columns: the calendar should consist of exactly n / 2 lines of strictly equal length, each of which contains exactly two names and exactly one separator character between them. The name of every city should be used in the calendar exactly once. For historical reasons the symbol d is used as the separator of words in the calendar. The BerOilGasDiamondBank management wants to show that all its branches are equally important to it, that's why the order of their appearance in the calendar should be following: if we \"glue\"(concatinate) all the n / 2 calendar lines (from top to bottom) to make a single line, then the lexicographically minimal line is obtained. No separator character will be used to separate calendar lines. For example, if the lines are \"bertown!berville\", \"newberville!bera\", then the resulting line is \"bertown!bervillenewberville!bera\". In some sense one has to find the lexicographically minimal calendar, where the comparison of calendars happens line by line.Help BerOilGasDiamondBank and construct the required calendar.",
+    "prob_desc_output_spec": "Print n / 2 lines of similar length which are the required calendar. Every line should contain exactly two words and exactly one separator between them. If there are several solutions, print the lexicographically minimal one. The lexicographical comparison of lines is realized by the \"&lt;\" operator in the modern programming languages.",
+    "prob_desc_input_spec": "The first line contains an integer n (1 ≤ n ≤ 104, n is even) which is the number of branches. Then follow n lines which are the names of the cities. All the names consist of lowercase Latin letters; their lengths are no less than 1 and no more than 10 symbols. The next line contains a single symbol d (d has an ASCII-code from 33 to 126 inclusively, excluding lowercase Latin letters) which is the separator between words in the calendar lines. It is guaranteed that the calendar is possible to be constructed and all the names are different.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_011.jsonl",
+    "code_uid": "6cb1e2e7ed501c72f2001529ed268681",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\nb\\naa\\nhg\\nc\\n.\", \"2\\naa\\na\\n!\", \"2\\naa\\na\\n|\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(input())\na = []\nfor i in range(10):\n    a.append([])\nres = 0\nfor i in range(n):\n    s = input()\n    a[len(s)-1].append(s)\n    res += len(s)\nres //= (n // 2)\nc = input()\nb = []\nfor i in range(10):\n    a[i].sort()\n    b.append(0)\nfor i in range(n // 2):\n    cur = 'zzzzzzzzzzzzz'\n    s = ''\n    for j in range(10):\n        if b[j] < len(a[j]):\n            if (cur + c) > (a[j][b[j]] + c):\n                cur = a[j][b[j]]\n    t = len(cur)\n    #print(cur)\n    if t == res / 2:\n        s += cur + c + a[res-t-1][b[res-t-1]+1]\n    else:\n        s += cur + c + a[res-t-1][b[res-t-1]]\n    b[t-1] += 1\n    b[res-t-1] += 1\n    #print(b, a)\n    print(s)\n#print(a, res)\n",
+    "prob_desc_created_at": "1296489600",
+    "tags": [
+        "greedy",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

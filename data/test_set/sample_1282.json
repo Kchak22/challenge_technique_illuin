@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"4\", \"1\"]",
+    "src_uid": "5f4d01b17b9669a00c0f1a8b3a373abf",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Little Petya likes to play very much. And most of all he likes to play the following game:He is given a sequence of N integer numbers. At each step it is allowed to increase the value of any number by 1 or to decrease it by 1. The goal of the game is to make the sequence non-decreasing with the smallest number of steps. Petya is not good at math, so he asks for your help.The sequence a is called non-decreasing if a1 ≤ a2 ≤ ... ≤ aN holds, where N is the length of the sequence.",
+    "prob_desc_output_spec": "Output one integer — minimum number of steps required to achieve the goal.",
+    "prob_desc_input_spec": "The first line of the input contains single integer N (1 ≤ N ≤ 5000) — the length of the initial sequence. The following N lines contain one integer each — elements of the sequence. These numbers do not exceed 109 by absolute value.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_007.jsonl",
+    "code_uid": "1456ce0676a3a2e2eff904225b8012d3",
+    "prob_desc_memory_limit": "64 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n3 2 -1 2 11\", \"5\\n2 1 1 1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import heapq\ninput()\nans=0\na=[]\ninf=10**9\nfor x in map(int,input().split()):\n    x=inf-x\n    heapq.heappush(a,x)\n    ans+=a[0]-x\n    heapq.heappop(a)\n    heapq.heappush(a,x)\nprint(-ans)\n",
+    "prob_desc_created_at": "1273154400",
+    "tags": [
+        "dp",
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

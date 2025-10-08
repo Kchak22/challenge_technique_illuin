@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"24\", \"64\"]",
+    "src_uid": "9862db32dfd8eab8714d17aaaa338acd",
+    "prob_desc_notes": "NoteIn the first example you can split the books as follows:$$$$$$(9 + 14 + 28 + 1 + 7) \\&amp; (13 + 15) \\&amp; (29 + 2) \\&amp; (31) = 24.$$$$$$In the second example you can split the books as follows:$$$$$$(3 + 14 + 15 + 92) \\&amp; (65) \\&amp; (35 + 89) = 64.$$$$$$",
+    "prob_desc_description": "Mr Keks is a typical white-collar in Byteland.He has a bookshelf in his office with some books on it, each book has an integer positive price.Mr Keks defines the value of a shelf as the sum of books prices on it. Miraculously, Mr Keks was promoted and now he is moving into a new office.He learned that in the new office he will have not a single bookshelf, but exactly $$$k$$$ bookshelves. He decided that the beauty of the $$$k$$$ shelves is the bitwise AND of the values of all the shelves.He also decided that he won't spend time on reordering the books, so he will place several first books on the first shelf, several next books on the next shelf and so on. Of course, he will place at least one book on each shelf. This way he will put all his books on $$$k$$$ shelves in such a way that the beauty of the shelves is as large as possible. Compute this maximum possible beauty.",
+    "prob_desc_output_spec": "Print the maximum possible beauty of $$$k$$$ shelves in the new office.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$k$$$ ($$$1 \\leq k \\leq n \\leq 50$$$) — the number of books and the number of shelves in the new office. The second line contains $$$n$$$ integers $$$a_1, a_2, \\ldots a_n$$$, ($$$0 &lt; a_i &lt; 2^{50}$$$) — the prices of the books in the order they stand on the old shelf.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_006.jsonl",
+    "code_uid": "b4a9668b437b346bdf63e77807e6ecea",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"10 4\\n9 14 28 1 7 13 15 29 2 31\", \"7 3\\n3 14 15 92 65 35 89\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "[n, k] = [int(x) for x in input().split()]\nsum = [int(x) for x in input().split()]\nfor i in range(1, n):\n    sum[i] += sum[i - 1]\n\ndef check(mask, all):\n    dp = [[False for j in range(n)] for i in range(k)]\n    for i in range(n):\n        dp[0][i] = ((sum[i] & all & mask) == mask)\n    for i in range(1, k):\n        for j in range(n):\n            dp[i][j] = any(dp[i - 1][p] and ((sum[j] - sum[p]) & all & mask) == mask for p in range(0, j))\n    return dp[k - 1][n - 1]\n    \n\nans = 0\nfor i in range(60, -1, -1):\n    if(check(ans | (1 << i), ~((1 << i) - 1))):\n       ans |= 1 << i\nprint(ans)\n\n\n \t \t  \t  \t\t \t \t\t  \t  \t\t\t  \t  \t",
+    "prob_desc_created_at": "1527432600",
+    "tags": [
+        "dp",
+        "bitmasks",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

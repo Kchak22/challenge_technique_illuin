@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"5\", \"5\"]",
+    "src_uid": "d526af933b5afe9abfdf9815e9664144",
+    "prob_desc_notes": "NoteIn the first sample the second tile gets destroyed after day three, and the only path left is 1 → 3 → 4. After day five there is a two-tile gap between the first and the last tile, you can't jump over it.In the second sample path 1 → 3 → 5 is available up to day five, inclusive. On day six the last tile is destroyed and the walk is thwarted.",
+    "prob_desc_description": "In Berland the opposition is going to arrange mass walking on the boulevard. The boulevard consists of n tiles that are lain in a row and are numbered from 1 to n from right to left. The opposition should start walking on the tile number 1 and the finish on the tile number n. During the walk it is allowed to move from right to left between adjacent tiles in a row, and jump over a tile. More formally, if you are standing on the tile number i (i &lt; n - 1), you can reach the tiles number i + 1 or the tile number i + 2 from it (if you stand on the tile number n - 1, you can only reach tile number n). We can assume that all the opposition movements occur instantaneously.In order to thwart an opposition rally, the Berland bloody regime organized the rain. The tiles on the boulevard are of poor quality and they are rapidly destroyed in the rain. We know that the i-th tile is destroyed after ai days of rain (on day ai tile isn't destroyed yet, and on day ai + 1 it is already destroyed). Of course, no one is allowed to walk on the destroyed tiles! So the walk of the opposition is considered thwarted, if either the tile number 1 is broken, or the tile number n is broken, or it is impossible to reach the tile number n from the tile number 1 if we can walk on undestroyed tiles.The opposition wants to gather more supporters for their walk. Therefore, the more time they have to pack, the better. Help the opposition to calculate how much time they still have and tell us for how many days the walk from the tile number 1 to the tile number n will be possible.",
+    "prob_desc_output_spec": "Print a single number — the sought number of days.",
+    "prob_desc_input_spec": "The first line contains integer n (1 ≤ n ≤ 103) — the boulevard's length in tiles. The second line contains n space-separated integers ai — the number of days after which the i-th tile gets destroyed (1 ≤ ai ≤ 103). ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1100,
+    "file_name": "train_007.jsonl",
+    "code_uid": "01d7aad16d0511e95c117648d8734099",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n10 3 5 10\", \"5\\n10 2 8 3 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n=int(input())\na=list(map(int,input().split()))\nans=1e9\nfor i in range(n-1):\n    ans=min(ans,max(a[i],a[i+1]))\nprint(min(ans,a[0],a[-1]))\n",
+    "prob_desc_created_at": "1338132600",
+    "tags": [
+        "implementation",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

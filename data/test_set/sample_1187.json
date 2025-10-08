@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\\n3 5 6\", \"2\\n0 1\"]",
+    "src_uid": "dca6eee27f002413d5e2eaf28fd60750",
+    "prob_desc_notes": null,
+    "prob_desc_description": "This problem differs from one which was on the online contest.The sequence a1, a2, ..., an is called increasing, if ai &lt; ai + 1 for i &lt; n.The sequence s1, s2, ..., sk is called the subsequence of the sequence a1, a2, ..., an, if there exist such a set of indexes 1 ≤ i1 &lt; i2 &lt; ... &lt; ik ≤ n that aij = sj. In other words, the sequence s can be derived from the sequence a by crossing out some elements.You are given two sequences of integer numbers. You are to find their longest common increasing subsequence, i.e. an increasing sequence of maximum length that is the subsequence of both sequences.",
+    "prob_desc_output_spec": "In the first line output k — the length of the longest common increasing subsequence. In the second line output the subsequence itself. Separate the elements with a space. If there are several solutions, output any.",
+    "prob_desc_input_spec": "The first line contains an integer n (1 ≤ n ≤ 500) — the length of the first sequence. The second line contains n space-separated integers from the range [0, 109] — elements of the first sequence. The third line contains an integer m (1 ≤ m ≤ 500) — the length of the second sequence. The fourth line contains m space-separated integers from the range [0, 109] — elements of the second sequence.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2800,
+    "file_name": "train_007.jsonl",
+    "code_uid": "590bbd49db7012713d82a24e9912b08f",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"7\\n2 3 1 6 5 4 6\\n4\\n1 3 5 6\", \"5\\n1 2 0 2 1\\n3\\n1 0 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "__author__ = 'Darren'\n\n\n# dp(i,j): length of the LCIS between f[0:i+1] and s[0:j+1] that ends at s[j]\n# if f[i] == s[j]: dp(i,j) = max_len + 1\n# else: dp(i,j) = dp(i-1,j)\ndef solve():\n    n = int(input())\n    first = list(map(int, input().split()))\n    m = int(input())\n    second = list(map(int, input().split()))\n    if m > n:\n        n, m = m, n\n        first, second = second, first\n\n    # dp[j]: LCIS ending at second[j]\n    # prev[j]: index of the second-to-last number for the LCIS ending at second[j]\n    dp, prev = [0] * m, [-1] * m\n\n    for i in range(n):\n        # max_len: length of the LCIS whose largest number is smaller than first[i]\n        max_len, last_index = 0, -1\n        for j in range(m):\n            if first[i] == second[j] and dp[j] < max_len + 1:\n                dp[j] = max_len + 1\n                prev[j] = last_index\n            elif first[i] > second[j] and max_len < dp[j]:\n                max_len = dp[j]\n                last_index = j\n\n    # Find the length of LCIS between the first and second sequences, and \n    # the index of the last common number in the second sequence \n    max_value, index_max = 0, -1\n    for index, value in enumerate(dp):\n        if value > max_value:\n            max_value = value\n            index_max = index\n            \n    print(max_value)\n    if max_value > 0:\n        seq = []\n        index = index_max\n        while index >= 0:\n            seq.append(str(second[index]))\n            index = prev[index]\n        seq.reverse()\n        print(' '.join(seq))\n\n\n\nif __name__ == '__main__':\n    solve()\n",
+    "prob_desc_created_at": "1271346300",
+    "tags": [
+        "dp"
+    ],
+    "hidden_unit_tests": ""
+}

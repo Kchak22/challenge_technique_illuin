@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2.5 seconds",
+    "prob_desc_sample_outputs": "[\"8\", \"4\"]",
+    "src_uid": "1fe6daf718b88cabb2e956e81add3719",
+    "prob_desc_notes": "NoteIn the first sample there are 8 ways to split the sequence:  \"123434\" = \"123434\" (maybe the given sequence is just one big number)  \"123434\" = \"1\" + \"23434\"  \"123434\" = \"12\" + \"3434\"  \"123434\" = \"123\" + \"434\"  \"123434\" = \"1\" + \"23\" + \"434\"  \"123434\" = \"1\" + \"2\" + \"3434\"  \"123434\" = \"1\" + \"2\" + \"3\" + \"434\"  \"123434\" = \"1\" + \"2\" + \"3\" + \"4\" + \"34\" Note that we don't count a split \"123434\" = \"12\" + \"34\" + \"34\" because numbers have to be strictly increasing.In the second sample there are 4 ways:  \"20152016\" = \"20152016\"  \"20152016\" = \"20\" + \"152016\"  \"20152016\" = \"201\" + \"52016\"  \"20152016\" = \"2015\" + \"2016\" ",
+    "prob_desc_description": "Limak is a little polar bear. In the snow he found a scroll with the ancient prophecy. Limak doesn't know any ancient languages and thus is unable to understand the prophecy. But he knows digits!One fragment of the prophecy is a sequence of n digits. The first digit isn't zero. Limak thinks that it's a list of some special years. It's hard to see any commas or spaces, so maybe ancient people didn't use them. Now Limak wonders what years are listed there.Limak assumes three things:  Years are listed in the strictly increasing order;  Every year is a positive integer number;  There are no leading zeros. Limak is going to consider all possible ways to split a sequence into numbers (years), satisfying the conditions above. He will do it without any help. However, he asked you to tell him the number of ways to do so. Since this number may be very large, you are only asked to calculate it modulo 109 + 7.",
+    "prob_desc_output_spec": "Print the number of ways to correctly split the given sequence modulo 109 + 7.",
+    "prob_desc_input_spec": "The first line of the input contains a single integer n (1 ≤ n ≤ 5000) — the number of digits. The second line contains a string of digits and has length equal to n. It's guaranteed that the first digit is not '0'.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_008.jsonl",
+    "code_uid": "de7dd131809a05b77a30ecd4e217a269",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"6\\n123434\", \"8\\n20152016\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "modulo = 10**9 + 7\n\ndef get_order(inp):\n    n = len(inp)\n    gt = [[-1] * i for i in range(n)]\n    for j in range(i)[::-1]:\n        if inp[n-1] > inp[j]:\n            gt[n-1][j] = 0\n    for i in range(n-1)[::-1]:\n        for j in range(i)[::-1]:\n            if inp[i] > inp[j]:\n                gt[i][j] = 0\n            elif inp[i] == inp[j]:\n                pos = gt[i + 1][j + 1]\n                if pos >= 0 and pos + 1 < i - j:\n                    gt[i][j] = pos + 1\n    return gt\n\n\ndef solve(inp):\n    inp = tuple(map(int, inp))\n    n = len(inp)\n\n    gt = get_order(inp)\n\n    posg = [[None]*(n+1) for _ in range(n)]\n    for i in range(0, n)[::-1]:\n        for l in range(1, n+1)[::-1]:\n            end = i + l\n            if inp[i] == 0 or end > n:\n                posg[i][l] = 0\n                continue\n            if end + l > n:\n                posg[i][l] = 1\n                continue\n            sameok = gt[end][i] >= 0\n            res = posg[i][l+1]\n            if sameok:\n                res += posg[i + l][l]\n            else:\n                res += posg[i + l][l + 1]\n            posg[i][l] = res % modulo\n\n    return posg[0][1]\n\n\nraw_input()\nprint(solve(tuple(raw_input().strip())))\n",
+    "prob_desc_created_at": "1451487900",
+    "tags": [
+        "dp",
+        "hashing",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

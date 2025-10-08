@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"3\", \"13\"]",
+    "src_uid": "587ac3b470aaacaa024a0c6dde134b7c",
+    "prob_desc_notes": "NoteIn the first example, all three non-empty possible subsequences are good: $$$\\{1\\}$$$, $$$\\{1, 2\\}$$$, $$$\\{2\\}$$$In the second example, the possible good subsequences are: $$$\\{2\\}$$$, $$$\\{2, 2\\}$$$, $$$\\{2, 22\\}$$$, $$$\\{2, 14\\}$$$, $$$\\{2\\}$$$, $$$\\{2, 22\\}$$$, $$$\\{2, 14\\}$$$, $$$\\{1\\}$$$, $$$\\{1, 22\\}$$$, $$$\\{1, 14\\}$$$, $$$\\{22\\}$$$, $$$\\{22, 14\\}$$$, $$$\\{14\\}$$$.Note, that some subsequences are listed more than once, since they occur in the original array multiple times.",
+    "prob_desc_description": "You are given an integer array $$$a_1, a_2, \\ldots, a_n$$$.The array $$$b$$$ is called to be a subsequence of $$$a$$$ if it is possible to remove some elements from $$$a$$$ to get $$$b$$$.Array $$$b_1, b_2, \\ldots, b_k$$$ is called to be good if it is not empty and for every $$$i$$$ ($$$1 \\le i \\le k$$$) $$$b_i$$$ is divisible by $$$i$$$.Find the number of good subsequences in $$$a$$$ modulo $$$10^9 + 7$$$. Two subsequences are considered different if index sets of numbers included in them are different. That is, the values ​of the elements ​do not matter in the comparison of subsequences. In particular, the array $$$a$$$ has exactly $$$2^n - 1$$$ different subsequences (excluding an empty subsequence).",
+    "prob_desc_output_spec": "Print exactly one integer — the number of good subsequences taken modulo $$$10^9 + 7$$$.",
+    "prob_desc_input_spec": "The first line contains an integer $$$n$$$ ($$$1 \\le n \\le 100\\,000$$$) — the length of the array $$$a$$$. The next line contains integers $$$a_1, a_2, \\ldots, a_n$$$ ($$$1 \\le a_i \\le 10^6$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_000.jsonl",
+    "code_uid": "3e451b277d6d35becc4a2827d1ca5177",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2\\n1 2\", \"5\\n2 2 1 22 14\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#!/usr/bin/env python\n\"\"\"\nThis file is part of https://github.com/Cheran-Senthil/PyRival.\n\nCopyright 2018 Cheran Senthilkumar all rights reserved,\nCheran Senthilkumar <hello@cheran.io>\nPermission to use, modify, and distribute this software is given under the\nterms of the MIT License.\n\n\"\"\"\nfrom sys import stdin\n\n\ndef memodict(f):\n    \"\"\" Memoization decorator for a function taking a single argument. \"\"\"\n    class memodict(dict):\n        def __missing__(self, key):\n            ret = self[key] = f(key)\n            return ret\n    return memodict().__getitem__\n\n\n@memodict\ndef all_factors(n):\n    return sorted(set(reduce(list.__add__,\n                      ([i, n/i] for i in xrange(1, int(n**0.5) + 1, 2 if n % 2 else 1) if n % i == 0))), reverse=True)\n\n\ndiv_cnt = [0] * (int(stdin.readline()) + 1)\n\nres, numb, sign, div_cnt[0] = 0, 0, 1, 1\n\ns = stdin.read()\n\nfor i in xrange(len(s)):\n    if s[i] >= '0':\n        numb = 10 * numb + ord(s[i]) - 48\n    else:\n        if s[i] == '-':\n            sign = -1\n        else:\n            for j in all_factors(sign * numb):\n                try:\n                    res, div_cnt[j] = res + div_cnt[j - 1], div_cnt[j] + div_cnt[j - 1]\n                    if res > 1000000007:\n                        res -= 1000000007\n\n                    if div_cnt[j] > 1000000007:\n                        div_cnt[j] -= 1000000007\n\n                except:\n                    pass\n\n            numb, sign = 0, 1\n\nprint res\n",
+    "prob_desc_created_at": "1542901500",
+    "tags": [
+        "dp",
+        "number theory",
+        "math",
+        "implementation",
+        "data structures"
+    ],
+    "hidden_unit_tests": ""
+}

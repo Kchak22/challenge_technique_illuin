@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1.000000000\\n2.414213562\\n127.321336469\"]",
+    "src_uid": "0c7a476716445c535a61f4e81edc7f75",
+    "prob_desc_notes": null,
+    "prob_desc_description": "The statement of this problem is the same as the statement of problem C2. The only difference is that, in problem C1, $$$n$$$ is always even, and in C2, $$$n$$$ is always odd.You are given a regular polygon with $$$2 \\cdot n$$$ vertices (it's convex and has equal sides and equal angles) and all its sides have length $$$1$$$. Let's name it as $$$2n$$$-gon.Your task is to find the square of the minimum size such that you can embed $$$2n$$$-gon in the square. Embedding $$$2n$$$-gon in the square means that you need to place $$$2n$$$-gon in the square in such way that each point which lies inside or on a border of $$$2n$$$-gon should also lie inside or on a border of the square.You can rotate $$$2n$$$-gon and/or the square.",
+    "prob_desc_output_spec": "Print $$$T$$$ real numbers — one per test case. For each test case, print the minimum length of a side of the square $$$2n$$$-gon can be embedded in. Your answer will be considered correct if its absolute or relative error doesn't exceed $$$10^{-6}$$$.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$T$$$ ($$$1 \\le T \\le 200$$$) — the number of test cases. Next $$$T$$$ lines contain descriptions of test cases — one per line. Each line contains single even integer $$$n$$$ ($$$2 \\le n \\le 200$$$). Don't forget you need to embed $$$2n$$$-gon, not an $$$n$$$-gon.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_006.jsonl",
+    "code_uid": "f6a9a72c21428dfe6a2da3f8660c20ef",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n2\\n4\\n200\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nimport math\nrange = xrange\ninput = raw_input\n\nt = int(input())\nfor _ in range(t):\n\tn = int(input())\n\tr = 0.5 * math.tan(math.pi*(2*n-2)/(4*n))\n\t# r = 1/(2.0 * math.tan(math.pi / 2.0*n))\n\tprint 2*r",
+    "prob_desc_created_at": "1589707200",
+    "tags": [
+        "binary search",
+        "geometry",
+        "ternary search",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

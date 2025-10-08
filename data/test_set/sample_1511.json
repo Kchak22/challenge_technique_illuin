@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"NO\", \"YES\"]",
+    "src_uid": "3f1135cebde4f58e94be58dd72550eb2",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Seyyed and MoJaK are friends of Sajjad. Sajjad likes a permutation. Seyyed wants to change the permutation in a way that Sajjad won't like it. Seyyed thinks more swaps yield more probability to do that, so he makes MoJaK to perform a swap between every pair of positions (i, j), where i &lt; j, exactly once. MoJaK doesn't like to upset Sajjad.Given the permutation, determine whether it is possible to swap all pairs of positions so that the permutation stays the same. If it is possible find how to do that. ",
+    "prob_desc_output_spec": "If it is not possible to swap all pairs of positions so that the permutation stays the same, print \"NO\", Otherwise print \"YES\", then print  lines: the i-th of these lines should contain two integers a and b (a &lt; b) — the positions where the i-th swap is performed.",
+    "prob_desc_input_spec": "The first line contains single integer n (1 ≤ n ≤ 1000) — the size of the permutation. As the permutation is not important, you can consider ai = i, where the permutation is a1, a2, ..., an.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 3100,
+    "file_name": "train_009.jsonl",
+    "code_uid": "74dfd392b4203971abca0d64028c28cb",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\", \"1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = input()\nif n==1:\n\tprint \"YES\"\n\texit()\nelif n==2:\n\tprint \"NO\"\n\texit()\nelif n==3:\n\tprint \"NO\"\n\texit()\n\narr = []\npos = dict()\n\ndef output(x,y,st=\"\"):\n\tprint x,y\n\ndef switchTwoElement(x, y):\n\tglobal flag\n\tglobal n\n\tif flag==1 and abs(x-y)==1 and min(x,y)%2==1:\n\t\toutput (x, n)\n\t\toutput (x, y)\n\t\toutput (y, n)\n\telse:\n\t\toutput (x, y)\n\ndef make2(i, j):\n\tswitchTwoElement(i+3,j+2) \n\tswitchTwoElement(i+2,j+2) \n\tswitchTwoElement(i+3,j+1) \n\tswitchTwoElement(i,j+1) \n\tswitchTwoElement(i+1,j+3) \n\tswitchTwoElement(i+2,j+3) \n\tswitchTwoElement(i+1,j+2) \n\tswitchTwoElement(i+1,j+1) \n\tswitchTwoElement(i+3,j) \n\tswitchTwoElement(i+3,j+3) \n\tswitchTwoElement(i,j+2) \n\tswitchTwoElement(i,j+3) \n\tswitchTwoElement(i+2,j) \n\tswitchTwoElement(i+2,j+1) \n\tswitchTwoElement(i+1,j) \n\tswitchTwoElement(i,j)\n\ndef make4(x,y):\n\tswitchTwoElement (x,x+1)\n\tswitchTwoElement (x,y+1)\n\tswitchTwoElement (x+1,y)\n\tswitchTwoElement (x,y)\n\tswitchTwoElement (x+1,y+1)\n\tswitchTwoElement (y,y+1)\n\nfor i in range(1,n+1):\n\tarr.append(i)\n\tpos[i]=i-1\n\nflag = 0\nif n%4==1:\n\tflag=1\nif n%4==0 or n%4==1:\n\tprint(\"YES\")\n\tnClasses=int(n/4)\n\tfor i in range(1,n,4):\n\t\tmake4(i,i+2)\n\tfor i in range(1,nClasses):\n\t\tfor j in range(i+1,nClasses+1):\n\t\t\tmake2(4*(i-1)+1, 4*(j-1)+1)\nelse:\n\tprint \"NO\"\n",
+    "prob_desc_created_at": "1493909400",
+    "tags": [
+        "constructive algorithms"
+    ],
+    "hidden_unit_tests": ""
+}

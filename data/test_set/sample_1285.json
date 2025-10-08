@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "4 seconds",
+    "prob_desc_sample_outputs": "[\"332748119\\n332748119\", \"3\", \"160955686\\n185138929\\n974061117\"]",
+    "src_uid": "ba9c136f84375cd317f0f8b53e3939c7",
+    "prob_desc_notes": "NoteIn the first example, if the only visit shows the first picture with a probability of $$$\\frac 2 3$$$, the final weights are $$$(1,1)$$$; if the only visit shows the second picture with a probability of $$$\\frac1 3$$$, the final weights are $$$(2,2)$$$.So, both expected weights are $$$\\frac2 3\\cdot 1+\\frac 1 3\\cdot 2=\\frac4 3$$$ .Because $$$332748119\\cdot 3\\equiv 4\\pmod{998244353}$$$, you need to print $$$332748119$$$ instead of $$$\\frac4 3$$$ or $$$1.3333333333$$$.In the second example, there is only one picture which Nauuo likes, so every time Nauuo visits the website, $$$w_1$$$ will be increased by $$$1$$$.So, the expected weight is $$$1+2=3$$$.Nauuo is very naughty so she didn't give you any hint of the third example.",
+    "prob_desc_description": "The only difference between easy and hard versions is constraints.Nauuo is a girl who loves random picture websites.One day she made a random picture website by herself which includes $$$n$$$ pictures.When Nauuo visits the website, she sees exactly one picture. The website does not display each picture with equal probability. The $$$i$$$-th picture has a non-negative weight $$$w_i$$$, and the probability of the $$$i$$$-th picture being displayed is $$$\\frac{w_i}{\\sum_{j=1}^nw_j}$$$. That is to say, the probability of a picture to be displayed is proportional to its weight.However, Nauuo discovered that some pictures she does not like were displayed too often. To solve this problem, she came up with a great idea: when she saw a picture she likes, she would add $$$1$$$ to its weight; otherwise, she would subtract $$$1$$$ from its weight.Nauuo will visit the website $$$m$$$ times. She wants to know the expected weight of each picture after all the $$$m$$$ visits modulo $$$998244353$$$. Can you help her?The expected weight of the $$$i$$$-th picture can be denoted by $$$\\frac {q_i} {p_i}$$$ where $$$\\gcd(p_i,q_i)=1$$$, you need to print an integer $$$r_i$$$ satisfying $$$0\\le r_i&lt;998244353$$$ and $$$r_i\\cdot p_i\\equiv q_i\\pmod{998244353}$$$. It can be proved that such $$$r_i$$$ exists and is unique.",
+    "prob_desc_output_spec": "The output contains $$$n$$$ integers $$$r_1,r_2,\\ldots,r_n$$$ — the expected weights modulo $$$998244353$$$.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1\\le n\\le 2\\cdot 10^5$$$, $$$1\\le m\\le 3000$$$) — the number of pictures and the number of visits to the website. The second line contains $$$n$$$ integers $$$a_1,a_2,\\ldots,a_n$$$ ($$$a_i$$$ is either $$$0$$$ or $$$1$$$) — if $$$a_i=0$$$ , Nauuo does not like the $$$i$$$-th picture; otherwise Nauuo likes the $$$i$$$-th picture. It is guaranteed that there is at least one picture which Nauuo likes. The third line contains $$$n$$$ positive integers $$$w_1,w_2,\\ldots,w_n$$$ ($$$w_i \\geq 1$$$) — the initial weights of the pictures. It is guaranteed that the sum of all the initial weights does not exceed $$$998244352-m$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2600,
+    "file_name": "train_007.jsonl",
+    "code_uid": "3c5cd6958f4986a074603d2532720d03",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2 1\\n0 1\\n2 1\", \"1 2\\n1\\n1\", \"3 3\\n0 1 1\\n4 3 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "P = 998244353\nN, M = map(int, raw_input().split())\nA = [int(a) for a in raw_input().split()]\nB = [int(a) for a in raw_input().split()]\nli = sum([A[i]*B[i] for i in range(N)])\ndi = sum([(A[i]^1)*B[i] for i in range(N)])\nX = [1]\nSU = li+di\nPO = [0] * (5*M+10)\nfor i in range(-M-5, 2*M+5):\n    PO[i] = pow((SU+i)%P, P-2, P)\ndef calc(L):\n    su = sum(L)\n    pl = 0\n    pd = 0\n    RE = []\n    for i in range(len(L)):\n        a = li + i\n        b = di - (len(L) - 1 - i)\n        pd = b * L[i] * PO[a+b-SU]\n        RE.append((pl+pd)%P)\n        pl = a * L[i] * PO[a+b-SU]\n    RE.append(pl%P)\n    return RE\nfor i in range(M):\n    X = calc(X)\nne = 0\npo = 0\nfor i in range(M+1):\n    po = (po + X[i] * (li + i)) % P\n    ne = (ne + X[i] * (di - M + i)) % P\ninvli = pow(li, P-2, P)\ninvdi = pow(di, P-2, P)\nfor i in range(N):\n    print(po * B[i] * invli % P if A[i] else ne * B[i] * invdi % P)",
+    "prob_desc_created_at": "1559909100",
+    "tags": [
+        "dp",
+        "probabilities"
+    ],
+    "hidden_unit_tests": ""
+}

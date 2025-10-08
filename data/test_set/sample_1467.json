@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"Yes\", \"No\", \"No\", \"Yes\"]",
+    "src_uid": "c54042eebaef01783a74d31521db9baa",
+    "prob_desc_notes": "NoteIn the first example, there are five points: (1, 7), (2, 5), (3, 8), (4, 6) and (5, 9). It's possible to draw a line that passes through points 1, 3, 5, and another one that passes through points 2, 4 and is parallel to the first one.In the second example, while it's possible to draw two lines that cover all points, they cannot be made parallel.In the third example, it's impossible to satisfy both requirements at the same time.",
+    "prob_desc_description": "Connect the countless points with lines, till we reach the faraway yonder.There are n points on a coordinate plane, the i-th of which being (i, yi).Determine whether it's possible to draw two parallel and non-overlapping lines, such that every point in the set lies on exactly one of them, and each of them passes through at least one point in the set.",
+    "prob_desc_output_spec": "Output \"Yes\" (without quotes) if it's possible to fulfill the requirements, and \"No\" otherwise. You can print each letter in any case (upper or lower).",
+    "prob_desc_input_spec": "The first line of input contains a positive integer n (3 ≤ n ≤ 1 000) — the number of points. The second line contains n space-separated integers y1, y2, ..., yn ( - 109 ≤ yi ≤ 109) — the vertical coordinates of each point.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_009.jsonl",
+    "code_uid": "5f5d6eabb2e1d6c2ebf1e8f7611a2e2d",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n7 5 8 6 9\", \"5\\n-1 -2 0 0 -5\", \"5\\n5 4 3 2 1\", \"5\\n1000000000 0 0 0 0\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n=int(input())\nd=list(map(int,input().split()))\na,b,c=d[:3]\nif b-a==c-b:\n    e=b-a\n    f=0\n    for i in range(3,n):\n        if (d[i]-c)/(i-2)!=e:\n            if f and(d[i]-g)/(i-h)!=e:print('No');exit()\n            else:g,h=d[i],i;f=1\n    print('Yes'if f else'No')\nelse:\n    p1=p2=p3=1\n    e,f,g=b-a,c,2\n    h,j,k=c-b,a,0\n    l,m,o=(c-a)/2,b,1\n    for i in range(3,n):\n        if(d[i]-b)/(i-1)!=e and(d[i]-f)/(i-g)!=e:p1=0\n        if(d[i]-c)/(i-2)!=h and(d[i]-j)/(i-k)!=h:p2=0\n        if(d[i]-c)/(i-2)!=l and(d[i]-m)/(i-o)!=l:p3=0\n    print('Yes'if p1+p2+p3 else'No')",
+    "prob_desc_created_at": "1504272900",
+    "tags": [
+        "geometry",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

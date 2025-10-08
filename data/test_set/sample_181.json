@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "4 seconds",
+    "prob_desc_sample_outputs": "[\"3\", \"0\"]",
+    "src_uid": "71bace75df1279ae55a6e755159d4191",
+    "prob_desc_notes": "NoteIn the first example, there are three $$$l$$$, $$$r$$$ pairs we need to count: $$$1$$$, $$$6$$$; $$$2$$$, $$$6$$$; and $$$1$$$, $$$5$$$.In the second example, there are no values $$$x$$$, $$$k$$$ for the initial string, so the answer is $$$0$$$.",
+    "prob_desc_description": "Toad Rash has a binary string $$$s$$$. A binary string consists only of zeros and ones.Let $$$n$$$ be the length of $$$s$$$.Rash needs to find the number of such pairs of integers $$$l$$$, $$$r$$$ that $$$1 \\leq l \\leq r \\leq n$$$ and there is at least one pair of integers $$$x$$$, $$$k$$$ such that $$$1 \\leq x, k \\leq n$$$, $$$l \\leq x &lt; x + 2k \\leq r$$$, and $$$s_x = s_{x+k} = s_{x+2k}$$$.Find this number of pairs for Rash.",
+    "prob_desc_output_spec": "Output one integer: the number of such pairs of integers $$$l$$$, $$$r$$$ that $$$1 \\leq l \\leq r \\leq n$$$ and there is at least one pair of integers $$$x$$$, $$$k$$$ such that $$$1 \\leq x, k \\leq n$$$, $$$l \\leq x &lt; x + 2k \\leq r$$$, and $$$s_x = s_{x+k} = s_{x+2k}$$$.",
+    "prob_desc_input_spec": "The first line contains the string $$$s$$$ ($$$1 \\leq |s| \\leq 300\\,000$$$), consisting of zeros and ones.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_000.jsonl",
+    "code_uid": "6c1677bf64d091cedbe193ed0870deeb",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"010101\", \"11001100\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "\ndef parse(c, n):\n\n\n    l = [-1] * n\n\n    for x in c:\n        se = set(x)\n\n        for i in range(len(x) - 1):\n\n            for j in range(i + 1, len(x)):\n                k = x[j] - x[i]\n\n                if k > 20:\n                    break\n\n                if x[i] + k + k >= n:\n                    break\n\n                if x[i] + k + k in se:\n                    l[x[i] + k + k] = x[i]\n                    break\n\n    res = 0\n\n\n    prex = -1\n    # print(l)\n\n    for i in range(n):\n        if l[i] <= prex:\n            continue\n        res = res + (l[i] - prex) * (n - i);\n        # print(prex + 1, l[i], i + 1, n)\n        prex = l[i]\n    return res\n\n\nif __name__ == '__main__':\n\n    s = input()\n\n    one = [i for i in range(len(s)) if s[i] == '1']\n    zero = [i for i in range(len(s)) if s[i] == '0']\n\n    # print(one)\n    # print(zero)\n\n    ans = parse((one, zero), len(s))\n\n    print(ans)",
+    "prob_desc_created_at": "1558884900",
+    "tags": [
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

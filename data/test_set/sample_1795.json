@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"Mishka\", \"Friendship is magic!^^\", \"Chris\"]",
+    "src_uid": "76ecde4a445bbafec3cda1fc421e6d42",
+    "prob_desc_notes": "NoteIn the first sample case Mishka loses the first round, but wins second and third rounds and thus she is the winner of the game.In the second sample case Mishka wins the first round, Chris wins the second round, and the game ends with draw with score 1:1.In the third sample case Chris wins the first round, but there is no winner of the next two rounds. The winner of the game is Chris.",
+    "prob_desc_description": "Mishka is a little polar bear. As known, little bears loves spending their free time playing dice for chocolates. Once in a wonderful sunny morning, walking around blocks of ice, Mishka met her friend Chris, and they started playing the game.Rules of the game are very simple: at first number of rounds n is defined. In every round each of the players throws a cubical dice with distinct numbers from 1 to 6 written on its faces. Player, whose value after throwing the dice is greater, wins the round. In case if player dice values are equal, no one of them is a winner.In average, player, who won most of the rounds, is the winner of the game. In case if two players won the same number of rounds, the result of the game is draw.Mishka is still very little and can't count wins and losses, so she asked you to watch their game and determine its result. Please help her!",
+    "prob_desc_output_spec": "If Mishka is the winner of the game, print \"Mishka\" (without quotes) in the only line. If Chris is the winner of the game, print \"Chris\" (without quotes) in the only line. If the result of the game is draw, print \"Friendship is magic!^^\" (without quotes) in the only line.",
+    "prob_desc_input_spec": "The first line of the input contains single integer n n (1 ≤ n ≤ 100) — the number of game rounds. The next n lines contains rounds description. i-th of them contains pair of integers mi and ci (1 ≤ mi,  ci ≤ 6) — values on dice upper face after Mishka's and Chris' throws in i-th round respectively.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_013.jsonl",
+    "code_uid": "39374199fe61ee9cb65b5e74c37f254d",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n3 5\\n2 1\\n4 2\", \"2\\n6 1\\n1 6\", \"3\\n1 5\\n3 3\\n2 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(input())\na = 0\nb = 0\nfor i in range(n):\n    m, c = map(int, input().split())\n    if m > c:\n        a += 1\n    elif c > m:\n        b += 1\nif a > b:\n    print(\"Mishka\")\nelif b > a:\n    print(\"Chris\")\nelse:\n    print(\"Friendship is magic!^^\")",
+    "prob_desc_created_at": "1470323700",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

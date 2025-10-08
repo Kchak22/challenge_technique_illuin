@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"YES\\n2 1\\n2 3\\n3 4\", \"YES\\n1 2\\n1 3\\n4 1\", \"NO\"]",
+    "src_uid": "0cfaaa70b7990e4f170eb397cd8756f8",
+    "prob_desc_notes": "NoteThe picture corresponding to the first and second examples: The picture corresponding to the third example: ",
+    "prob_desc_description": "You are given an undirected unweighted connected graph consisting of $$$n$$$ vertices and $$$m$$$ edges. It is guaranteed that there are no self-loops or multiple edges in the given graph.Your task is to find any spanning tree of this graph such that the degree of the first vertex (vertex with label $$$1$$$ on it) is equal to $$$D$$$ (or say that there are no such spanning trees). Recall that the degree of a vertex is the number of edges incident to it.",
+    "prob_desc_output_spec": "If there is no spanning tree satisfying the condition from the problem statement, print \"NO\" in the first line. Otherwise print \"YES\" in the first line and then print $$$n-1$$$ lines describing the edges of a spanning tree such that the degree of the first vertex (vertex with label $$$1$$$ on it) is equal to $$$D$$$. Make sure that the edges of the printed spanning tree form some subset of the input edges (order doesn't matter and edge $$$(v, u)$$$ is considered the same as the edge $$$(u, v)$$$). If there are multiple possible answers, print any of them.",
+    "prob_desc_input_spec": "The first line contains three integers $$$n$$$, $$$m$$$ and $$$D$$$ ($$$2 \\le n \\le 2 \\cdot 10^5$$$, $$$n - 1 \\le m \\le min(2 \\cdot 10^5, \\frac{n(n-1)}{2}), 1 \\le D &lt; n$$$) — the number of vertices, the number of edges and required degree of the first vertex, respectively. The following $$$m$$$ lines denote edges: edge $$$i$$$ is represented by a pair of integers $$$v_i$$$, $$$u_i$$$ ($$$1 \\le v_i, u_i \\le n$$$, $$$u_i \\ne v_i$$$), which are the indices of vertices connected by the edge. There are no loops or multiple edges in the given graph, i. e. for each pair ($$$v_i, u_i$$$) there are no other pairs ($$$v_i, u_i$$$) or ($$$u_i, v_i$$$) in the list of edges, and for each pair $$$(v_i, u_i)$$$ the condition $$$v_i \\ne u_i$$$ is satisfied.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_006.jsonl",
+    "code_uid": "22953516921e89fcc3812eb5129415a5",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 5 1\\n1 2\\n1 3\\n1 4\\n2 3\\n3 4\", \"4 5 3\\n1 2\\n1 3\\n1 4\\n2 3\\n3 4\", \"4 4 3\\n1 2\\n1 4\\n2 3\\n3 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin\nfrom io import BytesIO\n\n\nclass disjointset:\n    def __init__(self, n):\n        self.rank, self.parent, self.n = [0] * (n + 1), [i for i in range(n + 1)], n\n\n    def find(self, x):\n        xcopy = x\n        while x != self.parent[x]:\n            x = self.parent[x]\n\n        while xcopy != x:\n            self.parent[xcopy], xcopy = x, self.parent[xcopy]\n\n        return x\n\n    def union(self, x, y):\n        xpar, ypar = self.find(x), self.find(y)\n\n        # already union\n        if xpar == ypar:\n            return -1\n        # perform union by rank\n        par, child = xpar, ypar\n        if self.rank[xpar] < self.rank[ypar]:\n            par, child = ypar, xpar\n\n        elif self.rank[xpar] == self.rank[ypar]:\n            self.rank[xpar] += 1\n\n        self.parent[child] = par\n        self.n -= 1\n        out.append([x, y])\n\n    # find min total weight tree\n    def kruskal(self):\n        result = ['YES']\n\n        # loop over v-1\n        for i in range(len(out) - 1, -1, -1):\n            u, v = out[i]\n            upar, vpar = self.find(u), self.find(v)\n\n            # no cycle\n            if upar != vpar:\n                result.append('%d %d' % (u, v))\n                self.union(upar, vpar)\n\n        # print MST\n        print('\\n'.join(result))\n\n\nstdin = BytesIO(stdin.read())\nrints = lambda: [int(x) for x in stdin.readline().split()]\nn, m, d = rints()\ndis, edges, out = disjointset(n), [], []\n\nfor _ in range(m):\n    u, v = rints()\n    if u == 1 or v == 1:\n        edges.append([u, v])\n    else:\n        dis.union(u, v)\n\nif d < dis.n - 1 or len(edges) < d:\n    print('NO')\nelse:\n    ext = []\n    for u, v in edges:\n        if dis.union(u, v) == -1:\n            ext.append([u, v])\n        else:\n            d -= 1\n\n    out += ext[:d]\n    dis1 = disjointset(n)\n    dis1.kruskal()\n",
+    "prob_desc_created_at": "1551971100",
+    "tags": [
+        "greedy",
+        "graphs",
+        "constructive algorithms",
+        "dsu",
+        "dfs and similar"
+    ],
+    "hidden_unit_tests": ""
+}

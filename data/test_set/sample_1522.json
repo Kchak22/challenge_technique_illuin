@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2\", \"0\", \"30\"]",
+    "src_uid": "c1f50da1fbe797e7c9b982583a3b02d5",
+    "prob_desc_notes": "NoteIn the first example, you have to swap the third and the fourth elements, so the string becomes \"aazaa\". Then you have to swap the second and the third elements, so the string becomes \"azaaa\". So, it is possible to reverse the string in two swaps.Since the string in the second example is a palindrome, you don't have to do anything to reverse it.",
+    "prob_desc_description": "You are given a string $$$s$$$. You have to reverse it — that is, the first letter should become equal to the last letter before the reversal, the second letter should become equal to the second-to-last letter before the reversal — and so on. For example, if your goal is to reverse the string \"abddea\", you should get the string \"aeddba\". To accomplish your goal, you can swap the neighboring elements of the string. Your task is to calculate the minimum number of swaps you have to perform to reverse the given string.",
+    "prob_desc_output_spec": "Print one integer — the minimum number of swaps of neighboring elements you have to perform to reverse the string.",
+    "prob_desc_input_spec": "The first line contains one integer $$$n$$$ ($$$2 \\le n \\le 200\\,000$$$) — the length of $$$s$$$. The second line contains $$$s$$$ — a string consisting of $$$n$$$ lowercase Latin letters.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_010.jsonl",
+    "code_uid": "9fa43384471926cf6aef2ad874648da0",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\naaaza\", \"6\\ncbaabc\", \"9\\nicpcsguru\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\ninput = sys.stdin.readline\n\nn = int(input())\nS = input().strip()\n\nLIST = [[] for i in range(26)]\n\nfor i in range(n):\n    LIST[ord(S[i])-97].append(i)\n\n# for i in LIST:\n#     print(i)\n\nLEN = n+1\nBIT = [0]*(LEN+1)\n\n# print(BIT)\n\n\ndef update(v, w):\n    while v <= LEN:\n        BIT[v] += w\n        v += (v & (-v))\n\n\ndef getvalue(v):\n    ANS = 0\n    while v != 0:\n        ANS += BIT[v]\n        v -= (v & (-v))\n    return ANS\n\n\nANS = 0\nmoji = [0]*26\n\nfor i in range(n-1, -1, -1):\n    s = ord(S[i])-97\n\n    x = LIST[s][moji[s]]\n    ANS += x-getvalue(x+1)\n    moji[s] += 1\n    # print(x-getvalue(x+1))\n    # print(\"*\")\n    # print(BIT)\n    update(x+1, 1)\n\n    # print(moji)\n    # print(\"/\")\n    # print(BIT)\n    # print(\"#\")\nprint(ANS)\n",
+    "prob_desc_created_at": "1602407100",
+    "tags": [
+        "data structures",
+        "greedy",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1.5 seconds",
+    "prob_desc_sample_outputs": "[\"6\", \"10\", \"0\"]",
+    "src_uid": "b2d77fa3e0c2dad9c316249a0feeb4c6",
+    "prob_desc_notes": "NoteIn the first example Alice chooses a segment $$$[1;5]$$$ — the entire row of cards. Bob removes card $$$3$$$ with the value $$$10$$$ from the segment. Thus, the final score is $$$5 + (-2) + (-1) + 4 = 6$$$.In the second example Alice chooses a segment $$$[1;4]$$$, so that Bob removes either card $$$1$$$ or $$$3$$$ with the value $$$5$$$, making the answer $$$5 + 2 + 3 = 10$$$.In the third example Alice can choose any of the segments of length $$$1$$$: $$$[1;1]$$$, $$$[2;2]$$$ or $$$[3;3]$$$. Bob removes the only card, so the score is $$$0$$$. If Alice chooses some other segment then the answer will be less than $$$0$$$.",
+    "prob_desc_description": "Alice and Bob are playing yet another card game. This time the rules are the following. There are $$$n$$$ cards lying in a row in front of them. The $$$i$$$-th card has value $$$a_i$$$. First, Alice chooses a non-empty consecutive segment of cards $$$[l; r]$$$ ($$$l \\le r$$$). After that Bob removes a single card $$$j$$$ from that segment $$$(l \\le j \\le r)$$$. The score of the game is the total value of the remaining cards on the segment $$$(a_l + a_{l + 1} + \\dots + a_{j - 1} + a_{j + 1} + \\dots + a_{r - 1} + a_r)$$$. In particular, if Alice chooses a segment with just one element, then the score after Bob removes the only card is $$$0$$$.Alice wants to make the score as big as possible. Bob takes such a card that the score is as small as possible.What segment should Alice choose so that the score is maximum possible? Output the maximum score.",
+    "prob_desc_output_spec": "Print a single integer — the final score of the game.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$1 \\le n \\le 10^5$$$) — the number of cards. The second line contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$-30 \\le a_i \\le 30$$$) — the values on the cards.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_007.jsonl",
+    "code_uid": "f17d73f5f371864e7b8e5f5e8e6816e2",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n5 -2 10 -1 4\", \"8\\n5 2 5 3 -30 -30 6 9\", \"3\\n-10 6 -15\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "\"\"\"\n    This template is made by Satwik_Tiwari.\n    python programmers can use this template :)) .\n\"\"\"\n\n#===============================================================================================\n#importing some useful libraries.\nfrom fractions import Fraction\nimport sys\nimport bisect\nimport heapq\nfrom math import *\nfrom collections import Counter as counter  # Counter(list)  return a dict with {key: count}\nfrom itertools import combinations as comb # if a = [1,2,3] then print(list(comb(a,2))) -----> [(1, 2), (1, 3), (2, 3)]\nfrom itertools import permutations as permutate\nfrom bisect import bisect_left as bl\n#If the element is already present in the list,\n# the left most position where element has to be inserted is returned.\nfrom bisect import bisect_right as br\nfrom bisect import bisect\n#If the element is already present in the list,\n# the right most position where element has to be inserted is returned\n\n#===============================================================================================\n#some shortcuts\n\nmod = pow(10, 9) + 7\ndef inp(): return sys.stdin.readline().strip() #for fast input\ndef out(var): sys.stdout.write(str(var))  #for fast output, always take string\ndef lis(): return list(map(int, inp().split()))\ndef stringlis(): return list(map(str, inp().split()))\ndef sep(): return map(int, inp().split())\ndef strsep(): return map(str, inp().split())\ndef graph(vertex): return [[] for i in range(0,vertex+1)]\ndef zerolist(n): return [0]*n\ndef nextline(): out(\"\\n\")  #as stdout.write always print sring.\ndef testcase(t):\n    for p in range(t):\n        solve()\ndef printlist(a) :\n    for p in range(0,len(a)):\n        out(str(a[p]) + ' ')\ndef lcm(a,b): return (a*b)//gcd(a,b)\n\n\n#===============================================================================================\n# code here ;))\n\ndef solve():\n    n = int(inp())\n    a = lis()\n\n    ans = []\n    m = 0\n    for j in range(30,-1,-1):\n        currmax = 0\n        temp = []\n        f = False\n        for i in range(0,n):\n            if(a[i] >j):\n                currmax = 0\n            else:\n                currmax = max(currmax+a[i],0)\n                ans.append(currmax - j)\n\n            if(i == n-1):\n                # print(ans)\n                if(len(ans) == 0):\n                    ans.append(0)\n                m = max(m,max(ans))\n                ans = []\n    print(m)\n\n\ntestcase(1)\n",
+    "prob_desc_created_at": "1590676500",
+    "tags": [
+        "dp",
+        "two pointers",
+        "implementation",
+        "data structures"
+    ],
+    "hidden_unit_tests": ""
+}

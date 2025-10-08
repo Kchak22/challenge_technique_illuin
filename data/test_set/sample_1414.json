@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"2 4\", \"2 1\"]",
+    "src_uid": "524273686586cdeb7827ffc1ad59d85a",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Consider a table of size $$$n \\times m$$$, initially fully white. Rows are numbered $$$1$$$ through $$$n$$$ from top to bottom, columns $$$1$$$ through $$$m$$$ from left to right. Some square inside the table with odd side length was painted black. Find the center of this square.",
+    "prob_desc_output_spec": "Output two integers $$$r$$$ and $$$c$$$ ($$$1 \\le r \\le n$$$, $$$1 \\le c \\le m$$$) separated by a space — the row and column numbers of the center of the black square.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1 \\le n, m \\le 115$$$) — the number of rows and the number of columns in the table. The $$$i$$$-th of the next $$$n$$$ lines contains a string of $$$m$$$ characters $$$s_{i1} s_{i2} \\ldots s_{im}$$$ ($$$s_{ij}$$$ is 'W' for white cells and 'B' for black cells), describing the $$$i$$$-th row of the table.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_008.jsonl",
+    "code_uid": "0621011ccca97c0452f376555d9c69e4",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 6\\nWWBBBW\\nWWBBBW\\nWWBBBW\\nWWWWWW\\nWWWWWW\", \"3 3\\nWWW\\nBWW\\nWWW\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import math\na = input().split(' ')\nn = int(a[0])\nm = int(a[1])\n\ns = []\nfor z in range (n):\n    a = str(input())\n    s.append(a)\n#print(s)\n\n\ndef countB():\n    b = 0\n    for i in range (0, n):\n        for j in range (0, m):\n            if s[i][j] == 'B':\n                b = b + 1\n\n    return b\nqb = countB()\n#print(qb)\nbSqrt = int (math.sqrt(qb))\n#print(bSqrt)\n\ndef middleSquare():\n    if qb == 1:\n        for i in range (0, n):\n            for j in range (0, m):\n                if s[i][j] == 'B':\n                    r = i + 1\n                    c = j + 1\n                    anser = (r, c)\n                    return anser\n    else: \n        side = bSqrt//2\n        #print (side)\n        for i in range (0, n):\n            for j in range (0, m):\n                if s[i][j] == 'B':\n                    #print(i)\n                    #print(j)\n                    r = i + 1 + side\n                    c = j + 1 + side\n                    #print (r)\n                    #print (c)\n                    anser = (r, c)\n                    return anser\n\n\nmiddle = (middleSquare())\n\nr = middle[0]\nc = middle[1]\n\nprint (\"{:2d} {:2d}\".format(r,c))\n",
+    "prob_desc_created_at": "1535387700",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

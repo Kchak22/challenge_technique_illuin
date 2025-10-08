@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"YES\\n++|OX\\nXO|XX\\nOX|OO\\nXX|OX\\nOO|OO\\nOO|XX\", \"NO\", \"YES\\nXX|XX\\nXX|XX\\nXO|OX\\nXO|++\\nOX|XO\"]",
+    "src_uid": "e77787168e1c87b653ce1f762888ac57",
+    "prob_desc_notes": "NoteNote that the following is an incorrect configuration for the first sample case because the seats must be in the same pair.O+|+XXO|XXOX|OOXX|OXOO|OOOO|XX",
+    "prob_desc_description": "ZS the Coder and Chris the Baboon are travelling to Udayland! To get there, they have to get on the special IOI bus. The IOI bus has n rows of seats. There are 4 seats in each row, and the seats are separated into pairs by a walkway. When ZS and Chris came, some places in the bus was already occupied.ZS and Chris are good friends. They insist to get a pair of neighbouring empty seats. Two seats are considered neighbouring if they are in the same row and in the same pair. Given the configuration of the bus, can you help ZS and Chris determine where they should sit?",
+    "prob_desc_output_spec": "If it is possible for Chris and ZS to sit at neighbouring empty seats, print \"YES\" (without quotes) in the first line. In the next n lines print the bus configuration, where the characters in the pair of seats for Chris and ZS is changed with characters '+'. Thus the configuration should differ from the input one by exactly two charaters (they should be equal to 'O' in the input and to '+' in the output). If there is no pair of seats for Chris and ZS, print \"NO\" (without quotes) in a single line. If there are multiple solutions, you may print any of them.",
+    "prob_desc_input_spec": "The first line of the input contains a single integer n (1 ≤ n ≤ 1000) — the number of rows of seats in the bus. Then, n lines follow. Each line contains exactly 5 characters, the first two of them denote the first pair of seats in the row, the third character denotes the walkway (it always equals '|') and the last two of them denote the second pair of seats in the row.  Each character, except the walkway, equals to 'O' or to 'X'. 'O' denotes an empty seat, 'X' denotes an occupied seat. See the sample cases for more details. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_008.jsonl",
+    "code_uid": "253ebd5e893e219708e32b1a81a0ed58",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6\\nOO|OX\\nXO|XX\\nOX|OO\\nXX|OX\\nOO|OO\\nOO|XX\", \"4\\nXO|OX\\nXO|XX\\nOX|OX\\nXX|OX\", \"5\\nXX|XX\\nXX|XX\\nXO|OX\\nXO|OO\\nOX|XO\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(raw_input())\nrows = n * [ None ]\nfound = False\nfor i in range(n):\n    row = raw_input().strip()\n    if not found and 'OO' in row:\n        row = row.replace('OO', '++', 1)\n        found = True\n    rows[i] = row\nif not found:\n    print('NO')\nelse:\n    print('YES')\n    print('\\n'.join(rows))\n",
+    "prob_desc_created_at": "1472472300",
+    "tags": [
+        "implementation",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

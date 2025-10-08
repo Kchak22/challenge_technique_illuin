@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"524848\", \"121\", \"-1\"]",
+    "src_uid": "206eb67987088843ef42923b0c3939d4",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Vasya has got two number: a and b. However, Vasya finds number a too short. So he decided to repeat the operation of lengthening number a n times.One operation of lengthening a number means adding exactly one digit to the number (in the decimal notation) to the right provided that the resulting number is divisible by Vasya's number b. If it is impossible to obtain the number which is divisible by b, then the lengthening operation cannot be performed.Your task is to help Vasya and print the number he can get after applying the lengthening operation to number a n times.",
+    "prob_desc_output_spec": "In a single line print the integer without leading zeros, which Vasya can get when he applies the lengthening operations to number a n times. If no such number exists, then print number -1. If there are multiple possible answers, print any of them.",
+    "prob_desc_input_spec": "The first line contains three integers: a, b, n (1 ≤ a, b, n ≤ 105).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_006.jsonl",
+    "code_uid": "a2090b0a897a64a03cfff88931c197ba",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 4 5\", \"12 11 1\", \"260 150 10\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "'''\n260A\n\n\nVasya has got two number: a and b. However, Vasya finds number a too short. So he decided to repeat the operation of lengthening number a n times.\n\nOne operation of lengthening a number means adding exactly one digit to the number (in the decimal notation) to the right provided that the resulting number is divisible by Vasya's number b. If it is impossible to obtain the number which is divisible by b, then the lengthening operation cannot be performed.\n\nYour task is to help Vasya and print the number he can get after applying the lengthening operation to number a n times.\nInput\n\nThe first line contains three integers: a,b, n\nOutput\n\nIn a single line print the integer without leading zeros, which Vasya can get when he applies the lengthening operations to number a n times. If no such number exists, then print number -1. If there are multiple possible answers, print any of them.\n'''\n\nvalues = (input(\"\"))\nvalues = values.split(' ')\na = int(values[0])\nb = int(values[1])\nn = int(values[2])\n#print(a,b,n)\n\n''' My first answer \nwhile n>0:\n    digit = 0\n    while digit<10:\n        if (a*10+digit)%b == 0:\n            a=(a*10+digit)\n            break\n        else:\n            digit+=1\n    if digit == 10 and a%b != 0:\n        a=-1\n        break\n    else:\n        n=n-1\nprint(a)\n        '''\n            \n''' effective answer in terms of execution time '''\na=a*10+9\nif (a%b)<10: \n    print (str(a-a%b)+\"0\"*(n-1))\nelse:\n    print (-1)",
+    "prob_desc_created_at": "1356622500",
+    "tags": [
+        "implementation",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

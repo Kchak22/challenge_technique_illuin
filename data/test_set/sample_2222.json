@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\\n1 2 3\", \"4\\n3 4 1 2\"]",
+    "src_uid": "250c0e647d0f2ff6d86db01675192c9f",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You've got a undirected graph G, consisting of n nodes. We will consider the nodes of the graph indexed by integers from 1 to n. We know that each node of graph G is connected by edges with at least k other nodes of this graph. Your task is to find in the given graph a simple cycle of length of at least k + 1.A simple cycle of length d (d &gt; 1) in graph G is a sequence of distinct graph nodes v1, v2, ..., vd such, that nodes v1 and vd are connected by an edge of the graph, also for any integer i (1 ≤ i &lt; d) nodes vi and vi + 1 are connected by an edge of the graph.",
+    "prob_desc_output_spec": "In the first line print integer r (r ≥ k + 1) — the length of the found cycle. In the next line print r distinct integers v1, v2, ..., vr (1 ≤ vi ≤ n) — the found simple cycle. It is guaranteed that the answer exists. If there are multiple correct answers, you are allowed to print any of them.",
+    "prob_desc_input_spec": "The first line contains three integers n, m, k (3 ≤ n, m ≤ 105; 2 ≤ k ≤ n - 1) — the number of the nodes of the graph, the number of the graph's edges and the lower limit on the degree of the graph node. Next m lines contain pairs of integers. The i-th line contains integers ai, bi (1 ≤ ai, bi ≤ n; ai ≠ bi) — the indexes of the graph nodes that are connected by the i-th edge.  It is guaranteed that the given graph doesn't contain any multiple edges or self-loops. It is guaranteed that each node of the graph is connected by the edges with at least k other nodes of the graph.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_018.jsonl",
+    "code_uid": "aac2d18d7934d1627c06c48ab65200ef",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 3 2\\n1 2\\n2 3\\n3 1\", \"4 6 3\\n4 3\\n1 2\\n1 3\\n1 4\\n2 3\\n2 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "r = lambda: map(int, raw_input().split())\n\nn, m, k = r()\ne = [[] for _ in xrange(n + 1)]\nfor _ in xrange(m):\n    a, b = r()\n    e[a].append(b)\n    e[b].append(a)\nflag = [-1] * (n + 1)\npath = []\n\nx, l = 1, 0\nwhile True:\n    path.append(x)\n    flag[x] = l\n    l += 1\n    for y in e[x]:\n        if flag[y] == -1:\n            x = y\n            break\n    else:\n        id = path.index(min(e[x], key = lambda s: flag[s]))\n        print len(path) - id\n        print ' '.join(map(str, path[id:]))\n        break\n\n",
+    "prob_desc_created_at": "1358350200",
+    "tags": [
+        "dfs and similar",
+        "graphs"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"Vettel\\nHamilton\", \"Prost\\nProst\"]",
+    "src_uid": "bd40f54a1e764ba226d5387fcd6b353f",
+    "prob_desc_notes": "NoteIt is not guaranteed that the same drivers participate in all races. For the championship consider every driver that has participated in at least one race. The total number of drivers during the whole season is not more then 50.",
+    "prob_desc_description": "Formula One championship consists of series of races called Grand Prix. After every race drivers receive points according to their final position. Only the top 10 drivers receive points in the following order 25, 18, 15, 12, 10, 8, 6, 4, 2, 1. At the conclusion of the championship the driver with most points is the champion. If there is a tie, champion is the one with most wins (i.e. first places). If a tie still exists, it is chosen the one with most second places, and so on, until there are no more place to use for compare. Last year another scoring system was proposed but rejected. In it the champion is the one with most wins. If there is tie, champion is the one with most points. If a tie still exists it is proceeded the same way as in the original scoring system, that is comparing number of second, third, forth, and so on, places.You are given the result of all races during the season and you are to determine the champion according to both scoring systems. It is guaranteed, that both systems will produce unique champion.",
+    "prob_desc_output_spec": "Your output should contain exactly two line. On the first line is the name of the champion according to the original rule, and on the second line the name of the champion according to the alternative rule.",
+    "prob_desc_input_spec": "The first line contain integer t (1 ≤ t ≤ 20), where t is the number of races. After that all races are described one by one. Every race description start with an integer n (1 ≤ n ≤ 50) on a line of itself, where n is the number of clasified drivers in the given race. After that n lines follow with the classification for the race, each containing the name of a driver. The names of drivers are given in order from the first to the last place. The name of the driver consists of lowercase and uppercase English letters and has length at most 50 characters. Comparing of names should be case-sensetive.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_007.jsonl",
+    "code_uid": "faaaccaf1c4124274aa813ae44eac608",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n3\\nHamilton\\nVettel\\nWebber\\n2\\nWebber\\nVettel\\n2\\nHamilton\\nVettel\", \"2\\n7\\nProst\\nSurtees\\nNakajima\\nSchumacher\\nButton\\nDeLaRosa\\nBuemi\\n8\\nAlonso\\nProst\\nNinoFarina\\nJimClark\\nDeLaRosa\\nNakajima\\nPatrese\\nSurtees\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "champion_data,points = {},[25, 18, 15, 12, 10, 8, 6, 4, 2, 1]+[0]*50\nfor tour in range(int(input())):\n\tfor j in range(int(input())):\n\t\tplayer =str(input())\n\t\tif player not in champion_data:\n\t\t\tchampion_data[player] = [0]*51+[player]\n\t\tchampion_data[player][0] += points[j]\n\t\tchampion_data[player][j+1] += 1\nwin = champion_data.values()\nprint(sorted(win)[-1][-1])\nwin= [[p[1]]+p for p in win]\nprint(sorted(win)[-1][-1])",
+    "prob_desc_created_at": "1280149200",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

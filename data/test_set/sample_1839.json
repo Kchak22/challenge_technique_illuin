@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2\\n0\\n0\\n1\\n2\\n1\\n1\\n0\"]",
+    "src_uid": "a4b8e1ffe14c91381ae69e3b23ee4937",
+    "prob_desc_notes": "Note  The tree before the task pow 1. The tree after the task pow 1. ",
+    "prob_desc_description": "Danil decided to earn some money, so he had found a part-time job. The interview have went well, so now he is a light switcher.Danil works in a rooted tree (undirected connected acyclic graph) with n vertices, vertex 1 is the root of the tree. There is a room in each vertex, light can be switched on or off in each room. Danil's duties include switching light in all rooms of the subtree of the vertex. It means that if light is switched on in some room of the subtree, he should switch it off. Otherwise, he should switch it on.Unfortunately (or fortunately), Danil is very lazy. He knows that his boss is not going to personally check the work. Instead, he will send Danil tasks using Workforces personal messages.There are two types of tasks:  pow v describes a task to switch lights in the subtree of vertex v. get v describes a task to count the number of rooms in the subtree of v, in which the light is turned on. Danil should send the answer to his boss using Workforces messages.A subtree of vertex v is a set of vertices for which the shortest path from them to the root passes through v. In particular, the vertex v is in the subtree of v.Danil is not going to perform his duties. He asks you to write a program, which answers the boss instead of him.",
+    "prob_desc_output_spec": "For each task get v print the number of rooms in the subtree of v, in which the light is turned on.",
+    "prob_desc_input_spec": "The first line contains a single integer n (1 ≤ n ≤ 200 000) — the number of vertices in the tree. The second line contains n - 1 space-separated integers p2, p3, ..., pn (1 ≤ pi &lt; i), where pi is the ancestor of vertex i. The third line contains n space-separated integers t1, t2, ..., tn (0 ≤ ti ≤ 1), where ti is 1, if the light is turned on in vertex i and 0 otherwise. The fourth line contains a single integer q (1 ≤ q ≤ 200 000) — the number of tasks. The next q lines are get v or pow v (1 ≤ v ≤ n) — the tasks described above.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_013.jsonl",
+    "code_uid": "72fda9afd2e47f8a6323e698b2beb69d",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1 1 1\\n1 0 0 1\\n9\\nget 1\\nget 2\\nget 3\\nget 4\\npow 1\\nget 1\\nget 2\\nget 3\\nget 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin, stdout\nfrom itertools import repeat\ndef main():\n    n = int(stdin.readline())\n    p = map(int, stdin.readline().split(), repeat(10, n - 1))\n    ch = [[] for _ in xrange(n)]\n    for i, x in enumerate(p, 1):\n        ch[x-1].append(i)\n    st = []\n    pu = st.append\n    po = st.pop\n    col = [None] * n\n    L = [0] * n\n    R = [0] * n\n    c = 0\n    pu(0)\n    while st:\n        x = po()\n        if col[x] is None:\n            L[x] = c\n            c += 1\n            pu(x)\n            col[x] = 1\n            for y in ch[x]:\n                pu(y)\n        else:\n            col[x] = 0\n            R[x] = c\n    N = 1 << 18\n    b = [0] * (N + N)\n    lz = [0] * (N + N)\n    t = stdin.readline().split()\n    for i, x in enumerate(t):\n        if x == '1':\n            b[L[i]+N] += 1\n    for i in xrange(N - 1, 0, -1):\n        b[i] = b[i+i] + b[i+i+1]\n    ans = []\n    def inv(b, lz, v, lh):\n        b[v] = lh - b[v]\n        lz[v] ^= 1\n    def push(b, lz, o, ln):\n        for i in xrange(18, 0, -1):\n            j = o >> i\n            if lz[j]:\n                inv(b, lz, j+j, ln)\n                inv(b, lz, j+j+1, ln)\n                lz[j] = 0\n            ln /= 2\n    q = int(stdin.readline())\n    for _ in xrange(q):\n        ln, x = stdin.readline().split()\n        x = int(x, 10) - 1\n        l, r = L[x] + N, R[x] + N - 1\n        push(b, lz, l, N / 2)\n        push(b, lz, r, N / 2)\n        if ln[0] == 'g':\n            l, r = L[x] + N, R[x] + N\n            tmp = 0\n            while l < r:\n                if l & 1:\n                    tmp += b[l]\n                    l += 1\n                if r & 1:\n                    r -= 1\n                    tmp += b[r]\n                l /= 2\n                r /= 2\n            ans.append(tmp)\n        else:\n            l, r = L[x] + N, R[x] + N\n            n = 1\n            while l < r:\n                if l & 1:\n                    inv(b, lz, l, n)\n                    l += 1\n                if r & 1:\n                    r -= 1\n                    inv(b, lz, r, n)\n                l /= 2\n                r /= 2\n                n += n\n            l, r = L[x] + N, R[x] + N - 1\n            n = 1\n            while l > 1:\n                l /= 2\n                r /= 2\n                n += n\n                b[l] = b[l+l] + b[l+l+1]\n                if lz[l]: b[l] = n - b[l]\n                b[r] = b[r+r] + b[r+r+1]\n                if lz[r]: b[r] = n - b[r]\n    stdout.write('\\n'.join(map(str, ans)))\nmain()\n",
+    "prob_desc_created_at": "1508773500",
+    "tags": [
+        "data structures",
+        "bitmasks",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"10028\", \"100\", \"0\"]",
+    "src_uid": "0515ac888937a4dda30cad5e2383164f",
+    "prob_desc_notes": "NoteA number has leading zeroes if it consists of at least two digits and its first digit is $$$0$$$. For example, numbers $$$00$$$, $$$00069$$$ and $$$0101$$$ have leading zeroes, while $$$0$$$, $$$3000$$$ and $$$1010$$$ don't have leading zeroes.",
+    "prob_desc_description": "Ania has a large integer $$$S$$$. Its decimal representation has length $$$n$$$ and doesn't contain any leading zeroes. Ania is allowed to change at most $$$k$$$ digits of $$$S$$$. She wants to do it in such a way that $$$S$$$ still won't contain any leading zeroes and it'll be minimal possible. What integer will Ania finish with?",
+    "prob_desc_output_spec": "Output the minimal possible value of $$$S$$$ which Ania can end with. Note that the resulting integer should also have $$$n$$$ digits.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$k$$$ ($$$1 \\leq n \\leq 200\\,000$$$, $$$0 \\leq k \\leq n$$$) — the number of digits in the decimal representation of $$$S$$$ and the maximum allowed number of changed digits. The second line contains the integer $$$S$$$. It's guaranteed that $$$S$$$ has exactly $$$n$$$ digits and doesn't contain any leading zeroes.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1000,
+    "file_name": "train_000.jsonl",
+    "code_uid": "447a8f3537abb66822c7befb2b1f13d4",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 3\\n51528\", \"3 2\\n102\", \"1 1\\n1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\n\nn,k = map(int,sys.stdin.readline().strip().split())\n\n#n is the number of decimals\n#k is the number of changes allowed\n\ns = list(input())\ns = [int(x) for x in s]\n\nleft = 0\n\n\n\nif len(s) == 1 and k!= 0:\n    s[0] = 0\n\nelse:\n    if s[0] != 1 and k!= 0:\n        s[0] = 1\n        k -= 1\n    left += 1\n\n    while k != 0 and left < len(s):\n        if s[left] != 0:\n            s[left] = 0\n            left += 1\n            k -=1\n        else:\n            left += 1\n\ns = [str(x) for x in s]\n\nprint(\"\".join(s))",
+    "prob_desc_created_at": "1569247500",
+    "tags": [
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

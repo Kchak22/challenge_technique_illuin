@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"0\", \"2\", \"2\"]",
+    "src_uid": "9873a576d00630fa6e5fd4448a1a65ad",
+    "prob_desc_notes": "NoteIn the first example all the elements are already distinct, therefore no subsegment needs to be removed.In the second example you can remove the subsegment from index $$$2$$$ to $$$3$$$.In the third example you can remove the subsegments from index $$$1$$$ to $$$2$$$, or from index $$$2$$$ to $$$3$$$, or from index $$$3$$$ to $$$4$$$.",
+    "prob_desc_description": "You are given an array $$$a_{1}, a_{2}, \\ldots, a_{n}$$$. You can remove at most one subsegment from it. The remaining elements should be pairwise distinct.In other words, at most one time you can choose two integers $$$l$$$ and $$$r$$$ ($$$1 \\leq l \\leq r \\leq n$$$) and delete integers $$$a_l, a_{l+1}, \\ldots, a_r$$$ from the array. Remaining elements should be pairwise distinct. Find the minimum size of the subsegment you need to remove to make all remaining elements distinct.",
+    "prob_desc_output_spec": "Print a single integer — the minimum size of the subsegment you need to remove to make all elements of the array pairwise distinct. If no subsegment needs to be removed, print $$$0$$$.",
+    "prob_desc_input_spec": "The first line of the input contains a single integer $$$n$$$ ($$$1 \\le n \\le 2000$$$) — the number of elements in the given array. The next line contains $$$n$$$ spaced integers $$$a_{1}, a_{2}, \\ldots, a_{n}$$$ ($$$1 \\le a_{i} \\le 10^{9}$$$) — the elements of the array. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_013.jsonl",
+    "code_uid": "d374befda4a7f152a5fb956a73cb4f06",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n1 2 3\", \"4\\n1 1 2 2\", \"5\\n1 4 1 4 9\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#!/usr/bin/env pypy\n# Author : prayushd\n# Language : Python\n \nfrom __future__ import division, print_function\nfrom collections import defaultdict, Counter, deque\nfrom future_builtins import ascii, filter, hex, map, oct, zip\nfrom itertools import imap as map, izip as zip\nfrom __builtin__ import xrange as range\nfrom math import ceil\nfrom _continuation import continulet\nfrom cStringIO import StringIO\nfrom io import IOBase\nimport __pypy__\nfrom bisect import bisect, insort, bisect_left, bisect_right\nimport sys\nimport os\nimport re\ninf = float('inf')\nmod = int(1e9) + 7\nmod_ = 998244353\n \n'''\nCheck for special cases (n=1)\nOne wrong submission = 10 mins penalty!\ndo smth instead of nothing and stay organized\n'''\n\ndef solve(arr):\n\tn = len(arr)\n\ts = set()\n\tfor i in range(n-1, -1, -1):\n\t\tif arr[i] not in s:\n\t\t\ts.add(arr[i])\n\t\telse:\n\t\t\tbreak\n\tans = n-len(s)\n\ts.clear()\n\tfor i in range(n):\n\t\tif arr[i] not in s:\n\t\t\ts.add(arr[i])\n\t\t\ts1 = set(s)\n\t\t\tfor i in range(n-1, -1, -1):\n\t\t\t\tif arr[i] not in s1:\n\t\t\t\t\ts1.add(arr[i])\n\t\t\t\telse:\n\t\t\t\t\tbreak\n\t\t\tans = min(ans, n-len(s1))\n\t\telse:\n\t\t\tbreak\n\treturn ans\n\ndef main():\n\tn = int(input())\n\tarr = list(map(int, input().split()))\n\tprint(solve(arr))\n\n\nBUFSIZE = 8192\nclass FastI(IOBase):\n\tdef __init__(self, file):\n\t\tself._fd = file.fileno()\n\t\tself._buffer = StringIO()\n\t\tself.newlines = 0\n \n\tdef read(self):\n\t\twhile True:\n\t\t\tb = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\t\t\tif not b:\n\t\t\t\tbreak\n\t\t\tptr = self.buffer.tell()\n\t\t\tself.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n\t\tself.newlines = 0\n\t\treturn self.buffer.read()\n \n\tdef readline(self):\n\t\twhile self.newlines == 0:\n\t\t\tb = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n\t\t\tself.newlines = b.count(\"\\n\") + (not b)\n\t\t\tptr = self._buffer.tell()\n\t\t\tself._buffer.seek(0, 2), self._buffer.write(\n\t\t\t\tb), self._buffer.seek(ptr)\n\t\tself.newlines -= 1\n\t\treturn self._buffer.readline()\nclass FastO(IOBase):\n\tdef __init__(self, file):\n\t\tself._fd = file.fileno()\n\t\tself._buffer = __pypy__.builders.StringBuilder()\n\t\tself.write = lambda s: self._buffer.append(s)\n \n\tdef flush(self):\n\t\tos.write(self._fd, self._buffer.build())\n\t\tself._buffer = __pypy__.builders.StringBuilder()\ndef print(*args, **kwargs):\n\tsep, file = kwargs.pop(\"sep\", \" \"), kwargs.pop(\"file\", sys.stdout)\n\tat_start = True\n\tfor x in args:\n\t\tif not at_start:\n\t\t\tfile.write(sep)\n\t\tfile.write(str(x))\n\t\tat_start = False\n\tfile.write(kwargs.pop(\"end\", \"\\n\"))\n\tif kwargs.pop(\"flush\", False):\n\t\tfile.flush()\ndef gcd(x, y):\n\twhile y:\n\t\tx, y = y, x % y\n\treturn x\nsys.stdin, sys.stdout = FastI(sys.stdin), FastO(sys.stdout)\ndef input(): return sys.stdin.readline().rstrip(\"\\r\\n\")\nif __name__ == \"__main__\":\n\tdef bootstrap(cont):\n\t\tcall, arg = cont.switch()\n\t\twhile True:\n\t\t\tcall, arg = cont.switch(to=continulet(\n\t\t\t\tlambda _, f, args: f(*args), call, arg))\n\tcont = continulet(bootstrap)\n\tcont.switch()\n\tmain()",
+    "prob_desc_created_at": "1566743700",
+    "tags": [
+        "two pointers",
+        "binary search",
+        "implementation",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

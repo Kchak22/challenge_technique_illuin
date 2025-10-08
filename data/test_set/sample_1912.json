@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"7\", \"0\"]",
+    "src_uid": "e25b247975660c5005bd4da7afd38a56",
+    "prob_desc_notes": null,
+    "prob_desc_description": "The next lecture in a high school requires two topics to be discussed. The $$$i$$$-th topic is interesting by $$$a_i$$$ units for the teacher and by $$$b_i$$$ units for the students.The pair of topics $$$i$$$ and $$$j$$$ ($$$i &lt; j$$$) is called good if $$$a_i + a_j &gt; b_i + b_j$$$ (i.e. it is more interesting for the teacher).Your task is to find the number of good pairs of topics.",
+    "prob_desc_output_spec": "Print one integer — the number of good pairs of topic.",
+    "prob_desc_input_spec": "The first line of the input contains one integer $$$n$$$ ($$$2 \\le n \\le 2 \\cdot 10^5$$$) — the number of topics. The second line of the input contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 10^9$$$), where $$$a_i$$$ is the interestingness of the $$$i$$$-th topic for the teacher. The third line of the input contains $$$n$$$ integers $$$b_1, b_2, \\dots, b_n$$$ ($$$1 \\le b_i \\le 10^9$$$), where $$$b_i$$$ is the interestingness of the $$$i$$$-th topic for the students.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_014.jsonl",
+    "code_uid": "c87917701d6bb34ba6790d86966eff37",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n4 8 2 6 2\\n4 5 4 1 3\", \"4\\n1 3 2 4\\n1 3 2 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import bisect\n\nn=int(input())\nl1 = list(map(int, input().split(' ')))\nl2 = list(map(int, input().split(' ')))\n\ndiffs = []\nfor i in range(n):\n    diffs.append(l1[i]-l2[i])\n\ndiffs = sorted(diffs)\n\nans=0\nfor i in range(n):\n    if diffs[i]>0:\n        ans += i-bisect.bisect_left(diffs, -diffs[i]+1)\n\n\nprint(ans)\n",
+    "prob_desc_created_at": "1584018300",
+    "tags": [
+        "data structures",
+        "two pointers",
+        "binary search",
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "5 seconds",
+    "prob_desc_sample_outputs": "[\"10110\"]",
+    "src_uid": "3c058688183e5cd7dd91ae592ccd8048",
+    "prob_desc_notes": "NoteThe original scheme from the example (before the input is changed):Green indicates bits '1', yellow indicates bits '0'.If Natasha changes the input bit $$$2$$$ to $$$0$$$, then the output will be $$$1$$$.If Natasha changes the input bit $$$3$$$ to $$$0$$$, then the output will be $$$0$$$.If Natasha changes the input bit $$$6$$$ to $$$1$$$, then the output will be $$$1$$$.If Natasha changes the input bit $$$8$$$ to $$$0$$$, then the output will be $$$1$$$.If Natasha changes the input bit $$$9$$$ to $$$0$$$, then the output will be $$$0$$$.",
+    "prob_desc_description": "Natasha travels around Mars in the Mars rover. But suddenly it broke down, namely — the logical scheme inside it. The scheme is an undirected tree (connected acyclic graph) with a root in the vertex $$$1$$$, in which every leaf (excluding root) is an input, and all other vertices are logical elements, including the root, which is output. One bit is fed to each input. One bit is returned at the output.There are four types of logical elements: AND ($$$2$$$ inputs), OR ($$$2$$$ inputs), XOR ($$$2$$$ inputs), NOT ($$$1$$$ input). Logical elements take values from their direct descendants (inputs) and return the result of the function they perform. Natasha knows the logical scheme of the Mars rover, as well as the fact that only one input is broken. In order to fix the Mars rover, she needs to change the value on this input.For each input, determine what the output will be if Natasha changes this input.",
+    "prob_desc_output_spec": "Print a string of characters '0' and '1' (without quotes) — answers to the problem for each input in the ascending order of their vertex indices.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$2 \\le n \\le 10^6$$$) — the number of vertices in the graph (both inputs and elements). The $$$i$$$-th of the next $$$n$$$ lines contains a description of $$$i$$$-th vertex: the first word \"AND\", \"OR\", \"XOR\", \"NOT\" or \"IN\" (means the input of the scheme) is the vertex type. If this vertex is \"IN\", then the value of this input follows ($$$0$$$ or $$$1$$$), otherwise follow the indices of input vertices of this element: \"AND\", \"OR\", \"XOR\" have $$$2$$$ inputs, whereas \"NOT\" has $$$1$$$ input. The vertices are numbered from one. It is guaranteed that input data contains a correct logical scheme with an output produced by the vertex $$$1$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_017.jsonl",
+    "code_uid": "fe5fe577e4accb9887353a67d3e7d5ef",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"10\\nAND 9 4\\nIN 1\\nIN 1\\nXOR 6 5\\nAND 3 7\\nIN 0\\nNOT 10\\nIN 1\\nIN 1\\nAND 2 8\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "# https://codeforces.com/problemset/problem/1010/D\n# TLE\nimport sys\ninput=sys.stdin.readline\n\ndef handle(type_, val_, u, g, S):\n    if type_   == 'NOT':\n        S.append(g[u][0])\n    else:\n        v1, v2     = g[u] \n        val1, val2 = Val[v1], Val[v2] \n        \n        if oper[type_](1-val1, val2) != val_:\n            S.append(v1)\n            \n        if oper[type_](val1, 1-val2) != val_:\n            S.append(v2)       \n \ndef xor_(a, b):\n    return a ^ b\n \ndef or_(a, b):\n    return a | b\n \ndef not_(a):\n    return 1^a\n \ndef and_(a, b):\n    return a&b\n \ng={}\n \n# {key: [type, val]}\n \ndef push(d, u, v):\n    if u not in d:\n        d[u]=[]\n    d[u].append(v)\n \nn = int(input())\nVal  = [None]*n\nType = ['']*n\n \n \nfor i in range(n):\n    arr = input().split()\n    \n    if len(arr)==2:\n        if arr[0]=='IN':\n            Type[i] = 'IN'\n            Val[i]  = int(arr[1])\n        else:\n            Type[i]=arr[0]\n            push(g, i, int(arr[1])-1)\n    else:\n        type_, v1, v2 = arr[0], int(arr[1]), int(arr[2])  \n        Type[i]=type_ \n        push(g, i, v1-1)\n        push(g, i, v2-1)\n        \noper={}\n \noper['XOR']=xor_\noper['OR']=or_\noper['NOT']=not_\noper['AND']=and_    \n \nS=[0]\ni=0\nwhile i<len(S):\n    u=S[i]\n    if u in g:\n        for v in g[u]:\n            S.append(v)\n    i+=1    \n    \nfor u in S[::-1]:\n    if u in g:\n        type_ = Type[u]\n        \n        if len(g[u])==1:\n            val_   = Val[g[u][0]]\n            Val[u] = oper[type_](val_)\n        else:\n            val_1, val_2  = Val[g[u][0]], Val[g[u][1]]\n            Val[u] = oper[type_](val_1, val_2)\n            \nans= [0]*n\nS  = [0]\ni  = 0\n \nwhile i<len(S):\n    u=S[i]\n    \n    if u in g:\n        type_, val_ = Type[u], Val[u]\n        handle(type_, val_, u, g, S)\n        \n    i+=1\n    \nroot_val = Val[0]    \nans      = [root_val]*n\n \nfor x in S:\n    if Type[x]=='IN':\n        ans[x]=1-ans[x]\n        \nprint(''.join([str(ans[x]) for x in range(n) if Type[x]=='IN'] ))  ",
+    "prob_desc_created_at": "1532617500",
+    "tags": [
+        "implementation",
+        "dfs and similar",
+        "trees",
+        "graphs"
+    ],
+    "hidden_unit_tests": ""
+}

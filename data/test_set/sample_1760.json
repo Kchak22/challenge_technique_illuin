@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"YES\", \"NO\"]",
+    "src_uid": "094a880e93a2adfbcb6dcc2b5f043bab",
+    "prob_desc_notes": "NoteIn the first example you may swap a3 and a4, and then swap a4 and a5.",
+    "prob_desc_description": "You have an array a consisting of n integers. Each integer from 1 to n appears exactly once in this array.For some indices i (1 ≤ i ≤ n - 1) it is possible to swap i-th element with (i + 1)-th, for other indices it is not possible. You may perform any number of swapping operations any order. There is no limit on the number of times you swap i-th element with (i + 1)-th (if the position is not forbidden).Can you make this array sorted in ascending order performing some sequence of swapping operations?",
+    "prob_desc_output_spec": "If it is possible to sort the array in ascending order using any sequence of swaps you are allowed to make, print YES. Otherwise, print NO.",
+    "prob_desc_input_spec": "The first line contains one integer n (2 ≤ n ≤ 200000) — the number of elements in the array. The second line contains n integers a1, a2, ..., an (1 ≤ ai ≤ 200000) — the elements of the array. Each integer from 1 to n appears exactly once. The third line contains a string of n - 1 characters, each character is either 0 or 1. If i-th character is 1, then you can swap i-th element with (i + 1)-th any number of times, otherwise it is forbidden to swap i-th element with (i + 1)-th.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_012.jsonl",
+    "code_uid": "d313bb717f6e233cebea53065617689a",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6\\n1 2 5 3 4 6\\n01110\", \"6\\n1 2 5 3 4 6\\n01010\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def main():\n    n=input()\n    l=map(long,raw_input().split())\n    ar=map(int,\" \".join(raw_input()).split())\n    r=[0]*(n)\n    r[0]=ar[0]\n    for i in xrange(1,n-1):\n        r[i]=ar[i]+r[i-1]\n    f=[0]*n\n    for i in xrange(n-2,-1,-1):\n        f[i]=ar[i]+f[i+1]   \n    r[n-1]=r[n-2]\n    #print r\n    \n    for i in xrange(n):\n        #print r[max(l[i]-1,i)],r[min(l[i]-1,i)]\n        if l[i]-1!=i and  (abs(f[l[i]-1]-f[i])!=abs(l[i]-1-i)):\n            print \"NO\"\n            exit()\n    print \"YES\"\n            \nmain()\n",
+    "prob_desc_created_at": "1517582100",
+    "tags": [
+        "greedy",
+        "two pointers",
+        "math",
+        "sortings",
+        "dfs and similar"
+    ],
+    "hidden_unit_tests": ""
+}

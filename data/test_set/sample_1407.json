@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"8\", \"16\"]",
+    "src_uid": "6d7accf770d489f746648aa56c90d16d",
+    "prob_desc_notes": "NoteIn the first sample Vika will paint squares (0, 1), (1, 1), (2, 1), (1, 2), (1, 3), (1, 4), (0, 3) and (2, 3).",
+    "prob_desc_description": "Vika has an infinite sheet of squared paper. Initially all squares are white. She introduced a two-dimensional coordinate system on this sheet and drew n black horizontal and vertical segments parallel to the coordinate axes. All segments have width equal to 1 square, that means every segment occupy some set of neighbouring squares situated in one row or one column.Your task is to calculate the number of painted cells. If a cell was painted more than once, it should be calculated exactly once.",
+    "prob_desc_output_spec": "Print the number of cells painted by Vika. If a cell was painted more than once, it should be calculated exactly once in the answer.",
+    "prob_desc_input_spec": "The first line of the input contains a single integer n (1 ≤ n ≤ 100 000) — the number of segments drawn by Vika. Each of the next n lines contains four integers x1, y1, x2 and y2 ( - 109 ≤ x1, y1, x2, y2 ≤ 109) — the coordinates of the endpoints of the segments drawn by Vika. It is guaranteed that all the segments are parallel to coordinate axes. Segments may touch, overlap and even completely coincide.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2300,
+    "file_name": "train_008.jsonl",
+    "code_uid": "96b38efc0edc3288dd4dcc53ca68b4c4",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n0 1 2 1\\n1 4 1 2\\n0 3 2 3\", \"4\\n-2 -1 2 -1\\n2 1 -2 1\\n-1 -2 -1 2\\n1 2 1 -2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin\nfrom itertools import repeat\nfrom collections import defaultdict\ndef main():\n    n = int(stdin.readline())\n    h = defaultdict(list)\n    w = defaultdict(list)\n    for i in range(n):\n        a, b, c, d = map(int, input().split())\n        if a > c:\n            a, c = c, a\n        if b > d:\n            b, d = d, b\n        if a == c:\n            h[a].append((b, d))\n        else:\n            w[b].append((a, c))\n    ans = 0\n    ys = set()\n    es = defaultdict(list)\n    qs = defaultdict(list)\n    for t, l in h.items():\n        l.sort()\n        l.append((1001001001, 1001001001))\n        nl = []\n        p = r = l[0][0]\n        for a, b in l:\n            if a > r:\n                nl.append((p, r))\n                ans += r - p + 1\n                es[p].append((1, t))\n                es[r+1].append((-1, t))\n                p = r = a\n            if r < b:\n                r = b\n        l = nl\n        ys.add(t)\n    for t, l in w.items():\n        l.sort()\n        l.append((1001001001, 1001001001))\n        nl = []\n        p = r = l[0][0]\n        for a, b in l:\n            if a > r:\n                nl.append((p, r))\n                ys.add(p)\n                ys.add(r)\n                es[t].append((2, p, r))\n                ans += r - p + 1\n                p = r = a\n            if r < b:\n                r = b\n        l = nl\n    ys = [-1001001001] + list(ys)\n    ys.sort()\n    d = {v: i for i, v in enumerate(ys)}\n    l = len(ys)\n    bs = [0] * l\n    for x in sorted(es.keys()):\n        for q in sorted(es[x]):\n            if q[0] <= 1:\n                a, b = q[0], d[q[1]]\n                while b < l:\n                    bs[b] += a\n                    b += b - (b & (b - 1))\n            else:\n                a, b = d[q[1]] - 1, d[q[2]]\n                while b > 0:\n                    ans -= bs[b]\n                    b = b & (b - 1)\n                while a > 0:\n                    ans += bs[a]\n                    a = a & (a - 1)\n    print (ans)\nmain()",
+    "prob_desc_created_at": "1451215200",
+    "tags": [
+        "data structures",
+        "two pointers",
+        "constructive algorithms",
+        "geometry"
+    ],
+    "hidden_unit_tests": ""
+}

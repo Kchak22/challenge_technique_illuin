@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"0\"]",
+    "src_uid": "d7e6e5042b8860bb2470d5a493b0adf6",
+    "prob_desc_notes": "NoteIn the first example, the initial number could be 12.In the second example the sum of the digits of n is not less than k. The initial number could be equal to n.",
+    "prob_desc_description": "Some natural number was written on the board. Its sum of digits was not less than k. But you were distracted a bit, and someone changed this number to n, replacing some digits with others. It's known that the length of the number didn't change.You have to find the minimum number of digits in which these two numbers can differ.",
+    "prob_desc_output_spec": "Print the minimum number of digits in which the initial number and n can differ.",
+    "prob_desc_input_spec": "The first line contains integer k (1 ≤ k ≤ 109). The second line contains integer n (1 ≤ n &lt; 10100000). There are no leading zeros in n. It's guaranteed that this situation is possible.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1100,
+    "file_name": "train_005.jsonl",
+    "code_uid": "6874083a225b2902c70dd8277e2c3f55",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n11\", \"3\\n99\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from math import ceil\n\ndef min_digits_for_sum_increase(digit_count, delta):\n    num_digits = 0\n\n    for digit in xrange(9):\n        current_digits = min(\n            ceil(delta / (9.0 - digit)),\n            digit_count[digit]\n            )\n\n        current_digits = int(current_digits)\n\n        delta -= current_digits * (9 - digit)\n        num_digits += current_digits\n\n        if delta <= 0:\n            break\n\n    return num_digits\n\nk = int(raw_input())\n\ndigits = [0 for i in xrange(10)]\n\nsum_digits = 0\n\nfor c in raw_input():\n    d = ord(c) - ord('0')\n\n    digits[d] += 1\n\n    sum_digits += d\n\ndelta = k - sum_digits\n\nif delta <= 0:\n    print 0\nelse:\n    print min_digits_for_sum_increase(digits, delta)\n",
+    "prob_desc_created_at": "1501511700",
+    "tags": [
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

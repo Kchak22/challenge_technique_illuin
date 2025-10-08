@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\", \"0\", \"6\"]",
+    "src_uid": "c88a8c04e9ea7d37b94f92ad43270fb6",
+    "prob_desc_notes": "NoteIn the second sample possible integers are 22, 26, 62 and 66. None of them gives the remainder 1 modulo 2.In the third sample integers 11, 13, 21, 23, 31 and 33 have remainder 1 modulo 2. There is exactly one way to obtain each of these integers, so the total answer is 6.",
+    "prob_desc_description": "There are b blocks of digits. Each one consisting of the same n digits, which are given to you in the input. Wet Shark must choose exactly one digit from each block and concatenate all of those digits together to form one large integer. For example, if he chooses digit 1 from the first block and digit 2 from the second block, he gets the integer 12. Wet Shark then takes this number modulo x. Please, tell him how many ways he can choose one digit from each block so that he gets exactly k as the final result. As this number may be too large, print it modulo 109 + 7.Note, that the number of ways to choose some digit in the block is equal to the number of it's occurrences. For example, there are 3 ways to choose digit 5 from block 3 5 6 7 8 9 5 1 1 1 1 5.",
+    "prob_desc_output_spec": "Print the number of ways to pick exactly one digit from each blocks, such that the resulting integer equals k modulo x.",
+    "prob_desc_input_spec": "The first line of the input contains four space-separated integers, n, b, k and x (2 ≤ n ≤ 50 000, 1 ≤ b ≤ 109, 0 ≤ k &lt; x ≤ 100, x ≥ 2) — the number of digits in one block, the number of blocks, interesting remainder modulo x and modulo x itself. The next line contains n space separated integers ai (1 ≤ ai ≤ 9), that give the digits contained in each block.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_015.jsonl",
+    "code_uid": "f7582bd834994ec36d7cd511d6421607",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"12 1 5 10\\n3 5 6 7 8 9 5 1 1 1 1 5\", \"3 2 1 2\\n6 2 2\", \"3 2 1 2\\n3 1 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def g(b,w):\n    if(b,w) not in x:x[(b,w)]=sum(c[i]for i in r(10)if i%m==w)if b==1else sum(g(b/2,l)*g(b-b/2,(w-l*pow(10,b-b/2,m)%m+m)%m)for l in r(m))%(10**9+7)\n    return x[(b,w)]\nR,r=lambda:map(int,raw_input().split()),range\nn,b,w,m=R()\na,x=list(R()),{}\nc=[a.count(i)for i in r(10)]\nprint g(b,w)\n",
+    "prob_desc_created_at": "1454249100",
+    "tags": [
+        "dp",
+        "matrices"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"6\", \"40\"]",
+    "src_uid": "b429b42ba8be9df4b87b68420e9873bc",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You have a string of decimal digits s. Let's define bij = si·sj. Find in matrix b the number of such rectangles that the sum bij for all cells (i, j) that are the elements of the rectangle equals a in each rectangle.A rectangle in a matrix is a group of four integers (x, y, z, t) (x ≤ y, z ≤ t). The elements of the rectangle are all cells (i, j) such that x ≤ i ≤ y, z ≤ j ≤ t.",
+    "prob_desc_output_spec": "Print a single integer — the answer to a problem. Please, do not write the %lld specifier to read or write 64-bit integers in С++. It is preferred to use the cin, cout streams or the %I64d specifier.",
+    "prob_desc_input_spec": "The first line contains integer a (0 ≤ a ≤ 109), the second line contains a string of decimal integers s (1 ≤ |s| ≤ 4000).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_007.jsonl",
+    "code_uid": "60244d6561916a08f6f90cb9452f7e28",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"10\\n12345\", \"16\\n439873893693495623498263984765\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def n_substr_sum(t, x):\n# number of substrs in t that sum to x,\n# assuming that t_i >= 0, x > 0\n    i, j = -1, 0\n    cur, n = 0, 0\n    while j < len(t):\n        if t[j] > x:\n            i, j = j, j + 1\n            cur = 0\n            continue\n        cur += t[j]\n        while cur > x and i < j:\n            i += 1\n            cur -= t[i]\n        if cur == x:\n            mi, mj = i+1, j+1\n            while mj < len(t) and t[mj] == 0:\n                mj += 1 \n            while mi < j and t[mi] == 0:\n                mi += 1\n            n += (mi-i)*(mj-j)\n            i, j = mi, mj\n            cur -= t[i]\n        else:\n            j += 1\n        #print i,j,cur\n    return n\n\na = int(raw_input().strip())\ns = map(int, raw_input().strip())\nn = len(s)\nts = sum(s)\n#print 'length = %s' % n\nans = 0\nif a > 0:\n    fac = [1] + [f for f in xrange(2, int(a**0.5)+1) if a%f==0]\n    for f in fac:\n        if f > ts or a/f > ts: continue\n        nf = n_substr_sum(s, f)\n        if nf == 0: continue\n        #print '%s,%s' % (f, nf)\n        if a/f != f:\n            nf_ = n_substr_sum(s, a/f)\n            #print '%s,%s' % (a/f, nf_)\n            ans += 2*nf*nf_\n        else:\n            ans += nf*nf\nelse:\n    i, j = -1, 0\n    nz = 0\n    while j <= n:\n        if j == n or s[j] != 0:\n            nz += (j-i)*(j-i-1)/2\n            i = j\n        j += 1\n    nnz = (n+1)*n/2 - nz\n    ans = nz*nz + nnz*nz*2\nprint ans\n\n",
+    "prob_desc_created_at": "1384875000",
+    "tags": [
+        "data structures",
+        "combinatorics",
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

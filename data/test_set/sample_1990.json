@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"4\", \"528\", \"63\"]",
+    "src_uid": "268f90d0595f7c51fb336ce377409dde",
+    "prob_desc_notes": "NoteIn the first case, there are four possible ways to make a number that is divisible by 5: 5, 15, 25 and 125.In the second case, remember to concatenate the copies of a. The actual plate is 1399013990.In the third case, except deleting all digits, any choice will do. Therefore there are 26 - 1 = 63 possible ways to delete digits.",
+    "prob_desc_description": "There is a long plate s containing n digits. Iahub wants to delete some digits (possibly none, but he is not allowed to delete all the digits) to form his \"magic number\" on the plate, a number that is divisible by 5. Note that, the resulting number may contain leading zeros.Now Iahub wants to count the number of ways he can obtain magic number, modulo 1000000007 (109 + 7). Two ways are different, if the set of deleted positions in s differs.Look at the input part of the statement, s is given in a special form.",
+    "prob_desc_output_spec": "Print a single integer — the required number of ways modulo 1000000007 (109 + 7).",
+    "prob_desc_input_spec": "In the first line you're given a string a (1 ≤ |a| ≤ 105), containing digits only. In the second line you're given an integer k (1 ≤ k ≤ 109). The plate s is formed by concatenating k copies of a together. That is n = |a|·k.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_015.jsonl",
+    "code_uid": "036201488c1d3ed9cb8bb8f0413b6472",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"1256\\n1\", \"13990\\n2\", \"555\\n2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "t, k = input(), int(input())\n\ns, n, d = 0, 1, 1000000007\n\nfor i in t:\n\n    if i in '05': s += n\n\n    n = (n << 1) % d\n\np = (pow(n, k, d) - 1) * pow(n - 1, d - 2, d)\n\nprint(((p % d) * (s % d)) % d)\n\n\n\n# Made By Mostafa_Khaled",
+    "prob_desc_created_at": "1372941000",
+    "tags": [
+        "combinatorics",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\"]",
+    "src_uid": "0c5ae761b046c021a25b706644f0d3cd",
+    "prob_desc_notes": null,
+    "prob_desc_description": "A sequence a0, a1, ..., at - 1 is called increasing if ai - 1 &lt; ai for each i: 0 &lt; i &lt; t.You are given a sequence b0, b1, ..., bn - 1 and a positive integer d. In each move you may choose one element of the given sequence and add d to it. What is the least number of moves required to make the given sequence increasing?",
+    "prob_desc_output_spec": "Output the minimal number of moves needed to make the sequence increasing.",
+    "prob_desc_input_spec": "The first line of the input contains two integer numbers n and d (2 ≤ n ≤ 2000, 1 ≤ d ≤ 106). The second line contains space separated sequence b0, b1, ..., bn - 1 (1 ≤ bi ≤ 106).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 900,
+    "file_name": "train_009.jsonl",
+    "code_uid": "f415bd9e646f999f2c360181ccbacf56",
+    "prob_desc_memory_limit": "64 megabytes",
+    "prob_desc_sample_inputs": "[\"4 2\\n1 3 3 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "I=lambda:map(int,input().split())\nn,d=I()\na=*I(),\nx=a[0]\nr=0\nfor y in a[1:]:\n  z=0--(x+1-y)//d\n  if z>=0:\n    r+=z\n    y+=z*d\n  x=y\nprint(r)",
+    "prob_desc_created_at": "1272294000",
+    "tags": [
+        "constructive algorithms",
+        "implementation",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

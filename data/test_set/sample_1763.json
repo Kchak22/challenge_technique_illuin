@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"12\", \"39\"]",
+    "src_uid": "18b5557b282ebf7288de50ab8cb51c60",
+    "prob_desc_notes": "NoteIn the first sample the clans are {1}, {2}, {1, 2} so the answer will be 1·3 + 1·3 + 2·3 = 12",
+    "prob_desc_description": "Winter is here at the North and the White Walkers are close. John Snow has an army consisting of n soldiers. While the rest of the world is fighting for the Iron Throne, he is going to get ready for the attack of the White Walkers.He has created a method to know how strong his army is. Let the i-th soldier’s strength be ai. For some k he calls i1, i2, ..., ik a clan if i1 &lt; i2 &lt; i3 &lt; ... &lt; ik and gcd(ai1, ai2, ..., aik) &gt; 1 . He calls the strength of that clan k·gcd(ai1, ai2, ..., aik). Then he defines the strength of his army by the sum of strengths of all possible clans.Your task is to find the strength of his army. As the number may be very large, you have to print it modulo 1000000007 (109 + 7).Greatest common divisor (gcd) of a sequence of integers is the maximum possible integer so that each element of the sequence is divisible by it.",
+    "prob_desc_output_spec": "Print one integer — the strength of John Snow's army modulo 1000000007 (109 + 7).",
+    "prob_desc_input_spec": "The first line contains integer n (1 ≤ n ≤ 200000) — the size of the army. The second line contains n integers a1, a2, ..., an (1 ≤ ai ≤ 1000000) — denoting the strengths of his soldiers.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_012.jsonl",
+    "code_uid": "8d3584bf33569a7ff9aeafcfbca49a4e",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n3 3 1\", \"4\\n2 3 4 6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "(input())\na=list(map(int,input().split()))\nn,p=1000001,1000000007\ncnt=[0]*n\ncurr=1\nfor i in a:\n\tcnt[i]+=1\nans=[0]*n\ntot=0\nfor i in range(n-1,1,-1):\n\tk=sum(cnt[i::i])\n\tif k>0:\n\t\tans[i]=(k*pow(2,k-1,p)-sum(ans[i::i]))%p\n\t\ttot=(tot+i*ans[i])%p\nprint(tot)\n\n",
+    "prob_desc_created_at": "1502548500",
+    "tags": [
+        "dp",
+        "combinatorics",
+        "number theory",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

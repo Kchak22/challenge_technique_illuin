@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"2\", \"4\", \"5\", \"0\"]",
+    "src_uid": "e53eabd41647dc17bd8daf060d736c63",
+    "prob_desc_notes": "NoteIn the first sample test you can rotate the first photo (3 seconds), watch the first photo (1 seconds), move left (2 second), rotate fourth photo (3 seconds), watch fourth photo (1 second). The whole process takes exactly 10 seconds.Note that in the last sample test the time is not enough even to watch the first photo, also you can't skip it.",
+    "prob_desc_description": "Vasya's telephone contains n photos. Photo number 1 is currently opened on the phone. It is allowed to move left and right to the adjacent photo by swiping finger over the screen. If you swipe left from the first photo, you reach photo n. Similarly, by swiping right from the last photo you reach photo 1. It takes a seconds to swipe from photo to adjacent.For each photo it is known which orientation is intended for it — horizontal or vertical. Phone is in the vertical orientation and can't be rotated. It takes b second to change orientation of the photo.Vasya has T seconds to watch photos. He want to watch as many photos as possible. If Vasya opens the photo for the first time, he spends 1 second to notice all details in it. If photo is in the wrong orientation, he spends b seconds on rotating it before watching it. If Vasya has already opened the photo, he just skips it (so he doesn't spend any time for watching it or for changing its orientation). It is not allowed to skip unseen photos.Help Vasya find the maximum number of photos he is able to watch during T seconds.",
+    "prob_desc_output_spec": "Output the only integer, the maximum number of photos Vasya is able to watch during those T seconds.",
+    "prob_desc_input_spec": "The first line of the input contains 4 integers n, a, b, T (1 ≤ n ≤ 5·105, 1 ≤ a, b ≤ 1000, 1 ≤ T ≤ 109) — the number of photos, time to move from a photo to adjacent, time to change orientation of a photo and time Vasya can spend for watching photo. Second line of the input contains a string of length n containing symbols 'w' and 'h'.  If the i-th position of a string contains 'w', then the photo i should be seen in the horizontal orientation. If the i-th position of a string contains 'h', then the photo i should be seen in vertical orientation.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_006.jsonl",
+    "code_uid": "048de1cd5f7dccc1da3eb37c94e9aac4",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 2 3 10\\nwwhw\", \"5 2 4 13\\nhhwhh\", \"5 2 4 1000\\nhhwhh\", \"3 1 100 10\\nwhw\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def main():\n    n, a, b, t = map(int, input().split())\n    b += 1\n    l = [b if char == \"w\" else 1 for char in input()]\n    t -= sum(l) - a * (n + 2)\n    hi, n2 = n, n * 2\n    n21 = n2 + 1\n    lo = res = 0\n    l *= 2\n    while lo <= n and hi < n2:\n        t -= l[hi]\n        hi += 1\n        b = hi - n\n        while lo < b or (hi - lo + min(hi, n21 - lo)) * a > t:\n            t += l[lo]\n            lo += 1\n        if res < hi - lo:\n            res = hi - lo\n            if res == n:\n                break\n    print(res)\n\n\nif __name__ == '__main__':\n    main()",
+    "prob_desc_created_at": "1457342700",
+    "tags": [
+        "dp",
+        "two pointers",
+        "binary search",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

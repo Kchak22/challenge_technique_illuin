@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"2\\n1 1 2\", \"2\\n2 1 1 2\"]",
+    "src_uid": "a99f5e08f3f560488ff979a3e9746e7f",
+    "prob_desc_notes": "NoteIn the first input, the colors for first, second and third pieces of jewelry having respective prices 2, 3 and 4 are 1, 1 and 2 respectively.In this case, as 2 is a prime divisor of 4, colors of jewelry having prices 2 and 4 must be distinct.",
+    "prob_desc_description": "Sherlock has a new girlfriend (so unlike him!). Valentine's day is coming and he wants to gift her some jewelry.He bought n pieces of jewelry. The i-th piece has price equal to i + 1, that is, the prices of the jewelry are 2, 3, 4, ... n + 1.Watson gave Sherlock a challenge to color these jewelry pieces such that two pieces don't have the same color if the price of one piece is a prime divisor of the price of the other piece. Also, Watson asked him to minimize the number of different colors used.Help Sherlock complete this trivial task.",
+    "prob_desc_output_spec": "The first line of output should contain a single integer k, the minimum number of colors that can be used to color the pieces of jewelry with the given constraints. The next line should consist of n space-separated integers (between 1 and k) that specify the color of each piece in the order of increasing price. If there are multiple ways to color the pieces using k colors, you can output any of them.",
+    "prob_desc_input_spec": "The only line contains single integer n (1 ≤ n ≤ 100000) — the number of jewelry pieces.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_006.jsonl",
+    "code_uid": "ed01f95b2750d1680e1e7293d3af8764",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\", \"4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def f(n):\n    if n==2:\n        return True\n    for i in range(2,int(n**0.5)+1):\n        if n%i==0:\n            return False\n    return True\ns=int(input())\nif s>2:\n    print(2)\n    q=[1]*(s)\n    for i in range(2,s+2):\n        if f(i):\n            q[i-2]=2\n    print(' '.join([str(w)for w in q]))\nelif s==1:\n    print(1)\n    print(1)\nelse:\n    print(1)\n    print('1 1')\n",
+    "prob_desc_created_at": "1487861100",
+    "tags": [
+        "constructive algorithms",
+        "number theory"
+    ],
+    "hidden_unit_tests": ""
+}

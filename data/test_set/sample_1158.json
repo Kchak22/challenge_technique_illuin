@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"7\", \"2\", \"9\"]",
+    "src_uid": "47129977694cb371c7647cfd0db63d29",
+    "prob_desc_notes": "NoteIn the first example, Linova can choose cities $$$2$$$, $$$5$$$, $$$6$$$, $$$7$$$ to develop industry, then the happiness of the envoy from city $$$2$$$ is $$$1$$$, the happiness of envoys from cities $$$5$$$, $$$6$$$, $$$7$$$ is $$$2$$$. The sum of happinesses is $$$7$$$, and it can be proved to be the maximum one.In the second example, choosing cities $$$3$$$, $$$4$$$ developing industry can reach a sum of $$$3$$$, but remember that Linova plans to choose exactly $$$k$$$ cities developing industry, then the maximum sum is $$$2$$$.",
+    "prob_desc_description": "Writing light novels is the most important thing in Linova's life. Last night, Linova dreamed about a fantastic kingdom. She began to write a light novel for the kingdom as soon as she woke up, and of course, she is the queen of it. There are $$$n$$$ cities and $$$n-1$$$ two-way roads connecting pairs of cities in the kingdom. From any city, you can reach any other city by walking through some roads. The cities are numbered from $$$1$$$ to $$$n$$$, and the city $$$1$$$ is the capital of the kingdom. So, the kingdom has a tree structure.As the queen, Linova plans to choose exactly $$$k$$$ cities developing industry, while the other cities will develop tourism. The capital also can be either industrial or tourism city.A meeting is held in the capital once a year. To attend the meeting, each industry city sends an envoy. All envoys will follow the shortest path from the departure city to the capital (which is unique).Traveling in tourism cities is pleasant. For each envoy, his happiness is equal to the number of tourism cities on his path.In order to be a queen loved by people, Linova wants to choose $$$k$$$ cities which can maximize the sum of happinesses of all envoys. Can you calculate the maximum sum for her?",
+    "prob_desc_output_spec": "Print the only line containing a single integer  — the maximum possible sum of happinesses of all envoys.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$k$$$ ($$$2\\le n\\le 2 \\cdot 10^5$$$, $$$1\\le k&lt; n$$$)  — the number of cities and industry cities respectively. Each of the next $$$n-1$$$ lines contains two integers $$$u$$$ and $$$v$$$ ($$$1\\le u,v\\le n$$$), denoting there is a road connecting city $$$u$$$ and city $$$v$$$. It is guaranteed that from any city, you can reach any other city by the roads.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_007.jsonl",
+    "code_uid": "9ac7a09a6c21d5b48b702c5b3d47d0ee",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"7 4\\n1 2\\n1 3\\n1 4\\n3 5\\n3 6\\n4 7\", \"4 1\\n1 2\\n1 3\\n2 4\", \"8 5\\n7 5\\n1 7\\n6 1\\n3 7\\n8 3\\n2 1\\n4 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def main():\n    from sys import stdin\n    from sys import stdout\n    input = stdin.readline\n    print = stdout.write\n\n    def dfs(town_ix, deep=0, parent=0):\n        deeps[town_ix] = deep\n        if len(kingdom_structure[town_ix]) == 1 and kingdom_structure[town_ix][0] == parent:\n            return 1\n        for road_to in kingdom_structure[town_ix]:\n            if road_to != parent:\n                quantity_child[town_ix] += dfs(road_to, deep + 1, town_ix)\n        return quantity_child[town_ix] + 1\n\n    n, k = list(map(int, input().split()))\n    kingdom_structure = [[] for _ in range(n)]\n    memo = [list(map(int, input().split())) for _ in range(n - 1)]\n    deeps = [0] * n\n    quantity_child = [0] * n\n    for i in range(n - 1):\n        v = memo[i][0] - 1\n        u = memo[i][1] - 1\n        kingdom_structure[v].append(u)\n        kingdom_structure[u].append(v)\n    dfs(0)\n    towns_profit = sorted([deeps[i] - quantity_child[i] for i in range(n)], reverse=True)\n    print(f'{sum(towns_profit[:k])}\\n')\n\n\nif __name__ == '__main__':\n    from sys import setrecursionlimit\n    import threading\n    setrecursionlimit(2097152)\n    threading.stack_size(134217728)\n    main_thread = threading.Thread(target=main)\n    main_thread.start()\n    main_thread.join()",
+    "prob_desc_created_at": "1586961300",
+    "tags": [
+        "dp",
+        "greedy",
+        "sortings",
+        "dfs and similar",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

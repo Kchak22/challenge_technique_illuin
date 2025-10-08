@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"36\", \"14\"]",
+    "src_uid": "d5a8fb9f0d69c12c16124d32cf22b46f",
+    "prob_desc_notes": "NoteThe first example tree is shown in the problem statement.",
+    "prob_desc_description": "You are given a tree (an undirected connected acyclic graph) consisting of $$$n$$$ vertices. You are playing a game on this tree.Initially all vertices are white. On the first turn of the game you choose one vertex and paint it black. Then on each turn you choose a white vertex adjacent (connected by an edge) to any black vertex and paint it black.Each time when you choose a vertex (even during the first turn), you gain the number of points equal to the size of the connected component consisting only of white vertices that contains the chosen vertex. The game ends when all vertices are painted black.Let's see the following example:Vertices $$$1$$$ and $$$4$$$ are painted black already. If you choose the vertex $$$2$$$, you will gain $$$4$$$ points for the connected component consisting of vertices $$$2, 3, 5$$$ and $$$6$$$. If you choose the vertex $$$9$$$, you will gain $$$3$$$ points for the connected component consisting of vertices $$$7, 8$$$ and $$$9$$$.Your task is to maximize the number of points you gain.",
+    "prob_desc_output_spec": "Print one integer — the maximum number of points you gain if you will play optimally.",
+    "prob_desc_input_spec": "The first line contains an integer $$$n$$$ — the number of vertices in the tree ($$$2 \\le n \\le 2 \\cdot 10^5$$$). Each of the next $$$n - 1$$$ lines describes an edge of the tree. Edge $$$i$$$ is denoted by two integers $$$u_i$$$ and $$$v_i$$$, the indices of vertices it connects ($$$1 \\le u_i, v_i \\le n$$$, $$$u_i \\ne v_i$$$). It is guaranteed that the given edges form a tree.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2100,
+    "file_name": "train_008.jsonl",
+    "code_uid": "bf6ea3b7ead26725a6c404950cadbbc1",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"9\\n1 2\\n2 3\\n2 5\\n2 6\\n1 4\\n4 9\\n9 7\\n9 8\", \"5\\n1 2\\n1 3\\n2 4\\n2 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nfrom collections import deque\ninput = sys.stdin.readline\n\nn=int(input())\nE=[[] for i in range(n+1)]\n\nfor i in range(n-1):\n    x,y=map(int,input().split())\n\n    E[x].append(y)\n    E[y].append(x)\n\nH=[-1]*(n+1)\n\nH[1]=0\nQUE=deque([1])\nfromnode=[-1]*(n+1)\n\nwhile QUE:\n    x=QUE.pop()\n    for to in E[x]:\n        if H[to]==-1:\n            H[to]=H[x]+1\n            fromnode[to]=x\n            QUE.append(to)\n        \nS=list(range(1,n+1))\nS.sort(key=lambda x:H[x],reverse=True)\n\nDP1=[0]*(n+1) # from the other nodes to 1\nSize=[0]*(n+1)\nfor s in S:\n    for to in E[s]:\n        if Size[to]!=0:\n            Size[s]+=Size[to]\n            DP1[s]+=DP1[to]\n    Size[s]+=1\n    DP1[s]+=Size[s]\n\nANS=[0]*(n+1)\nANS[1]=DP1[1]\n\nfor s in S[::-1][1:]:\n    ANS[s]=ANS[fromnode[s]]+n-2*Size[s]\n\nprint(max(ANS))\n    \n",
+    "prob_desc_created_at": "1561905900",
+    "tags": [
+        "dp",
+        "dfs and similar",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"molice\", \"cdcbcdcfcdc\"]",
+    "src_uid": "67a70d58415dc381afaa74de1fee7215",
+    "prob_desc_notes": "NoteIn the second sample the name of the corporation consecutively changes as follows: ",
+    "prob_desc_description": "The name of one small but proud corporation consists of n lowercase English letters. The Corporation has decided to try rebranding — an active marketing strategy, that includes a set of measures to change either the brand (both for the company and the goods it produces) or its components: the name, the logo, the slogan. They decided to start with the name.For this purpose the corporation has consecutively hired m designers. Once a company hires the i-th designer, he immediately contributes to the creation of a new corporation name as follows: he takes the newest version of the name and replaces all the letters xi by yi, and all the letters yi by xi. This results in the new version. It is possible that some of these letters do no occur in the string. It may also happen that xi coincides with yi. The version of the name received after the work of the last designer becomes the new name of the corporation.Manager Arkady has recently got a job in this company, but is already soaked in the spirit of teamwork and is very worried about the success of the rebranding. Naturally, he can't wait to find out what is the new name the Corporation will receive.Satisfy Arkady's curiosity and tell him the final version of the name.",
+    "prob_desc_output_spec": "Print the new name of the corporation.",
+    "prob_desc_input_spec": "The first line of the input contains two integers n and m (1 ≤ n, m ≤ 200 000) — the length of the initial name and the number of designers hired, respectively. The second line consists of n lowercase English letters and represents the original name of the corporation. Next m lines contain the descriptions of the designers' actions: the i-th of them contains two space-separated lowercase English letters xi and yi.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_000.jsonl",
+    "code_uid": "ba02b91aebce084f69fa4733b4496ca0",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6 1\\npolice\\np m\", \"11 6\\nabacabadaba\\na b\\nb c\\na d\\ne g\\nf a\\nb b\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import string\nt = string.ascii_lowercase\nt2 = list(t)\n#print(t2)\nn , m = map(int,input().split())\ns = input()\n\nfor i in range(m):\n    x , y = input().split()\n\n    index_x = t2.index(x)\n    index_y = t2.index(y)\n    t2[index_x] , t2[index_y] = t2[index_y] , t2[index_x]\n\n#print(t2)\nfor i in s :\n    index = ord(i) - ord('a')\n    print(t2[index] , end = '')\n\n\n\n",
+    "prob_desc_created_at": "1445763600",
+    "tags": [
+        "implementation",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

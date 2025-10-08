@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"0\\n\\n6\\n3 1 3 2 2 3 \\n13\\n2 1 1 6 4 2 4 3 3 4 4 6 6 \\n-1\\n4\\n3 3 4 4\"]",
+    "src_uid": "ea9f72c830d938d36135a75a418c094c",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given an array $$$a$$$ consisting of $$$n$$$ integers.In one move, you can choose some index $$$i$$$ ($$$1 \\le i \\le n - 2$$$) and shift the segment $$$[a_i, a_{i + 1}, a_{i + 2}]$$$ cyclically to the right (i.e. replace the segment $$$[a_i, a_{i + 1}, a_{i + 2}]$$$ with $$$[a_{i + 2}, a_i, a_{i + 1}]$$$). Your task is to sort the initial array by no more than $$$n^2$$$ such operations or say that it is impossible to do that.You have to answer $$$t$$$ independent test cases.",
+    "prob_desc_output_spec": "For each test case, print the answer: -1 on the only line if it is impossible to sort the given array using operations described in the problem statement, or the number of operations $$$ans$$$ on the first line and $$$ans$$$ integers $$$idx_1, idx_2, \\dots, idx_{ans}$$$ ($$$1 \\le idx_i \\le n - 2$$$), where $$$idx_i$$$ is the index of left border of the segment for the $$$i$$$-th operation. You should print indices in order of performing operations.",
+    "prob_desc_input_spec": "The first line of the input contains one integer $$$t$$$ ($$$1 \\le t \\le 100$$$) — the number of test cases. Then $$$t$$$ test cases follow. The first line of the test case contains one integer $$$n$$$ ($$$3 \\le n \\le 500$$$) — the length of $$$a$$$. The second line of the test case contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 500$$$), where $$$a_i$$$ is the $$$i$$$-th element $$$a$$$. It is guaranteed that the sum of $$$n$$$ does not exceed $$$500$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2400,
+    "file_name": "train_010.jsonl",
+    "code_uid": "d5a00591a1996a2fed958c7d2897d0e0",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n5\\n1 2 3 4 5\\n5\\n5 4 3 2 1\\n8\\n8 4 5 2 3 6 7 3\\n7\\n5 2 1 6 4 7 3\\n6\\n1 2 3 3 6 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "for _ in range(int(input())):\n    n=int(input())\n    l=list(map(int,input().split()))\n    s=[]\n    for i in range(n):\n        for j in range(n-2):\n            if(l[j]>l[j+1]):\n                l[j],l[j+2]=l[j+2],l[j]\n                l[j],l[j+1]=l[j+1],l[j]\n                s.append(j+1)\n                s.append(j+1)\n            elif(l[j+1]>l[j+2]):\n                l[j],l[j+1]=l[j+1],l[j]\n                l[j],l[j+2]=l[j+2],l[j]\n                s.append(j+1)\n    if(l!=sorted(l)):\n        print(-1)\n    else:\n        print(len(s))\n        print(*s)\n",
+    "prob_desc_created_at": "1593354900",
+    "tags": [
+        "constructive algorithms",
+        "implementation",
+        "sortings",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"5 1\", \"1 2\"]",
+    "src_uid": "facd9cd4fc1e53f50a1e6f947d78e942",
+    "prob_desc_notes": null,
+    "prob_desc_description": "n soldiers stand in a circle. For each soldier his height ai is known. A reconnaissance unit can be made of such two neighbouring soldiers, whose heights difference is minimal, i.e. |ai - aj| is minimal. So each of them will be less noticeable with the other. Output any pair of soldiers that can form a reconnaissance unit.",
+    "prob_desc_output_spec": "Output two integers — indexes of neighbouring soldiers, who should form a reconnaissance unit. If there are many optimum solutions, output any of them. Remember, that the soldiers stand in a circle.",
+    "prob_desc_input_spec": "The first line contains integer n (2 ≤ n ≤ 100) — amount of soldiers. Then follow the heights of the soldiers in their order in the circle — n space-separated integers a1, a2, ..., an (1 ≤ ai ≤ 1000). The soldier heights are given in clockwise or counterclockwise direction.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_006.jsonl",
+    "code_uid": "edae74e84a6fe1e3881c436ddde51f45",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n10 12 13 15 10\", \"4\\n10 20 30 40\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import math\nn=int(input())\nl=list(map(int,input().split()))\nd=0\ndiff=abs(l[n-1]-l[0])\no1,o2=n,1\nfor i in range(n-1):\n    d=abs(l[i+1]-l[i])\n    #print(d,diff)\n    if d<diff:\n        diff=d\n        o1=i+1\n        o2=i+2\nprint(o1,o2)",
+    "prob_desc_created_at": "1286802000",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

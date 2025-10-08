@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "0.5 seconds",
+    "prob_desc_sample_outputs": "[\"38.546168065709\"]",
+    "src_uid": "560bc97986a355d461bd462c4e1ea9db",
+    "prob_desc_notes": null,
+    "prob_desc_description": "IT City administration has no rest because of the fame of the Pyramids in Egypt. There is a project of construction of pyramid complex near the city in the place called Emerald Walley. The distinction of the complex is that its pyramids will be not only quadrangular as in Egypt but also triangular and pentagonal. Of course the amount of the city budget funds for the construction depends on the pyramids' volume. Your task is to calculate the volume of the pilot project consisting of three pyramids — one triangular, one quadrangular and one pentagonal.The first pyramid has equilateral triangle as its base, and all 6 edges of the pyramid have equal length. The second pyramid has a square as its base and all 8 edges of the pyramid have equal length. The third pyramid has a regular pentagon as its base and all 10 edges of the pyramid have equal length.  ",
+    "prob_desc_output_spec": "Output one number — the total volume of the pyramids. Absolute or relative error should not be greater than 10 - 9.",
+    "prob_desc_input_spec": "The only line of the input contains three integers l3, l4, l5 (1 ≤ l3, l4, l5 ≤ 1000) — the edge lengths of triangular, quadrangular and pentagonal pyramids correspondingly.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_007.jsonl",
+    "code_uid": "e45380ff5c9d58dfc537b1daed1df8ea",
+    "prob_desc_memory_limit": "64 megabytes",
+    "prob_desc_sample_inputs": "[\"2 5 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import os, sys, pdb\nimport time, calendar, datetime\nimport math, itertools\nimport operator as op\nfrom functools import reduce\n\ndef ncr(n, r):\n    r = min(r, n-r)\n    numer = reduce(op.mul, range(n, n-r, -1), 1)\n    denom = reduce(op.mul, range(1, r+1), 1)\n    return numer // denom\n\nl3, l4, l5 = list(map(int, input().split()))\na3 = l3 / (2 * math.tan(math.pi/3))\na4 = l4 / (2 * math.tan(math.pi/4))\na5 = l5 / (2 * math.tan(math.pi/5))\nB3 = 3 * l3 * a3 / 2\nB4 = 4 * l4 * a4 / 2\nB5 = 5 * l5 * a5 / 2\nh3 = math.sqrt(3*l3**2/4 - a3**2)\nh4 = math.sqrt(3*l4**2/4 - a4**2)\nh5 = math.sqrt(3*l5**2/4 - a5**2)\n\nprint((B3*h3+B4*h4+B5*h5)/3)\n\n",
+    "prob_desc_created_at": "1455807600",
+    "tags": [
+        "geometry",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

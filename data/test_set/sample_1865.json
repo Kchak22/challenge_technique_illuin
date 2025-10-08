@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"5\", \"2\", \"4\"]",
+    "src_uid": "0135818c10fae9fc9efcc724fa43181f",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are a coach at your local university. There are $$$n$$$ students under your supervision, the programming skill of the $$$i$$$-th student is $$$a_i$$$.You have to form $$$k$$$ teams for yet another new programming competition. As you know, the more students are involved in competition the more probable the victory of your university is! So you have to form no more than $$$k$$$ (and at least one) non-empty teams so that the total number of students in them is maximized. But you also know that each team should be balanced. It means that the programming skill of each pair of students in each team should differ by no more than $$$5$$$. Teams are independent from one another (it means that the difference between programming skills of two students from two different teams does not matter).It is possible that some students not be included in any team at all.Your task is to report the maximum possible total number of students in no more than $$$k$$$ (and at least one) non-empty balanced teams.If you are Python programmer, consider using PyPy instead of Python when you submit your code.",
+    "prob_desc_output_spec": "Print one integer — the maximum possible total number of students in no more than $$$k$$$ (and at least one) non-empty balanced teams.",
+    "prob_desc_input_spec": "The first line of the input contains two integers $$$n$$$ and $$$k$$$ ($$$1 \\le k \\le n \\le 5000$$$) — the number of students and the maximum number of teams, correspondingly. The second line of the input contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 10^9$$$), where $$$a_i$$$ is a programming skill of the $$$i$$$-th student.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_014.jsonl",
+    "code_uid": "63f8cda21f0ca760753f42f0430ec640",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 2\\n1 2 15 15 15\", \"6 1\\n36 4 1 25 9 16\", \"4 4\\n1 10 100 1000\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, k = map(int, raw_input().split())\na = sorted(map(int, raw_input().split()))\n\ndp = [[0] * k for i in range(n)]\ndp[0][0] = 1\nfor i in range(1, n):\n    l = i\n    while l >= 0 and (a[i] - a[l]) <= 5: l -= 1\n\n    # print a[i], i - l, l\n    for j in range(min(k, i + 1)):\n        if j == 0:\n            dp[i][j] = max(i - l, dp[i - 1][j])\n        else:\n            if l >= 0:\n                dp[i][j] = max(i - l + dp[l][j - 1], dp[i - 1][j])\n            else:\n                dp[i][j] = max(i - l, dp[i - 1][j])\n\n# print dp\nprint max(dp[-1])\n",
+    "prob_desc_created_at": "1551971100",
+    "tags": [
+        "dp",
+        "two pointers",
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

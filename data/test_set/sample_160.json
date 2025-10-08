@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"3 2 4 1 5\", \"3 1 2\"]",
+    "src_uid": "819d3694fccf2b5af0ec3b4ee429dbb3",
+    "prob_desc_notes": null,
+    "prob_desc_description": "There are $$$n$$$ kids, numbered from $$$1$$$ to $$$n$$$, dancing in a circle around the Christmas tree. Let's enumerate them in a clockwise direction as $$$p_1$$$, $$$p_2$$$, ..., $$$p_n$$$ (all these numbers are from $$$1$$$ to $$$n$$$ and are distinct, so $$$p$$$ is a permutation). Let the next kid for a kid $$$p_i$$$ be kid $$$p_{i + 1}$$$ if $$$i &lt; n$$$ and $$$p_1$$$ otherwise. After the dance, each kid remembered two kids: the next kid (let's call him $$$x$$$) and the next kid for $$$x$$$. Each kid told you which kids he/she remembered: the kid $$$i$$$ remembered kids $$$a_{i, 1}$$$ and $$$a_{i, 2}$$$. However, the order of $$$a_{i, 1}$$$ and $$$a_{i, 2}$$$ can differ from their order in the circle.    Example: 5 kids in a circle, $$$p=[3, 2, 4, 1, 5]$$$ (or any cyclic shift). The information kids remembered is: $$$a_{1,1}=3$$$, $$$a_{1,2}=5$$$; $$$a_{2,1}=1$$$, $$$a_{2,2}=4$$$; $$$a_{3,1}=2$$$, $$$a_{3,2}=4$$$; $$$a_{4,1}=1$$$, $$$a_{4,2}=5$$$; $$$a_{5,1}=2$$$, $$$a_{5,2}=3$$$. You have to restore the order of the kids in the circle using this information. If there are several answers, you may print any. It is guaranteed that at least one solution exists.If you are Python programmer, consider using PyPy instead of Python when you submit your code.",
+    "prob_desc_output_spec": "Print $$$n$$$ integers $$$p_1$$$, $$$p_2$$$, ..., $$$p_n$$$ — permutation of integers from $$$1$$$ to $$$n$$$, which corresponds to the order of kids in the circle. If there are several answers, you may print any (for example, it doesn't matter which kid is the first in the circle). It is guaranteed that at least one solution exists.",
+    "prob_desc_input_spec": "The first line of the input contains one integer $$$n$$$ ($$$3 \\le n \\le 2 \\cdot 10^5$$$) — the number of the kids. The next $$$n$$$ lines contain $$$2$$$ integers each. The $$$i$$$-th line contains two integers $$$a_{i, 1}$$$ and $$$a_{i, 2}$$$ ($$$1 \\le a_{i, 1}, a_{i, 2} \\le n, a_{i, 1} \\ne a_{i, 2}$$$) — the kids the $$$i$$$-th kid remembered, given in arbitrary order.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_000.jsonl",
+    "code_uid": "7e174deedd4191f3621e9a355932b142",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n3 5\\n1 4\\n2 4\\n1 5\\n2 3\", \"3\\n2 3\\n3 1\\n1 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = input()\ne = []\nfor i in range(n):\n    a, b = map(int, raw_input().split())\n    e.append((a, b))\n\nz = [1]\nv = {}\ni = 0\nwhile i < n - 2:\n    x = z[i]\n    y1, y2 = e[x - 1]\n    if y2 in e[y1 - 1]:\n        z.append(y1)\n        z.append(y2)\n    else:\n        z.append(y2)\n        z.append(y1)\n    v[x] = True\n    v[y1] = True\n    v[y2] = True\n    i += 2\n\nif len(z) < n:\n    for i in range(1, n + 1):\n        if i not in v: z.append(i)\n\nprint ' '.join(map(str, z))\n",
+    "prob_desc_created_at": "1545921300",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

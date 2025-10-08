@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"8\\n0\\n7\"]",
+    "src_uid": "cc64dfbaadc7f9deae23c71df52d7326",
+    "prob_desc_notes": "NoteIn the first test case you have to buy vote of the third voter. Then the set of people voting for you will change as follows: $$${3} \\rightarrow {1, 3} \\rightarrow {1, 2, 3}$$$.In the second example you don't need to buy votes. The set of people voting for you will change as follows: $$${1} \\rightarrow {1, 3, 5} \\rightarrow {1, 2, 3, 5} \\rightarrow {1, 2, 3, 5, 6, 7} \\rightarrow {1, 2, 3, 4, 5, 6, 7}$$$.In the third test case you have to buy votes of the second and the fifth voters. Then the set of people voting for you will change as follows: $$${2, 5} \\rightarrow {1, 2, 3, 4, 5} \\rightarrow {1, 2, 3, 4, 5, 6}$$$.",
+    "prob_desc_description": "The only difference between easy and hard versions is constraints.Now elections are held in Berland and you want to win them. More precisely, you want everyone to vote for you.There are $$$n$$$ voters, and two ways to convince each of them to vote for you. The first way to convince the $$$i$$$-th voter is to pay him $$$p_i$$$ coins. The second way is to make $$$m_i$$$ other voters vote for you, and the $$$i$$$-th voter will vote for free.Moreover, the process of such voting takes place in several steps. For example, if there are five voters with $$$m_1 = 1$$$, $$$m_2 = 2$$$, $$$m_3 = 2$$$, $$$m_4 = 4$$$, $$$m_5 = 5$$$, then you can buy the vote of the fifth voter, and eventually everyone will vote for you. Set of people voting for you will change as follows: $$${5} \\rightarrow {1, 5} \\rightarrow {1, 2, 3, 5} \\rightarrow {1, 2, 3, 4, 5}$$$.Calculate the minimum number of coins you have to spend so that everyone votes for you.",
+    "prob_desc_output_spec": "For each test case print one integer — the minimum number of coins you have to spend so that everyone votes for you.",
+    "prob_desc_input_spec": "The first line contains one integer $$$t$$$ ($$$1 \\le t \\le 5000$$$) — the number of test cases. The first line of each test case contains one integer $$$n$$$ ($$$1 \\le n \\le 5000$$$) — the number of voters. The next $$$n$$$ lines contains the description of voters. $$$i$$$-th line contains two integers $$$m_i$$$ and $$$p_i$$$ ($$$1 \\le p_i \\le 10^9, 0 \\le m_i &lt; n$$$). It is guaranteed that the sum of all $$$n$$$ over all test cases does not exceed $$$5000$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2300,
+    "file_name": "train_000.jsonl",
+    "code_uid": "4a4b26ae1bf04edfe884639e94489f59",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n3\\n1 5\\n2 10\\n2 8\\n7\\n0 1\\n3 1\\n1 1\\n6 1\\n1 1\\n4 1\\n4 1\\n6\\n2 6\\n2 3\\n2 8\\n2 7\\n4 4\\n5 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nfrom heapq import *\n#sys.stdin = open('in', 'r')\nt = int(input())\nfor ti in range(t):\n    n = int(input())\n    a = []\n    for i in range(n):\n        mi, pi = map(int, input().split())\n        a.append((mi, -pi))\n    a.sort()\n    c = 0\n    h = []\n    res = 0\n    for i in reversed(range(n)):\n        heappush(h, -a[i][1])\n        while c + i < a[i][0]:\n            res += heappop(h)\n            c += 1\n    print(res)\n\n\n#sys.stdout.write('YES\\n')\n#sys.stdout.write(f'{res}\\n')\n#sys.stdout.write(f'{y1} {x1} {y2} {x2}\\n')\n",
+    "prob_desc_created_at": "1571929500",
+    "tags": [
+        "dp",
+        "greedy",
+        "data structures"
+    ],
+    "hidden_unit_tests": ""
+}

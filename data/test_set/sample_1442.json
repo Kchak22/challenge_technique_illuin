@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"5\", \"42\"]",
+    "src_uid": "bd6f4859e3c3ce19b8e89c431f2e65fb",
+    "prob_desc_notes": "NoteIn the first example Yura needs to reach $$$(5, 5)$$$ from $$$(1, 1)$$$. He can do that in $$$5$$$ minutes by first using the second instant-movement location (because its $$$y$$$ coordinate is equal to Yura's $$$y$$$ coordinate), and then walking $$$(4, 1) \\to (4, 2) \\to (4, 3) \\to (5, 3) \\to (5, 4) \\to (5, 5)$$$.",
+    "prob_desc_description": "Yura has been walking for some time already and is planning to return home. He needs to get home as fast as possible. To do this, Yura can use the instant-movement locations around the city.Let's represent the city as an area of $$$n \\times n$$$ square blocks. Yura needs to move from the block with coordinates $$$(s_x,s_y)$$$ to the block with coordinates $$$(f_x,f_y)$$$. In one minute Yura can move to any neighboring by side block; in other words, he can move in four directions. Also, there are $$$m$$$ instant-movement locations in the city. Their coordinates are known to you and Yura. Yura can move to an instant-movement location in no time if he is located in a block with the same coordinate $$$x$$$ or with the same coordinate $$$y$$$ as the location.Help Yura to find the smallest time needed to get home.",
+    "prob_desc_output_spec": "In the only line print the minimum time required to get home.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$m$$$ — the size of the city and the number of instant-movement locations ($$$1 \\le n \\le 10^9$$$, $$$0 \\le m \\le 10^5$$$). The next line contains four integers $$$s_x$$$ $$$s_y$$$ $$$f_x$$$ $$$f_y$$$ — the coordinates of Yura's initial position and the coordinates of his home ($$$ 1 \\le s_x, s_y, f_x, f_y \\le n$$$). Each of the next $$$m$$$ lines contains two integers $$$x_i$$$ $$$y_i$$$ — coordinates of the $$$i$$$-th instant-movement location ($$$1 \\le x_i, y_i \\le n$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2300,
+    "file_name": "train_009.jsonl",
+    "code_uid": "79447fe19beac92ac0d84869bcf86286",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 3\\n1 1 5 5\\n1 2\\n4 1\\n3 3\", \"84 5\\n67 59 41 2\\n39 56\\n7 2\\n15 3\\n74 18\\n22 7\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import heapq\n \n \ndef main():\n    n, m = map(int, input().split())\n    sx, sy, fx, fy = map(int, input().split())\n    sub = [0]*(m+2)\n    sub[0] = (sx,sy)\n    dx = []\n    dy = []\n    for i in range(m):\n        x, y = map(int, input().split())\n        dx.append((x, i+1))\n        dy.append((y, i+1))\n        sub[i+1] = (x, y)\n    dx.append((sx,0))\n    dy.append((sy,0))\n    dx.sort()\n    dy.sort()\n    G = [[] for i in range(m+2)]\n    d = [2*10**9]*(m+2)\n    for i in range(m):\n        px, pindex = dx[i]\n        nx, nindex = dx[i+1]\n        G[pindex].append((nx-px, nindex))\n        G[nindex].append((nx-px, pindex))\n \n    for i in range(m):\n        py, pindex = dy[i]\n        ny, nindex = dy[i+1]\n        G[pindex].append((ny-py, nindex))\n        G[nindex].append((ny-py, pindex))\n \n \n    for i in range(m+1):\n        x, y = sub[i]\n        min_cost = abs(y-fy)+abs(x-fx)\n        G[m+1].append((min_cost, i))\n        G[i].append((min_cost, m+1))\n \n    que = []\n    heapq.heapify(que)\n    d[0] = 0\n    heapq.heappush(que, (0, 0))\n \n    while que:\n        cost, v = heapq.heappop(que)\n        if d[v] < cost:\n            continue\n \n        for cost, node in G[v]:\n            if d[node] > d[v] + cost:\n                d[node] = d[v] + cost\n                heapq.heappush(que, (d[node], node))\n \n    ans = d[m+1]\n    print(ans)\n    return\n \n \nif __name__ == \"__main__\":\n    main()",
+    "prob_desc_created_at": "1601827500",
+    "tags": [
+        "graphs",
+        "sortings",
+        "shortest paths"
+    ],
+    "hidden_unit_tests": ""
+}

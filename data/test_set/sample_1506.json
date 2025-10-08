@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"OOOoOooO\", \"OOOoOooOooooOoo\"]",
+    "src_uid": "a7c0484275e62f0bc70d9edaac27d7d6",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Eleven wants to choose a new name for herself. As a bunch of geeks, her friends suggested an algorithm to choose a name for her. Eleven wants her name to have exactly n characters.   Her friend suggested that her name should only consist of uppercase and lowercase letters 'O'. More precisely, they suggested that the i-th letter of her name should be 'O' (uppercase) if i is a member of Fibonacci sequence, and 'o' (lowercase) otherwise. The letters in the name are numbered from 1 to n. Fibonacci sequence is the sequence f where  f1 = 1,  f2 = 1,  fn = fn - 2 + fn - 1 (n &gt; 2). As her friends are too young to know what Fibonacci sequence is, they asked you to help Eleven determine her new name.",
+    "prob_desc_output_spec": "Print Eleven's new name on the first and only line of output.",
+    "prob_desc_input_spec": "The first and only line of input contains an integer n (1 ≤ n ≤ 1000).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_009.jsonl",
+    "code_uid": "bfc61a1453a70bd1b0eef9ca624c64c6",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"8\", \"15\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import bisect\nfrom collections import defaultdict\nfrom collections import deque\nimport math\nimport re\nimport sys\n\ndef ni():\n    return int(raw_input())\n\ndef nis():\n    return map(int, raw_input().split())\n\ndef si():\n    return raw_input()\n\ndef sis():\n    return raw_input().split()\n\ndef spaced(a):\n    return ' '.join(map(str, a))\n\ndef fib():\n    a = 1\n    b = 1\n    yield 1\n    while True:\n        c = a + b\n        if c >= n + 1:\n            return\n        yield c\n        a = b\n        b = c\n\nn = ni()\n\nans = ['o'] * n\n\nf = fib()\nfor i in f:\n    ans[i - 1] = 'O'\n\nprint ''.join(ans)",
+    "prob_desc_created_at": "1517236500",
+    "tags": [
+        "implementation",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

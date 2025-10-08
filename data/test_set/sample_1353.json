@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"aaa\", \"nisteaadddiiklooprrvz\", \"ababacabcc\"]",
+    "src_uid": "9dc956306e2826229e393657f2d0d9bd",
+    "prob_desc_notes": "NoteIn the third sample, this optimal solutions has three non-overlaping substrings equal to either b or c on positions 1 – 2 (ab), 3 – 4 (ab), 5 – 7 (aca). In this sample, there exist many other optimal solutions, one of them would be acaababbcc.",
+    "prob_desc_description": "Professor GukiZ doesn't accept string as they are. He likes to swap some letters in string to obtain a new one.GukiZ has strings a, b, and c. He wants to obtain string k by swapping some letters in a, so that k should contain as many non-overlapping substrings equal either to b or c as possible. Substring of string x is a string formed by consecutive segment of characters from x. Two substrings of string x overlap if there is position i in string x occupied by both of them.GukiZ was disappointed because none of his students managed to solve the problem. Can you help them and find one of possible strings k?",
+    "prob_desc_output_spec": "Find one of possible strings k, as described in the problem statement. If there are multiple possible answers, print any of them.",
+    "prob_desc_input_spec": "The first line contains string a, the second line contains string b, and the third line contains string c (1 ≤ |a|, |b|, |c| ≤ 105, where |s| denotes the length of string s). All three strings consist only of lowercase English letters.  It is possible that b and c coincide.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_008.jsonl",
+    "code_uid": "0e795f753c9fd7ab66ee9b3145a19008",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"aaa\\na\\nb\", \"pozdravstaklenidodiri\\nniste\\ndobri\", \"abbbaaccca\\nab\\naca\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "__author__ = 'trunghieu11'\n\nfrom string import ascii_lowercase\n\ndef main():\n    s = raw_input()\n    a = raw_input()\n    b = raw_input()\n\n    totalS = dict()\n    totalA = dict()\n    totalB = dict()\n    for c in ascii_lowercase:\n        totalS.setdefault(c, s.count(c))\n        totalA.setdefault(c, a.count(c))\n        totalB.setdefault(c, b.count(c))\n\n    maxA = min(totalS[c] / totalA[c] for c in ascii_lowercase if totalA[c] > 0)\n    maxVal = [0, 0]\n    for i in range(maxA + 1):\n        tempS = totalS.copy()\n        for c in ascii_lowercase:\n            if totalA[c] > 0:\n                tempS[c] -= totalA[c] * i\n        remainB = min(tempS[c] / totalB[c] for c in ascii_lowercase if totalB[c] > 0)\n        for c in ascii_lowercase:\n            if totalB[c] > 0:\n                tempS[c] -= totalB[c] * remainB\n        if maxVal[0] + maxVal[1] < i + remainB:\n            maxVal = [i, remainB]\n\n    answer = maxVal[0] * a + maxVal[1] * b\n    for c in ascii_lowercase:\n        answer += c * (totalS[c] - totalA[c] * maxVal[0] - totalB[c] * maxVal[1])\n    print answer\n\n\nif __name__ == '__main__':\n    main()",
+    "prob_desc_created_at": "1434127500",
+    "tags": [
+        "constructive algorithms",
+        "implementation",
+        "brute force",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

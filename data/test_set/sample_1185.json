@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"18\", \"8\", \"-1\"]",
+    "src_uid": "6a80b2af22cf8e5bb01ff47d257db196",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Easy and hard versions are actually different problems, so read statements of both problems completely and carefully.Summer vacation has started so Alice and Bob want to play and joy, but... Their mom doesn't think so. She says that they have to read some amount of books before all entertainments. Alice and Bob will read each book together to end this exercise faster.There are $$$n$$$ books in the family library. The $$$i$$$-th book is described by three integers: $$$t_i$$$ — the amount of time Alice and Bob need to spend to read it, $$$a_i$$$ (equals $$$1$$$ if Alice likes the $$$i$$$-th book and $$$0$$$ if not), and $$$b_i$$$ (equals $$$1$$$ if Bob likes the $$$i$$$-th book and $$$0$$$ if not).So they need to choose some books from the given $$$n$$$ books in such a way that:  Alice likes at least $$$k$$$ books from the chosen set and Bob likes at least $$$k$$$ books from the chosen set;  the total reading time of these books is minimized (they are children and want to play and joy as soon a possible). The set they choose is the same for both Alice an Bob (it's shared between them) and they read all books together, so the total reading time is the sum of $$$t_i$$$ over all books that are in the chosen set.Your task is to help them and find any suitable set of books or determine that it is impossible to find such a set.",
+    "prob_desc_output_spec": "If there is no solution, print only one integer -1. Otherwise print one integer $$$T$$$ — the minimum total reading time of the suitable set of books.",
+    "prob_desc_input_spec": "The first line of the input contains two integers $$$n$$$ and $$$k$$$ ($$$1 \\le k \\le n \\le 2 \\cdot 10^5$$$). The next $$$n$$$ lines contain descriptions of books, one description per line: the $$$i$$$-th line contains three integers $$$t_i$$$, $$$a_i$$$ and $$$b_i$$$ ($$$1 \\le t_i \\le 10^4$$$, $$$0 \\le a_i, b_i \\le 1$$$), where:   $$$t_i$$$ — the amount of time required for reading the $$$i$$$-th book;  $$$a_i$$$ equals $$$1$$$ if Alice likes the $$$i$$$-th book and $$$0$$$ otherwise;  $$$b_i$$$ equals $$$1$$$ if Bob likes the $$$i$$$-th book and $$$0$$$ otherwise. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_007.jsonl",
+    "code_uid": "8e4e605649a354821f3191a0703324c5",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"8 4\\n7 1 1\\n2 1 1\\n4 0 1\\n8 1 1\\n1 0 1\\n1 1 1\\n1 0 1\\n3 0 0\", \"5 2\\n6 0 0\\n9 0 0\\n1 0 1\\n2 1 1\\n5 1 0\", \"5 3\\n3 0 0\\n2 1 0\\n3 1 0\\n5 0 1\\n3 0 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n,k=map(int,input().split())\nar=[];a1=[];b1=[]\nfor _ in range(n):\n    t,a,b=map(int,input().split())\n    if a==1 and b==1:\n        ar.append(t)\n    elif a==1 and b==0:\n        a1.append(t)\n    elif b==1 and a==0:\n        b1.append(t)\na1=sorted(a1);b1=sorted(b1)\nfor i in range(min(len(a1),len(b1))):\n    ar.append(a1[i]+b1[i])\nar=sorted(ar)    \nif len(ar)<k:\n    print(-1)\nelse:\n    print(sum(ar[:k]))",
+    "prob_desc_created_at": "1593354900",
+    "tags": [
+        "data structures",
+        "sortings",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"4\", \"0\"]",
+    "src_uid": "0d95c84e73aa9b6567eadeb16acfda41",
+    "prob_desc_notes": "NoteHere is the tree from the first example:  The only nice edge is edge $$$(2, 4)$$$. Removing it makes the tree fall apart into components $$$\\{4\\}$$$ and $$$\\{1, 2, 3, 5\\}$$$. The first component only includes a red vertex and the second component includes blue vertices and uncolored vertices.Here is the tree from the second example:  Every edge is nice in it.Here is the tree from the third example:  Edge $$$(1, 3)$$$ splits the into components $$$\\{1\\}$$$ and $$$\\{3, 2\\}$$$, the latter one includes both red and blue vertex, thus the edge isn't nice. Edge $$$(2, 3)$$$ splits the into components $$$\\{1, 3\\}$$$ and $$$\\{2\\}$$$, the former one includes both red and blue vertex, thus the edge also isn't nice. So the answer is 0.",
+    "prob_desc_description": "You are given an undirected tree of $$$n$$$ vertices. Some vertices are colored blue, some are colored red and some are uncolored. It is guaranteed that the tree contains at least one red vertex and at least one blue vertex.You choose an edge and remove it from the tree. Tree falls apart into two connected components. Let's call an edge nice if neither of the resulting components contain vertices of both red and blue colors.How many nice edges are there in the given tree?",
+    "prob_desc_output_spec": "Print a single integer — the number of nice edges in the given tree.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$2 \\le n \\le 3 \\cdot 10^5$$$) — the number of vertices in the tree. The second line contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$0 \\le a_i \\le 2$$$) — the colors of the vertices. $$$a_i = 1$$$ means that vertex $$$i$$$ is colored red, $$$a_i = 2$$$ means that vertex $$$i$$$ is colored blue and $$$a_i = 0$$$ means that vertex $$$i$$$ is uncolored. The $$$i$$$-th of the next $$$n - 1$$$ lines contains two integers $$$v_i$$$ and $$$u_i$$$ ($$$1 \\le v_i, u_i \\le n$$$, $$$v_i \\ne u_i$$$) — the edges of the tree. It is guaranteed that the given edges form a tree. It is guaranteed that the tree contains at least one red vertex and at least one blue vertex.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_008.jsonl",
+    "code_uid": "9ac6fd4edc3bd0b8f1970ba0d3d6cb25",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n2 0 0 1 2\\n1 2\\n2 3\\n2 4\\n2 5\", \"5\\n1 0 0 0 2\\n1 2\\n2 3\\n3 4\\n4 5\", \"3\\n1 1 2\\n2 3\\n1 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#!/usr/bin/env python2\n\"\"\"\nThis file is part of https://github.com/cheran-senthil/PyRival\nCopyright 2019 Cheran Senthilkumar <hello@cheran.io>\n\n\"\"\"\nfrom __future__ import division, print_function\n\nimport itertools\nimport os\nimport sys\nfrom atexit import register\nfrom io import BytesIO\n\nrange = xrange\n\nfilter = itertools.ifilter\nmap = itertools.imap\nzip = itertools.izip\n\nsys.stdin = BytesIO(os.read(0, os.fstat(0).st_size))\nsys.stdout = BytesIO()\nregister(lambda: os.write(1, sys.stdout.getvalue()))\n\ninput = lambda: sys.stdin.readline().rstrip('\\r\\n')\n\nres = 0\n\n\ndef main():\n    n = int(input())\n    a = input().split()\n\n    red_cnt = a.count('1')\n    blue_cnt = a.count('2')\n\n    tree = [[] for _ in range(n)]\n    for _ in range(n - 1):\n        v, u = map(int, input().split())\n        tree[v - 1].append(u - 1)\n        tree[u - 1].append(v - 1)\n\n    dp, visited = [[0, 0] for _ in range(n)], [False] * n\n\n    def dfs(node):\n        global res\n\n        finished = [False] * n\n        stack = [node]\n        while stack:\n            node = stack[-1]\n            node_cnt = dp[node]\n\n            if not visited[node]:\n                visited[node] = True\n            else:\n                stack.pop()\n                node_cnt[0] += a[node] == '1'\n                node_cnt[1] += a[node] == '2'\n                finished[node] = True\n\n            for child in tree[node]:\n                if not visited[child]:\n                    stack.append(child)\n                elif finished[child]:\n                    child_cnt = dp[child]\n                    node_cnt[0] += child_cnt[0]\n                    node_cnt[1] += child_cnt[1]\n\n                    if ((child_cnt[0] == red_cnt) and (child_cnt[1] == 0)) or ((child_cnt[0] == 0) and\n                                                                               (child_cnt[1] == blue_cnt)):\n                        res += 1\n\n\n    dfs(0)\n    print(res)\n\n\nif __name__ == '__main__':\n    main()\n",
+    "prob_desc_created_at": "1550586900",
+    "tags": [
+        "dfs and similar",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

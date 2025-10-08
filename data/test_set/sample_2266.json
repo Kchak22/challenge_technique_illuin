@@ -1,0 +1,23 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"11\", \"-1\", \"28\"]",
+    "src_uid": "104cf5253e027929f257364b3874c38b",
+    "prob_desc_notes": "NoteIn the first example Arkady wants to buy 3 roses. He can, for example, buy both red roses (their indices are 1 and 2, and their total beauty is 7) and the only orange rose (its index is 3, its beauty is 4). This way the total beauty of the bouquet is 11. In the second example Arkady can not buy a bouquet because all roses have the same color.",
+    "prob_desc_description": "Arkady decided to buy roses for his girlfriend.A flower shop has white, orange and red roses, and the total amount of them is n. Arkady thinks that red roses are not good together with white roses, so he won't buy a bouquet containing both red and white roses. Also, Arkady won't buy a bouquet where all roses have the same color. Arkady wants to buy exactly k roses. For each rose in the shop he knows its beauty and color: the beauty of the i-th rose is bi, and its color is ci ('W' for a white rose, 'O' for an orange rose and 'R' for a red rose). Compute the maximum possible total beauty of a bouquet of k roses satisfying the constraints above or determine that it is not possible to make such a bouquet.",
+    "prob_desc_output_spec": "Print the maximum possible total beauty of a bouquet of k roses that satisfies the constraints above. If it is not possible to make a single such bouquet, print -1.",
+    "prob_desc_input_spec": "The first line contains two integers n and k (1 ≤ k ≤ n ≤ 200 000) — the number of roses in the show and the number of roses Arkady wants to buy. The second line contains a sequence of integers b1, b2, ..., bn (1 ≤ bi ≤ 10 000), where bi equals the beauty of the i-th rose. The third line contains a string c of length n, consisting of uppercase English letters 'W', 'O' and 'R', where ci denotes the color of the i-th rose: 'W' denotes white, 'O'  — orange, 'R' — red.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_019.jsonl",
+    "code_uid": "c79125b99de131a931c4222a1ebc7e1b",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 3\\n4 3 4 1 6\\nRROWW\", \"5 2\\n10 20 14 20 11\\nRRRRR\", \"11 5\\n5 6 3 2 3 4 7 5 4 5 6\\nRWOORWORROW\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n,k=map(int,input().split())\ncost=list(map(int,input().split()))\ns=input()\n#exit(0)\na=[]\nb=[]\nc=[]\n#print(n,k,cost)\nkek1=0\nkek2=0\nkek3=0\nfor i in range(n):\n    if (s[i]==chr(ord(\"W\"))):\n        kek1+=1\n        a.append(cost[i])\n    if (s[i]==chr(ord(\"O\"))):\n        kek2+=1\n        b.append(cost[i])\n    if (s[i]==chr(ord(\"R\"))):\n        kek3+=1\n        c.append(cost[i])\na=sorted(a)\na=list(reversed(a))\nb=sorted(b)\nb=list(reversed(b))\nc=sorted(c)\nc=list(reversed(c))\n\npref_a=[]\npref_b=[]\npref_c=[]\n\nif (kek1!=0):\n    pref_a.append(a[0])\n    for i in range(1,len(a)):\n        pref_a.append(pref_a[len(pref_a)-1]+a[i])\n\nif (kek2!=0):\n    pref_b.append(b[0])\n    for i in range(1,len(b)):\n        pref_b.append(pref_b[len(pref_b)-1]+b[i])\n        \nif (kek3!=0):\n    pref_c.append(c[0])\n    for i in range(1,len(c)):\n        pref_c.append(pref_c[len(pref_c)-1]+c[i])\n        \ninf=10**20\nans=-inf\nfor i in range(0,min(k-1,kek2)):\n    cur=pref_b[i]\n    left_k=k-(i+1)\n    \n    res_a=-inf\n    res_c=-inf\n    if (kek1):\n        if (kek1>=left_k):\n            res_a=pref_a[left_k-1]\n    if (kek3):\n        if (kek3>=left_k):\n            res_c=pref_c[left_k-1]\n            \n    cur+=max(res_a,res_c)\n    ans=max(ans,cur)\n    \nif (ans<-(10**18)):\n    ans=-1\n    \nprint(ans)",
+    "prob_desc_created_at": "1521300900",
+    "tags": [],
+    "hidden_unit_tests": ""
+}

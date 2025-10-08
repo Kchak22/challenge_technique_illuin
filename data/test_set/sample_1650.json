@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\\n7 7\\n2 3\\n4 5\", \"2\\n3 4\\n1 1\", \"4\\n4 4\\n1 1\\n2 2\\n3 3\"]",
+    "src_uid": "3e834f89ecedc5f210e680f24e40ba19",
+    "prob_desc_notes": null,
+    "prob_desc_description": "This problem is given in two editions, which differ exclusively in the constraints on the number $$$n$$$.You are given an array of integers $$$a[1], a[2], \\dots, a[n].$$$ A block is a sequence of contiguous (consecutive) elements $$$a[l], a[l+1], \\dots, a[r]$$$ ($$$1 \\le l \\le r \\le n$$$). Thus, a block is defined by a pair of indices $$$(l, r)$$$.Find a set of blocks $$$(l_1, r_1), (l_2, r_2), \\dots, (l_k, r_k)$$$ such that:  They do not intersect (i.e. they are disjoint). Formally, for each pair of blocks $$$(l_i, r_i)$$$ and $$$(l_j, r_j$$$) where $$$i \\neq j$$$ either $$$r_i &lt; l_j$$$ or $$$r_j &lt; l_i$$$.  For each block the sum of its elements is the same. Formally, $$$$$$a[l_1]+a[l_1+1]+\\dots+a[r_1]=a[l_2]+a[l_2+1]+\\dots+a[r_2]=$$$$$$ $$$$$$\\dots =$$$$$$ $$$$$$a[l_k]+a[l_k+1]+\\dots+a[r_k].$$$$$$  The number of the blocks in the set is maximum. Formally, there does not exist a set of blocks $$$(l_1', r_1'), (l_2', r_2'), \\dots, (l_{k'}', r_{k'}')$$$ satisfying the above two requirements with $$$k' &gt; k$$$.     The picture corresponds to the first example. Blue boxes illustrate blocks. Write a program to find such a set of blocks.",
+    "prob_desc_output_spec": "In the first line print the integer $$$k$$$ ($$$1 \\le k \\le n$$$). The following $$$k$$$ lines should contain blocks, one per line. In each line print a pair of indices $$$l_i, r_i$$$ ($$$1 \\le l_i \\le r_i \\le n$$$) — the bounds of the $$$i$$$-th block. You can print blocks in any order. If there are multiple answers, print any of them.",
+    "prob_desc_input_spec": "The first line contains integer $$$n$$$ ($$$1 \\le n \\le 50$$$) — the length of the given array. The second line contains the sequence of elements $$$a[1], a[2], \\dots, a[n]$$$ ($$$-10^5 \\le a_i \\le 10^5$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_011.jsonl",
+    "code_uid": "3a5e0cd6af461321019c67e3df3fcfb0",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"7\\n4 1 2 2 1 5 3\", \"11\\n-5 -4 -3 -2 -1 0 1 2 3 4 5\", \"4\\n1 1 1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "franxx = int(input())\n\nlife = input()\nlife = life.split()\n\ndarling = {}\n\noh_pay = \"I love my darling\"\n\nfor i in range(franxx, 0, -1):\n\ttmp = 0\n\tfor j in range(i - 1, franxx):\n\t\ttmp += int(life[j])\n\t\tif (tmp in darling):\n\t\t\tif (darling[tmp][0] > j):\n\t\t\t\tdarling[tmp] = (i - 1, 1 + darling[tmp][1])\n\t\telse:\n\t\t\tdarling[tmp] = (i - 1, 1)\n\t\tif (oh_pay == \"I love my darling\" or darling[tmp][1] > darling[oh_pay][1]):\n\t\t\toh_pay = tmp\n\nprint(darling[oh_pay][1])\n\nstrelizia = (franxx, 0)\n\nfor i in range(franxx, 0, -1):\n\ttmp = 0\n\tfor j in range(i - 1, franxx):\n\t\ttmp += int(life[j])\n\t\tif (tmp != oh_pay):\n\t\t\tcontinue;\n\t\tif (strelizia[0] > j):\n\t\t\tprint(i, j + 1)\n\t\t\tstrelizia = (i - 1, 1 + strelizia[1])",
+    "prob_desc_created_at": "1553006100",
+    "tags": [
+        "data structures",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

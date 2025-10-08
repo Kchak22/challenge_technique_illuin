@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2\"]",
+    "src_uid": "4b7b0fba7b0af78c3956c34c29785e7c",
+    "prob_desc_notes": "NoteIn the sample test the second and fifth clients should be checked.",
+    "prob_desc_description": "According to Berland laws it is only allowed to sell alcohol to people not younger than 18 years. Vasya's job is to monitor the law's enforcement. Tonight he entered a bar and saw n people sitting there. For every one of them Vasya happened to determine either the age or the drink the person is having. Vasya can check any person, i.e. learn his age and the drink he is having at the same time. What minimal number of people should Vasya check additionally to make sure that there are no clients under 18 having alcohol drinks?The list of all alcohol drinks in Berland is: ABSINTH, BEER, BRANDY, CHAMPAGNE, GIN, RUM, SAKE, TEQUILA, VODKA, WHISKEY, WINE",
+    "prob_desc_output_spec": "Print a single number which is the number of people Vasya should check to guarantee the law enforcement.",
+    "prob_desc_input_spec": "The first line contains an integer n (1 ≤ n ≤ 100) which is the number of the bar's clients. Then follow n lines, each describing one visitor. A line either contains his age (an integer from 0 to 1000) or his drink (a string of capital Latin letters from 1 to 100 in length). It is guaranteed that the input data does not contain spaces and other unnecessary separators. Only the drinks from the list given above should be considered alcohol.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1000,
+    "file_name": "train_009.jsonl",
+    "code_uid": "40eb277ffa5a5f4f5c68406f97bdd923",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n18\\nVODKA\\nCOKE\\n19\\n17\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = input()\ncount = 0\na = [\"ABSINTH\", \"BEER\", \"BRANDY\", \n     \"CHAMPAGNE\", \"GIN\", \"RUM\", \n     \"SAKE\", \"TEQUILA\", \"VODKA\", \n     \"WHISKEY\", \"WINE\"]\ny = [str(i) for i in range(18)]\n\nfor i in range(n):\n   s = raw_input()\n   if (s in a) or (s in y):\n      count = count + 1\nprint count\n\n",
+    "prob_desc_created_at": "1295626200",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

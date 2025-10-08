@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\", \"2\", \"0\"]",
+    "src_uid": "f8f0d00f8d93b5a4bbf0b2eedf1e754a",
+    "prob_desc_notes": "NoteIn the first sample, we are given a polynomial P(x) = 10 - 9x - 3x2 + 5x3.Limak can change one coefficient in three ways:  He can set a0 =  - 10. Then he would get Q(x) =  - 10 - 9x - 3x2 + 5x3 and indeed Q(2) =  - 10 - 18 - 12 + 40 = 0.  Or he can set a2 =  - 8. Then Q(x) = 10 - 9x - 8x2 + 5x3 and indeed Q(2) = 10 - 18 - 32 + 40 = 0.  Or he can set a1 =  - 19. Then Q(x) = 10 - 19x - 3x2 + 5x3 and indeed Q(2) = 10 - 38 - 12 + 40 = 0. In the second sample, we are given the same polynomial. This time though, k is equal to 12 instead of 109. Two first of ways listed above are still valid but in the third way we would get |a1| &gt; k what is not allowed. Thus, the answer is 2 this time.",
+    "prob_desc_description": "Limak is a little polar bear. He doesn't have many toys and thus he often plays with polynomials.He considers a polynomial valid if its degree is n and its coefficients are integers not exceeding k by the absolute value. More formally:Let a0, a1, ..., an denote the coefficients, so . Then, a polynomial P(x) is valid if all the following conditions are satisfied:  ai is integer for every i;  |ai| ≤ k for every i;  an ≠ 0. Limak has recently got a valid polynomial P with coefficients a0, a1, a2, ..., an. He noticed that P(2) ≠ 0 and he wants to change it. He is going to change one coefficient to get a valid polynomial Q of degree n that Q(2) = 0. Count the number of ways to do so. You should count two ways as a distinct if coefficients of target polynoms differ.",
+    "prob_desc_output_spec": "Print the number of ways to change one coefficient to get a valid polynomial Q that Q(2) = 0.",
+    "prob_desc_input_spec": "The first line contains two integers n and k (1 ≤ n ≤ 200 000, 1 ≤ k ≤ 109) — the degree of the polynomial and the limit for absolute values of coefficients. The second line contains n + 1 integers a0, a1, ..., an (|ai| ≤ k, an ≠ 0) — describing a valid polynomial . It's guaranteed that P(2) ≠ 0.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_008.jsonl",
+    "code_uid": "18e3fd640bdd9d93bebe07a76bab9e51",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 1000000000\\n10 -9 -3 5\", \"3 12\\n10 -9 -3 5\", \"2 20\\n14 -7 19\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin\nfrom itertools import repeat\ndef main():\n    n, k = map(int, stdin.readline().split())\n    a = map(int, stdin.readline().split(), repeat(10, n + 1))\n    r = [0] * (n + 50)\n    c = 0\n    l = n + 100\n    for i, x in enumerate(a):\n        c += x\n        if c >= 0:\n            c, r[i] = c / 2, c % 2\n        else:\n            c, r[i] = -(-c / 2), -(-c % 2)\n        if r[i] and l == n + 100:\n            l = i\n    i = n + 1\n    while c:\n        if c >= 0:\n            c, r[i]= c / 2, c % 2\n        else:\n            c, r[i] = -(-c / 2), -(-c % 2)\n        if r[i] and l == n + 100:\n            l = i\n        i += 1\n    c = 0\n    ans = 0\n    while i > 0:\n        i -= 1\n        c = c * 2 + r[i]\n        if abs(c) > 100000000000:\n            break\n        if i <= l and i <= n and c and -k - a[i] <= -c <= k - a[i]:\n            if i != n or a[i] - c != 0:\n                ans += 1\n    print ans\nmain()\n",
+    "prob_desc_created_at": "1459182900",
+    "tags": [
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

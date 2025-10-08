@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"4\\n0\"]",
+    "src_uid": "332340a793eb3ec14131948e2b6bdf2f",
+    "prob_desc_notes": "NotePossible ways to distribute numbers in the first test:   the vertex $$$1$$$ should contain $$$1$$$, and $$$2$$$ should contain $$$2$$$;  the vertex $$$1$$$ should contain $$$3$$$, and $$$2$$$ should contain $$$2$$$;  the vertex $$$1$$$ should contain $$$2$$$, and $$$2$$$ should contain $$$1$$$;  the vertex $$$1$$$ should contain $$$2$$$, and $$$2$$$ should contain $$$3$$$. In the second test there is no way to distribute numbers.",
+    "prob_desc_description": "You are given an undirected unweighted graph consisting of $$$n$$$ vertices and $$$m$$$ edges.You have to write a number on each vertex of the graph. Each number should be $$$1$$$, $$$2$$$ or $$$3$$$. The graph becomes beautiful if for each edge the sum of numbers on vertices connected by this edge is odd.Calculate the number of possible ways to write numbers $$$1$$$, $$$2$$$ and $$$3$$$ on vertices so the graph becomes beautiful. Since this number may be large, print it modulo $$$998244353$$$.Note that you have to write exactly one number on each vertex.The graph does not have any self-loops or multiple edges.",
+    "prob_desc_output_spec": "For each test print one line, containing one integer — the number of possible ways to write numbers $$$1$$$, $$$2$$$, $$$3$$$ on the vertices of given graph so it becomes beautiful. Since answers may be large, print them modulo $$$998244353$$$.",
+    "prob_desc_input_spec": "The first line contains one integer $$$t$$$ ($$$1 \\le t \\le 3 \\cdot 10^5$$$) — the number of tests in the input. The first line of each test contains two integers $$$n$$$ and $$$m$$$ ($$$1 \\le n \\le 3 \\cdot 10^5, 0 \\le m \\le 3 \\cdot 10^5$$$) — the number of vertices and the number of edges, respectively. Next $$$m$$$ lines describe edges: $$$i$$$-th line contains two integers $$$u_i$$$, $$$ v_i$$$ ($$$1 \\le u_i, v_i \\le n; u_i \\neq v_i$$$) — indices of vertices connected by $$$i$$$-th edge. It is guaranteed that $$$\\sum\\limits_{i=1}^{t} n \\le 3 \\cdot 10^5$$$ and $$$\\sum\\limits_{i=1}^{t} m \\le 3 \\cdot 10^5$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_008.jsonl",
+    "code_uid": "a6857ccf57418e193d24e71258e2f192",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2\\n2 1\\n1 2\\n4 6\\n1 2\\n1 3\\n1 4\\n2 3\\n2 4\\n3 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from collections import deque\nfrom sys import stdin, stdout\ninput = stdin.readline\nprint = stdout.write\n \nanss = []\nt = int(input())\n \nfor test_count in range(t):\n\tans = 1\n\tpart = 0\n\tfactor = 0\n\tqueue = deque([])\n\tn, m = map(int, input().split())\n\tif m > (n // 2) * ( n // 2 + 1):\n\t\tanss.append(0)\n\t\tfor edge_count in range(m):\n\t\t\tinput()\n\t\tcontinue\n\tedge = [[] for i in range(n + 1)]\n\tflag = [-1] * (n + 1)\n\tassure = 1\n \n\tfor edge_count in range(m):\n\t\tu, v = map(int, input().split())\n\t\tedge[u].append(v)\n\t\tedge[v].append(u)\n\tflag[1] = 0\n\tqueue.append(1)\n \n\tbreak_all = False\n\twhile not break_all:\n\t\teven, odd = 1, 0\n\t\twhile queue and not break_all:\n\t\t\tsearch = queue.popleft()\n\t\t\t# print('searching vertex {0}, {1}'.format(search, edge[search]))\n\t\t\tcurrent = flag[search]\n\t\t\tfor to in edge[search]:\n\t\t\t\tif flag[to] == -1:\n\t\t\t\t\tflag[to] = current ^ 1\n\t\t\t\t\tif flag[to] & 1:\n\t\t\t\t\t\todd += 1\n\t\t\t\t\telse:\n\t\t\t\t\t\teven += 1\n\t\t\t\t\tqueue.append(to)\n\t\t\t\telif flag[to] == current:\n\t\t\t\t\tbreak_all = True\n\t\t\t\telse:\n\t\t\t\t\tassert flag[to] == current ^ 1\n\t\t# print(flag)\n\t\tif break_all:\n\t\t\t# print('break_all')\n\t\t\tans = 0\n\t\telse:\n\t\t\tif (even, odd) == (1, 0):\n\t\t\t\tfactor += 1\n\t\t\telse:\n\t\t\t\tans *= pow(2, even, 998244353) + pow(2, odd, 998244353)\n\t\t\t\tans %= 998244353\n\t\twhile assure <= n:\n\t\t\tif flag[assure] == -1:\n\t\t\t\tpart += 1\n\t\t\t\tflag[assure] = 2 * part\n \n\t\t\t\tqueue.append(assure)\n\t\t\t\tbreak\n\t\t\tassure += 1\n\t\tif assure == n + 1:\n\t\t\tbreak\n\tans *= pow(3, factor, 998244353)\n\tans %= 998244353\n\tanss.append(ans)\nprint('\\n'.join(map(str, anss)))\n# print(time.time() - start)",
+    "prob_desc_created_at": "1544884500",
+    "tags": [
+        "dfs and similar",
+        "graphs"
+    ],
+    "hidden_unit_tests": ""
+}

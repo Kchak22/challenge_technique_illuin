@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"84\", \"314\"]",
+    "src_uid": "769859d86a3ceb2d89a444cd64c9a73b",
+    "prob_desc_notes": "NoteIn the first example, you only need to buy one pizza. If you buy a type 1 pizza, the total happiness will be 3·5 + 4·6 + 5·9 = 84, and if you buy a type 2 pizza, the total happiness will be 3·7 + 4·7 + 5·5 = 74.",
+    "prob_desc_description": "It's another Start[c]up finals, and that means there is pizza to order for the onsite contestants. There are only 2 types of pizza (obviously not, but let's just pretend for the sake of the problem), and all pizzas contain exactly S slices.It is known that the i-th contestant will eat si slices of pizza, and gain ai happiness for each slice of type 1 pizza they eat, and bi happiness for each slice of type 2 pizza they eat. We can order any number of type 1 and type 2 pizzas, but we want to buy the minimum possible number of pizzas for all of the contestants to be able to eat their required number of slices. Given that restriction, what is the maximum possible total happiness that can be achieved?",
+    "prob_desc_output_spec": "Print the maximum total happiness that can be achieved.",
+    "prob_desc_input_spec": "The first line of input will contain integers N and S (1 ≤ N ≤ 105, 1 ≤ S ≤ 105), the number of contestants and the number of slices per pizza, respectively. N lines follow. The i-th such line contains integers si, ai, and bi (1 ≤ si ≤ 105, 1 ≤ ai ≤ 105, 1 ≤ bi ≤ 105), the number of slices the i-th contestant will eat, the happiness they will gain from each type 1 slice they eat, and the happiness they will gain from each type 2 slice they eat, respectively.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_000.jsonl",
+    "code_uid": "d98a284045e6e871027960771c7bd449",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 12\\n3 5 7\\n4 6 7\\n5 9 5\", \"6 10\\n7 4 7\\n5 8 8\\n12 5 8\\n6 11 6\\n3 3 7\\n5 9 6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "\ndef bins(sortedlist,x):\n    n=len(sortedlist)\n    start = 0\n    end = n - 1\n\n    while(start <= end):\n        mid =int( (start + end)/2)\n        if (x == sortedlist[mid][0]):\n            return mid\n        elif(x < sortedlist[mid][0]):\n            end = mid - 1\n        else:\n            start = mid + 1 \n \n    if(sortedlist[mid][0]<=x):\n        return mid\n    else:\n        return mid-1\n\n\n\n\nn,s=map(int,input().split())\nhap=[]\n\nfor i in range(n):\n    hap.append(list(map(int,input().split())))\na=0\nmax1=0\nb=0\nsla=[]\nslb=[]\nslab=[]\nfor i in range(n):\n    temp=hap[i][0]\n    hap[i][0]=hap[i][1]\n    hap[i][1]=hap[i][2]\n    hap[i][2]=temp\nfor i in range(n):\n\n    slab.append([hap[i][0]-hap[i][1],hap[i][2]])\nhappi=0\nfor i in range(n):\n    if(hap[i][0]>hap[i][1]):\n        a+=hap[i][2]\n        happi+=hap[i][2]*hap[i][0]\n    else:\n        b+=hap[i][2]\n        happi+=hap[i][2]*hap[i][1]\nsla.sort()\nslb.sort()\nslab.sort()\nif((a%s +  b%s)>s):\n    print(happi)\nelse:\n    loc=bins(slab,0)\n    happia=happi\n    count=0\n    #print(a,b)\n    b=b%s\n    a=a%s\n    left=b%s\n    \n    while(left>0):\n        if(slab[loc+count][1]<left):\n            happia+=slab[loc+count][0]*slab[loc+count][1]\n            left-=slab[loc+count][1]\n        else:\n            happia+=slab[loc+count][0]*left\n            break\n        count-=1\n    left=a%s\n    count=0\n    happib=happi\n    \n    while(loc<n and slab[loc][0]<=0):\n        loc+=1\n    #print(slab[loc][0])\n    while(left>0):\n        if(slab[loc+count][1]<left):\n            happib-=slab[loc+count][0]*slab[loc+count][1]\n            left-=slab[loc+count][1]\n        else:\n            happib-=slab[loc+count][0]*left\n            break\n        count+=1\n    #print(happia,happib,happi)\n    print(max(happia,happib))  \n    ",
+    "prob_desc_created_at": "1506791100",
+    "tags": [
+        "binary search",
+        "sortings",
+        "ternary search"
+    ],
+    "hidden_unit_tests": ""
+}

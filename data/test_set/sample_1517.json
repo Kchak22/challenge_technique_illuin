@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1.500000000000000\", \"2.000000000000000\"]",
+    "src_uid": "adaae163882b064bf7257e82e8832ffb",
+    "prob_desc_notes": "NoteIn the first sample, their journey may end in cities 3 or 4 with equal probability. The distance to city 3 is 1 and to city 4 is 2, so the expected length is 1.5.In the second sample, their journey may end in city 4 or 5. The distance to the both cities is 2, so the expected length is 2.",
+    "prob_desc_description": "There are n cities and n - 1 roads in the Seven Kingdoms, each road connects two cities and we can reach any city from any other by the roads.Theon and Yara Greyjoy are on a horse in the first city, they are starting traveling through the roads. But the weather is foggy, so they can’t see where the horse brings them. When the horse reaches a city (including the first one), it goes to one of the cities connected to the current city. But it is a strange horse, it only goes to cities in which they weren't before. In each such city, the horse goes with equal probabilities and it stops when there are no such cities. Let the length of each road be 1. The journey starts in the city 1. What is the expected length (expected value of length) of their journey? You can read about expected (average) value by the link https://en.wikipedia.org/wiki/Expected_value.",
+    "prob_desc_output_spec": "Print a number — the expected length of their journey. The journey starts in the city 1. Your answer will be considered correct if its absolute or relative error does not exceed 10 - 6. Namely: let's assume that your answer is a, and the answer of the jury is b. The checker program will consider your answer correct, if .",
+    "prob_desc_input_spec": "The first line contains a single integer n (1 ≤ n ≤ 100000) — number of cities. Then n - 1 lines follow. The i-th line of these lines contains two integers ui and vi (1 ≤ ui, vi ≤ n, ui ≠ vi) — the cities connected by the i-th road. It is guaranteed that one can reach any city from any other by the roads.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_010.jsonl",
+    "code_uid": "23430fc1c25c113258721964a6ec2e9b",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1 2\\n1 3\\n2 4\", \"5\\n1 2\\n1 3\\n3 4\\n2 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "class Node:\n\tdef __init__(self, index):\n\t\tself.neighbours = []\n\t\tself.index = index\n\t\tself.prob = 1.0\n\t\tself.vis = False\n\t\tself.length = 0\n\n\tdef addNode(self, city):\n\t\tself.neighbours.append(city)\n\t\tif self.index == 1:\n\t\t\tself.prob = 1.0 / len(self.neighbours)\n\t\telse:\n\t\t\tl = len(self.neighbours)\n\t\t\tself.prob = 1.0  if l < 2 else (1.0 / (l - 1))\n\nn = int(input())\nif n == 1:\n\tprint(0)\n\texit()\n\t\ncities = {}\n\nfor i in range(n-1):\n\ta, b = map( lambda k: int(k), input().split())\n\t#print (\"test \", a, \" to \", b)\n\tif a not in cities:\n\t\tcities[a] = Node(a)\n\tcities[a].addNode(b)\n\tif b not in cities:\n\t\tcities[b] = Node(b)\n\tcities[b].addNode(a)\n\nif len(cities) == 2:\n\tprint(1)\n\texit()\n\n\n# for i in range(1, n + 1, 1):\n# \tprint (\"city.index \", cities[i].index, ' roads ', cities[i].neighbours, ' prob ', cities[i].prob)\n\n\n# deadends = []\n# deadendsProb = []\n\n\n# def Parse(city, prob, length, oldCity):\n# \t#print ('parse ', city.index)\n# \tnewprob = 1.0 if oldCity == 0  else cities[oldCity].prob\n# \t#print ('nnewProb ', newprob)\n# \tprob *= newprob\n# \t#print (city.index, ' len ', len(city.neighbours))\n# \tif len(city.neighbours) == 1 and oldCity != 0:\n# \t\tdeadends.append(length)\n# \t\tdeadendsProb.append(prob)\n# \telse:\n# \t\t#print (city.neighbours)\n# \t\tlength += 1\n# \t\tfor c in city.neighbours:\n# \t\t\tif c != oldCity:\n# \t\t\t\tParse(cities[c], prob, length, city.index )\n\n# Parse(cities[1], 1.0, 0, 0)\n# #for i in range(len(deadends)):\n# #\tprint('len ', deadends[i], ' prob ', deadendsProb[i])\n\n# ans = sum(map(lambda l, p: l * p, deadends, deadendsProb))\n# #print('ans', ans)\n# print(ans)\n\n\ndef inorder(city):\n\ts = []\n\ts.append(city)\n\t#print ('index ', city.index)\n\t#print ('neighbours ', city.neighbours)\n\twhile s:\n\t\tcity = s.pop()\n\t\tcity.vis = True\n\t\tif city.neighbours:\n\t\t\tif city.index == 1 or len(city.neighbours) > 1:\n\t\t\t\tfor c in city.neighbours:\n\t\t\t\t\tif not cities[c].vis:\n\t\t\t\t\t\tcities[c].length = city.length + 1\n\t\t\t\t\t\tcities[c].prob *= city.prob\n\t\t\t\t\t\ts.append(cities[c])\n\t\t\telse:\n\t\t\t\tyield (city.index, city.prob, city.length)\n\n\n\ntest = sum([city[1] * city[2] for city in inorder(cities[1])])\nprint(test)\n\n\n\n# this is a tree",
+    "prob_desc_created_at": "1502548500",
+    "tags": [
+        "dp",
+        "graphs",
+        "probabilities",
+        "dfs and similar",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

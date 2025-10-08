@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\\n2\\n3\\n4\\n8\\n12\\n5\\n10\\n15\"]",
+    "src_uid": "37c3725f583ca33387dfd05fe75898a9",
+    "prob_desc_notes": "NoteThe first elements of $$$s$$$ are $$$1, 2, 3, 4, 8, 12, 5, 10, 15, \\dots $$$",
+    "prob_desc_description": "Consider the infinite sequence $$$s$$$ of positive integers, created by repeating the following steps:  Find the lexicographically smallest triple of positive integers $$$(a, b, c)$$$ such that   $$$a \\oplus b \\oplus c = 0$$$, where $$$\\oplus$$$ denotes the bitwise XOR operation.  $$$a$$$, $$$b$$$, $$$c$$$ are not in $$$s$$$.  Here triple of integers $$$(a_1, b_1, c_1)$$$ is considered to be lexicographically smaller than triple $$$(a_2, b_2, c_2)$$$ if sequence $$$[a_1, b_1, c_1]$$$ is lexicographically smaller than sequence $$$[a_2, b_2, c_2]$$$.  Append $$$a$$$, $$$b$$$, $$$c$$$ to $$$s$$$ in this order.  Go back to the first step. You have integer $$$n$$$. Find the $$$n$$$-th element of $$$s$$$.You have to answer $$$t$$$ independent test cases.A sequence $$$a$$$ is lexicographically smaller than a sequence $$$b$$$ if in the first position where $$$a$$$ and $$$b$$$ differ, the sequence $$$a$$$ has a smaller element than the corresponding element in $$$b$$$.",
+    "prob_desc_output_spec": "In each of the $$$t$$$ lines, output the answer to the corresponding test case.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$t$$$ ($$$1 \\le t \\le 10^5$$$) — the number of test cases. Each of the next $$$t$$$ lines contains a single integer $$$n$$$ ($$$1\\le n \\le 10^{16}$$$) — the position of the element you want to know.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_012.jsonl",
+    "code_uid": "6476e4a08ca6045c10cb4c65ac689850",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"9\\n1\\n2\\n3\\n4\\n5\\n6\\n7\\n8\\n9\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nlines = sys.stdin.readlines()\nT = int(lines[0].strip())\npartial = [1, 2, 3, 4, 8, 12, 5, 10, 15, 6, 11, 13, 7, 9, 14, 16, 32, 48, 17, 34, 51, 18, 35, 49, 19, 33, 50, 20, 40, 60, 21, 42, 63, 22, 43, 61, 23, 41, 62, 24, 44, 52, 25, 46, 55, 26, 47, 53, 27, 45, 54, 28, 36, 56, 29, 38, 59, 30, 39, 57, 31, 37, 58, 64, 128, 192, 65, 130, 195, 66, 131, 193, 67, 129, 194, 68, 136, 204, 69, 138, 207, 70, 139, 205, 71, 137, 206, 72, 140, 196, 73, 142, 199, 74, 143, 197, 75, 141, 198, 76, 132, 200, 77, 134, 203, 78, 135, 201, 79, 133, 202, 80, 160, 240, 81, 162, 243, 82, 163, 241, 83, 161, 242, 84, 168, 252, 85, 170, 255, 86, 171, 253, 87, 169, 254, 88, 172, 244, 89, 174, 247, 90, 175, 245, 91, 173, 246, 92, 164, 248, 93, 166, 251, 94, 167, 249, 95, 165, 250, 96, 176, 208, 97, 178, 211, 98, 179, 209, 99, 177, 210, 100, 184, 220, 101, 186, 223, 102, 187, 221, 103, 185, 222, 104, 188, 212, 105, 190, 215, 106, 191, 213, 107, 189, 214, 108, 180, 216, 109, 182, 219, 110, 183, 217, 111, 181, 218, 112, 144, 224, 113, 146, 227, 114, 147, 225, 115, 145, 226, 116, 152, 236, 117, 154, 239, 118, 155, 237, 119, 153, 238, 120, 156, 228, 121, 158, 231, 122, 159, 229, 123, 157, 230, 124, 148, 232, 125, 150, 235, 126, 151, 233, 127, 149, 234, 256, 512, 768]\nfor t in range(T):\n    n = int(lines[t+1].strip())\n    if n <= 255: print(partial[n-1]); continue\n    index = n % 3\n    lowPow4 =  4 ** (len(bin(n)[3:])//2)\n    first = lowPow4 + (n - lowPow4)//3\n\n    tmp = [0,2,3,1]\n    def theSecond(fi):\n        if fi < 128:\n            j = partial.index(fi)\n            return partial[j+1]\n        prev = theSecond(fi//4)\n        return prev * 4 + tmp[fi%4]\n    second = theSecond(first)\n    if index == 1: print(first)\n    elif index == 2: print(second)\n    else: print(first ^ second)\n        ",
+    "prob_desc_created_at": "1586700300",
+    "tags": [
+        "constructive algorithms",
+        "implementation",
+        "bitmasks",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

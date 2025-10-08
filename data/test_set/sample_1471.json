@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"4\", \"3\", \"9\"]",
+    "src_uid": "c7d48d2c23ff33890a262447af5be660",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Max wants to buy a new skateboard. He has calculated the amount of money that is needed to buy a new skateboard. He left a calculator on the floor and went to ask some money from his parents. Meanwhile his little brother Yusuf came and started to press the keys randomly. Unfortunately Max has forgotten the number which he had calculated. The only thing he knows is that the number is divisible by 4.You are given a string s consisting of digits (the number on the display of the calculator after Yusuf randomly pressed the keys). Your task is to find the number of substrings which are divisible by 4. A substring can start with a zero.A substring of a string is a nonempty sequence of consecutive characters.For example if string s is 124 then we have four substrings that are divisible by 4: 12, 4, 24 and 124. For the string 04 the answer is three: 0, 4, 04.As input/output can reach huge size it is recommended to use fast input/output methods: for example, prefer to use gets/scanf/printf instead of getline/cin/cout in C++, prefer to use BufferedReader/PrintWriter instead of Scanner/System.out in Java.",
+    "prob_desc_output_spec": "Print integer a — the number of substrings of the string s that are divisible by 4. Note that the answer can be huge, so you should use 64-bit integer type to store it. In C++ you can use the long long integer type and in Java you can use long integer type.",
+    "prob_desc_input_spec": "The only line contains string s (1 ≤ |s| ≤ 3·105). The string s contains only digits from 0 to 9.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1300,
+    "file_name": "train_009.jsonl",
+    "code_uid": "23ed6e5c55a873c2f106419adc0fd600",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"124\", \"04\", \"5810438174\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def main():\n  a=input()\n  a=list(a)\n  summ=0\n  for i in range(len(a)):\n    if int(a[i])%4==0:\n      summ+=1\n    if i!=0 and int(''.join(k for k in a[i-1:i+1]))%4==0:\n      summ+=i\n  return summ\n\nprint(main())",
+    "prob_desc_created_at": "1455894000",
+    "tags": [
+        "dp"
+    ],
+    "hidden_unit_tests": ""
+}

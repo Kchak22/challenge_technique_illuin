@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"io\", \"ooo\"]",
+    "src_uid": "214cdb73c2fb5ab995eb5aec76e5f4fb",
+    "prob_desc_notes": null,
+    "prob_desc_description": "It is well known that Berland has n cities, which form the Silver ring — cities i and i + 1 (1 ≤ i &lt; n) are connected by a road, as well as the cities n and 1. The goverment have decided to build m new roads. The list of the roads to build was prepared. Each road will connect two cities. Each road should be a curve which lies inside or outside the ring. New roads will have no common points with the ring (except the endpoints of the road).Now the designers of the constructing plan wonder if it is possible to build the roads in such a way that no two roads intersect (note that the roads may intersect at their endpoints). If it is possible to do, which roads should be inside the ring, and which should be outside?",
+    "prob_desc_output_spec": "If it is impossible to build the roads in such a way that no two roads intersect, output Impossible. Otherwise print m characters. i-th character should be i, if the road should be inside the ring, and o if the road should be outside the ring. If there are several solutions, output any of them.",
+    "prob_desc_input_spec": "The first line contains two integers n and m (4 ≤ n ≤ 100, 1 ≤ m ≤ 100). Each of the following m lines contains two integers ai and bi (1 ≤ ai, bi ≤ n, ai ≠ bi). No two cities will be connected by more than one road in the list. The list will not contain the roads which exist in the Silver ring.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_006.jsonl",
+    "code_uid": "f92c26db33d04e7f848e57b8f11d9088",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 2\\n1 3\\n2 4\", \"6 3\\n1 3\\n3 5\\n5 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, m = map(int, input().split())\nroad = [[] for i in range(m)]\nfor i in range(m):\n    road[i] = [i] + list(map(int, input().split())) + ['NONE']\nfor i in road:\n    if i[2] < i[1]:\n        i[1], i[2] = i[2], i[1]\n    i[1], i[2] = i[1] - 1, i[2] - 1\n\nparticipation = [[] for i in range(m)]\nfor i in range(len(road)):\n    for j in range(i + 1, len(road)):\n        if (road[j][1] < road[i][1] < road[j][2]) ^ (road[j][1] < road[i][2] < road[j][2]):\n            if road[j][1] != road[i][1] and road[j][2] != road[i][1] and road[j][1] != road[i][2] and road[j][2] != road[i][2]:\n                participation[i].append(j)\n                participation[j].append(i)\nresult = \"\"\nmark = [0] * m\nstack = []\nwhile sum(mark) != m:\n    if len(stack) == 0:\n        for i in range(len(mark)):\n            if mark[i] == 0:\n                stack.append(i)\n                break\n    index = stack.pop()\n    mark[index] = 1\n    if road[index][3] == \"NONE\":\n        road[index][3] = \"i\"\n    for i in participation[index]:\n        if road[i][3] == road[index][3]:\n            result = \"Impossible\"\n            print(result)\n            break\n        elif road[index][3] != \"i\" and road[i][3] == \"NONE\":\n            road[i][3] = \"i\"\n            stack.append(i)\n        elif road[index][3] == \"i\" and road[i][3] == \"NONE\":\n            road[i][3] = \"o\"\n            stack.append(i)\n    if result == \"Impossible\":\n        break\n\n\nif result != \"Impossible\":\n    for i in road:\n        result += i[3]\n    print(result)",
+    "prob_desc_created_at": "1284130800",
+    "tags": [
+        "dsu",
+        "dfs and similar",
+        "graphs",
+        "2-sat"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,30 @@
+{
+    "prob_desc_time_limit": "6 seconds",
+    "prob_desc_sample_outputs": "[\"4\\n2 1 -1 5\\n1\\n2\\n5\\n5 4 3 2 1\"]",
+    "src_uid": "e764c6437ce11b6b0cee015bc8b8e0b5",
+    "prob_desc_notes": "NoteConsider the example test.In the first test case, Polycarp can summon the minion $$$2$$$ with power level $$$7$$$, then summon the minion $$$1$$$, which will increase the power level of the previous minion by $$$3$$$, then destroy the minion $$$1$$$, and finally, summon the minion $$$5$$$. After this, Polycarp will have two minions with power levels of $$$10$$$.In the second test case, Polycarp can control only one minion, so he should choose the strongest of them and summon it.In the third test case, Polycarp is able to summon and control all five minions.",
+    "prob_desc_description": "Polycarp plays a computer game. In this game, the players summon armies of magical minions, which then fight each other.Polycarp can summon $$$n$$$ different minions. The initial power level of the $$$i$$$-th minion is $$$a_i$$$, and when it is summoned, all previously summoned minions' power levels are increased by $$$b_i$$$. The minions can be summoned in any order.Unfortunately, Polycarp cannot have more than $$$k$$$ minions under his control. To get rid of unwanted minions after summoning them, he may destroy them. Each minion can be summoned (and destroyed) only once.Polycarp's goal is to summon the strongest possible army. Formally, he wants to maximize the sum of power levels of all minions under his control (those which are summoned and not destroyed).Help Polycarp to make up a plan of actions to summon the strongest possible army!",
+    "prob_desc_output_spec": "For each test case print the optimal sequence of actions as follows: Firstly, print $$$m$$$ — the number of actions which Polycarp has to perform ($$$0 \\le m \\le 2n$$$). Then print $$$m$$$ integers $$$o_1$$$, $$$o_2$$$, ..., $$$o_m$$$, where $$$o_i$$$ denotes the $$$i$$$-th action as follows: if the $$$i$$$-th action is to summon the minion $$$x$$$, then $$$o_i = x$$$, and if the $$$i$$$-th action is to destroy the minion $$$x$$$, then $$$o_i = -x$$$. Each minion can be summoned at most once and cannot be destroyed before being summoned (and, obviously, cannot be destroyed more than once). The number of minions in Polycarp's army should be not greater than $$$k$$$ after every action. If there are multiple optimal sequences, print any of them.",
+    "prob_desc_input_spec": "The first line contains one integer $$$T$$$ ($$$1 \\le T \\le 75$$$) — the number of test cases. Each test case begins with a line containing two integers $$$n$$$ and $$$k$$$ ($$$1 \\le k \\le n \\le 75$$$) — the number of minions availible for summoning, and the maximum number of minions that can be controlled by Polycarp, respectively. Then $$$n$$$ lines follow, the $$$i$$$-th line contains $$$2$$$ integers $$$a_i$$$ and $$$b_i$$$ ($$$1 \\le a_i \\le 10^5$$$, $$$0 \\le b_i \\le 10^5$$$) — the parameters of the $$$i$$$-th minion.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2500,
+    "file_name": "train_000.jsonl",
+    "code_uid": "0a7363027153c4a0a588a81df9613d33",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n5 2\\n5 3\\n7 0\\n5 0\\n4 0\\n10 0\\n2 1\\n10 100\\n50 10\\n5 5\\n1 5\\n2 4\\n3 3\\n4 2\\n5 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from operator import itemgetter\nimport sys\n\nint1 = lambda x: int(x) - 1\np2D = lambda x: print(*x, sep=\"\\n\")\ndef II(): return int(sys.stdin.readline())\ndef MI(): return map(int, sys.stdin.readline().split())\ndef LI(): return list(map(int, sys.stdin.readline().split()))\ndef LLI(rows_number): return [LI() for _ in range(rows_number)]\ndef SI(): return sys.stdin.readline()[:-1]\n\ndef main():\n    inf = 10 ** 9\n    for _ in range(II()):\n        n, k = MI()\n        ab = [(a, b, i) for i, (a, b) in enumerate(LLI(n))]\n\n        dp = [[inf] * n for _ in range(k)]\n        log = [[[] for _ in range(n)] for _ in range(k)]\n        for e in range(n): dp[0][e] = -ab[e][0]\n        ab.sort(key=itemgetter(1))\n        for a, b, i in ab:\n            for j in range(k - 2, -1, -1):\n                for e in range(n):\n                    if i==e:continue\n                    pre = dp[j][e]\n                    if pre==inf:continue\n                    cur = pre + b * (k - 1 - j) - a\n                    if cur < dp[j + 1][e]:\n                        dp[j + 1][e] = cur\n                        log[j+1][e]=log[j][e]+[i]\n        #print(ab)\n        #p2D(dp)\n        #p2D(log)\n        #print()\n        mn=mne=inf\n        for e in range(n):\n            cur=dp[-1][e]\n            if cur<mn:\n                mn=cur\n                mne=e\n        first=log[-1][mne]\n        use=[False]*n\n        use[mne]=True\n        ans=[]\n        for i in first:\n            ans.append(i+1)\n            use[i]=True\n        for i in range(n):\n            if use[i]:continue\n            ans.append(i+1)\n            ans.append(-i-1)\n        ans.append(mne+1)\n        print(len(ans))\n        print(*ans)\n\nmain()\n",
+    "prob_desc_created_at": "1589707200",
+    "tags": [
+        "dp",
+        "greedy",
+        "constructive algorithms",
+        "flows",
+        "graph matchings",
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1557\", \"99999\", \"33\"]",
+    "src_uid": "378a9ab7ad891d60f23645106d24f314",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given a long decimal number $$$a$$$ consisting of $$$n$$$ digits from $$$1$$$ to $$$9$$$. You also have a function $$$f$$$ that maps every digit from $$$1$$$ to $$$9$$$ to some (possibly the same) digit from $$$1$$$ to $$$9$$$.You can perform the following operation no more than once: choose a non-empty contiguous subsegment of digits in $$$a$$$, and replace each digit $$$x$$$ from this segment with $$$f(x)$$$. For example, if $$$a = 1337$$$, $$$f(1) = 1$$$, $$$f(3) = 5$$$, $$$f(7) = 3$$$, and you choose the segment consisting of three rightmost digits, you get $$$1553$$$ as the result.What is the maximum possible number you can obtain applying this operation no more than once?",
+    "prob_desc_output_spec": "Print the maximum number you can get after applying the operation described in the statement no more than once.",
+    "prob_desc_input_spec": "The first line contains one integer $$$n$$$ ($$$1 \\le n \\le 2 \\cdot 10^5$$$) — the number of digits in $$$a$$$. The second line contains a string of $$$n$$$ characters, denoting the number $$$a$$$. Each character is a decimal digit from $$$1$$$ to $$$9$$$. The third line contains exactly $$$9$$$ integers $$$f(1)$$$, $$$f(2)$$$, ..., $$$f(9)$$$ ($$$1 \\le f(i) \\le 9$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1300,
+    "file_name": "train_010.jsonl",
+    "code_uid": "303bcba7df5704c725cba0e23a37929a",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1337\\n1 2 5 4 6 6 3 1 9\", \"5\\n11111\\n9 8 7 6 5 4 3 2 1\", \"2\\n33\\n1 1 1 1 1 1 1 1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(raw_input())\nnum = list(raw_input())\nfs =  raw_input().split()\nmapa = {}\n\nfor  k in xrange(9):\n\tmapa[str(k+1)]  = fs[k]\n\t\ni = 0\nwhile i < n and num[i] >= mapa[num[i]]:\n\ti += 1\n\nj = i\n\nwhile j < n and num[j] <= mapa[num[j]]:\n\t\n\tj += 1\n\t\n\nfor k in xrange(i, j):\n\tnum[k] = mapa[num[k]]\n\t\nprint \"\".join(num)\n\n'''\t\nelif i == n:\n\tprint \"\".join(num)\n\texit()\n\t\nelse:\n\tj = n-1\n\twhile j > i and num[j] > mapa[num[j]]:\n\t\tj -=1\n\t\t\n\tfor k in xrange(i, j+1):\n\t\tnum[k] = mapa[num[k]]\n\t\n\tprint \"\".join(num)\n'''\n",
+    "prob_desc_created_at": "1556289300",
+    "tags": [
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

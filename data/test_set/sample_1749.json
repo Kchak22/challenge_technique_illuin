@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"()()\", \"(()(()))\"]",
+    "src_uid": "c783434bb17819344fb9a49de1f63708",
+    "prob_desc_notes": null,
+    "prob_desc_description": "A bracket sequence is a string containing only characters \"(\" and \")\". A regular bracket sequence is a bracket sequence that can be transformed into a correct arithmetic expression by inserting characters \"1\" and \"+\" between the original characters of the sequence. For example, bracket sequences \"()()\" and \"(())\" are regular (the resulting expressions are: \"(1)+(1)\" and \"((1+1)+1)\"), and \")(\", \"(\" and \")\" are not.Subsequence is a sequence that can be derived from another sequence by deleting some elements without changing the order of the remaining elements.You are given a regular bracket sequence $$$s$$$ and an integer number $$$k$$$. Your task is to find a regular bracket sequence of length exactly $$$k$$$ such that it is also a subsequence of $$$s$$$.It is guaranteed that such sequence always exists.",
+    "prob_desc_output_spec": "Print a single string — a regular bracket sequence of length exactly $$$k$$$ such that it is also a subsequence of $$$s$$$. It is guaranteed that such sequence always exists.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$k$$$ ($$$2 \\le k \\le n \\le 2 \\cdot 10^5$$$, both $$$n$$$ and $$$k$$$ are even) — the length of $$$s$$$ and the length of the sequence you are asked to find. The second line is a string $$$s$$$ — regular bracket sequence of length $$$n$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_012.jsonl",
+    "code_uid": "dad49f5f9194acfbbd90f79eb103cdc8",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6 4\\n()(())\", \"8 8\\n(()(()))\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "put = lambda: tuple(map(int, input().split()))\n\na, b = put()\ns = input()\nif a == b:\n    print(s)\nelse:\n    l = 0\n    ans = 0\n    need = b // 2\n    i = 0\n    s = list(s)\n    while i < len(s):\n        if s[i] == '(':\n            if l == need or l + ans == need:\n                del s[i]\n                i -= 1\n            else:\n                l += 1\n        else:\n            l -= 1\n            ans += 1\n            if ans == need:\n                s = s[: i + 1]\n                break\n        i += 1\n    print(''.join(s))\n",
+    "prob_desc_created_at": "1534516500",
+    "tags": [
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

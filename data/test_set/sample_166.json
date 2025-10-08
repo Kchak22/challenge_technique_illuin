@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"40\", \"54\"]",
+    "src_uid": "3634a3367a1f05d1b3e8e4369e8427fb",
+    "prob_desc_notes": "NoteFor the first example, $$$t=\\{\\textrm{lcm}(\\{1,1\\})\\}=\\{1\\}$$$, so $$$\\gcd(t)=1$$$.For the second example, $$$t=\\{120,40,80,120,240,80\\}$$$, and it's not hard to see that $$$\\gcd(t)=40$$$.",
+    "prob_desc_description": "For the multiset of positive integers $$$s=\\{s_1,s_2,\\dots,s_k\\}$$$, define the Greatest Common Divisor (GCD) and Least Common Multiple (LCM) of $$$s$$$ as follow: $$$\\gcd(s)$$$ is the maximum positive integer $$$x$$$, such that all integers in $$$s$$$ are divisible on $$$x$$$. $$$\\textrm{lcm}(s)$$$ is the minimum positive integer $$$x$$$, that divisible on all integers from $$$s$$$.For example, $$$\\gcd(\\{8,12\\})=4,\\gcd(\\{12,18,6\\})=6$$$ and $$$\\textrm{lcm}(\\{4,6\\})=12$$$. Note that for any positive integer $$$x$$$, $$$\\gcd(\\{x\\})=\\textrm{lcm}(\\{x\\})=x$$$.Orac has a sequence $$$a$$$ with length $$$n$$$. He come up with the multiset $$$t=\\{\\textrm{lcm}(\\{a_i,a_j\\})\\ |\\ i&lt;j\\}$$$, and asked you to find the value of $$$\\gcd(t)$$$ for him. In other words, you need to calculate the GCD of LCMs of all pairs of elements in the given sequence.",
+    "prob_desc_output_spec": "Print one integer: $$$\\gcd(\\{\\textrm{lcm}(\\{a_i,a_j\\})\\ |\\ i&lt;j\\})$$$.",
+    "prob_desc_input_spec": "The first line contains one integer $$$n\\ (2\\le n\\le 100\\,000)$$$. The second line contains $$$n$$$ integers, $$$a_1, a_2, \\ldots, a_n$$$ ($$$1 \\leq a_i \\leq 200\\,000$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_000.jsonl",
+    "code_uid": "a0c26afcf00079d2cc95ca1f63f598ea",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2\\n1 1\", \"4\\n10 24 40 80\", \"10\\n540 648 810 648 720 540 594 864 972 648\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def gcd(a,b):\n while b: a,b=b,a%b\n return a\n\ndef rwh_primes2(n):\n    # https://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n-in-python/3035188#3035188\n    \"\"\" Input n>=6, Returns a list of primes, 2 <= p < n \"\"\"\n    correction = (n%6>1)\n    n = {0:n,1:n-1,2:n+4,3:n+3,4:n+2,5:n+1}[n%6]\n    sieve = [True] * (n/3)\n    sieve[0] = False\n    for i in xrange(int(n**0.5)/3+1):\n      if sieve[i]:\n        k=3*i+1|1\n        sieve[      ((k*k)/3)      ::2*k]=[False]*((n/6-(k*k)/6-1)/k+1)\n        sieve[(k*k+4*k-2*k*(i&1))/3::2*k]=[False]*((n/6-(k*k+4*k-2*k*(i&1))/6-1)/k+1)\n    return [2,3] + [3*i+1|1 for i in xrange(1,n/3-correction) if sieve[i]]\n\nprimes=rwh_primes2(200000)\n\ndef f(n,a):\n g=reduce(gcd,a); g2=1\n for i in xrange(len(a)): a[i]/=g\n for p in primes:\n  min1=min2=1000\n  for j in a:\n   u=1; t=0; up=p\n   while j%up==0: u,up=up,up*p; t+=1\n   if t<min2:\n    if t<min1: min1,min2=t,min1\n    else: min2=t\n   if min1==min2==0: break\n  g2*=(p**min2)\n return g2*g\n\nn=int(raw_input())\na=map(int,raw_input().split())\n\nprint f(n,a)\n",
+    "prob_desc_created_at": "1589286900",
+    "tags": [
+        "number theory",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

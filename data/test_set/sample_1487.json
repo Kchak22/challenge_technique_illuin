@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"6\", \"100000\"]",
+    "src_uid": "ac33b73da5aaf2139b348a9c237f93a4",
+    "prob_desc_notes": "NoteIn the first sample, the player was initially standing on the first minute. As the minutes from the 1-st to the 4-th one don't contain interesting moments, we press the second button. Now we can not press the second button and skip 3 more minutes, because some of them contain interesting moments. Therefore, we watch the movie from the 4-th to the 6-th minute, after that the current time is 7. Similarly, we again skip 3 minutes and then watch from the 10-th to the 12-th minute of the movie. In total, we watch 6 minutes of the movie.In the second sample, the movie is very interesting, so you'll have to watch all 100000 minutes of the movie.",
+    "prob_desc_description": "You have decided to watch the best moments of some movie. There are two buttons on your player:   Watch the current minute of the movie. By pressing this button, you watch the current minute of the movie and the player automatically proceeds to the next minute of the movie.  Skip exactly x minutes of the movie (x is some fixed positive integer). If the player is now at the t-th minute of the movie, then as a result of pressing this button, it proceeds to the minute (t + x). Initially the movie is turned on in the player on the first minute, and you want to watch exactly n best moments of the movie, the i-th best moment starts at the li-th minute and ends at the ri-th minute (more formally, the i-th best moment consists of minutes: li, li + 1, ..., ri). Determine, what is the minimum number of minutes of the movie you have to watch if you want to watch all the best moments?",
+    "prob_desc_output_spec": "Output a single number — the answer to the problem.",
+    "prob_desc_input_spec": "The first line contains two space-separated integers n, x (1 ≤ n ≤ 50, 1 ≤ x ≤ 105) — the number of the best moments of the movie and the value of x for the second button. The following n lines contain the descriptions of the best moments of the movie, the i-th line of the description contains two integers separated by a space li, ri (1 ≤ li ≤ ri ≤ 105). It is guaranteed that for all integers i from 2 to n the following condition holds: ri - 1 &lt; li.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1000,
+    "file_name": "train_009.jsonl",
+    "code_uid": "e7ce40c8cd660536df8fed1ee54a957b",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2 3\\n5 6\\n10 12\", \"1 1\\n1 100000\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, x = map(int, input().split())\nres = 0\nri = 1\n\nfor i in range(n):\n    l, r = map(int, input().split())\n    \n    l = l - ri \n    r = r - ri\n    ri = ri + r + 1\n    res = res + l%x + (r-l+1)\nprint(res)",
+    "prob_desc_created_at": "1419438600",
+    "tags": [
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

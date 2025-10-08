@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"yes\\nyes\\nyes\\nno\\nno\"]",
+    "src_uid": "324298100f3e36d289ef6ca8178ac6d3",
+    "prob_desc_notes": "NoteSample 1. There has not been any match up to now (k = 0, d1 = 0, d2 = 0). If there will be three matches (1-2, 2-3, 3-1) and each team wins once, then at the end each team will have 1 win.Sample 2. You missed all the games (k = 3). As d1 = 0 and d2 = 0, and there is a way to play three games with no winner of tournament (described in the previous sample), the answer is \"yes\".Sample 3. You missed 4 matches, and d1 = 1, d2 = 0. These four matches can be: 1-2 (win 2), 1-3 (win 3), 1-2 (win 1), 1-3 (win 1). Currently the first team has 2 wins, the second team has 1 win, the third team has 1 win. Two remaining matches can be: 1-2 (win 2), 1-3 (win 3). In the end all the teams have equal number of wins (2 wins).",
+    "prob_desc_description": "There are n games in a football tournament. Three teams are participating in it. Currently k games had already been played. You are an avid football fan, but recently you missed the whole k games. Fortunately, you remember a guess of your friend for these k games. Your friend did not tell exact number of wins of each team, instead he thought that absolute difference between number of wins of first and second team will be d1 and that of between second and third team will be d2.You don't want any of team win the tournament, that is each team should have the same number of wins after n games. That's why you want to know: does there exist a valid tournament satisfying the friend's guess such that no team will win this tournament?Note that outcome of a match can not be a draw, it has to be either win or loss.",
+    "prob_desc_output_spec": "For each test case, output a single line containing either \"yes\" if it is possible to have no winner of tournament, or \"no\" otherwise (without quotes).",
+    "prob_desc_input_spec": "The first line of the input contains a single integer corresponding to number of test cases t (1 ≤ t ≤ 105). Each of the next t lines will contain four space-separated integers n, k, d1, d2 (1 ≤ n ≤ 1012; 0 ≤ k ≤ n; 0 ≤ d1, d2 ≤ k) — data for the current test case.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_011.jsonl",
+    "code_uid": "97d56821e671a2c3dc65bb60bbbbe955",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n3 0 0 0\\n3 3 0 0\\n6 4 1 0\\n6 3 3 0\\n3 3 3 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "t = int(input())\nfor i in range(t):\n    n, k, a, b = map(int, input().split())\n    if n % 3 != 0:\n        print(\"no\")\n    else:\n        for i in range(2):\n            for j in range(2):\n                flagf = False\n                if i == 0:\n                    a1 = a\n                else:\n                    a1 = -a\n                if j == 0:\n                    b1 = b\n                else:\n                    b1 = -b\n\n                t2 = (k - a1 + b1)/3\n                t1 = a1 + t2\n                t3 = t2 - b1\n                # print(t1, t2, t3)\n\n                flag1 = False\n                flag2 = False\n                # valores válidos\n                if (k-a1+b1) % 3 == 0 and t1 >= 0 and t2 >= 0 and t3 >= 0:\n                    if t1 <= n/3 and t2 <= n/3 and t3 <= n/3:\n                        if i == 0 and t1 >= t2:\n                            flag1 = True\n                        elif i == 1 and t1 < t2:\n                            flag1 = True\n                        if j == 0 and t2 >= t3:\n                            flag2 = True\n                        elif j == 1 and t2 < t3:\n                            flag2 = True\n\n                if flag1 and flag2:\n                    if t1 == t2 and t2 == t3 and (n-k) % 3 == 0:\n                        flagf = True\n                        break\n                    else:\n                        v = [t1, t2, t3]\n                        v = sorted(v)\n                        faltam = n-k\n                        faltam -= v[2] - v[1]\n                        faltam -= v[2] - v[0]\n                        if faltam < 0:\n                            break\n                        elif faltam == 0 or faltam %3 == 0:\n                            flagf = True\n                            break\n\n\n            if flagf:\n                print(\"yes\")\n                break\n        else:\n            print(\"no\")\n\n\n# 3 1 1 0\n",
+    "prob_desc_created_at": "1406215800",
+    "tags": [
+        "implementation",
+        "brute force",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

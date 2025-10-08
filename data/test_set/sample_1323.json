@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\", \"4\"]",
+    "src_uid": "a850dd88a67a6295823e70e2c5c857c9",
+    "prob_desc_notes": "NoteIn the first sample you can fell the trees like that:   fell the 1-st tree to the left — now it occupies segment [ - 1;1]  fell the 2-nd tree to the right — now it occupies segment [2;3]  leave the 3-rd tree — it occupies point 5  leave the 4-th tree — it occupies point 10  fell the 5-th tree to the right — now it occupies segment [19;20] In the second sample you can also fell 4-th tree to the right, after that it will occupy segment [10;19].",
+    "prob_desc_description": "Little Susie listens to fairy tales before bed every day. Today's fairy tale was about wood cutters and the little girl immediately started imagining the choppers cutting wood. She imagined the situation that is described below.There are n trees located along the road at points with coordinates x1, x2, ..., xn. Each tree has its height hi. Woodcutters can cut down a tree and fell it to the left or to the right. After that it occupies one of the segments [xi - hi, xi] or [xi;xi + hi]. The tree that is not cut down occupies a single point with coordinate xi. Woodcutters can fell a tree if the segment to be occupied by the fallen tree doesn't contain any occupied point. The woodcutters want to process as many trees as possible, so Susie wonders, what is the maximum number of trees to fell. ",
+    "prob_desc_output_spec": "Print a single number — the maximum number of trees that you can cut down by the given rules.",
+    "prob_desc_input_spec": "The first line contains integer n (1 ≤ n ≤ 105) — the number of trees. Next n lines contain pairs of integers xi, hi (1 ≤ xi, hi ≤ 109) — the coordinate and the height of the і-th tree. The pairs are given in the order of ascending xi. No two trees are located at the point with the same coordinate.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_008.jsonl",
+    "code_uid": "936012ac08384bdb0e3d4fe44db27ed4",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1 2\\n2 1\\n5 10\\n10 9\\n19 1\", \"5\\n1 2\\n2 1\\n5 10\\n10 9\\n20 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "N = int(raw_input())\ntrees = []\nfor dum in xrange(N):\n    new = map(int, raw_input().split())\n    trees.append(new)\nlast = float('-inf')\nmax_trees = 0\nfor tree in xrange(len(trees)):\n    if tree == len(trees) - 1:\n        max_trees += 1\n    elif trees[tree][0] - trees[tree][1] > last:\n        #print \"loop1\"\n        #print str(trees[tree])\n        #print \"last is \" + str(last)\n        last = trees[tree][0]\n        #print \"new last is \" + str(last)\n        max_trees += 1\n    elif trees[tree][0] + trees[tree][1] < trees[tree + 1][0]:\n        #print \"loop2\"\n        #print str(trees[tree])\n        #print \"last is \" + str(last)\n        last = trees[tree][0] + trees[tree][1]\n        #print \"new last is \" + str(last)\n        max_trees += 1\n    else:\n        last = trees[tree][0]\nprint max_trees",
+    "prob_desc_created_at": "1432053000",
+    "tags": [
+        "dp",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

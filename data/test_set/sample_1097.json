@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[]",
+    "src_uid": "029e0e8c4478d7d973307e3af0a13c0d",
+    "prob_desc_notes": "NoteThe testcase depicted in the figure above (just showing how output should be formatted):40 96 312 717 1",
+    "prob_desc_description": "Martha — as a professional problemsetter — proposed a problem for a world-class contest. This is the problem statement:Tomorrow is Nadia's birthday, and Bardia (her brother) is assigned to make the balloons ready!There are n balloons (initially empty) that are tied to a straight line on certain positions x1, x2, ..., xn. Bardia inflates the balloons from left to right. As a result, i-th balloon gets bigger and bigger until its radius reaches the pressure endurance pi or it touches another previously-inflated balloon.  While Bardia was busy with the balloons, he wondered \"What will be the sum of radius of balloons after all of the balloons are inflated?\". Being a nerdy type of guy, he is now thinking about the problem instead of preparing his sister's birthday. Calculate the answer to Bardia's problem so that Nadia's birthday won't be balloon-less.Artha — Martha's student — claimed his solution got accepted. Martha (being his teacher for a long time!) knew he couldn't have solved the problem for real and thus thinks there is something wrong with the testcases. Artha isn't anyhow logical, which means there is no way for Martha to explain the wrong point in his algorithm. So, the only way is to find a testcase to prove him wrong!Artha's pseudo-code is shown below:  You should output a small testcase for the problem such that Artha's algorithm is incorrect. The algorithm's output is considered correct if it differs from the correct value by no more than 1.",
+    "prob_desc_output_spec": "You should output the generated small testcase (which Artha's solution doesn't get it right). It should be in the following format:   First line must contain the only number n (1 ≤ n ≤ 500).  The i-th of the next n lines should contain the description of the i-th balloon — two space-separated integers xi, pi (1 ≤ pi ≤ 106, 0 ≤ x1 &lt; x2 &lt; ... &lt; xn ≤ 106). ",
+    "prob_desc_input_spec": "Please pay attention! No input will be given to your program for this problem. So you do not have to read from the input anything.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_006.jsonl",
+    "code_uid": "d92d91913748ce1eb80bbc3d1e47d45d",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[]",
+    "exec_outcome": "PASSED",
+    "source_code": "print(302)\nprint(\"0 1000000\")\ncoord, rad = 17321*2, 300\nfor i in range(300):\n    print(coord, rad)\n    coord, rad = coord+600, rad-1\nprint(\"1000000 1000000\")\n",
+    "prob_desc_created_at": "1351783800",
+    "tags": [
+        "constructive algorithms"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"2\"]",
+    "src_uid": "930be5ec102fbe062062aa23eac75187",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Once Bob needed to find the second order statistics of a sequence of integer numbers. Lets choose each number from the sequence exactly once and sort them. The value on the second position is the second order statistics of the given sequence. In other words it is the smallest element strictly greater than the minimum. Help Bob solve this problem.",
+    "prob_desc_output_spec": "If the given sequence has the second order statistics, output this order statistics, otherwise output NO.",
+    "prob_desc_input_spec": "The first input line contains integer n (1 ≤ n ≤ 100) — amount of numbers in the sequence. The second line contains n space-separated integer numbers — elements of the sequence. These numbers don't exceed 100 in absolute value.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_011.jsonl",
+    "code_uid": "e43d550ce1b1d9461032782557906d0a",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1 2 2 -4\", \"5\\n1 2 3 1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "raw_input()\nINF = 1000000000\nmin1 = min2 = INF\nfor x in map(int, raw_input().split()):\n    if x != min1 and x != min2:\n        if x < min1: min1, min2 = x, min1\n        elif x < min2: min2 = x\nif min2 == INF:\n    print \"NO\"\nelse:\n    print min2",
+    "prob_desc_created_at": "1277823600",
+    "tags": [
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

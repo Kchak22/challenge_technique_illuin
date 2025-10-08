@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\", \"1\", \"2\"]",
+    "src_uid": "4f02ac641ab112b9d6aee222e1365c09",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Polycarp wants to train before another programming competition. During the first day of his training he should solve exactly $$$1$$$ problem, during the second day — exactly $$$2$$$ problems, during the third day — exactly $$$3$$$ problems, and so on. During the $$$k$$$-th day he should solve $$$k$$$ problems.Polycarp has a list of $$$n$$$ contests, the $$$i$$$-th contest consists of $$$a_i$$$ problems. During each day Polycarp has to choose exactly one of the contests he didn't solve yet and solve it. He solves exactly $$$k$$$ problems from this contest. Other problems are discarded from it. If there are no contests consisting of at least $$$k$$$ problems that Polycarp didn't solve yet during the $$$k$$$-th day, then Polycarp stops his training.How many days Polycarp can train if he chooses the contests optimally?",
+    "prob_desc_output_spec": "Print one integer — the maximum number of days Polycarp can train if he chooses the contests optimally.",
+    "prob_desc_input_spec": "The first line of the input contains one integer $$$n$$$ ($$$1 \\le n \\le 2 \\cdot 10^5$$$) — the number of contests. The second line of the input contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 2 \\cdot 10^5$$$) — the number of problems in the $$$i$$$-th contest.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1000,
+    "file_name": "train_007.jsonl",
+    "code_uid": "879c827c37a4b430cf04d40c89589b37",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n3 1 4 1\", \"3\\n1 1 1\", \"5\\n1 1 1 2 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(input())\nl = list(map(int, input().split()))\nl.sort()\ncur = 1\ncnt = 0\nfor i in range(n):\n    if cur <= l[i]:\n        cur += 1\n        cnt += 1\nprint(cnt)",
+    "prob_desc_created_at": "1557844500",
+    "tags": [
+        "data structures",
+        "sortings",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

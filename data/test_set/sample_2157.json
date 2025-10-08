@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"6\\n20\\n19\\n20\\n-1\\n3\\n-1\\n-1\", \"1\\n1\\n1\\n2\\n2\\n2\\n2\\n-1\"]",
+    "src_uid": "5d8521e467cad53cf9403200e4c99b89",
+    "prob_desc_notes": null,
+    "prob_desc_description": "ATMs of a well-known bank of a small country are arranged so that they can not give any amount of money requested by the user. Due to the limited size of the bill dispenser (the device that is directly giving money from an ATM) and some peculiarities of the ATM structure, you can get at most k bills from it, and the bills may be of at most two distinct denominations.For example, if a country uses bills with denominations 10, 50, 100, 500, 1000 and 5000 burles, then at k = 20 such ATM can give sums 100 000 burles and 96 000 burles, but it cannot give sums 99 000 and 101 000 burles.Let's suppose that the country uses bills of n distinct denominations, and the ATM that you are using has an unlimited number of bills of each type. You know that during the day you will need to withdraw a certain amount of cash q times. You know that when the ATM has multiple ways to give money, it chooses the one which requires the minimum number of bills, or displays an error message if it cannot be done. Determine the result of each of the q of requests for cash withdrawal.",
+    "prob_desc_output_spec": "For each request for cash withdrawal print on a single line the minimum number of bills it can be done, or print  - 1, if it is impossible to get the corresponding sum.",
+    "prob_desc_input_spec": "The first line contains two integers n, k (1 ≤ n ≤ 5000, 1 ≤ k ≤ 20). The next line contains n space-separated integers ai (1 ≤ ai ≤ 107) — the denominations of the bills that are used in the country. Numbers ai follow in the strictly increasing order. The next line contains integer q (1 ≤ q ≤ 20) — the number of requests for cash withdrawal that you will make. The next q lines contain numbers xi (1 ≤ xi ≤ 2·108) — the sums of money in burles that you are going to withdraw from the ATM.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_017.jsonl",
+    "code_uid": "b065507ec8af20be364d4fc2d4077501",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6 20\\n10 50 100 500 1000 5000\\n8\\n4200\\n100000\\n95000\\n96000\\n99000\\n10100\\n2015\\n9950\", \"5 2\\n1 2 3 5 8\\n8\\n1\\n3\\n5\\n7\\n9\\n11\\n13\\n15\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from collections import defaultdict\nn, m = [int(x) for x in input().split()]\na = [int(x) for x in input().split()]\nd = defaultdict(int)\n\nd[0] = 0\nfor v in a:\n    for i in range(1, m + 1):\n        d[v * i] = i\n\nq = int(input())\nfor _ in range(q):\n    x = int(input())\n    r = m + 1\n    for k, v in d.items():\n        y = x - k\n        if y in d:\n            r = min(r, v + d[y])\n    print(r if r <= m else -1)\n",
+    "prob_desc_created_at": "1426946400",
+    "tags": [
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

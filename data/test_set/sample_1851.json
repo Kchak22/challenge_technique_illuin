@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"bbba\", \"cccccbba\"]",
+    "src_uid": "77e2a6ba510987ed514fed3bd547b5ab",
+    "prob_desc_notes": "NoteLet's look at samples and see what the sought subsequences look like (they are marked with uppercase bold letters).The first sample: aBaBBAThe second sample: abbCbCCaCbbCBaaBA",
+    "prob_desc_description": "You've got string s, consisting of only lowercase English letters. Find its lexicographically maximum subsequence.We'll call a non-empty string s[p1p2... pk] = sp1sp2... spk(1 ≤ p1 &lt; p2 &lt; ... &lt; pk ≤ |s|) a subsequence of string s = s1s2... s|s|.String x = x1x2... x|x| is lexicographically larger than string y = y1y2... y|y|, if either |x| &gt; |y| and x1 = y1, x2 = y2, ... , x|y| = y|y|, or exists such number r (r &lt; |x|, r &lt; |y|), that x1 = y1, x2 = y2, ... , xr = yr and xr + 1 &gt; yr + 1. Characters in lines are compared like their ASCII codes.",
+    "prob_desc_output_spec": "Print the lexicographically maximum subsequence of string s.",
+    "prob_desc_input_spec": "The single line contains a non-empty string s, consisting only of lowercase English letters. The string's length doesn't exceed 105.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1100,
+    "file_name": "train_013.jsonl",
+    "code_uid": "40b3d7e774acf27016df11f5a7f0275b",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"ababba\", \"abbcbccacbbcbaaba\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "s = input()\nbigger = 'a'\nres = ''\nfor i in range(len(s)-1,-1,-1):\n    if s[i] >= bigger:\n        res = s[i] + res\n        bigger = s[i]\nprint(res)",
+    "prob_desc_created_at": "1339506000",
+    "tags": [
+        "greedy",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

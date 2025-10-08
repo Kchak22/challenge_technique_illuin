@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2\\n3\\n3\\n4\"]",
+    "src_uid": "3581b3a6bf7b122b49c481535491399d",
+    "prob_desc_notes": "NoteThe picture corresponding to the first test case of the example:There you can remove vertices $$$2$$$, $$$5$$$ and $$$3$$$ during the first move and vertices $$$1$$$, $$$7$$$ and $$$4$$$ during the second move.The picture corresponding to the second test case of the example:There you can remove vertices $$$7$$$, $$$8$$$ and $$$9$$$ during the first move, then vertices $$$5$$$, $$$6$$$ and $$$10$$$ during the second move and vertices $$$1$$$, $$$3$$$ and $$$4$$$ during the third move.The picture corresponding to the third test case of the example:There you can remove vertices $$$5$$$ and $$$7$$$ during the first move, then vertices $$$2$$$ and $$$4$$$ during the second move and vertices $$$1$$$ and $$$6$$$ during the third move.",
+    "prob_desc_description": "You are given a tree (connected graph without cycles) consisting of $$$n$$$ vertices. The tree is unrooted — it is just a connected undirected graph without cycles.In one move, you can choose exactly $$$k$$$ leaves (leaf is such a vertex that is connected to only one another vertex) connected to the same vertex and remove them with edges incident to them. I.e. you choose such leaves $$$u_1, u_2, \\dots, u_k$$$ that there are edges $$$(u_1, v)$$$, $$$(u_2, v)$$$, $$$\\dots$$$, $$$(u_k, v)$$$ and remove these leaves and these edges.Your task is to find the maximum number of moves you can perform if you remove leaves optimally.You have to answer $$$t$$$ independent test cases.",
+    "prob_desc_output_spec": "For each test case, print the answer — the maximum number of moves you can perform if you remove leaves optimally.",
+    "prob_desc_input_spec": "The first line of the input contains one integer $$$t$$$ ($$$1 \\le t \\le 2 \\cdot 10^4$$$) — the number of test cases. Then $$$t$$$ test cases follow. The first line of the test case contains two integers $$$n$$$ and $$$k$$$ ($$$2 \\le n \\le 2 \\cdot 10^5$$$; $$$1 \\le k &lt; n$$$) — the number of vertices in the tree and the number of leaves you remove in one move, respectively. The next $$$n-1$$$ lines describe edges. The $$$i$$$-th edge is represented as two integers $$$x_i$$$ and $$$y_i$$$ ($$$1 \\le x_i, y_i \\le n$$$), where $$$x_i$$$ and $$$y_i$$$ are vertices the $$$i$$$-th edge connects. It is guaranteed that the given set of edges forms a tree. It is guaranteed that the sum of $$$n$$$ does not exceed $$$2 \\cdot 10^5$$$ ($$$\\sum n \\le 2 \\cdot 10^5$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2300,
+    "file_name": "train_011.jsonl",
+    "code_uid": "4b689ae5017bfa30bc5e1afef8a2fa4e",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n8 3\\n1 2\\n1 5\\n7 6\\n6 8\\n3 1\\n6 4\\n6 1\\n10 3\\n1 2\\n1 10\\n2 3\\n1 5\\n1 6\\n2 4\\n7 10\\n10 9\\n8 10\\n7 2\\n3 1\\n4 5\\n3 6\\n7 4\\n1 2\\n1 4\\n5 1\\n1 2\\n2 3\\n4 3\\n5 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from collections import defaultdict,deque\nimport sys\ninput=sys.stdin.readline\nt=int(input())\nfor ii in range(t):\n    graph=defaultdict(list)\n    n,k=map(int,input().split())\n    st=[]\n    for i in range(n-1):\n        u,v=map(int,input().split())\n        graph[u].append(v)\n        graph[v].append(u)\n    if k==1:\n        print(n-1)\n    else:\n        leaves=deque()\n        for i in graph:\n            if len(graph[i])==1:\n                leaves.append(i)\n        #print(leaves)\n        treecount=[0]*(n+1)\n        for i in leaves:\n            treecount[i]=-1\n        ans=0\n        #print(graph)\n        while leaves:\n            size=len(leaves)\n            for j in range(size):\n                vertex=leaves.popleft()\n                treecount[vertex]=10000000\n                for i in graph[vertex]:\n                    if treecount[i]!=-1 and treecount[i]<10000000:\n                        treecount[i]+=1\n                        #print(i,treecount,'aa',treecount[i]%k,treecount[i],k)\n                        if treecount[i]%k==0 :\n                            ans+=1\n                            #print(ans,i,'aaa')\n                            if treecount[i]==len(graph[i])-1:\n                                pos=0\n                                for kj in graph[i]:\n                                    if treecount[kj]==10000000:\n                                        pos+=1\n                                #print(pos,i)\n                                if pos==len(graph[i])-1:\n                                    treecount[i]=-1\n                                    leaves.append(i)\n        else:\n            sys.stdout.write(str(min(ans,n-1))+'\\n')\n                \n                \n            \n#-1 ->leaves, 0 -> inner nodes, 10000000 -> visited nodes\n",
+    "prob_desc_created_at": "1594996500",
+    "tags": [
+        "data structures",
+        "implementation",
+        "greedy",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

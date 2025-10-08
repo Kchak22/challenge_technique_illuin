@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1 2 \\n-1\\n4 5 1 2 3 6 \\n-1\\n1 3 5 6 7 9 2 4 8 10\"]",
+    "src_uid": "c4d32fcacffaa5d3a4db6dfa376d0324",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given a sequence $$$b_1, b_2, \\ldots, b_n$$$. Find the lexicographically minimal permutation $$$a_1, a_2, \\ldots, a_{2n}$$$ such that $$$b_i = \\min(a_{2i-1}, a_{2i})$$$, or determine that it is impossible.",
+    "prob_desc_output_spec": "For each test case, if there is no appropriate permutation, print one number $$$-1$$$. Otherwise, print $$$2n$$$ integers $$$a_1, \\ldots, a_{2n}$$$ — required lexicographically minimal permutation of numbers from $$$1$$$ to $$$2n$$$.",
+    "prob_desc_input_spec": "Each test contains one or more test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \\le t \\le 100$$$). The first line of each test case consists of one integer $$$n$$$ — the number of elements in the sequence $$$b$$$ ($$$1 \\le n \\le 100$$$). The second line of each test case consists of $$$n$$$ different integers $$$b_1, \\ldots, b_n$$$ — elements of the sequence $$$b$$$ ($$$1 \\le b_i \\le 2n$$$). It is guaranteed that the sum of $$$n$$$ by all test cases doesn't exceed $$$100$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_011.jsonl",
+    "code_uid": "c4cacab758042b1ceb46e3c0bf821cfd",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1\\n1\\n2\\n4 1\\n3\\n4 1 3\\n4\\n2 3 4 5\\n5\\n1 5 7 2 8\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import heapq\ndef restorePermutation(n, A):\n    ans = []\n    unUsed = set(list(range(1, 2*n + 1)))\n    for val in A:\n        if not 1 <= val <= 2*n: return -1\n        ans.append(val)\n        ans.append(-1)\n        unUsed.remove(val)\n        \n    minHeapq = [val for val in unUsed]\n    heapq.heapify(minHeapq)\n    #idea use BST in future\n    #use heap for now\n    for i in range(1, 2*n, 2):\n        temp = []\n        while minHeapq and minHeapq[0] < ans[i - 1]:\n            temp.append(heapq.heappop(minHeapq))\n        if not minHeapq or (minHeapq and minHeapq[0] < ans[i - 1]): \n            return -1\n        ans[i] = heapq.heappop(minHeapq)\n        while temp:\n            heapq.heappush(minHeapq, temp.pop())\n    \n    return ans\n        \n        \n\n\n\ntestCases = int(input())\nwhile testCases:\n    n = int(input())\n    A = [int(val) for val in input().split()]\n    ans = restorePermutation(n, A)\n    if ans == -1:\n        print()\n        print(ans)\n    else:\n        for val in ans:\n            print(val, end = \" \")\n    testCases -= 1",
+    "prob_desc_created_at": "1582473900",
+    "tags": [
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"4\", \"-1\"]",
+    "src_uid": "5d5dfa4f129bda46055fb636ef33515f",
+    "prob_desc_notes": null,
+    "prob_desc_description": "DZY has a hash table with p buckets, numbered from 0 to p - 1. He wants to insert n numbers, in the order they are given, into the hash table. For the i-th number xi, DZY will put it into the bucket numbered h(xi), where h(x) is the hash function. In this problem we will assume, that h(x) = x mod p. Operation a mod b denotes taking a remainder after division a by b.However, each bucket can contain no more than one element. If DZY wants to insert an number into a bucket which is already filled, we say a \"conflict\" happens. Suppose the first conflict happens right after the i-th insertion, you should output i. If no conflict happens, just output -1.",
+    "prob_desc_output_spec": "Output a single integer — the answer to the problem.",
+    "prob_desc_input_spec": "The first line contains two integers, p and n (2 ≤ p, n ≤ 300). Then n lines follow. The i-th of them contains an integer xi (0 ≤ xi ≤ 109).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_012.jsonl",
+    "code_uid": "b3ce94455883647f6134e984c7657919",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"10 5\\n0\\n21\\n53\\n41\\n53\", \"5 5\\n0\\n1\\n2\\n3\\n4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "p,n=map(int,raw_input().split())\na=[0]*500\nfor i in range(n):\n    x=input()\n    x=x%p\n    #print i,x\n    if a[x]==1:\n        print i+1\n        exit()\n    a[x]=1\nprint -1",
+    "prob_desc_created_at": "1405256400",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

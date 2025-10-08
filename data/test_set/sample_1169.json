@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"92 7 31 141\"]",
+    "src_uid": "1aaced1322c47f1908f2bc667bca1dbe",
+    "prob_desc_notes": "NoteThe picture illustrates the queue for the first sample.  ",
+    "prob_desc_description": "During the lunch break all n Berland State University students lined up in the food court. However, it turned out that the food court, too, has a lunch break and it temporarily stopped working.Standing in a queue that isn't being served is so boring! So, each of the students wrote down the number of the student ID of the student that stands in line directly in front of him, and the student that stands in line directly behind him. If no one stands before or after a student (that is, he is the first one or the last one), then he writes down number 0 instead (in Berland State University student IDs are numerated from 1).After that, all the students went about their business. When they returned, they found out that restoring the queue is not such an easy task.Help the students to restore the state of the queue by the numbers of the student ID's of their neighbors in the queue.",
+    "prob_desc_output_spec": "Print a sequence of n integers x1, x2, ..., xn — the sequence of ID numbers of all the students in the order they go in the queue from the first student to the last one.",
+    "prob_desc_input_spec": "The first line contains integer n (2 ≤ n ≤ 2·105) — the number of students in the queue.  Then n lines follow, i-th line contains the pair of integers ai, bi (0 ≤ ai, bi ≤ 106), where ai is the ID number of a person in front of a student and bi is the ID number of a person behind a student. The lines are given in the arbitrary order. Value 0 is given instead of a neighbor's ID number if the neighbor doesn't exist. The ID numbers of all students are distinct. It is guaranteed that the records correspond too the queue where all the students stand in some order.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_007.jsonl",
+    "code_uid": "ccc7e7d556256ef4990b567523f60335",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n92 31\\n0 7\\n31 0\\n7 141\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#490B\n\nif __name__ == \"__main__\":\n    qtd = {}\n    qdt = {}\n    n = input()\n    i = 0\n    f, b = 0, 0\n    while i != n:\n        i+=1\n        f,b = raw_input().split(' ')\n        qtd[f] = b\n        qdt[b] = f\n    n = '0'\n    alt0 = []\n    alt1 = []\n    while n in qtd:\n        n = qtd.pop(n)\n        alt0.append(n)\n        qdt.pop(n)\n    n = qdt.keys()[0]\n    while n in qdt:\n        n = qdt[n]\n    while n in qtd:\n        alt1.append(n)\n        n = qtd[n]\n    if n != '0':\n        alt1.append(n)\n    i = 0\n    if alt0[-1] == '0':\n        alt0.pop(-1)\n    while i != len(alt0):\n        print alt1[i], alt0[i],\n        i += 1\n    if len(alt1) > i:\n        print alt1[i]\n",
+    "prob_desc_created_at": "1416733800",
+    "tags": [
+        "dsu",
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

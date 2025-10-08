@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\", \"1\", \"3\"]",
+    "src_uid": "4553b327d7b9f090641590d6492c2c41",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given array consisting of n integers. Your task is to find the maximum length of an increasing subarray of the given array.A subarray is the sequence of consecutive elements of the array. Subarray is called increasing if each element of this subarray strictly greater than previous.",
+    "prob_desc_output_spec": "Print the maximum length of an increasing subarray of the given array.",
+    "prob_desc_input_spec": "The first line contains single positive integer n (1 ≤ n ≤ 105) — the number of integers. The second line contains n positive integers a1, a2, ..., an (1 ≤ ai ≤ 109).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_000.jsonl",
+    "code_uid": "4dfe94c7b91a07b5573842e8eab5b1f7",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1 7 2 11 15\", \"6\\n100 100 100 100 100 100\", \"3\\n1 2 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "size = int(raw_input())\narr = map(int, raw_input().split(' '))\narr = [int(i) for i in arr]\nmaximum =1\nseries =1\nfor i in range(1,size):\n    if arr[i-1] < arr[i]:\n        series += 1\n        if maximum<series:\n            maximum=series\n    else:\n        series=1\n   \nprint maximum",
+    "prob_desc_created_at": "1469804400",
+    "tags": [
+        "dp",
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"5\", \"274201\", \"12\"]",
+    "src_uid": "1e55358988db2fce66b8a53daae50d83",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Hamed has recently found a string t and suddenly became quite fond of it. He spent several days trying to find all occurrences of t in other strings he had. Finally he became tired and started thinking about the following problem. Given a string s how many ways are there to extract k ≥ 1 non-overlapping substrings from it such that each of them contains string t as a substring? More formally, you need to calculate the number of ways to choose two sequences a1, a2, ..., ak and b1, b2, ..., bk satisfying the following requirements:  k ≥ 1          t is a substring of string saisai + 1... sbi (string s is considered as 1-indexed). As the number of ways can be rather large print it modulo 109 + 7.",
+    "prob_desc_output_spec": "Print the answer in a single line.",
+    "prob_desc_input_spec": "Input consists of two lines containing strings s and t (1 ≤ |s|, |t| ≤ 105). Each string consists of lowercase Latin letters.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_009.jsonl",
+    "code_uid": "5c845e8e5f301a93b10b94b6d558b7e9",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"ababa\\naba\", \"welcometoroundtwohundredandeightytwo\\nd\", \"ddd\\nd\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "s, t = input(), input()\nn, m = len(t), len(s) + 1\n\nd = 1000000007\ng = [1] * m\n\nf = k = 0\nfor i in range(1, m):\n    if s[i - n:i] == t: k = i\n    if k: f = (f + g[k - n]) % d\n    g[i] += (g[i - 1] + f) % d\n\nprint(f)\n",
+    "prob_desc_created_at": "1418488200",
+    "tags": [
+        "dp",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

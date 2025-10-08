@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"2\\n4\\n7\"]",
+    "src_uid": "f3a27e4dc3085712608ecf844e663dfd",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Iahub is very proud of his recent discovery, propagating trees. Right now, he invented a new tree, called xor-tree. After this new revolutionary discovery, he invented a game for kids which uses xor-trees.The game is played on a tree having n nodes, numbered from 1 to n. Each node i has an initial value initi, which is either 0 or 1. The root of the tree is node 1.One can perform several (possibly, zero) operations on the tree during the game. The only available type of operation is to pick a node x. Right after someone has picked node x, the value of node x flips, the values of sons of x remain the same, the values of sons of sons of x flips, the values of sons of sons of sons of x remain the same and so on.The goal of the game is to get each node i to have value goali, which can also be only 0 or 1. You need to reach the goal of the game by using minimum number of operations.",
+    "prob_desc_output_spec": "In the first line output an integer number cnt, representing the minimal number of operations you perform. Each of the next cnt lines should contain an integer xi, representing that you pick a node xi.",
+    "prob_desc_input_spec": "The first line contains an integer n (1 ≤ n ≤ 105). Each of the next n - 1 lines contains two integers ui and vi (1 ≤ ui, vi ≤ n; ui ≠ vi) meaning there is an edge between nodes ui and vi.  The next line contains n integer numbers, the i-th of them corresponds to initi (initi is either 0 or 1). The following line also contains n integer numbers, the i-th number corresponds to goali (goali is either 0 or 1).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1300,
+    "file_name": "train_011.jsonl",
+    "code_uid": "6c2a1fd8b138ccd09bd98da0ccb5c34c",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"10\\n2 1\\n3 1\\n4 2\\n5 1\\n6 2\\n7 5\\n8 6\\n9 8\\n10 5\\n1 0 1 1 0 1 0 1 0 1\\n1 0 1 0 0 1 1 1 0 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import fileinput\n\ndef levels(n, e):\n\tl = [0 for _ in range(n)]\n\tq = [(0, -1, 0)]\n\twhile q:\n\t\tv, u, d = q.pop()\n\t\tl[v] = d\n\n\t\tfor w in e[v]:\n\t\t\tif w != u: q.append((w, v, d+1))\n\treturn l\n\ndef solve(n, e, x, g):\n\tl = levels(n, e)\n\n\tf = [0, 0]\n\tq = [(0, -1)]\n\tz = []\n\twhile q:\n\t\tv, u = q.pop()\n\n\t\tif v == -1:\n\t\t\tf = u\n\t\t\tcontinue\n\t\tq.append((-1, f[:]))\n\n\t\td = l[v]%2\n\t\tif (x[v]+f[d])%2 != g[v]:\n\t\t\tf[d] = (f[d]+1)%2\n\t\t\tz.append(v)\n\n\t\tfor w in e[v]:\n\t\t\tif w != u: q.append((w, v))\n\n\tprint(len(z))\n\tfor v in z: print(v+1)\n\nf = fileinput.input()\nn = int(f.readline())\ne = [[] for _ in range(n)]\nfor _ in range(n-1):\n\tv, w = tuple(map(int, f.readline().rstrip().split()))\n\te[v-1].append(w-1)\n\te[w-1].append(v-1)\nx = list(map(int, f.readline().rstrip().split()))\ng = list(map(int, f.readline().rstrip().split()))\nsolve(n, e, x, g)",
+    "prob_desc_created_at": "1399822800",
+    "tags": [
+        "data structures",
+        "dfs and similar",
+        "trees",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

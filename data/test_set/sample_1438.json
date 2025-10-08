@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\", \"2\", \"-1\"]",
+    "src_uid": "23c63d1fea568a75663450e0c6f23a29",
+    "prob_desc_notes": "NoteIn the first example, the answer is $$$3$$$, the Fair Nut can take $$$1$$$ liter from the first keg and $$$2$$$ liters from the third keg. There are $$$3$$$ liters of kvass in each keg.In the second example, the answer is $$$2$$$, the Fair Nut can take $$$3$$$ liters from the first keg and $$$1$$$ liter from the second keg.In the third example, the Fair Nut can't pour his cup by $$$7$$$ liters, so the answer is $$$-1$$$.",
+    "prob_desc_description": "The Fair Nut likes kvass very much. On his birthday parents presented him $$$n$$$ kegs of kvass. There are $$$v_i$$$ liters of kvass in the $$$i$$$-th keg. Each keg has a lever. You can pour your glass by exactly $$$1$$$ liter pulling this lever. The Fair Nut likes this drink very much, so he wants to pour his glass by $$$s$$$ liters of kvass. But he wants to do it, so kvass level in the least keg is as much as possible.Help him find out how much kvass can be in the least keg or define it's not possible to pour his glass by $$$s$$$ liters of kvass.",
+    "prob_desc_output_spec": "If the Fair Nut cannot pour his glass by $$$s$$$ liters of kvass, print $$$-1$$$. Otherwise, print a single integer — how much kvass in the least keg can be.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$s$$$ ($$$1 \\le n \\le 10^3$$$, $$$1 \\le s \\le 10^{12}$$$) — the number of kegs and glass volume. The second line contains $$$n$$$ integers $$$v_1, v_2, \\ldots, v_n$$$ ($$$1 \\le v_i \\le 10^9$$$) — the volume of $$$i$$$-th keg.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_009.jsonl",
+    "code_uid": "5eb6859bf733d1a7b995c73ab6cd2976",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 3\\n4 3 5\", \"3 4\\n5 3 4\", \"3 7\\n1 2 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, s = map(int, input().split())\narr = list(map(int, input().split()))\n\n\nsno = arr[0]\nfor i in range(0, len(arr)):\n    if arr[i] < sno:\n        sno = arr[i]\nfor i in range(0, len(arr)):\n    if arr[i]-sno < s:\n        s -= (arr[i]-sno)\n        arr[i] = sno\n    else:\n        print(sno)\n        exit()\nif s == 0:\n    print(sno)\n    exit()\nwhile s > 0:\n    if(s>1000*n):\n        s-=1000*n\n        sno-=1000\n    elif(s>100*n):\n        s -= 100*n\n        sno -= 100\n    elif(s>10*n):\n        s-=10*n\n        sno-=10\n    elif(s>0):\n        s-=n\n        sno-=1\n    if(sno<0):\n        print(\"-1\")\n        exit()\n\nprint(sno)\n",
+    "prob_desc_created_at": "1544459700",
+    "tags": [
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

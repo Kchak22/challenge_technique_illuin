@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\\n1 3\", \"0\", \"3\\n2 4\\n1 2\\n2 4\"]",
+    "src_uid": "c943a6413441651ec9f420ef44ea48d0",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You have an array a[1], a[2], ..., a[n], containing distinct integers from 1 to n. Your task is to sort this array in increasing order with the following operation (you may need to apply it multiple times):  choose two indexes, i and j (1 ≤ i &lt; j ≤ n; (j - i + 1) is a prime number);  swap the elements on positions i and j; in other words, you are allowed to apply the following sequence of assignments: tmp = a[i], a[i] = a[j], a[j] = tmp (tmp is a temporary variable). You do not need to minimize the number of used operations. However, you need to make sure that there are at most 5n operations.",
+    "prob_desc_output_spec": "In the first line, print integer k (0 ≤ k ≤ 5n) — the number of used operations. Next, print the operations. Each operation must be printed as \"i j\" (1 ≤ i &lt; j ≤ n; (j - i + 1) is a prime). If there are multiple answers, you can print any of them.",
+    "prob_desc_input_spec": "The first line contains integer n (1 ≤ n ≤ 105). The next line contains n distinct integers a[1], a[2], ..., a[n] (1 ≤ a[i] ≤ n).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_009.jsonl",
+    "code_uid": "2c57d8230b6b12ec1d178a1019347e19",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n3 2 1\", \"2\\n1 2\", \"4\\n4 2 3 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "# from random import shuffle\n# f = open(\"out.txt\", \"w\")\n# n = 1000\n# test = list(range(1, n + 1))\n# shuffle(test)\n# print(n, file=f)\n# print(' '.join(map(str, test)), file=f)\n\nfrom bisect import *\nfrom sys import stdin\n\nf = stdin  # open(\"out.txt\", \"r\")\n\nn = int(f.readline())\n\nprimes = [1] * (n + 1)\nprimes[0] = 0\nprimes[1] = 0\nfor i in range(2, n + 1):\n  if primes[i] != 0:\n    for j in range(i + i, n + 1, i):\n      primes[j] = 0\nprimes = [i - 1 for i in range(n + 1) if primes[i] != 0]\n\na = list(map(int, f.readline().split()))\np = [0] * n\nfor i in range(n):\n  p[a[i] - 1] = i\nswaps = []\nfor i in range(n):\n  if p[i] != i:\n    r = p[i]\n    while r != i:\n      j = bisect(primes, r - i) - 1\n      l = r - primes[j]\n      p[a[l] - 1], p[a[r] - 1] = p[a[r] - 1], p[a[l] - 1]\n      a[l], a[r] = a[r], a[l]\n      swaps += [(l, r)]\n      r = l\nprint(len(swaps))\nif len(swaps) > 0:\n  print(\"\\n\".join(\"{} {}\".format(l + 1, r + 1) for l, r in swaps))",
+    "prob_desc_created_at": "1400167800",
+    "tags": [
+        "sortings",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

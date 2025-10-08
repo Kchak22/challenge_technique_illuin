@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"First\\n2\\n\\n3\"]",
+    "src_uid": "351c6fb0a9d1bbb29387c5b7ce8c7f28",
+    "prob_desc_notes": "NoteIn the sample input, the piles initially have $$$5$$$, $$$2$$$, and $$$6$$$ stones. Harris decides to go first and provides the number $$$2$$$ to Anton. Anton adds $$$2$$$ stones to the third pile, which results in $$$5$$$, $$$2$$$, and $$$8$$$.In the next turn, Harris chooses $$$3$$$. Note that Anton cannot add the stones to the third pile since he chose the third pile in the previous turn. Anton realizes that he has no valid moves left and reluctantly recognizes Harris as the king.",
+    "prob_desc_description": "This is an interactive problem.Anton and Harris are playing a game to decide which of them is the king of problemsetting.There are three piles of stones, initially containing $$$a$$$, $$$b$$$, and $$$c$$$ stones, where $$$a$$$, $$$b$$$, and $$$c$$$ are distinct positive integers. On each turn of the game, the following sequence of events takes place:  The first player chooses a positive integer $$$y$$$ and provides it to the second player.  The second player adds $$$y$$$ stones to one of the piles, with the condition that he cannot choose the same pile in two consecutive turns. The second player loses if, at any point, two of the piles contain the same number of stones. The first player loses if $$$1000$$$ turns have passed without the second player losing.Feeling confident in his skills, Anton decided to let Harris choose whether he wants to go first or second. Help Harris defeat Anton and become the king of problemsetting!",
+    "prob_desc_output_spec": null,
+    "prob_desc_input_spec": "The first line of input contains three distinct positive integers $$$a$$$, $$$b$$$, and $$$c$$$ ($$$1 \\le a, b, c \\le 10^9$$$)  — the initial number of stones in piles $$$1$$$, $$$2$$$, and $$$3$$$ respectively.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2600,
+    "file_name": "train_014.jsonl",
+    "code_uid": "822d93a7d953ac332a05a6715b77adb1",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 2 6\\n\\n\\n3\\n\\n0\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "l = list(map(int, input().split()))\ndef play(x):\n    global s\n    res = int(input(str(x)+'\\n'))\n    if res == 0: exit(0)\n    l[res-1] += x\n    s = sorted(l)\nBIG = 10**11\nprint(\"First\")\nplay(BIG)\nplay(s[2]*2-s[1]-s[0])\nplay(s[1]-s[0])\n",
+    "prob_desc_created_at": "1593873900",
+    "tags": [
+        "math",
+        "constructive algorithms",
+        "games",
+        "interactive"
+    ],
+    "hidden_unit_tests": ""
+}

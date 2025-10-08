@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"aa\", \"bba\"]",
+    "src_uid": "fbde86a29f416b3d83bcc63fb3776776",
+    "prob_desc_notes": "NoteA palindrome is a sequence of characters which reads the same backward and forward.",
+    "prob_desc_description": "In the beginning of the new year Keivan decided to reverse his name. He doesn't like palindromes, so he changed Naviek to Navick.He is too selfish, so for a given n he wants to obtain a string of n characters, each of which is either 'a', 'b' or 'c', with no palindromes of length 3 appearing in the string as a substring. For example, the strings \"abc\" and \"abca\" suit him, while the string \"aba\" doesn't. He also want the number of letters 'c' in his string to be as little as possible.",
+    "prob_desc_output_spec": "Print the string that satisfies all the constraints. If there are multiple answers, print any of them.",
+    "prob_desc_input_spec": "The first line contains single integer n (1 ≤ n ≤ 2·105) — the length of the string.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1000,
+    "file_name": "train_009.jsonl",
+    "code_uid": "390bede5928cdadb2a66756e37fe87b9",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2\", \"3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "s = ['a', 'a', 'b', 'b']\nn = int(input())\nq = []\nfor i in range(n):\n    q.append(s[i % 4])\nprint(*q, sep=\"\")",
+    "prob_desc_created_at": "1493909400",
+    "tags": [
+        "constructive algorithms"
+    ],
+    "hidden_unit_tests": ""
+}

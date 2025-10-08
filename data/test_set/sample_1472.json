@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"2\", \"2\", \"3\"]",
+    "src_uid": "d55ed15b600477e292406bef0b2d3b49",
+    "prob_desc_notes": "NoteIn the first test, consider the subsequence $$$s$$$ = $$$\\{1, 3\\}$$$. Here the cost is equal to $$$min(max(1), max(3)) = 1$$$.In the second test, consider the subsequence $$$s$$$ = $$$\\{1, 2, 4\\}$$$. Here the cost is equal to $$$min(max(1, 4), max(2)) = 2$$$.In the fourth test, consider the subsequence $$$s$$$ = $$$\\{3, 50, 2, 4\\}$$$. Here the cost is equal to $$$min(max(3, 2), max(50, 4)) = 3$$$.",
+    "prob_desc_description": "Ashish has an array $$$a$$$ of size $$$n$$$.A subsequence of $$$a$$$ is defined as a sequence that can be obtained from $$$a$$$ by deleting some elements (possibly none), without changing the order of the remaining elements.Consider a subsequence $$$s$$$ of $$$a$$$. He defines the cost of $$$s$$$ as the minimum between:   The maximum among all elements at odd indices of $$$s$$$.  The maximum among all elements at even indices of $$$s$$$. Note that the index of an element is its index in $$$s$$$, rather than its index in $$$a$$$. The positions are numbered from $$$1$$$. So, the cost of $$$s$$$ is equal to $$$min(max(s_1, s_3, s_5, \\ldots), max(s_2, s_4, s_6, \\ldots))$$$.For example, the cost of $$$\\{7, 5, 6\\}$$$ is $$$min( max(7, 6), max(5) ) = min(7, 5) = 5$$$.Help him find the minimum cost of a subsequence of size $$$k$$$.",
+    "prob_desc_output_spec": "Output a single integer  — the minimum cost of a subsequence of size $$$k$$$.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$k$$$ ($$$2 \\leq k \\leq n \\leq 2 \\cdot 10^5$$$)  — the size of the array $$$a$$$ and the size of the subsequence. The next line contains $$$n$$$ integers $$$a_1, a_2, \\ldots, a_n$$$ ($$$1 \\leq a_i \\leq 10^9$$$)  — the elements of the array $$$a$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_009.jsonl",
+    "code_uid": "8a1982719669b41f2eedd3af1e4bc1f7",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 2\\n1 2 3 4\", \"4 3\\n1 2 3 4\", \"5 3\\n5 3 4 2 6\", \"6 4\\n5 3 50 2 4 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, k = map(int,input().split(\" \"))\n\na = list(map(int,input().split(\" \")))\n\na_sorted = sorted(a)\n\ndef check(minn,ans):\n\tarray = [0]\n\t# min at odd\n\tfor i in a:\n\t\tif(len(array)%2==0):\n\t\t\tarray.append(i)\n\t\telse:\n\t\t\tif(i <= minn):\n\t\t\t\tarray.append(i)\n\tif(len(array)-1 >= ans):\n\t\treturn True\n\n\tarray = [0]\n\t# min at even\n\tfor i in a:\n\t\tif(len(array)%2==1):\n\t\t\tarray.append(i)\n\t\telse:\n\t\t\tif(i <= minn):\n\t\t\t\tarray.append(i)\n\tif(len(array)-1 >= ans):\n\t\treturn True\n\n\treturn False\n\n\nfirst = 0\nlast = len(a_sorted)-1\n\nwhile(last>first):\n\tmiddle = (last + first)//2\n\n\tif(check(a_sorted[middle],k) == True):\n\t\tlast = middle-1\n\telse:\n\t\tfirst = middle+1\n\t\t\n#print(first,last)\nif(check(a_sorted[0],k)==True):\n\tprint(a_sorted[0])\nelif(check(a_sorted[last],k)==True):\n\tprint(a_sorted[last])\nelse:\n\tprint(a_sorted[last+1])\n\n\n\n\n\n",
+    "prob_desc_created_at": "1592663700",
+    "tags": [
+        "dp",
+        "greedy",
+        "dsu",
+        "implementation",
+        "binary search"
+    ],
+    "hidden_unit_tests": ""
+}

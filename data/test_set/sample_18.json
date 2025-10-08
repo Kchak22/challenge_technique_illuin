@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1 2 2\", \"0 2\", \"0 1 3\"]",
+    "src_uid": "9534b468bfb6126fc16b896532ced8c5",
+    "prob_desc_notes": "NoteIn the first example, to get at least one hill suitable for construction, one can decrease the second hill by one in one hour, then the sequence of heights becomes 1, 0, 1, 1, 1 and the first hill becomes suitable for construction.In the first example, to get at least two or at least three suitable hills, one can decrease the second and the fourth hills, then the sequence of heights becomes 1, 0, 1, 0, 1, and hills 1, 3, 5 become suitable for construction.",
+    "prob_desc_description": "Welcome to Innopolis city. Throughout the whole year, Innopolis citizens suffer from everlasting city construction. From the window in your room, you see the sequence of n hills, where i-th of them has height ai. The Innopolis administration wants to build some houses on the hills. However, for the sake of city appearance, a house can be only built on the hill, which is strictly higher than neighbouring hills (if they are present). For example, if the sequence of heights is 5, 4, 6, 2, then houses could be built on hills with heights 5 and 6 only.The Innopolis administration has an excavator, that can decrease the height of an arbitrary hill by one in one hour. The excavator can only work on one hill at a time. It is allowed to decrease hills up to zero height, or even to negative values. Increasing height of any hill is impossible. The city administration wants to build k houses, so there must be at least k hills that satisfy the condition above. What is the minimum time required to adjust the hills to achieve the administration's plan?However, the exact value of k is not yet determined, so could you please calculate answers for all k in range ? Here  denotes n divided by two, rounded up.",
+    "prob_desc_output_spec": "Print exactly  numbers separated by spaces. The i-th printed number should be equal to the minimum number of hours required to level hills so it becomes possible to build i houses.",
+    "prob_desc_input_spec": "The first line of input contains the only integer n (1 ≤ n ≤ 5000)—the number of the hills in the sequence. Second line contains n integers ai (1 ≤ ai ≤ 100 000)—the heights of the hills in the sequence.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_000.jsonl",
+    "code_uid": "4b2537b89be6a5ecb2c0311c6d81ad76",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1 1 1 1 1\", \"3\\n1 2 3\", \"5\\n1 2 3 2 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "''' Hey stalker :) '''\nINF = 10**10\ndef main():\n    #print = out.append\n    ''' Cook your dish here! '''\n    n = get_int()\n    li = get_list()\n    high = []\n    high_li = []\n    for i in range(n):\n        th = high[:]\n        thli = high_li[:]\n        for j in range((i)//2 + 1):\n            k = 0\n            hli = li[i] - 1\n            if j>0:\n                k = low[j-1] + max(0, -li[i] + low_li[j-1] +1)\n            elif i>0:\n                k = max(0, li[i-1]-li[i]+1)\n            if i+1<n:\n                k += max(0, li[i+1] - li[i] + 1)\n                hli = min(li[i+1], hli)\n            #print(i,j,k,hli)\n            if j == (i)//2 and i%2==0:\n                high.append(k)\n                high_li.append(hli)\n            else:\n                if k<=high[j]:\n                    high[j] = k\n                    high_li[j] = hli\n                else:\n                    high_li[j] = li[i+1] if i+1<n else li[i]-1\n        low, low_li = th, thli\n        #print(i, high, high_li, low, low_li)\n    print(\" \".join(map(str, high)))\n\n\n\n\n\n''' Pythonista fLite 1.1 '''\nimport sys\n#from collections import defaultdict, Counter\n#from functools import reduce\n#import math\ninput = iter(sys.stdin.buffer.read().decode().splitlines()).__next__\nout = []\nget_int = lambda: int(input())\nget_list = lambda: list(map(int, input().split()))\nmain()\n#[main() for _ in range(int(input()))]\nprint(*out, sep='\\n')\n\n\n",
+    "prob_desc_created_at": "1532938500",
+    "tags": [
+        "dp"
+    ],
+    "hidden_unit_tests": ""
+}

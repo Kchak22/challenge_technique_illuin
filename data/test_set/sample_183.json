@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\", \"2\", \"1\"]",
+    "src_uid": "cb5cbfb4d184cda21ebfbcf47bb970dc",
+    "prob_desc_notes": "NoteIn the first example the maximum number of files in the archive is 3. For example, it is possible that in the archive are three files of sizes 2 + 5 = 7, 15 = 3 + 1 + 11 = 8 + 2 + 4 + 1 and 4 + 4 = 8.In the second example it is possible that the archive contains two files of sizes 1 and 110 = 10 + 100 = 100 + 10. Note that the order of files is kept while transferring archives through the network, so we can't say that there are three files of sizes 1, 10 and 100.In the third example the only possibility is that the archive contains a single file of size 4.",
+    "prob_desc_description": "Hacker Zhorik wants to decipher two secret messages he intercepted yesterday. Yeah message is a sequence of encrypted blocks, each of them consists of several bytes of information.Zhorik knows that each of the messages is an archive containing one or more files. Zhorik knows how each of these archives was transferred through the network: if an archive consists of k files of sizes l1, l2, ..., lk bytes, then the i-th file is split to one or more blocks bi, 1, bi, 2, ..., bi, mi (here the total length of the blocks bi, 1 + bi, 2 + ... + bi, mi is equal to the length of the file li), and after that all blocks are transferred through the network, maintaining the order of files in the archive.Zhorik thinks that the two messages contain the same archive, because their total lengths are equal. However, each file can be split in blocks in different ways in the two messages.You are given the lengths of blocks in each of the two messages. Help Zhorik to determine what is the maximum number of files could be in the archive, if the Zhorik's assumption is correct.",
+    "prob_desc_output_spec": "Print the maximum number of files the intercepted array could consist of.",
+    "prob_desc_input_spec": "The first line contains two integers n, m (1 ≤ n, m ≤ 105) — the number of blocks in the first and in the second messages. The second line contains n integers x1, x2, ..., xn (1 ≤ xi ≤ 106) — the length of the blocks that form the first message. The third line contains m integers y1, y2, ..., ym (1 ≤ yi ≤ 106) — the length of the blocks that form the second message. It is guaranteed that x1 + ... + xn = y1 + ... + ym. Also, it is guaranteed that x1 + ... + xn ≤ 106.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1100,
+    "file_name": "train_000.jsonl",
+    "code_uid": "ea0d5b615d5c0bc80fafe0c0a6fdc140",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"7 6\\n2 5 3 1 11 4 4\\n7 8 2 4 1 8\", \"3 3\\n1 10 100\\n1 100 10\", \"1 4\\n4\\n1 1 1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def main():\n    n,m=map(long,raw_input().split())\n    x=map(long,raw_input().split())\n    y=map(long,raw_input().split())\n    i,j=0,0\n    add1,add2=x[0],y[0]\n    c=0\n    while i<n:\n        if add2==add1:\n           c+=1 \n           i+=1 \n           j+=1\n           if i!=n:\n            add1=x[i]\n           if j!=m:\n            add2=y[j]\n           \n        if add1<add2:\n            i+=1\n            add1+=x[i]\n        if add1>add2:\n            j+=1\n            add2+=y[j]\n    print c\n        \n    \nmain()",
+    "prob_desc_created_at": "1520583000",
+    "tags": [
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

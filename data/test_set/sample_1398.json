@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1\", \"3\"]",
+    "src_uid": "8f52241c690ec4f9af71a52904fb19a0",
+    "prob_desc_notes": "NoteThe first example: \"ab\"  →  \"bba\".The second example: \"aab\"  →  \"abba\"  →  \"bbaba\"  →  \"bbbbaa\".",
+    "prob_desc_description": "We have a string of letters 'a' and 'b'. We want to perform some operations on it. On each step we choose one of substrings \"ab\" in the string and replace it with the string \"bba\". If we have no \"ab\" as a substring, our job is done. Print the minimum number of steps we should perform to make our job done modulo 109 + 7.The string \"ab\" appears as a substring if there is a letter 'b' right after the letter 'a' somewhere in the string.",
+    "prob_desc_output_spec": "Print the minimum number of steps modulo 109 + 7.",
+    "prob_desc_input_spec": "The first line contains the initial string consisting of letters 'a' and 'b' only with length from 1 to 106.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_008.jsonl",
+    "code_uid": "4136a9fb28247dee21fcf797ef15b561",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"ab\", \"aab\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def f():\n    M = 10**9+7\n    A, B = 'a', 'b'\n    s = raw_input().strip()\n    res, start, end = 0, 0, len(s)-1\n    cntb = 0\n    for c in s[::-1]:\n        if c == B: \n            cntb+=1\n        else:\n            res, cntb = (res+cntb)%M, (cntb<<1)%M\n    print res\n\nf()\n",
+    "prob_desc_created_at": "1493909400",
+    "tags": [
+        "combinatorics"
+    ],
+    "hidden_unit_tests": ""
+}

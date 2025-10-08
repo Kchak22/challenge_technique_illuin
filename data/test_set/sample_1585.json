@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"21\\nuxyd\", \"2\\nb\", \"-1\"]",
+    "src_uid": "88c82ada2e66429900caeac758f7083b",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Boy Valera likes strings. And even more he likes them, when they are identical. That's why in his spare time Valera plays the following game. He takes any two strings, consisting of lower case Latin letters, and tries to make them identical. According to the game rules, with each move Valera can change one arbitrary character Ai in one of the strings into arbitrary character Bi, but he has to pay for every move a particular sum of money, equal to Wi. He is allowed to make as many moves as he needs. Since Valera is a very economical boy and never wastes his money, he asked you, an experienced programmer, to help him answer the question: what minimum amount of money should Valera have to get identical strings. ",
+    "prob_desc_output_spec": "If the answer exists, output the answer to the problem, and the resulting string. Otherwise output -1 in the only line. If the answer is not unique, output any.",
+    "prob_desc_input_spec": "The first input line contains two initial non-empty strings s and t, consisting of lower case Latin letters. The length of each string doesn't exceed 105. The following line contains integer n (0 ≤ n ≤ 500) — amount of possible changings. Then follow n lines, each containing characters Ai and Bi (lower case Latin letters) and integer Wi (0 ≤ Wi ≤ 100), saying that it's allowed to change character Ai into character Bi in any of the strings and spend sum of money Wi.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_010.jsonl",
+    "code_uid": "2429bb4aa0f215266f8329feac16b832",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"uayd\\nuxxd\\n3\\na x 8\\nx y 13\\nd c 3\", \"a\\nb\\n3\\na b 2\\na b 3\\nb a 5\", \"abc\\nab\\n6\\na b 4\\na b 7\\nb a 8\\nc b 11\\nc a 3\\na c 0\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nlarge = 10000000\ndef solve():\n    s = input()\n    t = input()\n    if len(s) != len(t):\n        print(-1)\n        return\n    n = int(input())\n    mem = [[large] * 26 for _ in range(26)]\n    for i in range(26):\n        mem[i][i] = 0\n    for i in range(n):\n        chra, chrb, strcost = input().split()\n        a = ord(chra) - ord('a')\n        b = ord(chrb) - ord('a')\n        cost = int(strcost)\n        mem[a][b] = min(mem[a][b], cost)\n        for start in range(26):\n            for end in range(26):\n                mem[start][end] = min(mem[start][end], mem[start][a] + mem[a][b] + mem[b][end])\n    cost = 0\n    res = [None] * len(s)\n    for i in range(len(s)):\n        mid = -1\n        midcost = large\n        a = ord(s[i]) - ord('a')\n        b = ord(t[i]) - ord('a')\n        for j in range(26):\n            if mem[a][j] != -1 and mem[b][j] != -1:\n                thiscost = mem[a][j] + mem[b][j]\n                if thiscost < midcost:\n                    midcost = thiscost\n                    mid = j\n        res[i] = chr(ord('a') + mid)\n        cost += midcost\n    if cost >= large:\n        print(-1)\n        return\n    print(cost)\n    print(''.join(map(str, res)))\n\n\nif sys.hexversion == 50594544 : sys.stdin = open(\"test.txt\")\nsolve()",
+    "prob_desc_created_at": "1286463600",
+    "tags": [
+        "shortest paths"
+    ],
+    "hidden_unit_tests": ""
+}

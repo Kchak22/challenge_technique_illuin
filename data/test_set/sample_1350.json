@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"8\", \"-1\", \"0\"]",
+    "src_uid": "461666a075cd830496f919557b8122a4",
+    "prob_desc_notes": null,
+    "prob_desc_description": "There are $$$n$$$ warriors in a row. The power of the $$$i$$$-th warrior is $$$a_i$$$. All powers are pairwise distinct.You have two types of spells which you may cast:   Fireball: you spend $$$x$$$ mana and destroy exactly $$$k$$$ consecutive warriors;  Berserk: you spend $$$y$$$ mana, choose two consecutive warriors, and the warrior with greater power destroys the warrior with smaller power. For example, let the powers of warriors be $$$[2, 3, 7, 8, 11, 5, 4]$$$, and $$$k = 3$$$. If you cast Berserk on warriors with powers $$$8$$$ and $$$11$$$, the resulting sequence of powers becomes $$$[2, 3, 7, 11, 5, 4]$$$. Then, for example, if you cast Fireball on consecutive warriors with powers $$$[7, 11, 5]$$$, the resulting sequence of powers becomes $$$[2, 3, 4]$$$.You want to turn the current sequence of warriors powers $$$a_1, a_2, \\dots, a_n$$$ into $$$b_1, b_2, \\dots, b_m$$$. Calculate the minimum amount of mana you need to spend on it.",
+    "prob_desc_output_spec": "Print the minimum amount of mana for turning the sequnce $$$a_1, a_2, \\dots, a_n$$$ into $$$b_1, b_2, \\dots, b_m$$$, or $$$-1$$$ if it is impossible.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1 \\le n, m \\le 2 \\cdot 10^5$$$) — the length of sequence $$$a$$$ and the length of sequence $$$b$$$ respectively. The second line contains three integers $$$x, k, y$$$ ($$$1 \\le x, y, \\le 10^9; 1 \\le k \\le n$$$) — the cost of fireball, the range of fireball and the cost of berserk respectively. The third line contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le n$$$). It is guaranteed that all integers $$$a_i$$$ are pairwise distinct. The fourth line contains $$$m$$$ integers $$$b_1, b_2, \\dots, b_m$$$ ($$$1 \\le b_i \\le n$$$). It is guaranteed that all integers $$$b_i$$$ are pairwise distinct.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_008.jsonl",
+    "code_uid": "3cb1a2d953100b61e2e1066d1b6a1e95",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 2\\n5 2 3\\n3 1 4 5 2\\n3 5\", \"4 4\\n5 1 4\\n4 3 1 2\\n2 4 3 1\", \"4 4\\n2 1 11\\n1 3 2 4\\n1 3 2 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\ndef solve(A):\n    if len(A) <=2 :\n        return (True,0)\n\n    if len(A) < k+2:\n        if max(A) != A[0] and max(A) !=A[-1]:\n            return (False,0)\n        else:\n            return (True,y*(len(A)-2))\n    else:\n        if y*k < x :\n            if max(A) == A[0] or max(A) == A[-1]:\n                return (True,(len(A)-2)*y)\n            else:\n                d=len(A)-2\n                return (True,x + (d-k)*y)\n        else:\n            d=len(A)-2\n            return (True,(d//k)*x + (d-((d//k)*k))*y)\n\nn,m=[int(c) for c in input().split()]\nx,k,y=[int(c) for c in input().split()]\n\na=[int(c) for c in input().split()]\nb=[int(c) for c in input().split()]\na.insert(0,-1)\na.append(-1)\nb.append(-1)\n# print(a,b)\nj=0\nA=[]\nans=0\naoo=False\nfor i in range(n+2):\n    if a[i] != b[j]:\n        A.append(a[i])\n    else:\n        A.append(a[i])\n        j+=1\n        pp,aa=solve(A)\n        if pp:\n            ans+=aa\n        else:\n            aoo=True\n            break\n        # print(A,solve(A))\n        A=[a[i]]\n        \nif j!=len(b) or aoo:\n    print(\"-1\")\nelse:\n    print(ans)\n        \n        ",
+    "prob_desc_created_at": "1594565100",
+    "tags": [
+        "greedy",
+        "constructive algorithms",
+        "two pointers",
+        "math",
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

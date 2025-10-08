@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "5 seconds",
+    "prob_desc_sample_outputs": "[\"1 5\"]",
+    "src_uid": "e28820629959ed73ae69179427675f3f",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given $$$n$$$ arrays $$$a_1$$$, $$$a_2$$$, ..., $$$a_n$$$; each array consists of exactly $$$m$$$ integers. We denote the $$$y$$$-th element of the $$$x$$$-th array as $$$a_{x, y}$$$.You have to choose two arrays $$$a_i$$$ and $$$a_j$$$ ($$$1 \\le i, j \\le n$$$, it is possible that $$$i = j$$$). After that, you will obtain a new array $$$b$$$ consisting of $$$m$$$ integers, such that for every $$$k \\in [1, m]$$$ $$$b_k = \\max(a_{i, k}, a_{j, k})$$$.Your goal is to choose $$$i$$$ and $$$j$$$ so that the value of $$$\\min \\limits_{k = 1}^{m} b_k$$$ is maximum possible.",
+    "prob_desc_output_spec": "Print two integers $$$i$$$ and $$$j$$$ ($$$1 \\le i, j \\le n$$$, it is possible that $$$i = j$$$) — the indices of the two arrays you have to choose so that the value of $$$\\min \\limits_{k = 1}^{m} b_k$$$ is maximum possible. If there are multiple answers, print any of them.",
+    "prob_desc_input_spec": "The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1 \\le n \\le 3 \\cdot 10^5$$$, $$$1 \\le m \\le 8$$$) — the number of arrays and the number of elements in each array, respectively. Then $$$n$$$ lines follow, the $$$x$$$-th line contains the array $$$a_x$$$ represented by $$$m$$$ integers $$$a_{x, 1}$$$, $$$a_{x, 2}$$$, ..., $$$a_{x, m}$$$ ($$$0 \\le a_{x, y} \\le 10^9$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_012.jsonl",
+    "code_uid": "76ec68e4b9bff9a327f25b5109c9dbc5",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"6 5\\n5 0 3 1 2\\n1 8 9 1 3\\n1 2 3 4 5\\n9 1 0 3 7\\n2 3 0 6 3\\n6 4 1 7 0\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin\nR = lambda: map(int, stdin.readline()[:-1].split())\nn, m = R()\na = [R() for _ in range(n)]\ndef check(mid):\n    pos = [-1] * (1 << m)\n    for i in range(n):\n        x = 0\n        for j in range(m):\n            if a[i][j] >= mid:\n                x |= 1 << j\n        pos[x] = i\n    for i in range(1 << m):\n        for j in range(i, 1 << m):\n            if pos[i] != -1 and pos[j] != -1 and i | j == (1 << m) - 1:\n                global ans1, ans2\n                ans1, ans2 = pos[i], pos[j]\n                return 1\n    return 0\n\nl, r = 0, 10 ** 9\nans1 = ans2 = 0\nwhile l <= r:\n    mid = l + r >> 1\n    if check(mid):\n        l = mid + 1\n    else:\n        r = mid - 1\nprint ans1 + 1, ans2 + 1\n",
+    "prob_desc_created_at": "1579012500",
+    "tags": [
+        "dp",
+        "binary search",
+        "bitmasks"
+    ],
+    "hidden_unit_tests": ""
+}

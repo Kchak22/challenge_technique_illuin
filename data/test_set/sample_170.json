@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"7\", \"0\"]",
+    "src_uid": "09890f75bdcfff81f67eb915379b325e",
+    "prob_desc_notes": "NoteThe following pictures represent sample cases:    ",
+    "prob_desc_description": "There are $$$n$$$ segments drawn on a plane; the $$$i$$$-th segment connects two points ($$$x_{i, 1}$$$, $$$y_{i, 1}$$$) and ($$$x_{i, 2}$$$, $$$y_{i, 2}$$$). Each segment is non-degenerate, and is either horizontal or vertical — formally, for every $$$i \\in [1, n]$$$ either $$$x_{i, 1} = x_{i, 2}$$$ or $$$y_{i, 1} = y_{i, 2}$$$ (but only one of these conditions holds). Only segments of different types may intersect: no pair of horizontal segments shares any common points, and no pair of vertical segments shares any common points.We say that four segments having indices $$$h_1$$$, $$$h_2$$$, $$$v_1$$$ and $$$v_2$$$ such that $$$h_1 &lt; h_2$$$ and $$$v_1 &lt; v_2$$$ form a rectangle if the following conditions hold:  segments $$$h_1$$$ and $$$h_2$$$ are horizontal;  segments $$$v_1$$$ and $$$v_2$$$ are vertical;  segment $$$h_1$$$ intersects with segment $$$v_1$$$;  segment $$$h_2$$$ intersects with segment $$$v_1$$$;  segment $$$h_1$$$ intersects with segment $$$v_2$$$;  segment $$$h_2$$$ intersects with segment $$$v_2$$$. Please calculate the number of ways to choose four segments so they form a rectangle. Note that the conditions $$$h_1 &lt; h_2$$$ and $$$v_1 &lt; v_2$$$ should hold.",
+    "prob_desc_output_spec": "Print one integer — the number of ways to choose four segments so they form a rectangle.",
+    "prob_desc_input_spec": "The first line contains one integer $$$n$$$ ($$$1 \\le n \\le 5000$$$) — the number of segments. Then $$$n$$$ lines follow. The $$$i$$$-th line contains four integers $$$x_{i, 1}$$$, $$$y_{i, 1}$$$, $$$x_{i, 2}$$$ and $$$y_{i, 2}$$$ denoting the endpoints of the $$$i$$$-th segment. All coordinates of the endpoints are in the range $$$[-5000, 5000]$$$. It is guaranteed that each segment is non-degenerate and is either horizontal or vertical. Furthermore, if two segments share a common point, one of these segments is horizontal, and another one is vertical.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_000.jsonl",
+    "code_uid": "e8624fab942cd2b6cf3a9c996eb53f9a",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"7\\n-1 4 -1 -2\\n6 -1 -2 -1\\n-2 3 6 3\\n2 -2 2 4\\n4 -1 4 3\\n5 3 5 1\\n5 2 1 2\", \"5\\n1 5 1 0\\n0 1 5 1\\n5 4 0 4\\n4 2 4 0\\n4 3 4 5\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nfrom array import array  # noqa: F401\nimport typing as Tp  # noqa: F401\n\n\ndef input():\n    return sys.stdin.buffer.readline().decode('utf-8')\n\n\nT = Tp.TypeVar('T')\n\n\nclass FenwickSum(Tp.Generic[T]):\n    __slots__ = ['nodes', 'size', 'unit']\n\n    def __init__(self, size: int, default: T, unit: T):\n        self.nodes = [default] * (size + 1)\n        self.size = size + 1\n        self.unit = unit\n\n    def add(self, index: int, value: T):\n        while index < self.size:\n            self.nodes[index] += value\n            index += index & -index\n\n    def sum(self, right: int) -> T:\n        result = self.unit\n\n        while right:\n            result += self.nodes[right]\n            right -= right & -right\n\n        return result\n\n\ndef main():\n    n = int(input())\n    vertical, horizontal = [], []\n    for x1, y1, x2, y2 in (map(lambda x: int(x) + 5002, input().split()) for _ in range(n)):\n        if x1 > x2:\n            x1, x2 = x2, x1\n        if y1 > y2:\n            y1, y2 = y2, y1\n        if x1 == x2:\n            vertical.append((x1, y1, x2, y2))\n        else:\n            horizontal.append((x1, y1, x2, y2))\n\n    vertical.sort()\n    horizontal.sort(key=lambda p: -p[2])\n    ans = 0\n    bit = FenwickSum[int](10010, 0, 0)\n\n    for i, (x1, y1, x2, y2) in enumerate(vertical):\n        stack = []\n\n        for x3, y3, x4, y4 in horizontal:\n            if y1 <= y3 <= y2 and x3 <= x1 <= x4:\n                stack.append((x4, y3))\n                bit.add(y3, 1)\n        for x3, y3, x4, y4 in vertical[i + 1:]:\n            while stack and stack[-1][0] < x3:\n                bit.add(stack.pop()[1], -1)\n            cnt = bit.sum(y4) - bit.sum(y3 - 1)\n            ans += (cnt * (cnt - 1)) >> 1\n        for _, y in stack:\n            bit.add(y, -1)\n\n    print(ans)\n\n\nif __name__ == '__main__':\n    main()\n",
+    "prob_desc_created_at": "1563115500",
+    "tags": [
+        "geometry",
+        "bitmasks",
+        "sortings",
+        "data structures",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

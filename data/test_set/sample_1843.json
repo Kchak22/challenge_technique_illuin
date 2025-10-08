@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"block 192.168.0.1; #replica\\nproxy 192.168.0.2; #main\", \"redirect 138.197.64.57; #server\\nblock 8.8.8.8; #google\\ncf 212.193.33.27; #codeforces\\nunblock 8.8.8.8; #google\\ncheck 138.197.64.57; #server\"]",
+    "src_uid": "94501cd676a9214a59943b8ddd1dd31b",
+    "prob_desc_notes": null,
+    "prob_desc_description": "As the guys fried the radio station facilities, the school principal gave them tasks as a punishment. Dustin's task was to add comments to nginx configuration for school's website. The school has n servers. Each server has a name and an ip (names aren't necessarily unique, but ips are). Dustin knows the ip and name of each server. For simplicity, we'll assume that an nginx command is of form \"command ip;\" where command is a string consisting of English lowercase letter only, and ip is the ip of one of school servers.  Each ip is of form \"a.b.c.d\" where a, b, c and d are non-negative integers less than or equal to 255 (with no leading zeros). The nginx configuration file Dustin has to add comments to has m commands. Nobody ever memorizes the ips of servers, so to understand the configuration better, Dustin has to comment the name of server that the ip belongs to at the end of each line (after each command). More formally, if a line is \"command ip;\" Dustin has to replace it with \"command ip; #name\" where name is the name of the server with ip equal to ip.Dustin doesn't know anything about nginx, so he panicked again and his friends asked you to do his task for him.",
+    "prob_desc_output_spec": "Print m lines, the commands in the configuration file after Dustin did his task.",
+    "prob_desc_input_spec": "The first line of input contains two integers n and m (1 ≤ n, m ≤ 1000). The next n lines contain the names and ips of the servers. Each line contains a string name, name of the server and a string ip, ip of the server, separated by space (1 ≤ |name| ≤ 10, name only consists of English lowercase letters). It is guaranteed that all ip are distinct. The next m lines contain the commands in the configuration file. Each line is of form \"command ip;\" (1 ≤ |command| ≤ 10, command only consists of English lowercase letters). It is guaranteed that ip belongs to one of the n school servers.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 900,
+    "file_name": "train_013.jsonl",
+    "code_uid": "1ba0694dd7087e2d6ff52d9982d7ffb3",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2 2\\nmain 192.168.0.2\\nreplica 192.168.0.1\\nblock 192.168.0.1;\\nproxy 192.168.0.2;\", \"3 5\\ngoogle 8.8.8.8\\ncodeforces 212.193.33.27\\nserver 138.197.64.57\\nredirect 138.197.64.57;\\nblock 8.8.8.8;\\ncf 212.193.33.27;\\nunblock 8.8.8.8;\\ncheck 138.197.64.57;\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n,m = [int(x) for x in raw_input().split()]\narr = {}\nfor i in range(n):\n\ta,b = [x for x in raw_input().split()]\n\tb += \";\"\n\tarr[b] = a\nfor i in range(m):\n\ta,b = [x for x in raw_input().split()]\n\tc = \"#\"\n\tc += arr[b]\n\tprint a,b,c",
+    "prob_desc_created_at": "1517236500",
+    "tags": [
+        "implementation",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

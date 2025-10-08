@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"a\\nabcdfdcba\\nxyzyx\\nc\\nabba\"]",
+    "src_uid": "beaccd2c0213a330538fe741d1f4b5bf",
+    "prob_desc_notes": "NoteIn the first test, the string $$$s = $$$\"a\" satisfies all conditions.In the second test, the string \"abcdfdcba\" satisfies all conditions, because:  Its length is $$$9$$$, which does not exceed the length of the string $$$s$$$, which equals $$$11$$$.  It is a palindrome.  \"abcdfdcba\" $$$=$$$ \"abcdfdc\" $$$+$$$ \"ba\", and \"abcdfdc\" is a prefix of $$$s$$$ while \"ba\" is a suffix of $$$s$$$. It can be proven that there does not exist a longer string which satisfies the conditions.In the fourth test, the string \"c\" is correct, because \"c\" $$$=$$$ \"c\" $$$+$$$ \"\" and $$$a$$$ or $$$b$$$ can be empty. The other possible solution for this test is \"s\".",
+    "prob_desc_description": "This is the hard version of the problem. The difference is the constraint on the sum of lengths of strings and the number of test cases. You can make hacks only if you solve all versions of this task.You are given a string $$$s$$$, consisting of lowercase English letters. Find the longest string, $$$t$$$, which satisfies the following conditions:   The length of $$$t$$$ does not exceed the length of $$$s$$$.  $$$t$$$ is a palindrome.  There exists two strings $$$a$$$ and $$$b$$$ (possibly empty), such that $$$t = a + b$$$ ( \"$$$+$$$\" represents concatenation), and $$$a$$$ is prefix of $$$s$$$ while $$$b$$$ is suffix of $$$s$$$. ",
+    "prob_desc_output_spec": "For each test case, print the longest string which satisfies the conditions described above. If there exists multiple possible solutions, print any of them.",
+    "prob_desc_input_spec": "The input consists of multiple test cases. The first line contains a single integer $$$t$$$ ($$$1 \\leq t \\leq 10^5$$$), the number of test cases. The next $$$t$$$ lines each describe a test case. Each test case is a non-empty string $$$s$$$, consisting of lowercase English letters. It is guaranteed that the sum of lengths of strings over all test cases does not exceed $$$10^6$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_014.jsonl",
+    "code_uid": "52285b8521d672b951c513d14d9f3570",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\na\\nabcdfdcecba\\nabbaxyzyx\\ncodeforces\\nacbba\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#!/usr/bin/env python\nimport os\nimport sys\nfrom io import BytesIO, IOBase\nimport threading \nfrom math import floor\n# from bisect import bisect_right\nfrom collections import Counter\nfrom math import gcd\n\nmod=998244353\n    \ndef kmp(pat,M): \n    len = 0\n    lps=[0]*M \n    i = 1\n    while i < M: \n        if pat[i]== pat[len]: \n            len += 1\n            lps[i] = len\n            i += 1\n        else: \n            # to search step. \n            if len != 0: \n                len = lps[len-1] \n            else: \n                lps[i] = 0\n                i += 1\n    return lps[-1]\n\n\ndef main():\n    for _ in range(int(input())):\n        s=input()\n        n=len(s)\n        start=0\n        end=n-1\n        while start<end and  s[start]==s[end]:\n            start+=1\n            end-=1\n        ans=s[:start]\n        t=s[start:end+1]\n\n        t1=t+'*'+t[::-1]\n        t2=t[::-1]+'*'+t\n        c1=kmp(t1,len(t1))\n        c2=kmp(t2,len(t2))\n        if c1<c2:\n            ans+=t2[:c2]\n        else:\n            ans+=t1[:c1]\n        ans+=s[end+1:]\n        print(ans)\n        \n        \n  \n\nBUFSIZE = 8192\n\n\nclass FastIO(IOBase):\n    newlines = 0\n\n    def __init__(self, file):\n        self._fd = file.fileno()\n        self.buffer = BytesIO()\n        self.writable = \"x\" in file.mode or \"r\" not in file.mode\n        self.write = self.buffer.write if self.writable else None\n\n    def read(self):\n        while True:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n            if not b:\n                break\n            ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines = 0\n        return self.buffer.read()\n\n    def readline(self):\n        while self.newlines == 0:\n            b = os.read(self._fd, max(os.fstat(self._fd).st_size, BUFSIZE))\n            self.newlines = b.count(b\"\\n\") + (not b)\n            ptr = self.buffer.tell()\n            self.buffer.seek(0, 2), self.buffer.write(b), self.buffer.seek(ptr)\n        self.newlines -= 1\n        return self.buffer.readline()\n\n    def flush(self):\n        if self.writable:\n            os.write(self._fd, self.buffer.getvalue())\n            self.buffer.truncate(0), self.buffer.seek(0)\n\n\nclass IOWrapper(IOBase):\n    def __init__(self, file):\n        self.buffer = FastIO(file)\n        self.flush = self.buffer.flush\n        self.writable = self.buffer.writable\n        self.write = lambda s: self.buffer.write(s.encode(\"ascii\"))\n        self.read = lambda: self.buffer.read().decode(\"ascii\")\n        self.readline = lambda: self.buffer.readline().decode(\"ascii\")\n\n\nsys.stdin, sys.stdout = IOWrapper(sys.stdin), IOWrapper(sys.stdout)\ninput = lambda: sys.stdin.readline().rstrip(\"\\r\\n\")\n\n# endregion\n\nif __name__ == \"__main__\":\n    main()",
+    "prob_desc_created_at": "1584628500",
+    "tags": [
+        "hashing",
+        "greedy",
+        "string suffix structures",
+        "binary search",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

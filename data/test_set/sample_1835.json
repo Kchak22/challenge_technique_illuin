@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2\", \"1\", \"3\"]",
+    "src_uid": "81a558873e39efca5066ef91a9255f11",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given a string s consisting of lowercase Latin letters. Character c is called k-dominant iff each substring of s with length at least k contains this character c.You have to find minimum k such that there exists at least one k-dominant character.",
+    "prob_desc_output_spec": "Print one number — the minimum value of k such that there exists at least one k-dominant character.",
+    "prob_desc_input_spec": "The first line contains string s consisting of lowercase Latin letters (1 ≤ |s| ≤ 100000).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_013.jsonl",
+    "code_uid": "c1c917a779f6ce60e4d8a2f90d2788d9",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"abacaba\", \"zzzzz\", \"abcde\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#888C\n#given a string s consisting of lowercase Latin letters.\n#Character c is called k-dominant iff each substring of s with length at least k contains c\n#find minimum k such that there exists at least one k-dominant character\n#Easy Medium\n#compute max distance per letter, tricky part: need to compute distance to beginning and end too\n#find the minimum among all letters\ndef dominant(s):\n    ALPHA_LEN=26\n    pos=[-1]*ALPHA_LEN  # store position of 26 letter\n    MAX_=10000\n    ans=len(s)//2+len(s)%2\n    dist=[MAX_]*ALPHA_LEN # store max distance of same letter\n    for i in range(len(s)):\n        idx = ord(s[i])-ord('a')\n        #always measure distance from start\n        d=i-pos[idx]\n        if dist[idx]==MAX_ or d>dist[idx]:  #update if it is first time or larger\n            dist[idx]=d\n            #print(\"{0} at {1} from {2} to {3}\".format(s[i], i, dist[i], d))\n        pos[idx]=i\n    for i in range(ALPHA_LEN):  #update distance to end\n        d=len(s)-pos[i]\n        if d>dist[i]:\n            #print(\"change at {0} from {1} to {2}\".format(i, dist[i], d))\n            dist[i]=d\n    #print(dist)\n    print(min(dist))\n\ndef test():\n    dominant(\"abacaba\")  #2\n    dominant(\"zzzzz\")    #1\n    dominant(\"abcde\")    #3\n    dominant(\"abcd\")     #3\n    dominant(\"abcded\")   #4\n\ndef nia():\n    s=input()   #1 ≤ |s| ≤ 100000\n    while len(s)==0:\n        s=input()\n    s=s.split()\n    iVal=[];\n    for i in range (len(s)):\n        iVal.append(int(s[i]))\n    return iVal\n\ndef solve():\n    dominant(input())\n\nsolve()\n",
+    "prob_desc_created_at": "1510239900",
+    "tags": [
+        "two pointers",
+        "binary search",
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

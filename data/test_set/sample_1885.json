@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "8 seconds",
+    "prob_desc_sample_outputs": "[\"6\", \"10\", \"0\", \"25\"]",
+    "src_uid": "256409988d0132de2144e423eaa8bf34",
+    "prob_desc_notes": "NoteIn the first sample, all substrings of $$$s$$$ are awesome.In the second sample, we have the following awesome substrings of $$$s$$$: 1 ($$$2$$$ times), 01 ($$$2$$$ times), 10 ($$$2$$$ times), 010 ($$$2$$$ times), 1010, 0101In the third sample, no substring is awesome.",
+    "prob_desc_description": "Let's call a binary string $$$s$$$ awesome, if it has at least $$$1$$$ symbol 1 and length of the string is divisible by the number of 1 in it. In particular, 1, 1010, 111 are awesome, but 0, 110, 01010 aren't.You are given a binary string $$$s$$$. Count the number of its awesome substrings.A string $$$a$$$ is a substring of a string $$$b$$$ if $$$a$$$ can be obtained from $$$b$$$ by deletion of several (possibly, zero or all) characters from the beginning and several (possibly, zero or all) characters from the end.",
+    "prob_desc_output_spec": "Output a single number — the number of awesome substrings of $$$s$$$.",
+    "prob_desc_input_spec": "The first line contains the string $$$s$$$ ($$$1 \\leq |s|\\le 200\\,000$$$) consisting only of zeros and ones.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2600,
+    "file_name": "train_014.jsonl",
+    "code_uid": "eac131a4fd384f0cb10eecee5cd8d993",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"111\", \"01010\", \"0000\", \"1111100000\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def add(dic, k ,v):\n        if not k in dic:\n                dic[k] = v\n        else:\n                dic[k] += v\ns = map(int,raw_input())\nn = len(s)\npsum = [0]*(1+n)\nfor i in range(n):\n        psum[i+1] = psum[i] + s[i]\nK = 350\ndic = [0]*((n+1)*(K+1))\nans = 0\nfor j in range(1,min(n+1,K+1)):\n        tmp = []\n        for i in range(n+1):\n                v = j*psum[i]-i+n\n                tmp.append(v)\n                dic[v] += 1\n        for v in tmp:\n                ans += dic[v]*(dic[v]-1)/2\n                dic[v] = 0\nans1 = ans\npos = [i for i in range(n) if s[i]]\nif len(pos) == 0:\n        print 0\n        exit()\np,l1,lastp = 0,len(pos),max(pos)\nfor i in range(n):\n        cnt = 0\n        if i > lastp:\n                break\n        for j in range(p,l1):\n                v = pos[j]\n                if v < i  :\n                        p += 1\n                        continue\n                else:\n                        cnt += 1\n                if cnt > 1:\n                        if (cnt-1)*K+i> n:\n                                break\n                        start = max((pos[j-1]-i+1+cnt-2)/(cnt-1)-1,K)\n                        diff = max((v-i)/(cnt-1)-start,0)\n                        ans += diff\n        start = max((lastp-i+1+cnt-1)/(cnt)-1,K)\n        diff = max(min((n-i)/(cnt)-start,n-lastp),0)\n        ans += diff\nprint ans\n",
+    "prob_desc_created_at": "1577628300",
+    "tags": [
+        "math",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

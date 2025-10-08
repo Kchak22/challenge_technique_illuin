@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3 4\", \"6 5\"]",
+    "src_uid": "e7ffe7a54e2403805bde98d98fa0be3a",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given the set of vectors on the plane, each of them starting at the origin. Your task is to find a pair of vectors with the minimal non-oriented angle between them.Non-oriented angle is non-negative value, minimal between clockwise and counterclockwise direction angles. Non-oriented angle is always between 0 and π. For example, opposite directions vectors have angle equals to π.",
+    "prob_desc_output_spec": "Print two integer numbers a and b (a ≠ b) — a pair of indices of vectors with the minimal non-oriented angle. You can print the numbers in any order. If there are many possible answers, print any.",
+    "prob_desc_input_spec": "First line of the input contains a single integer n (2 ≤ n ≤ 100 000) — the number of vectors. The i-th of the following n lines contains two integers xi and yi (|x|, |y| ≤ 10 000, x2 + y2 &gt; 0) — the coordinates of the i-th vector. Vectors are numbered from 1 to n in order of appearing in the input. It is guaranteed that no two vectors in the input share the same direction (but they still can have opposite directions).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2300,
+    "file_name": "train_000.jsonl",
+    "code_uid": "708bea40b7c6fa416f10891635bf9d0c",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n-1 0\\n0 -1\\n1 0\\n1 1\", \"6\\n-1 0\\n0 -1\\n1 0\\n1 1\\n-4 -5\\n-4 -6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from math import atan2\n\ns = lambda a, b: a[0] * b[0] + a[1] * b[1]\nv = lambda a, b: a[0] * b[1] - a[1] * b[0]\n\np = []\nfor i in range(int(input())):\n    x, y = map(int, input().split())\n    p.append((atan2(x, y), (x, y), i + 1))\np.sort()\n\nd = [(s(a, b), abs(v(a, b)), i, j) for (x, a, i), (y, b, j) in zip(p, p[1:] + p[:1])]\nx = d[0]\n\nfor y in d:\n    if v(y[:2], x[:2]) > 0: x = y\n\nprint(x[2], x[3])\n",
+    "prob_desc_created_at": "1447426800",
+    "tags": [
+        "sortings",
+        "geometry"
+    ],
+    "hidden_unit_tests": ""
+}

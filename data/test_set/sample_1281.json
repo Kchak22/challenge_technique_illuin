@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\"]",
+    "src_uid": "5e449867d9fcecc84333b81eac9b5d92",
+    "prob_desc_notes": null,
+    "prob_desc_description": "«Polygon» is a system which allows to create programming tasks in a simple and professional way. When you add a test to the problem, the corresponding form asks you for the test index. As in most cases it is clear which index the next test will have, the system suggests the default value of the index. It is calculated as the smallest positive integer which is not used as an index for some previously added test.You are to implement this feature. Create a program which determines the default index of the next test, given the indexes of the previously added tests.",
+    "prob_desc_output_spec": "Output the required default value for the next test index.",
+    "prob_desc_input_spec": "The first line contains one integer n (1 ≤ n ≤ 3000) — the amount of previously added tests. The second line contains n distinct integers a1, a2, ..., an (1 ≤ ai ≤ 3000) — indexes of these tests.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_007.jsonl",
+    "code_uid": "853e83f6df7fd586aada7ba7b955a798",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n1 7 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n=int(input())\narr=list(map(int,input().split(\" \")))\narr.sort()\nx=-1\nfor i in range(n):\n    if arr[i]!=i+1:\n        x=i+1\n        break\nif x==-1:\n    print(arr[n-1]+1)\nelse:\n    print(x)\n\n",
+    "prob_desc_created_at": "1284130800",
+    "tags": [
+        "implementation",
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

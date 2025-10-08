@@ -1,0 +1,30 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1\\n2 1\", \"4\\n1 2 2 1\"]",
+    "src_uid": "080287f34b0c1d52eb29eb81dada41dd",
+    "prob_desc_notes": "NoteIn the first test case Valera can put the first cube in the first heap, and second cube — in second heap. In this case he obtain number 1099. If he put the second cube in the first heap, and the first cube in the second heap, then he can obtain number 9910. In both cases the maximum number of distinct integers is equal to one.In the second test case Valera can obtain numbers 1313, 1345, 2413, 2445. Note, that if he put the first and the third cubes in the first heap, he can obtain only two numbers 1324 and 1345.",
+    "prob_desc_description": "Valera has 2·n cubes, each cube contains an integer from 10 to 99. He arbitrarily chooses n cubes and puts them in the first heap. The remaining cubes form the second heap. Valera decided to play with cubes. During the game he takes a cube from the first heap and writes down the number it has. Then he takes a cube from the second heap and write out its two digits near two digits he had written (to the right of them). In the end he obtained a single fourdigit integer — the first two digits of it is written on the cube from the first heap, and the second two digits of it is written on the second cube from the second heap.Valera knows arithmetic very well. So, he can easily count the number of distinct fourdigit numbers he can get in the game. The other question is: how to split cubes into two heaps so that this number (the number of distinct fourdigit integers Valera can get) will be as large as possible?",
+    "prob_desc_output_spec": "In the first line print a single number — the maximum possible number of distinct four-digit numbers Valera can obtain. In the second line print 2·n numbers bi (1 ≤ bi ≤ 2). The numbers mean: the i-th cube belongs to the bi-th heap in your division. If there are multiple optimal ways to split the cubes into the heaps, print any of them.",
+    "prob_desc_input_spec": "The first line contains integer n (1 ≤ n ≤ 100). The second line contains 2·n space-separated integers ai (10 ≤ ai ≤ 99), denoting the numbers on the cubes.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_009.jsonl",
+    "code_uid": "9d17da0965a1769fbadef3c81ca29a6c",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"1\\n10 99\", \"2\\n13 24 13 45\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from math import*\nfrom random import*\n\nn = int(input()) * 2\nA = list(map(int, input().split()))\namount = [0] * 101\n\nB = []\nfor i in range(n):\n    if amount[A[i]] < 2:\n        amount[A[i]] += 1\n        B += [(A[i], i)]\nB.sort()\nx, y = [], []\nfor i in range(len(B)):\n    if(i % 2 == 0):\n        x.append(B[i][1])\n    else:\n        y.append(B[i][1])\nlolka = 0\naaa = 0\n# print(x)\n# print(y)\nprint(len(x) * len(y))\nfor i in range(n):\n    if i in x:\n        lolka += 1\n        aaa += 1\n        print(1, end = ' ')\n    elif i in y:\n        print(2, end = ' ')\n    else:\n        if len(x) - lolka + aaa < n // 2:\n            print(1, end = ' ')\n            aaa += 1\n        else:\n            print(2, end = ' ')\nprint()\n\n# B, C = [], []\n# for i in range(n):\n\n\n# S = list(set(A))\n# where = [0] * 101\n# am1, am2 = 0, 0\n# for i in range(len(S)):\n#     if(i % 2 == 0):\n#         where[S[i]] = 1\n#         am1 += 1\n#     else:\n#         where[S[i]] = 2\n#         am2 += 1\n# used = [0] * 201\n# for i in range(n):\n#     if not used[A[i]]:\n#         print(where[A[i]])\n#         used[A[i]] = True\n#     else:\n#         print(3 - where[A[i]])",
+    "prob_desc_created_at": "1381419000",
+    "tags": [
+        "greedy",
+        "constructive algorithms",
+        "combinatorics",
+        "math",
+        "implementation",
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

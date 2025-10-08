@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1.50000000000000000000\", \"2.00000000000000000000\"]",
+    "src_uid": "85b78251160db9d7ca1786e90e5d6f21",
+    "prob_desc_notes": "NoteIn the first sample, there are two cases. One is directly remove the root and another is remove the root after one step. Thus the expected steps are: 1 × (1 / 2) + 2 × (1 / 2) = 1.5In the second sample, things get more complex. There are two cases that reduce to the first sample, and one case cleaned at once. Thus the expected steps are: 1 × (1 / 3) + (1 + 1.5) × (2 / 3) = (1 / 3) + (5 / 3) = 2",
+    "prob_desc_description": "Momiji has got a rooted tree, consisting of n nodes. The tree nodes are numbered by integers from 1 to n. The root has number 1. Momiji decided to play a game on this tree.The game consists of several steps. On each step, Momiji chooses one of the remaining tree nodes (let's denote it by v) and removes all the subtree nodes with the root in node v from the tree. Node v gets deleted as well. The game finishes when the tree has no nodes left. In other words, the game finishes after the step that chooses the node number 1.Each time Momiji chooses a new node uniformly among all the remaining nodes. Your task is to find the expectation of the number of steps in the described game.",
+    "prob_desc_output_spec": "Print a single real number — the expectation of the number of steps in the described game. The answer will be considered correct if the absolute or relative error doesn't exceed 10 - 6.",
+    "prob_desc_input_spec": "The first line contains integer n (1 ≤ n ≤ 105) — the number of nodes in the tree. The next n - 1 lines contain the tree edges. The i-th line contains integers ai, bi (1 ≤ ai, bi ≤ n; ai ≠ bi) — the numbers of the nodes that are connected by the i-th edge. It is guaranteed that the given graph is a tree.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_011.jsonl",
+    "code_uid": "af0b4b86f374570c2fc40e816116dee7",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2\\n1 2\", \"3\\n1 2\\n1 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = input()\nedge = [[] for _ in range(n)]\nfor i in range(n - 1):\n    a, b = map(int, raw_input().split())\n    edge[a - 1].append(b - 1)\n    edge[b - 1].append(a - 1)\nd = [0] * n\nd[0] = 1\np = [0]\nfor u in p:\n    for v in edge[u]:\n        if not d[v]:\n            d[v] = d[u] + 1\n            p.append(v)\nprint sum((1. / x for x in d))",
+    "prob_desc_created_at": "1362929400",
+    "tags": [
+        "probabilities",
+        "implementation",
+        "trees",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

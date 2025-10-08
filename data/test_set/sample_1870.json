@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1 2 3 2 1\", \"1 2 4 5 4 6 4 2 1 3 1\", \"-1\"]",
+    "src_uid": "915bb1dec7af4427c4cc33f7803f6651",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Connected undirected graph without cycles is called a tree. Trees is a class of graphs which is interesting not only for people, but for ants too.An ant stands at the root of some tree. He sees that there are n vertexes in the tree, and they are connected by n - 1 edges so that there is a path between any pair of vertexes. A leaf is a distinct from root vertex, which is connected with exactly one other vertex.The ant wants to visit every vertex in the tree and return to the root, passing every edge twice. In addition, he wants to visit the leaves in a specific order. You are to find some possible route of the ant.",
+    "prob_desc_output_spec": "If the required route doesn't exist, output -1. Otherwise, output 2n - 1 numbers, describing the route. Every time the ant comes to a vertex, output it's index.",
+    "prob_desc_input_spec": "The first line contains integer n (3 ≤ n ≤ 300) — amount of vertexes in the tree. Next n - 1 lines describe edges. Each edge is described with two integers — indexes of vertexes which it connects. Each edge can be passed in any direction. Vertexes are numbered starting from 1. The root of the tree has number 1. The last line contains k integers, where k is amount of leaves in the tree. These numbers describe the order in which the leaves should be visited. It is guaranteed that each leaf appears in this order exactly once.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_014.jsonl",
+    "code_uid": "b34b32e084be0178658300616376b559",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n1 2\\n2 3\\n3\", \"6\\n1 2\\n1 3\\n2 4\\n4 5\\n4 6\\n5 6 3\", \"6\\n1 2\\n1 3\\n2 4\\n4 5\\n4 6\\n5 3 6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from math import *\nfrom Queue import *\n\n\nnMax = 310\n\ndef bfs(a,b):\n    par = [0 for i in range(nMax)]\n    marked = [b]\n    Q = [b]\n    while len(Q) > 0:\n        v = Q.pop()\n        for n in nbr[v]:\n            if n not in marked:\n                marked.append(n)\n                Q.append(n)\n                par[n] = v\n    v = a\n    l = []\n    while par[v] > 0:\n        l.append(v)\n        v = par[v]\n    l.append(v)\n    return l\n\n\nn = int(raw_input())\nnbr = [[] for i in range(n+1)]\nfor i in range(n-1):\n    l = map(int, raw_input().split())\n    nbr[l[0]].append(l[1])\n    nbr[l[1]].append(l[0])\nl = map(int, raw_input().split())\nver = [1] + l + [1]\npath = []\nfor i in range(len(ver)-1):\n    path += bfs(ver[i], ver[i+1])[:-1]\npath += [1]\nif len(path) == 2*n-1:\n    s = ''\n    for p in path:\n        s += str(p) + ' '\n    print(s[:-1])\nelse:\n    print(-1)\n",
+    "prob_desc_created_at": "1284994800",
+    "tags": [
+        "constructive algorithms",
+        "dfs and similar",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

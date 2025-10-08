@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1 1\\n0 0\\n1 0\\n0 1\", \"0 1\\n0 10\\n0 0\\n0 9\"]",
+    "src_uid": "78d54d76cb113cf74ea89fb77471859b",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given a rectangular grid of lattice points from (0, 0) to (n, m) inclusive. You have to choose exactly 4 different points to build a polyline possibly with self-intersections and self-touching. This polyline should be as long as possible.A polyline defined by points p1, p2, p3, p4 consists of the line segments p1 p2, p2 p3, p3 p4, and its length is the sum of the lengths of the individual line segments.",
+    "prob_desc_output_spec": "Print 4 lines with two integers per line separated by space — coordinates of points p1, p2, p3, p4 in order which represent the longest possible polyline. Judge program compares your answer and jury's answer with 10 - 6 precision.",
+    "prob_desc_input_spec": "The only line of the input contains two integers n and m (0 ≤ n, m ≤ 1000). It is guaranteed that grid contains at least 4 different points.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_009.jsonl",
+    "code_uid": "cd1e3e6628a76671baf4b45d7c64d285",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"1 1\", \"0 10\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nimport itertools\nfrom math import *\nn, m = map(int, raw_input().split(\" \"))\n\na, b = None, None\nfor i in xrange(0, n + 1):\n    for j in xrange(0, m + 1):\n        if not ((i, j) in [(0, 0), (n, m)]):\n            if a == None and b == None:\n                a = i\n                b = j\n            else:\n                if (0 - i)**2 + (0 - j)**2 > (0 - a)**2 + (0 - b)**2:\n                    a, b = i, j\nv = [(a, b), (0, 0)]\n\nc, d = a, b\na, b = None, None\nfor i in xrange(0, n + 1):\n    for j in xrange(0, m + 1):\n        if not ((i, j) in [(0, 0), (n, m), (c, d)]):\n            if a == None and b == None:\n                a = i\n                b = j\n            else:\n                if (n - i)**2 + (m - j)**2 > (n - a)**2 + (m - b)**2:\n                    a, b = i, j\nv += [(n, m), (a, b)]\n\n#print v\n\ndef d(x):\n    return sqrt((x[1][0] - x[0][0])**2 + (x[1][1] - x[0][1])**2) + sqrt((x[2][0] - x[1][0])**2 + (x[2][1] - x[1][1])**2) + sqrt((x[3][0] - x[2][0])**2 + (x[3][1] - x[2][1])**2)\n\nv = list(itertools.permutations(v))\nif n != 0 and m != 0:\n    v += list(itertools.permutations([(0, 0), (n, m), (n, 0), (0, m)]))\nfor a in sorted(zip(map(d, v), v))[-1][1]:\n    print \"%d %d\" % a",
+    "prob_desc_created_at": "1406480400",
+    "tags": [
+        "constructive algorithms",
+        "geometry",
+        "trees",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"0\", \"2\", \"3\"]",
+    "src_uid": "bf0422de4347a308d68a52421fbad0f3",
+    "prob_desc_notes": "NoteIn the first sample the set of the prepared problems meets the requirements for a good round.In the second sample, it is enough to come up with and prepare two problems with complexities 2 and 3 to get a good round.In the third sample it is very easy to get a good round if come up with and prepare extra problems with complexities: 2, 3, 4. ",
+    "prob_desc_description": "George decided to prepare a Codesecrof round, so he has prepared m problems for the round. Let's number the problems with integers 1 through m. George estimates the i-th problem's complexity by integer bi.To make the round good, he needs to put at least n problems there. Besides, he needs to have at least one problem with complexity exactly a1, at least one with complexity exactly a2, ..., and at least one with complexity exactly an. Of course, the round can also have problems with other complexities.George has a poor imagination. It's easier for him to make some already prepared problem simpler than to come up with a new one and prepare it. George is magnificent at simplifying problems. He can simplify any already prepared problem with complexity c to any positive integer complexity d (c ≥ d), by changing limits on the input data.However, nothing is so simple. George understood that even if he simplifies some problems, he can run out of problems for a good round. That's why he decided to find out the minimum number of problems he needs to come up with in addition to the m he's prepared in order to make a good round. Note that George can come up with a new problem of any complexity.",
+    "prob_desc_output_spec": "Print a single integer — the answer to the problem.",
+    "prob_desc_input_spec": "The first line contains two integers n and m (1 ≤ n, m ≤ 3000) — the minimal number of problems in a good round and the number of problems George's prepared. The second line contains space-separated integers a1, a2, ..., an (1 ≤ a1 &lt; a2 &lt; ... &lt; an ≤ 106) — the requirements for the complexity of the problems in a good round. The third line contains space-separated integers b1, b2, ..., bm (1 ≤ b1 ≤ b2... ≤ bm ≤ 106) — the complexities of the problems prepared by George. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_009.jsonl",
+    "code_uid": "fb0dc06102586fc95a3685dc77c25aba",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 5\\n1 2 3\\n1 2 2 3 3\", \"3 5\\n1 2 3\\n1 1 1 1 1\", \"3 1\\n2 3 4\\n1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "\"\"\"\n    Template written to be used by Python Programmers.\n    Use at your own risk!!!!\n    Owned by adi0311(rating - 5 star at CodeChef and Specialist at Codeforces).\n\"\"\"\nimport sys\nimport heapq\nfrom math import *\nfrom collections import defaultdict as dd  # defaultdict(<datatype>) Free of KeyError.\nfrom collections import deque  # deque(list) append(), appendleft(), pop(), popleft() - O(1)\nfrom collections import Counter as c  # Counter(list)  return a dict with {key: count}\nfrom itertools import combinations as comb\nfrom bisect import bisect_left as bl, bisect_right as br, bisect\n# sys.setrecursionlimit(2*pow(10, 6))\n# sys.stdin = open(\"input.txt\", \"r\")\n# sys.stdout = open(\"output.txt\", \"w\")\nmod = pow(10, 9) + 7\nmod2 = 998244353\ndef data(): return sys.stdin.readline().strip()\ndef out(var): sys.stdout.write(var)\ndef l(): return list(map(int, data().split()))\ndef sl(): return list(map(str, data().split()))\ndef sp(): return map(int, data().split())\ndef ssp(): return map(str, data().split())\ndef l1d(n, val=0): return [val for i in range(n)]\ndef l2d(n, m, val=0): return [[val for i in range(n)] for j in range(m)]\n\n\nn, m = sp()\ndpn = l()\ndpm = l()\ndpm.sort()\nvis = [0 for i in range(n)]\nfor i in range(n):\n    if dpn[i] in dpm:\n        dpm.remove(dpn[i])\n        vis[i] = 1\nfor i in range(n):\n    if not vis[i]:\n        temp = br(dpm, dpn[i])\n        if temp != len(dpm):\n            vis[i] = 1\n            dpm.remove(dpm[temp])\nanswer = 0\nfor i in vis:\n    if i == 0:\n        answer += 1\nout(str(answer))\nexit()\n",
+    "prob_desc_created_at": "1391095800",
+    "tags": [
+        "two pointers",
+        "greedy",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

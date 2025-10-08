@@ -1,0 +1,30 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"9\", \"2\", \"0\", \"-1\"]",
+    "src_uid": "90f08c2c8f7575330639fdd158bc8e6b",
+    "prob_desc_notes": "NoteIn the first example, Charlie can move all chocolate pieces to the second box. Each box will be divisible by $$$17$$$.In the second example, Charlie can move a piece from box $$$2$$$ to box $$$3$$$ and a piece from box $$$4$$$ to box $$$5$$$. Each box will be divisible by $$$3$$$.In the third example, each box is already divisible by $$$5$$$.In the fourth example, since Charlie has no available move, he cannot help Bob make Alice happy.",
+    "prob_desc_description": "This is the harder version of the problem. In this version, $$$1 \\le n \\le 10^6$$$ and $$$0 \\leq a_i \\leq 10^6$$$. You can hack this problem if you locked it. But you can hack the previous problem only if you locked both problemsChristmas is coming, and our protagonist, Bob, is preparing a spectacular present for his long-time best friend Alice. This year, he decides to prepare $$$n$$$ boxes of chocolate, numbered from $$$1$$$ to $$$n$$$. Initially, the $$$i$$$-th box contains $$$a_i$$$ chocolate pieces.Since Bob is a typical nice guy, he will not send Alice $$$n$$$ empty boxes. In other words, at least one of $$$a_1, a_2, \\ldots, a_n$$$ is positive. Since Alice dislikes coprime sets, she will be happy only if there exists some integer $$$k &gt; 1$$$ such that the number of pieces in each box is divisible by $$$k$$$. Note that Alice won't mind if there exists some empty boxes. Charlie, Alice's boyfriend, also is Bob's second best friend, so he decides to help Bob by rearranging the chocolate pieces. In one second, Charlie can pick up a piece in box $$$i$$$ and put it into either box $$$i-1$$$ or box $$$i+1$$$ (if such boxes exist). Of course, he wants to help his friend as quickly as possible. Therefore, he asks you to calculate the minimum number of seconds he would need to make Alice happy.",
+    "prob_desc_output_spec": "If there is no way for Charlie to make Alice happy, print $$$-1$$$. Otherwise, print a single integer $$$x$$$ — the minimum number of seconds for Charlie to help Bob make Alice happy.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$1 \\le n \\le 10^6$$$) — the number of chocolate boxes. The second line contains $$$n$$$ integers $$$a_1, a_2, \\ldots, a_n$$$ ($$$0 \\le a_i \\le 10^6$$$) — the number of chocolate pieces in the $$$i$$$-th box. It is guaranteed that at least one of $$$a_1, a_2, \\ldots, a_n$$$ is positive.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2100,
+    "file_name": "train_011.jsonl",
+    "code_uid": "523503f81df7e827fe66eb9c0c8c3908",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n4 8 5\", \"5\\n3 10 2 1 5\", \"4\\n0 5 15 10\", \"1\\n1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "# 素因数分解\ndef prime_decomposition(n):\n    i = 2\n    table = []\n    while i * i <= n:\n        while n % i == 0:\n            n //= i\n            table.append(i)\n        i += 1\n    if n > 1:\n        table.append(n)\n    return table\nimport sys\ninput = sys.stdin.readline\nN = int(input())\nA = list(map(int, input().split()))\n# かけらを移動させて共通因数を持つようにする\nsu = sum(A)\nif su == 1:\n    print(-1)\n    exit()\nprimes = sorted(set(prime_decomposition(su)))\nans = 10**18\n\nfor p in primes:\n    an = 0\n    half = p >> 1\n    cnt = 0\n    for a in A:\n        a %= p\n        cnt += a\n        if cnt <= half:\n            an += cnt\n        else:\n            if cnt < p:\n                an += p - cnt\n            else:\n                cnt -= p\n                if cnt <= half:\n                    an += cnt\n                else:\n                    an += p - cnt\n        if ans <= an:\n            break\n    else:\n        ans = min(ans, an)\nprint(ans)\n",
+    "prob_desc_created_at": "1574174100",
+    "tags": [
+        "greedy",
+        "constructive algorithms",
+        "two pointers",
+        "number theory",
+        "math",
+        "ternary search"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"0 3 0 1 0 0 0 0 0\", \"0 2 1 0 0 0 0 0 0\"]",
+    "src_uid": "f19e7f33396d27e1eba2c46b6b5e706a",
+    "prob_desc_notes": null,
+    "prob_desc_description": "A queen is the strongest chess piece. In modern chess the queen can move any number of squares in any horizontal, vertical or diagonal direction (considering that there're no other pieces on its way). The queen combines the options given to the rook and the bishop.There are m queens on a square n × n chessboard. You know each queen's positions, the i-th queen is positioned in the square (ri, ci), where ri is the board row number (numbered from the top to the bottom from 1 to n), and ci is the board's column number (numbered from the left to the right from 1 to n). No two queens share the same position.For each queen one can count w — the number of other queens that the given queen threatens (attacks). For a fixed attack direction only the first queen in this direction is under attack if there are many queens are on the ray of the attack. Obviously, for any queen w is between 0 and 8, inclusive.Print the sequence t0, t1, ..., t8, where ti is the number of queens that threaten exactly i other queens, i.e. the number of queens that their w equals i.",
+    "prob_desc_output_spec": "Print the required sequence t0, t1, ..., t8, separating the numbers with spaces.",
+    "prob_desc_input_spec": "The first line of the input contains a pair of integers n, m (1 ≤ n, m ≤ 105), where n is the size of the board and m is the number of queens on the board. Then m following lines contain positions of the queens, one per line. Each line contains a pair of integers ri, ci (1 ≤ ri, ci ≤ n) — the queen's position. No two queens stand on the same square.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_008.jsonl",
+    "code_uid": "dd7e5218c2605b0faae5264545f14e15",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"8 4\\n4 3\\n4 8\\n6 5\\n1 6\", \"10 3\\n1 1\\n1 2\\n1 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n,m=list(map(int,input().split()))\nf=[]\nmaxx=[-999999999]*n\nminx=[999999999]*n\nmaxy=[-999999999]*n\nminy=[999999999]*n\nmaxm=[-999999999]*(2*n-1)\nminm=[999999999]*(2*n-1)\nmaxs=[-999999999]*(2*n-1)\nmins=[999999999]*(2*n-1)\nr=[0 for i in range(9)]\nfor i in range(m):\n    y,x=list(map(int,input().split()))\n    a,b,c,d=y-1,x-1,y+x-2,y-x+n-1\n    f.append((a,b,c,d))\n    if a>maxx[b]:maxx[b]=a\n    if a<minx[b]:minx[b]=a\n    if x-1>maxy[a]:maxy[a]=x-1\n    if x-1<miny[a]:miny[a]=x-1\n    if c>maxs[d]:maxs[d]=c\n    if c<mins[d]:mins[d]=c\n    if d>maxm[c]:maxm[c]=d\n    if d<minm[c]:minm[c]=d\nfor i in f:\n    k=0\n    if i[0]<maxx[i[1]]:k+=1\n    if i[0]>minx[i[1]]:k+=1\n    if i[1]<maxy[i[0]]:k+=1\n    if i[1]>miny[i[0]]:k+=1\n    if i[2]<maxs[i[3]]:k+=1\n    if i[2]>mins[i[3]]:k+=1\n    if i[3]<maxm[i[2]]:k+=1\n    if i[3]>minm[i[2]]:k+=1\n    r[k]+=1\nprint(*r)\n",
+    "prob_desc_created_at": "1322233200",
+    "tags": [
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,30 @@
+{
+    "prob_desc_time_limit": "4 seconds",
+    "prob_desc_sample_outputs": "[\"3\", \"1\", \"0\"]",
+    "src_uid": "d5913f8208efa1641f53caaee7624622",
+    "prob_desc_notes": "NoteNote to the first sample test. There are 3 triangles formed: (0, 0) - (1, 1) - (2, 0); (0, 0) - (2, 2) - (2, 0); (1, 1) - (2, 2) - (2, 0).Note to the second sample test. There is 1 triangle formed: (0, 0) - (1, 1) - (2, 0).Note to the third sample test. A single point doesn't form a single triangle.",
+    "prob_desc_description": "Vanya got bored and he painted n distinct points on the plane. After that he connected all the points pairwise and saw that as a result many triangles were formed with vertices in the painted points. He asks you to count the number of the formed triangles with the non-zero area.",
+    "prob_desc_output_spec": "In the first line print an integer — the number of triangles with the non-zero area among the painted points.",
+    "prob_desc_input_spec": "The first line contains integer n (1 ≤ n ≤ 2000) — the number of the points painted on the plane.  Next n lines contain two integers each xi, yi ( - 100 ≤ xi, yi ≤ 100) — the coordinates of the i-th point. It is guaranteed that no two given points coincide.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_015.jsonl",
+    "code_uid": "0533264df55564b9a5e65f767480df63",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n0 0\\n1 1\\n2 0\\n2 2\", \"3\\n0 0\\n1 1\\n2 0\", \"1\\n1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from fractions import gcd\n\nN = input()\npoints = [map(int, raw_input().split()) for _ in xrange(N)]\n\nans = N * (N-1) * (N-2) // 6\nlines = {}\nfor i in xrange(N-1):\n    for j in range(i+1, N):\n        x1, y1 = points[i]\n        x2, y2 = points[j]\n        g = gcd(x1-x2, y1-y2)\n        dx, dy = (x1-x2)//g, (y1-y2)//g\n        a, b, c = dy, dx, dx * y1 - dy * x1\n        lines[(a, b, c)] = lines.get((a, b, c), 0) + 1\n\nfor val in lines.values():\n    if val != 1:\n        n = (1 + int(pow(1+8*val, 0.5))) // 2\n        ans -= n * (n-1) * (n-2) // 6\n\nprint(ans)\n            \n        \n        \n          \n",
+    "prob_desc_created_at": "1434645000",
+    "tags": [
+        "geometry",
+        "combinatorics",
+        "math",
+        "sortings",
+        "data structures",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

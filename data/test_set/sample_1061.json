@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"2\", \"0\"]",
+    "src_uid": "fa2d29150c27014ee7274d029f30b16a",
+    "prob_desc_notes": "NoteLets look at how wealth changes through day in the first sample.  [1, 1, 4, 2]  [2, 1, 3, 2] or [1, 2, 3, 2] So the answer is 3 - 1 = 2In second sample wealth will remain the same for each person.",
+    "prob_desc_description": "We all know the impressive story of Robin Hood. Robin Hood uses his archery skills and his wits to steal the money from rich, and return it to the poor.There are n citizens in Kekoland, each person has ci coins. Each day, Robin Hood will take exactly 1 coin from the richest person in the city and he will give it to the poorest person (poorest person right after taking richest's 1 coin). In case the choice is not unique, he will select one among them at random. Sadly, Robin Hood is old and want to retire in k days. He decided to spend these last days with helping poor people. After taking his money are taken by Robin Hood richest person may become poorest person as well, and it might even happen that Robin Hood will give his money back. For example if all people have same number of coins, then next day they will have same number of coins too. Your task is to find the difference between richest and poorest persons wealth after k days. Note that the choosing at random among richest and poorest doesn't affect the answer.",
+    "prob_desc_output_spec": "Print a single line containing the difference between richest and poorest peoples wealth.",
+    "prob_desc_input_spec": "The first line of the input contains two integers n and k (1 ≤ n ≤ 500 000, 0 ≤ k ≤ 109) — the number of citizens in Kekoland and the number of days left till Robin Hood's retirement. The second line contains n integers, the i-th of them is ci (1 ≤ ci ≤ 109) — initial wealth of the i-th person.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_006.jsonl",
+    "code_uid": "9dcffc82057c6bdd00691f90ebbdef1c",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 1\\n1 1 4 2\", \"3 1\\n2 2 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\n\ninp = sys.stdin.read().splitlines()\nn,k = list(map(int,inp[0].split()))\nlst = list(map(int,inp[1].split()))\nlst.sort()\ntotal = sum(lst)\nlower = int(total/n)\nnupper = total%n\n\nif nupper == 0:\n\tupper = lower;\nelse:\n\tupper = lower+1;\nnlower = n - nupper;\n\ni = 0;\nwhile i<n and lst[i]<lower:\n\ti+=1\nlow1st = i; \n\ni = n-1;\nwhile i>=0 and lst[i]>upper:\n\ti-=1\nuplast = i;\n\nlowerfill = low1st*lower - sum(lst[:low1st]) \n\nupperfill = sum(lst[uplast+1:]) - (n-uplast-1)*upper\n\ntotalsteps = (lowerfill+upperfill)/2\n'''\nprint(\"nlower = %d\"%nlower)\nprint(\"nupper = %d\"%nupper)\nprint(\"lower = %d\"%lower)\nprint(\"upper = %d\"%upper)\nprint(\"lowerfill = %d\"%lowerfill)\nprint(\"upperfill = %d\"%upperfill)\nprint(\"totalsteps = %f\"%totalsteps)\n'''\ndef filllower():\n\tkk = k\n\tcur = lst[0]\n\ti = 0\n\twhile (kk>0):\n\t\twhile (lst[i]==cur):\n\t\t\ti+=1\n\t\t\t#print(\"i=%d,lst[i]=%d\"%(i,lst[i]))\n\t\tdiff = lst[i] - lst[i-1]\n\t\tkk -= i*diff\n\t\t#print(\"lower kk = %d\",kk)\n\t\tif kk == 0:\n\t\t\tcur = lst[i]\n\t\t\tbreak\n\t\telif kk<0:\n\t\t\tcur = lst[i]-int(-kk/i)-1\n\t\t\t#print(\"-kk/i = %d\",int(-kk/i))\n\t\t\tif (-kk%i) ==0:\n\t\t\t\tcur += 1\n\t\t\tbreak\n\t\tcur = lst[i]\n\t#print(\"min = \",cur)\n\treturn cur\n\ndef fillupper():\n\tkk = k\n\ti = n-1\n\tcur = lst[i]\n\twhile (kk>0):\n\t\twhile (lst[i]==cur):\n\t\t\ti-=1\n\t\t\t#print(\"i=%d,lst[i]=%d\"%(i,lst[i]))\n\t\tdiff = lst[i+1] - lst[i]\n\t\tkk -= (n-i-1)*diff\n\t\t#print(\"upper kk = \",kk)\n\t\tif kk == 0:\n\t\t\tcur = lst[i-1]\n\t\t\tbreak\n\t\telif kk<0:\n\t\t\tcur = lst[i]+int(-kk/(n-i-1))\n\t\t\tif (-kk%(n-i-1)!=0):\n\t\t\t\tcur += 1;\n\t\t\tbreak\n\t\tcur = lst[i]\n\t#print(\"max = \",cur)\n\treturn cur\n\nif totalsteps>=k:\n\tprint(fillupper()-filllower())\nelse:\n\tprint(upper-lower)\n\n\n\n'''\n\n\ndef sortmax():\n\tv = lst[-1]\n\ti = n-2\n\twhile(i>=0):\n\t\tif lst[i]<=v:\n\t\t\tlst[-1]=lst[i+1]\n\t\t\tlst[i+1]=v\n\t\t\treturn\n\t\ti-=1\n\tlst[-1]=lst[0]\n\tlst[0]=v\n\ndef sortmin():\n\tv = lst[0]\n\ti = 1\n\twhile(i<n):\n\t\tif lst[i]>=v:\n\t\t\tlst[0]=lst[i-1]\n\t\t\tlst[i-1]=v\n\t\t\treturn\n\t\ti+=1\n\tlst[0]=lst[-1]\n\tlst[-1]=v\n\n\nlst.sort()\nwhile k:\n\tlst[-1]-=1\n\tsortmax()\n\t#print(lst)\n\tlst[0]+=1\n\tsortmin()\n\tif (lst[-1]-lst[0])<=1:\n\t\tbreak\n\t#print(lst)\n\tk-=1\n\n\nprint(lst[-1]-lst[0])\n\n\n'''",
+    "prob_desc_created_at": "1462984500",
+    "tags": [
+        "binary search",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

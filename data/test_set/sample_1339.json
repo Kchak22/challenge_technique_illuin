@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2\\n1 4\\n4 1\\n1\\n4 2\\n0\\n0\\n1\\n2 10\\n0\"]",
+    "src_uid": "5f0f79e39aaf4abc8c7414990d1f8be1",
+    "prob_desc_notes": "NoteIn the first example, two possible ways to divide $$$a$$$ into permutations are $$$\\{1\\} + \\{4, 3, 2, 1\\}$$$ and $$$\\{1,4,3,2\\} + \\{1\\}$$$.In the second example, the only way to divide $$$a$$$ into permutations is $$$\\{2,4,1,3\\} + \\{2,1\\}$$$.In the third example, there are no possible ways.",
+    "prob_desc_description": "The sequence of $$$m$$$ integers is called the permutation if it contains all integers from $$$1$$$ to $$$m$$$ exactly once. The number $$$m$$$ is called the length of the permutation.Dreamoon has two permutations $$$p_1$$$ and $$$p_2$$$ of non-zero lengths $$$l_1$$$ and $$$l_2$$$.Now Dreamoon concatenates these two permutations into another sequence $$$a$$$ of length $$$l_1 + l_2$$$. First $$$l_1$$$ elements of $$$a$$$ is the permutation $$$p_1$$$ and next $$$l_2$$$ elements of $$$a$$$ is the permutation $$$p_2$$$. You are given the sequence $$$a$$$, and you need to find two permutations $$$p_1$$$ and $$$p_2$$$. If there are several possible ways to restore them, you should find all of them. (Note that it is also possible that there will be no ways.)",
+    "prob_desc_output_spec": "For each test case, the first line of output should contain one integer $$$k$$$: the number of ways to divide $$$a$$$ into permutations $$$p_1$$$ and $$$p_2$$$. Each of the next $$$k$$$ lines should contain two integers $$$l_1$$$ and $$$l_2$$$ ($$$1 \\leq l_1, l_2 \\leq n, l_1 + l_2 = n$$$), denoting, that it is possible to divide $$$a$$$ into two permutations of length $$$l_1$$$ and $$$l_2$$$ ($$$p_1$$$ is the first $$$l_1$$$ elements of $$$a$$$, and $$$p_2$$$ is the last $$$l_2$$$ elements of $$$a$$$). You can print solutions in any order.",
+    "prob_desc_input_spec": "The first line contains an integer $$$t$$$ ($$$1 \\le t \\le 10\\,000$$$) denoting the number of test cases in the input. Each test case contains two lines. The first line contains one integer $$$n$$$ ($$$2 \\leq n \\leq 200\\,000$$$): the length of $$$a$$$. The second line contains $$$n$$$ integers $$$a_1, a_2, \\ldots, a_n$$$ ($$$1 \\leq a_i \\leq n-1$$$). The total sum of $$$n$$$ is less than $$$200\\,000$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_008.jsonl",
+    "code_uid": "5999fe995fe1ff8007f207f1cda16b1f",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6\\n5\\n1 4 3 2 1\\n6\\n2 4 1 3 2 1\\n4\\n2 1 1 3\\n4\\n1 3 3 1\\n12\\n2 1 3 4 5 6 7 8 9 1 10 2\\n3\\n1 1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import os, sys, atexit\nfrom io import BytesIO, StringIO\n \ninput = BytesIO(os.read(0, os.fstat(0).st_size)).readline\n_OUTPUT_BUFFER = StringIO()\nsys.stdout = _OUTPUT_BUFFER\n \n@atexit.register\ndef write():\n    sys.__stdout__.write(_OUTPUT_BUFFER.getvalue())\nt = int(input())\nwhile t:\n    t += -1\n    n = int(input())\n    l = list(map(int, input().split()))\n    count = [0] * (n + 1)\n    for i in l: count[i] -= -1\n    l1 = 0\n    l2 = 0\n    ch = 0\n    for i in range(1, n + 1):\n        if count[i] == 2: l1 = i\n        else: break\n    l2 = n - l1\n    p1 = [0] * (l1 + 1)\n    p2 = [0] * (l2 + 1)\n    \n    for i in range(l1):\n        if l[i] > l1:\n            ch = 1\n            break\n        p1[l[i]] = 1\n    for i in range(l1, n):\n        if l[i] > l2:\n            ch = 1\n            break\n        p2[l[i]] = 1\n    ch1 = 1\n    ch2 = 1\n    if 0 in p1[1: l1 + 1] or 0 in p2[1: l2 + 1] or ch: ch1 = 0\n    \n    \n    l1, l2 = l2, l1\n    p1 = [0] * (l1 + 1)\n    p2 = [0] * (l2 + 1)\n    ch = 0\n    for i in range(l1):\n        if l[i] > l1:\n            ch = 1\n            break\n        p1[l[i]] = 1\n    for i in range(l1, n):\n        if l[i] > l2:\n            ch = 1\n            break\n        p2[l[i]] = 1\n    if 0 in p1[1: l1 + 1] or 0 in p2[1: l2 + 1] or ch: ch2 = 0\n    if ch1:\n        if ch2:\n            if l1 != l2:\n                print(2)\n                print(l1, l2)\n                print(l2, l1)\n            else:\n                print(1)\n                print(l1, l2)\n        else:\n            print(1)\n            print(l2, l1)\n    else:\n        if ch2:\n            print(1)\n            print(l1, l2)\n        else:\n            print(0)",
+    "prob_desc_created_at": "1585924500",
+    "tags": [
+        "implementation",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

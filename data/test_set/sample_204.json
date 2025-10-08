@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"YES\", \"NO\"]",
+    "src_uid": "a9fd2e4bc5528a34f1f1b869cd391d71",
+    "prob_desc_notes": "NoteIn the first example it is possible to draw two lines, the one containing the points 1, 3 and 5, and another one containing two remaining points.  ",
+    "prob_desc_description": "You are given n points on Cartesian plane. Every point is a lattice point (i. e. both of its coordinates are integers), and all points are distinct.You may draw two straight lines (not necessarily distinct). Is it possible to do this in such a way that every point lies on at least one of these lines?",
+    "prob_desc_output_spec": "If it is possible to draw two straight lines in such a way that each of given points belongs to at least one of these lines, print YES. Otherwise, print NO.",
+    "prob_desc_input_spec": "The first line contains one integer n (1 ≤ n ≤ 105) — the number of points you are given. Then n lines follow, each line containing two integers xi and yi (|xi|, |yi| ≤ 109)— coordinates of i-th point. All n points are distinct.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_001.jsonl",
+    "code_uid": "418e6c429b18c6ca3af5e9b064f5b1f5",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n0 0\\n0 1\\n1 1\\n1 -1\\n2 2\", \"5\\n0 0\\n1 0\\n2 1\\n1 1\\n2 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from __future__ import division\nimport sys\nn = int(raw_input())\nif n <= 4:\n  print \"YES\"\n  sys.exit()\npts = []\nfor i in range(n):\n  pts.append(list(map(int,raw_input().split())))\n\ndef solve(c1, c2):\n  taken = [0 for x in range(n)]\n  ext = []\n  for i in range(n):\n    if (pts[c2][1]-pts[c1][1])*(pts[i][0]-pts[c2][0])==(pts[i][1]-pts[c2][1])*(pts[c2][0]-pts[c1][0]):\n      taken[i] = 1\n    if not taken[i]:\n      ext.append(i)\n  if len(ext) <= 2:\n    return 1\n  c1 = ext[0]\n  c2 = ext[1]\n  for i in range(n):\n    if (pts[c2][1]-pts[c1][1])*(pts[i][0]-pts[c2][0])==(pts[i][1]-pts[c2][1])*(pts[c2][0]-pts[c1][0]):\n      taken[i] = 1\n  if sum(taken)==n:\n    return 1\n  return 0\n\nif solve(0,1) or solve(0,2) or solve(1,2):\n  print \"YES\"\nelse:\n  print \"NO\"",
+    "prob_desc_created_at": "1522850700",
+    "tags": [
+        "geometry"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3 4 5\\n5 5 5\\n182690 214748 300999\\n1 977539810 977539810\"]",
+    "src_uid": "821d48c9a67d37ad7acc50d4d0d0d723",
+    "prob_desc_notes": "NoteOne of the possible solutions to the first test case:One of the possible solutions to the second test case:",
+    "prob_desc_description": "Ichihime is the current priestess of the Mahjong Soul Temple. She claims to be human, despite her cat ears.These days the temple is holding a math contest. Usually, Ichihime lacks interest in these things, but this time the prize for the winner is her favorite — cookies. Ichihime decides to attend the contest. Now she is solving the following problem. You are given four positive integers $$$a$$$, $$$b$$$, $$$c$$$, $$$d$$$, such that $$$a \\leq b \\leq c \\leq d$$$. Your task is to find three integers $$$x$$$, $$$y$$$, $$$z$$$, satisfying the following conditions: $$$a \\leq x \\leq b$$$. $$$b \\leq y \\leq c$$$. $$$c \\leq z \\leq d$$$. There exists a triangle with a positive non-zero area and the lengths of its three sides are $$$x$$$, $$$y$$$, and $$$z$$$.Ichihime desires to get the cookie, but the problem seems too hard for her. Can you help her?",
+    "prob_desc_output_spec": "For each test case, print three integers $$$x$$$, $$$y$$$, $$$z$$$  — the integers you found satisfying the conditions given in the statement. It is guaranteed that the answer always exists. If there are multiple answers, print any.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$t$$$ ($$$1 \\leq t \\leq 1000$$$)  — the number of test cases. The next $$$t$$$ lines describe test cases. Each test case is given as four space-separated integers $$$a$$$, $$$b$$$, $$$c$$$, $$$d$$$ ($$$1 \\leq a \\leq b \\leq c \\leq d \\leq 10^9$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_007.jsonl",
+    "code_uid": "ffaf9272448234aabb2b85cbffda5b98",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1 3 5 7\\n1 5 5 7\\n100000 200000 300000 400000\\n1 1 977539810 977539810\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def isTriangle(x,y,z):\n\tif x+y <= z:\n\t\treturn False\n\tif x+z <= y:\n\t\treturn False\n\tif y+z <= x:\n\t\treturn False\n\treturn True\n\ndef solve():\n\ta,b,c,d = map(int, input().split())\n\n\n\tfor x in range(a,b+1):\n\t\tfor y in range(max(b, c-x), c+1):\n\t\t\tif x+y > c:\n\t\t\t\tif int((x**2 + y**2 )**0.5) in range(c,d+1):\n\t\t\t\t\tif isTriangle(x,y,int((x**2 + y**2 )**0.5)):\n\t\t\t\t\t\treturn [x,y,int((x**2 + y**2 )**0.5)]\n\t\t\t\tfor z in range(c, d+1):\n\t\t\t\t\tif isTriangle(x,y,z):\n\t\t\t\t\t\treturn [x,y,z]\n\t\t\n\nt = int(input())\n\nres = []\n\nfor i in range(t):\n\n\tres.append(solve())\n\n\nfor el in res:\n\tfor i in range(3):\n\t\tprint(el[i], end=' ')\n\tprint('')",
+    "prob_desc_created_at": "1586961300",
+    "tags": [
+        "constructive algorithms",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

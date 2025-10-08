@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\\n500000000\\n4\"]",
+    "src_uid": "87e39e14d6e33427148c284b16a7fb13",
+    "prob_desc_notes": null,
+    "prob_desc_description": "At first, there was a legend related to the name of the problem, but now it's just a formal statement.You are given $$$n$$$ points $$$a_1, a_2, \\dots, a_n$$$ on the $$$OX$$$ axis. Now you are asked to find such an integer point $$$x$$$ on $$$OX$$$ axis that $$$f_k(x)$$$ is minimal possible.The function $$$f_k(x)$$$ can be described in the following way:   form a list of distances $$$d_1, d_2, \\dots, d_n$$$ where $$$d_i = |a_i - x|$$$ (distance between $$$a_i$$$ and $$$x$$$);  sort list $$$d$$$ in non-descending order;  take $$$d_{k + 1}$$$ as a result. If there are multiple optimal answers you can print any of them.",
+    "prob_desc_output_spec": "Print $$$T$$$ integers — corresponding points $$$x$$$ which have minimal possible value of $$$f_k(x)$$$. If there are multiple answers you can print any of them.",
+    "prob_desc_input_spec": "The first line contains single integer $$$T$$$ ($$$ 1 \\le T \\le 2 \\cdot 10^5$$$) — number of queries. Next $$$2 \\cdot T$$$ lines contain descriptions of queries. All queries are independent.  The first line of each query contains two integers $$$n$$$, $$$k$$$ ($$$1 \\le n \\le 2 \\cdot 10^5$$$, $$$0 \\le k &lt; n$$$) — the number of points and constant $$$k$$$. The second line contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_1 &lt; a_2 &lt; \\dots &lt; a_n \\le 10^9$$$) — points in ascending order. It's guaranteed that $$$\\sum{n}$$$ doesn't exceed $$$2 \\cdot 10^5$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_008.jsonl",
+    "code_uid": "a3fafb13365c10f2ebebfd0480c9c8e2",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n3 2\\n1 2 5\\n2 1\\n1 1000000000\\n1 0\\n4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys \n# data = []\n# n = 0\n# k = 0\n# def bins(a, b):\n#     if a == b:\n#         return a\n#     mid = (a+b)//2\n#     for i in range(n-k):\n#         if data[i+k] <= data[i] + 2 * mid:\n#             return bins()\nfor w in range(int(input())):\n    n, k = [int(i) for i in sys.stdin.readline().split()]\n    data = [int(i) for i in sys.stdin.readline().split()]\n    mn = float('inf')\n    x = 0\n    for i in range(n-k):\n        a = data[i+k] - data[i]\n        if a < mn:\n            mn = a\n            x = i\n    print((data[x] + data[x+k])//2 )\n",
+    "prob_desc_created_at": "1559745300",
+    "tags": [
+        "binary search",
+        "greedy",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\\n4\", \"20\", \"-1\"]",
+    "src_uid": "7589b30ec643278d8a83d74d43d9aebe",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Daniel is organizing a football tournament. He has come up with the following tournament format:   In the first several (possibly zero) stages, while the number of teams is even, they split in pairs and play one game for each pair. At each stage the loser of each pair is eliminated (there are no draws). Such stages are held while the number of teams is even.  Eventually there will be an odd number of teams remaining. If there is one team remaining, it will be declared the winner, and the tournament ends. Otherwise each of the remaining teams will play with each other remaining team once in round robin tournament (if there are x teams, there will be  games), and the tournament ends. For example, if there were 20 teams initially, they would begin by playing 10 games. So, 10 teams would be eliminated, and the remaining 10 would play 5 games. Then the remaining 5 teams would play 10 games in a round robin tournament. In total there would be 10+5+10=25 games.Daniel has already booked the stadium for n games. Help him to determine how many teams he should invite so that the tournament needs exactly n games. You should print all possible numbers of teams that will yield exactly n games in ascending order, or -1 if there are no such numbers.",
+    "prob_desc_output_spec": "Print all possible numbers of invited teams in ascending order, one per line. If exactly n games cannot be played, output one number: -1.",
+    "prob_desc_input_spec": "The first line contains a single integer n (1 ≤ n ≤ 1018), the number of games that should be played. Please, do not use the %lld specifier to read or write 64-bit integers in С++. It is preferred to use the cin, cout streams or the %I64d specifier.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_009.jsonl",
+    "code_uid": "7462c70ad5102f5ef7cf9ccf5e2ab786",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\", \"25\", \"2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def cc(res):\n    l = 1\n    r = res\n    while l<=r:\n        mid = l+r >>1\n        if mid*mid==res:\n            return mid\n        elif mid*mid>res:\n            r = mid-1\n        else:\n            l = mid+1\n    return -1\n\n\ndef solve(a,b,c):\n    if b*b-4*a*c<0:\n        return -1\n    r = cc(b*b-4*a*c)\n    \n    if r*r!=b*b-4*a*c:\n        return -1\n    \n    r = -b+r\n    if r%(2*a)!=0:\n        return -1\n    return int(r/2/a)\n\n\nn = int(input())\ntmp = []\nfor i in range(0,100):\n    now = 1<<(i+1)\n    ans = solve(1,now-3,-2*n)\n    if ans!=-1 and ans%2==1:\n        tmp.append( int(ans*now/2) )\n\ntmp.sort()\npre = -1\nfor i in tmp:\n    if i!=pre:\n        print(i)\n    pre = i\nif pre ==-1:\n    print(-1)\n\n",
+    "prob_desc_created_at": "1373734800",
+    "tags": [
+        "binary search",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

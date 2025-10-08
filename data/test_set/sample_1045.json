@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"6.4641016\", \"1.0000000\", \"3.2429391\"]",
+    "src_uid": "e27cff5d681217460d5238bf7ef6a876",
+    "prob_desc_notes": null,
+    "prob_desc_description": "NN is an experienced internet user and that means he spends a lot of time on the social media. Once he found the following image on the Net, which asked him to compare the sizes of inner circles:  It turned out that the circles are equal. NN was very surprised by this fact, so he decided to create a similar picture himself.He managed to calculate the number of outer circles $$$n$$$ and the radius of the inner circle $$$r$$$. NN thinks that, using this information, you can exactly determine the radius of the outer circles $$$R$$$ so that the inner circle touches all of the outer ones externally and each pair of neighboring outer circles also touches each other. While NN tried very hard to guess the required radius, he didn't manage to do that. Help NN find the required radius for building the required picture.",
+    "prob_desc_output_spec": "Output a single number $$$R$$$ — the radius of the outer circle required for building the required picture.  Your answer will be accepted if its relative or absolute error does not exceed $$$10^{-6}$$$. Formally, if your answer is $$$a$$$ and the jury's answer is $$$b$$$. Your answer is accepted if and only when $$$\\frac{|a-b|}{max(1, |b|)} \\le 10^{-6}$$$.",
+    "prob_desc_input_spec": "The first and the only line of the input file contains two numbers $$$n$$$ and $$$r$$$ ($$$3 \\leq n \\leq 100$$$, $$$1 \\leq r \\leq 100$$$) — the number of the outer circles and the radius of the inner circle respectively.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_006.jsonl",
+    "code_uid": "3cab2a35d6eaf514095fb2166c897ab7",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 1\", \"6 1\", \"100 100\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import math\ndef quadratic(a, b, c):\n  return (-1 * b + math.sqrt(b * b - 4 * a * c))/(2 * a)\n\nPI = 3.14159265\n\nx = input().split()\nn = int(x[0])\nr = int(x[1])\nk = 360.0/n;\nR = quadratic((2/(1-math.cos(k * PI/180)))-1, - 2 * r, - r * r);\n\n\nprint(R)",
+    "prob_desc_created_at": "1547390100",
+    "tags": [
+        "binary search",
+        "geometry",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

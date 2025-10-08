@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1.5 seconds",
+    "prob_desc_sample_outputs": "[\"6\\n5\\n5\"]",
+    "src_uid": "16c016c0735be1815c7b94c5c50516f1",
+    "prob_desc_notes": "Note  For K = 2 and length 1 Marmot can eat (R).  For K = 2 and length 2 Marmot can eat (RR) and (WW).  For K = 2 and length 3 Marmot can eat (RRR), (RWW) and (WWR).  For K = 2 and length 4 Marmot can eat, for example, (WWWW) or (RWWR), but for example he can't eat (WWWR). ",
+    "prob_desc_description": "We saw the little game Marmot made for Mole's lunch. Now it's Marmot's dinner time and, as we all know, Marmot eats flowers. At every dinner he eats some red and white flowers. Therefore a dinner can be represented as a sequence of several flowers, some of them white and some of them red.But, for a dinner to be tasty, there is a rule: Marmot wants to eat white flowers only in groups of size k.Now Marmot wonders in how many ways he can eat between a and b flowers. As the number of ways could be very large, print it modulo 1000000007 (109 + 7).",
+    "prob_desc_output_spec": "Print t lines to the standard output. The i-th line should contain the number of ways in which Marmot can eat between ai and bi flowers at dinner modulo 1000000007 (109 + 7).",
+    "prob_desc_input_spec": "Input contains several test cases. The first line contains two integers t and k (1 ≤ t, k ≤ 105), where t represents the number of test cases. The next t lines contain two integers ai and bi (1 ≤ ai ≤ bi ≤ 105), describing the i-th test.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_011.jsonl",
+    "code_uid": "bae0755bd10ef793021af6076ec8bbe1",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 2\\n1 3\\n2 3\\n4 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin,stdout\nt,k=map(int,stdin.readline().split())\nA=[1]*100001\nans=[]\nsum=1\nfor i in range(0,100001):\n    if(i<k):\n        A[i]=1\n    elif(i==k):\n        A[i]=2\n    else:\n        A[i]=(A[i-1]%1000000007+A[i-k]%1000000007)%1000000007\n    sum=(sum%1000000007+A[i]%1000000007)%1000000007\n    ans.append(sum)\nfor i in range(0,t):\n    a,b=map(int,stdin.readline().split())\n    an=ans[b]-ans[a-1]\n    an=an%1000000007\n    stdout.write(str(an)+'\\n')",
+    "prob_desc_created_at": "1412609400",
+    "tags": [
+        "dp"
+    ],
+    "hidden_unit_tests": ""
+}

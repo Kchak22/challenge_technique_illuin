@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\", \"6\"]",
+    "src_uid": "871674fbb434121f41539c9f094432ac",
+    "prob_desc_notes": "NoteIn the first sample, the optimal solution is to merge page 4 to 3, after merging sequence a becomes {1, 2, 3, 3, 3, 2}, so the number of pages Ryouko needs to turn is |1 - 2| + |2 - 3| + |3 - 3| + |3 - 3| + |3 - 2| = 3.In the second sample, optimal solution is achieved by merging page 9 to 4.",
+    "prob_desc_description": "Ryouko is an extremely forgetful girl, she could even forget something that has just happened. So in order to remember, she takes a notebook with her, called Ryouko's Memory Note. She writes what she sees and what she hears on the notebook, and the notebook became her memory.Though Ryouko is forgetful, she is also born with superb analyzing abilities. However, analyzing depends greatly on gathered information, in other words, memory. So she has to shuffle through her notebook whenever she needs to analyze, which is tough work.Ryouko's notebook consists of n pages, numbered from 1 to n. To make life (and this problem) easier, we consider that to turn from page x to page y, |x - y| pages should be turned. During analyzing, Ryouko needs m pieces of information, the i-th piece of information is on page ai. Information must be read from the notebook in order, so the total number of pages that Ryouko needs to turn is .Ryouko wants to decrease the number of pages that need to be turned. In order to achieve this, she can merge two pages of her notebook. If Ryouko merges page x to page y, she would copy all the information on page x to y (1 ≤ x, y ≤ n), and consequently, all elements in sequence a that was x would become y. Note that x can be equal to y, in which case no changes take place.Please tell Ryouko the minimum number of pages that she needs to turn. Note she can apply the described operation at most once before the reading. Note that the answer can exceed 32-bit integers.",
+    "prob_desc_output_spec": "Print a single integer — the minimum number of pages Ryouko needs to turn.",
+    "prob_desc_input_spec": "The first line of input contains two integers n and m (1 ≤ n, m ≤ 105). The next line contains m integers separated by spaces: a1, a2, ..., am (1 ≤ ai ≤ n).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_000.jsonl",
+    "code_uid": "8866d123964e9059df0bcee37ee346f7",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 6\\n1 2 3 4 3 2\", \"10 5\\n9 4 3 8 8\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, m = map(int, raw_input().split())\na = map(int, raw_input().split())\nb = {}\nfor ai in a:\n    b[ai] = []\namt = 0\nfor i in xrange(1, len(a)):\n    amt += abs(a[i] - a[i-1])\n    if a[i] - a[i-1]:\n        b[a[i]] += [a[i-1]]\n        b[a[i-1]] += [a[i]]\ndiff = 0\nfor bi in b:\n    if b[bi]:\n        center = sorted(b[bi])[len(b[bi])/2]\n        sum = 0\n        for page in b[bi]:\n            sum += abs(page - center) - abs(page - bi)\n        diff = min(diff, sum)\nprint amt + diff",
+    "prob_desc_created_at": "1400914800",
+    "tags": [
+        "implementation",
+        "sortings",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

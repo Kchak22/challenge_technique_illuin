@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"5\", \"14\"]",
+    "src_uid": "a20ca4b053ba71f6b2dc05749287e0a4",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Squirrel Liss loves nuts. There are n trees (numbered 1 to n from west to east) along a street and there is a delicious nut on the top of each tree. The height of the tree i is hi. Liss wants to eat all nuts.Now Liss is on the root of the tree with the number 1. In one second Liss can perform one of the following actions:  Walk up or down one unit on a tree.  Eat a nut on the top of the current tree.  Jump to the next tree. In this action the height of Liss doesn't change. More formally, when Liss is at height h of the tree i (1 ≤ i ≤ n - 1), she jumps to height h of the tree i + 1. This action can't be performed if h &gt; hi + 1. Compute the minimal time (in seconds) required to eat all nuts.",
+    "prob_desc_output_spec": "Print a single integer — the minimal time required to eat all nuts in seconds.",
+    "prob_desc_input_spec": "The first line contains an integer n (1  ≤  n ≤ 105) — the number of trees. Next n lines contains the height of trees: i-th line contains an integer hi (1 ≤ hi ≤ 104) — the height of the tree with the number i.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1000,
+    "file_name": "train_008.jsonl",
+    "code_uid": "c25471c8d92a9f37ffb209c1b454362d",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2\\n1\\n2\", \"5\\n2\\n1\\n2\\n1\\n1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "I=input\nn=I();r=2*n;p=0\nfor _ in[0]*n:i=I();r+=abs(p-i);p=i\nprint~-r\n\n",
+    "prob_desc_created_at": "1358686800",
+    "tags": [
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

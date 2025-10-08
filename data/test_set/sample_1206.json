@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1\\n3\\n9\\n0\"]",
+    "src_uid": "409073ef839a7d0cdb900c06ee4a841c",
+    "prob_desc_notes": "NoteIn the first case, just changing the direction of $$$(2,3)$$$ to D is enough.You can verify that the resulting belt is functional. For example, if we place any luggage at $$$(2,2)$$$, it first moves to $$$(3,2)$$$ and then to $$$(3,3)$$$. In the second case, we have no option but to change the first $$$3$$$ cells from D to R making the grid equal to RRRC.",
+    "prob_desc_description": "Consider a conveyor belt represented using a grid consisting of $$$n$$$ rows and $$$m$$$ columns. The cell in the $$$i$$$-th row from the top and the $$$j$$$-th column from the left is labelled $$$(i,j)$$$. Every cell, except $$$(n,m)$$$, has a direction R (Right) or D (Down) assigned to it. If the cell $$$(i,j)$$$ is assigned direction R, any luggage kept on that will move to the cell $$$(i,j+1)$$$. Similarly, if the cell $$$(i,j)$$$ is assigned direction D, any luggage kept on that will move to the cell $$$(i+1,j)$$$. If at any moment, the luggage moves out of the grid, it is considered to be lost. There is a counter at the cell $$$(n,m)$$$ from where all luggage is picked. A conveyor belt is called functional if and only if any luggage reaches the counter regardless of which cell it is placed in initially. More formally, for every cell $$$(i,j)$$$, any luggage placed in this cell should eventually end up in the cell $$$(n,m)$$$. This may not hold initially; you are, however, allowed to change the directions of some cells to make the conveyor belt functional. Please determine the minimum amount of cells you have to change.Please note that it is always possible to make any conveyor belt functional by changing the directions of some set of cells.",
+    "prob_desc_output_spec": "For each case, output in a new line the minimum number of cells that you have to change to make the conveyor belt functional. ",
+    "prob_desc_input_spec": "Each test contains multiple test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \\le t \\le 10$$$). Description of the test cases follows. The first line of each test case contains two integers $$$n, m$$$ ($$$1 \\le n \\le 100$$$, $$$1 \\le m \\le 100$$$)  — the number of rows and columns, respectively. The following $$$n$$$ lines each contain $$$m$$$ characters. The $$$j$$$-th character in the $$$i$$$-th line, $$$a_{i,j}$$$ is the initial direction of the cell $$$(i, j)$$$. Please note that $$$a_{n,m}=$$$ C.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_007.jsonl",
+    "code_uid": "767322da393f45c274e6459f25d54854",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n3 3\\nRRD\\nDDR\\nRRC\\n1 4\\nDDDC\\n6 9\\nRDDDDDRRR\\nRRDDRRDDD\\nRRDRDRRDR\\nDDDDRDDRR\\nDRRDRDDDR\\nDDRDRRDDC\\n1 1\\nC\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#input template\nfrom sys import stdin, stdout\nfrom collections import Counter, OrderedDict\nimport math\ncin = stdin.readline\ncout = stdout.write\nmp = lambda: list(map(int, cin().split()))\n\ndef chars(): #function for taking string input as character array since string in python is immutable\n    s = cin()\n    return(list(s[:len(s) - 1]))\n\n#print list\t\ndef pl(a):\t\n\tfor val in a:\n\t\tcout(str(val) + ' ')\n\tcout('\\n')\n\t\t\n#main\n\nt, = mp()\nfor _ in range(t):\n\tn, m = mp()\n\t\n\tf = cnt = 0\n\tfor i in range(n):\n\t\ts = chars()\n\t\tif i != n-1 and s[-1] == 'R':\n\t\t\tcnt += 1\n\t\telif i == n-1:\n\t\t\tcnt += s.count('D')\n\t\t\n\t\n\tcout(str(cnt) + '\\n')\n\t\t\t\t",
+    "prob_desc_created_at": "1596983700",
+    "tags": [
+        "implementation",
+        "greedy",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

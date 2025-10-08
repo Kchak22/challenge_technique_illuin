@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"2\\n3 2 1\\n6 5 4\", \"0\"]",
+    "src_uid": "551e66a4b3da71682652d84313adb8ab",
+    "prob_desc_notes": null,
+    "prob_desc_description": "As meticulous Gerald sets the table and caring Alexander sends the postcards, Sergey makes snowmen. Each showman should consist of three snowballs: a big one, a medium one and a small one. Sergey's twins help him: they've already made n snowballs with radii equal to r1, r2, ..., rn. To make a snowman, one needs any three snowballs whose radii are pairwise different. For example, the balls with radii 1, 2 and 3 can be used to make a snowman but 2, 2, 3 or 2, 2, 2 cannot. Help Sergey and his twins to determine what maximum number of snowmen they can make from those snowballs.",
+    "prob_desc_output_spec": "Print on the first line a single number k — the maximum number of the snowmen. Next k lines should contain the snowmen's descriptions. The description of each snowman should consist of three space-separated numbers — the big ball's radius, the medium ball's radius and the small ball's radius. It is allowed to print the snowmen in any order. If there are several solutions, print any of them.",
+    "prob_desc_input_spec": "The first line contains integer n (1 ≤ n ≤ 105) — the number of snowballs. The next line contains n integers — the balls' radii r1, r2, ..., rn (1 ≤ ri ≤ 109). The balls' radii can coincide.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_013.jsonl",
+    "code_uid": "eb9111368525bc3cabab880de47a10c5",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"7\\n1 2 3 4 5 6 7\", \"3\\n2 2 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\n\nd = {}\nn= int( sys.stdin.readline().strip('\\n\\r ') )\nnn=0\nspare=''\nfirst=True\nturnon=False\nstoks=['']\nwhile nn<n:\n  if len(stoks)==1:\n    stoks = (stoks[0] + sys.stdin.read(2048)).strip('\\n\\r').split(' ')\n  s = stoks.pop(0)\n  if len(s)==0: continue\n  j = int(s)\n  if j in d: d[j] += 1\n  else: d[j] = 1\n  nn += 1\n\nnd = len(d)\nif nd < 3:\n  print( 0 )\n  exit(0)\n\nall = [[0,0]]*(nd+1)\n\ni=0\nnmulti=0\nfor k in d:\n  all[i] = [d[k],k]\n  if all[i][0]>1: nmulti+=1\n  i+=1\n\nall.sort()\n\nnout = 0\nsnomen = [ [0,0,0] ]*((n+10)/3)\nlenall=len(all)\n\nwhile all[-3][0]>0:\n  if all[-3][0]>all[-4][0]:\n    nToAdd = all[-3][0] - all[-4][0]\n    i1, i2, i3, i4 = range(1,5)\n  else:\n    i3 = 4\n    i4 = lenall\n    plateau = all[-i3][0]\n    while i4>(i3+1):\n      mid = (i4+i3)/2\n      if all[-mid][0]==plateau: i3 = mid\n      else                    : i4 = mid\n    if all[-2][0]==all[-i3][0]: i2 = i3-1\n    else                      : i2 = 2\n    if all[-1][0]==all[-i2][0]: i1 = i2-1\n    else                      : i1 = 1\n    nToAdd = 1\n\n  snoman = [ all[-i1][1], all[-i2][1], all[-i3][1] ]\n  snoman.sort()\n  snomen[nout:nout+nToAdd] = [ snoman ]*nToAdd\n  for i in (i1,i2,i3): all[-i][0] -= nToAdd\n  nout += nToAdd\n    \n    \nprint( nout )\nfor i in range(nout):\n  print( '%d %d %d' %  (snomen[i][2], snomen[i][1], snomen[i][0],) )\n\n########################################################################\n",
+    "prob_desc_created_at": "1325689200",
+    "tags": [
+        "data structures",
+        "binary search",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"4\", \"11\", \"2\"]",
+    "src_uid": "b86a61e6b759b308656e888641f75776",
+    "prob_desc_notes": "NoteLet's list all the pairs of segments that Vasya could choose in the first example:  $$$[2, 2]$$$ and $$$[2, 5]$$$;  $$$[1, 2]$$$ and $$$[2, 4]$$$;  $$$[5, 5]$$$ and $$$[2, 5]$$$;  $$$[5, 6]$$$ and $$$[3, 5]$$$; ",
+    "prob_desc_description": "Vasya had three strings $$$a$$$, $$$b$$$ and $$$s$$$, which consist of lowercase English letters. The lengths of strings $$$a$$$ and $$$b$$$ are equal to $$$n$$$, the length of the string $$$s$$$ is equal to $$$m$$$. Vasya decided to choose a substring of the string $$$a$$$, then choose a substring of the string $$$b$$$ and concatenate them. Formally, he chooses a segment $$$[l_1, r_1]$$$ ($$$1 \\leq l_1 \\leq r_1 \\leq n$$$) and a segment $$$[l_2, r_2]$$$ ($$$1 \\leq l_2 \\leq r_2 \\leq n$$$), and after concatenation he obtains a string $$$a[l_1, r_1] + b[l_2, r_2] = a_{l_1} a_{l_1 + 1} \\ldots a_{r_1} b_{l_2} b_{l_2 + 1} \\ldots b_{r_2}$$$.Now, Vasya is interested in counting number of ways to choose those segments adhering to the following conditions:  segments $$$[l_1, r_1]$$$ and $$$[l_2, r_2]$$$ have non-empty intersection, i.e. there exists at least one integer $$$x$$$, such that $$$l_1 \\leq x \\leq r_1$$$ and $$$l_2 \\leq x \\leq r_2$$$;  the string $$$a[l_1, r_1] + b[l_2, r_2]$$$ is equal to the string $$$s$$$. ",
+    "prob_desc_output_spec": "Print one integer — the number of ways to choose a pair of segments, which satisfy Vasya's conditions.",
+    "prob_desc_input_spec": "The first line contains integers $$$n$$$ and $$$m$$$ ($$$1 \\leq n \\leq 500\\,000, 2 \\leq m \\leq 2 \\cdot n$$$) — the length of strings $$$a$$$ and $$$b$$$ and the length of the string $$$s$$$. The next three lines contain strings $$$a$$$, $$$b$$$ and $$$s$$$, respectively. The length of the strings $$$a$$$ and $$$b$$$ is $$$n$$$, while the length of the string $$$s$$$ is $$$m$$$. All strings consist of lowercase English letters.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2700,
+    "file_name": "train_008.jsonl",
+    "code_uid": "c3f005ad55302e52986dc15536091562",
+    "prob_desc_memory_limit": "512 megabytes",
+    "prob_desc_sample_inputs": "[\"6 5\\naabbaa\\nbaaaab\\naaaaa\", \"5 4\\nazaza\\nzazaz\\nazaz\", \"9 12\\nabcabcabc\\nxyzxyzxyz\\nabcabcayzxyz\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys, logging\nlogging.basicConfig(level=logging.INFO)\nlogging.disable(logging.INFO)\n\ndef build(S, n):\n    Z = [0 for i in range(3 * n + 3)]\n    #logging.info(S)\n    n = len(S)\n    L = 0\n    R = 0\n    Z[0] = n\n    for i in range(1, n):\n        if(i > R):\n            L = R = i\n            while(R < n and S[R] == S[R - L]):\n                R += 1\n            Z[i] = R - L\n            R -= 1\n        else:\n            k = i - L\n            if(Z[k] < R - i + 1):\n                Z[i] = Z[k]\n            else:\n                L = i\n                while(R < n and S[R] == S[R - L]):\n                    R += 1\n                Z[i] = R - L\n                R -= 1\n    return Z\n\ndef update1(n, x, val):\n    while(x <= n + 1):\n        bit1[x] += val\n        x += x & -x\n\ndef get1(n, x):\n    ans = 0\n    while(x > 0):\n        ans += bit1[x]\n        x -= x & -x\n    return ans\n\ndef update2(n, x, val):\n    while(x <= n + 1):\n        bit2[x] += val\n        x += x & -x\n\ndef get2(n, x):\n    ans = 0\n    while(x > 0):\n        ans += bit2[x]\n        x -= x & -x\n    return ans\n\ndef process(n, m, fa, fb):\n    r2 = int(1)\n    ans = 0\n    for l1 in range(1, n + 1):\n        while(r2 <= min(n, l1 + m - 2)):\n            update1(n, m - fb[r2] + 1, 1)\n            update2(n, m - fb[r2] + 1, fb[r2] - m + 1)\n            r2 += 1\n        ans += get1(n, fa[l1] + 1) * fa[l1] + get2(n, fa[l1] + 1)\n        update1(n, m - fb[l1] + 1, -1)\n        update2(n, m - fb[l1] + 1, m - 1 - fb[l1])\n    print(ans)\n\ndef main():\n    n, m = map(int, sys.stdin.readline().split())\n    a = sys.stdin.readline()\n    b = sys.stdin.readline()\n    s = sys.stdin.readline()\n    a = a[:(len(a) - 1)]\n    b = b[:(len(b) - 1)]\n    s = s[:(len(s) - 1)]\n    fa = build(s + a, n)\n    kb = build(s[::-1] + b[::-1], n)\n    fb = [0 for k in range(n + 2)]\n    for i in range(m, m + n):\n        fa[i - m + 1] = fa[i]\n        if(fa[i - m + 1] >= m):\n            fa[i - m + 1] = m - 1\n        fb[m + n - i] = kb[i]\n        if(fb[m + n - i] >= m):\n            fb[m + n - i] = m - 1\n    logging.info(fa[1:(n + 1)])\n    logging.info(fb[1:(n + 1)])\n    process(n, m, fa, fb)\n\nbit1 = [0 for i in range(500004)]\nbit2 = [0 for i in range(500004)]\n\nif __name__ == \"__main__\":\n    try:\n        sys.stdin = open('input.txt', 'r')\n        sys.stdout = open('output.txt', 'w')\n    except:\n        pass\n    main()",
+    "prob_desc_created_at": "1582448700",
+    "tags": [
+        "data structures",
+        "two pointers",
+        "hashing",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "4 seconds",
+    "prob_desc_sample_outputs": "[\"Lose Win Win Loop\\nLoop Win Win Win\", \"Win Win Win Win Win Win Win\\nLose Win Lose Lose Win Lose Lose\"]",
+    "src_uid": "7c6b04687b4e608be1fd7d04abb015ee",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Rick and Morty are playing their own version of Berzerk (which has nothing in common with the famous Berzerk game). This game needs a huge space, so they play it with a computer.In this game there are n objects numbered from 1 to n arranged in a circle (in clockwise order). Object number 1 is a black hole and the others are planets. There's a monster in one of the planet. Rick and Morty don't know on which one yet, only that he's not initially in the black hole, but Unity will inform them before the game starts. But for now, they want to be prepared for every possible scenario.  Each one of them has a set of numbers between 1 and n - 1 (inclusive). Rick's set is s1 with k1 elements and Morty's is s2 with k2 elements. One of them goes first and the player changes alternatively. In each player's turn, he should choose an arbitrary number like x from his set and the monster will move to his x-th next object from its current position (clockwise). If after his move the monster gets to the black hole he wins.Your task is that for each of monster's initial positions and who plays first determine if the starter wins, loses, or the game will stuck in an infinite loop. In case when player can lose or make game infinity, it more profitable to choose infinity game.",
+    "prob_desc_output_spec": "In the first line print n - 1 words separated by spaces where i-th word is \"Win\" (without quotations) if in the scenario that Rick plays first and monster is initially in object number i + 1 he wins, \"Lose\" if he loses and \"Loop\" if the game will never end. Similarly, in the second line print n - 1 words separated by spaces where i-th word is \"Win\" (without quotations) if in the scenario that Morty plays first and monster is initially in object number i + 1 he wins, \"Lose\" if he loses and \"Loop\" if the game will never end.",
+    "prob_desc_input_spec": "The first line of input contains a single integer n (2 ≤ n ≤ 7000) — number of objects in game. The second line contains integer k1 followed by k1 distinct integers s1, 1, s1, 2, ..., s1, k1 — Rick's set. The third line contains integer k2 followed by k2 distinct integers s2, 1, s2, 2, ..., s2, k2 — Morty's set 1 ≤ ki ≤ n - 1 and 1 ≤ si, 1, si, 2, ..., si, ki ≤ n - 1 for 1 ≤ i ≤ 2.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_010.jsonl",
+    "code_uid": "9ba2f72823c716184674b48e2f5e3236",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n2 3 2\\n3 1 2 3\", \"8\\n4 6 2 3 4\\n2 3 6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#!/usr/bin/env python3\nfrom __future__ import absolute_import\nfrom sys import stdin,stdout\nfrom itertools import imap\n\n\ndef ri():\n    return imap(int, raw_input().split())\n\nn = int(raw_input())\na = list(ri())\nb = list(ri())\na = a[1:]\nb = b[1:]\n\nT = [[-1 for i in xrange(2)] for j in xrange(n)]\nT[0][0] = 1\nT[0][1] = 0\n\nfor j in xrange(10**9):\n    c = 0\n    for i in xrange(n-1, -1, -1):\n        #T[i][0]\n        flag = 0\n        for k in a:\n            ii = (i+k)%n\n            if ii == 0 or T[ii][1] == 0:\n                if T[i][0] !=0:\n                    c = 1\n                T[i][0] = 0\n                break\n            if T[ii][1] != 1:\n                flag = 1\n        else:\n            if flag == 0:\n                if T[i][0] !=1:\n                    c = 1\n                T[i][0] = 1\n        flag = 0\n        for k in b:\n            ii = (i+k)%n\n            if ii == 0 or T[ii][0] == 1:\n                if T[i][1] !=1:\n                    c = 1\n                T[i][1] = 1\n                break\n            if T[ii][0] != 0:\n                flag = 1\n        else:\n            if flag == 0:\n                if T[i][1] !=0:\n                    c = 1\n                T[i][1] = 0\n    if c == 0:\n        break\n\n\n\n\nansa = [u\"Win\", u\"Lose\", u\"Loop\"]\nansb = [u\"Lose\", u\"Win\", u\"Loop\"]\naa = [ansa[T[i][0]] for i in xrange(1, n)]\nbb = [ansb[T[i][1]] for i in xrange(1, n)]\n\nprint u\" \".join(aa)\nprint u\" \".join(bb)\n",
+    "prob_desc_created_at": "1490281500",
+    "tags": [
+        "dp",
+        "games"
+    ],
+    "hidden_unit_tests": ""
+}

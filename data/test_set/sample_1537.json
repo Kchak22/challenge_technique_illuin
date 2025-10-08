@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"NO\\nYES\\nNO\\nYES\\nYES\", \"NO\\nYES\\nNO\\nYES\"]",
+    "src_uid": "7c778289806ceed506543ef816c587c9",
+    "prob_desc_notes": "NoteIn the first sample, Limak has 4 friends who all sleep initially. At first, the system displays nobody because nobody is online. There are the following 8 queries:  \"1 3\" — Friend 3 becomes online.  \"2 4\" — We should check if friend 4 is displayed. He isn't even online and thus we print \"NO\".  \"2 3\" — We should check if friend 3 is displayed. Right now he is the only friend online and the system displays him. We should print \"YES\".  \"1 1\" — Friend 1 becomes online. The system now displays both friend 1 and friend 3.  \"1 2\" — Friend 2 becomes online. There are 3 friends online now but we were given k = 2 so only two friends can be displayed. Limak has worse relation with friend 1 than with other two online friends (t1 &lt; t2, t3) so friend 1 won't be displayed  \"2 1\" — Print \"NO\".  \"2 2\" — Print \"YES\".  \"2 3\" — Print \"YES\". ",
+    "prob_desc_description": "Limak is a little polar bear. He loves connecting with other bears via social networks. He has n friends and his relation with the i-th of them is described by a unique integer ti. The bigger this value is, the better the friendship is. No two friends have the same value ti.Spring is starting and the Winter sleep is over for bears. Limak has just woken up and logged in. All his friends still sleep and thus none of them is online. Some (maybe all) of them will appear online in the next hours, one at a time.The system displays friends who are online. On the screen there is space to display at most k friends. If there are more than k friends online then the system displays only k best of them — those with biggest ti.Your task is to handle queries of two types:  \"1 id\" — Friend id becomes online. It's guaranteed that he wasn't online before.  \"2 id\" — Check whether friend id is displayed by the system. Print \"YES\" or \"NO\" in a separate line. Are you able to help Limak and answer all queries of the second type?",
+    "prob_desc_output_spec": "For each query of the second type print one line with the answer — \"YES\" (without quotes) if the given friend is displayed and \"NO\" (without quotes) otherwise.",
+    "prob_desc_input_spec": "The first line contains three integers n, k and q (1 ≤ n, q ≤ 150 000, 1 ≤ k ≤ min(6, n)) — the number of friends, the maximum number of displayed online friends and the number of queries, respectively. The second line contains n integers t1, t2, ..., tn (1 ≤ ti ≤ 109) where ti describes how good is Limak's relation with the i-th friend. The i-th of the following q lines contains two integers typei and idi (1 ≤ typei ≤ 2, 1 ≤ idi ≤ n) — the i-th query. If typei = 1 then a friend idi becomes online. If typei = 2 then you should check whether a friend idi is displayed. It's guaranteed that no two queries of the first type will have the same idi becuase one friend can't become online twice. Also, it's guaranteed that at least one query will be of the second type (typei = 2) so the output won't be empty.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_010.jsonl",
+    "code_uid": "67f130680eb2955f802f578f4c220487",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 2 8\\n300 950 500 200\\n1 3\\n2 4\\n2 3\\n1 1\\n1 2\\n2 1\\n2 2\\n2 3\", \"6 3 9\\n50 20 51 17 99 24\\n1 3\\n1 4\\n1 5\\n1 2\\n2 4\\n2 2\\n1 1\\n2 4\\n2 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from  sys import stdin,stdout\nn,k,q=map(int,input().split())\nz=[0]+list(map(int,stdin.readline().split()))\np=[]\nans=\"\"\nfor i in range(q):\n    u,v=map(int,stdin.readline().split())\n    if (u==1):\n        p+=[v]\n        if (len(p)>k):\n            r=10000000000000000000;f=0\n            for j in range(len(p)):\n                if (z[p[j]]<r):r=z[p[j]];f=p[j]\n            p.remove(f)\n    else:\n        if v in p:ans+=\"YES\"+\" \"\n        else:ans+=\"NO\"+\" \"\nstdout.write(ans)",
+    "prob_desc_created_at": "1459182900",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

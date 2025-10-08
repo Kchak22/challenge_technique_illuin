@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"9 42\", \"6 6\"]",
+    "src_uid": "385cf3c40c96f0879788b766eeb25139",
+    "prob_desc_notes": "NoteIn the first sample test, there will be 9 blocks if you choose X = 23 or X = 42. Limak wants to maximize X secondarily so you should choose 42.In more detail, after choosing X = 42 the process of building a tower is:  Limak takes a block with side 3 because it's the biggest block with volume not greater than 42. The remaining volume is 42 - 27 = 15.  The second added block has side 2, so the remaining volume is 15 - 8 = 7.  Finally, Limak adds 7 blocks with side 1, one by one. So, there are 9 blocks in the tower. The total volume is is 33 + 23 + 7·13 = 27 + 8 + 7 = 42.",
+    "prob_desc_description": "Limak is a little polar bear. He plays by building towers from blocks. Every block is a cube with positive integer length of side. Limak has infinitely many blocks of each side length.A block with side a has volume a3. A tower consisting of blocks with sides a1, a2, ..., ak has the total volume a13 + a23 + ... + ak3.Limak is going to build a tower. First, he asks you to tell him a positive integer X — the required total volume of the tower. Then, Limak adds new blocks greedily, one by one. Each time he adds the biggest block such that the total volume doesn't exceed X.Limak asks you to choose X not greater than m. Also, he wants to maximize the number of blocks in the tower at the end (however, he still behaves greedily). Secondarily, he wants to maximize X.Can you help Limak? Find the maximum number of blocks his tower can have and the maximum X ≤ m that results this number of blocks.",
+    "prob_desc_output_spec": "Print two integers — the maximum number of blocks in the tower and the maximum required total volume X, resulting in the maximum number of blocks.",
+    "prob_desc_input_spec": "The only line of the input contains one integer m (1 ≤ m ≤ 1015), meaning that Limak wants you to choose X between 1 and m, inclusive.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_007.jsonl",
+    "code_uid": "6d25b0dddee2d0ac05b5deff237fb58c",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"48\", \"6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "MAX = 100005\n\ndef big_pow3(n):\n    l = 0; p = MAX\n    while p-l != 1:\n        mid = (p+l+1)//2\n        if (mid*mid*mid <= n):\n            l = mid\n        else:\n            p = mid\n    return l\n\ndef f(n):\n    if n < 8:\n        return [n, n]\n    a = int((n+ 0.5) ** 0.33333333333333333)\n    r1 = f(n-a**3)\n    r1 = [r1[0] + 1, r1[1] + a**3]\n    a -= 1\n    r2 = f(3*a*(a+1))\n    r2 = [r2[0] + 1, r2[1] + a**3]\n    return max(r1, r2)\n        \n\nif __name__ == \"__main__\":\n    m = int(input()) \n    print(*f(m))\n",
+    "prob_desc_created_at": "1465403700",
+    "tags": [
+        "dp",
+        "binary search",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

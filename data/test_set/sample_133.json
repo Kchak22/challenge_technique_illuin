@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"hello\", \"woow\"]",
+    "src_uid": "31d803d886c47fe681bdcfbe6c74f090",
+    "prob_desc_notes": "NoteThe second valid answer to the test from the statement is \"heloo\".",
+    "prob_desc_description": "Many modern text editors automatically check the spelling of the user's text. Some editors even suggest how to correct typos.In this problem your task to implement a small functionality to correct two types of typos in a word. We will assume that three identical letters together is a typo (for example, word \"helllo\" contains a typo). Besides, a couple of identical letters immediately followed by another couple of identical letters is a typo too (for example, words \"helloo\" and \"wwaatt\" contain typos).Write a code that deletes the minimum number of letters from a word, correcting described typos in the word. You are allowed to delete letters from both ends and from the middle of the word.",
+    "prob_desc_output_spec": "Print such word t that it doesn't contain any typos described in the problem statement and is obtained from s by deleting the least number of letters. If there are multiple solutions, print any of them.",
+    "prob_desc_input_spec": "The single line of the input contains word s, its length is from 1 to 200000 characters. The given word s consists of lowercase English letters.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_000.jsonl",
+    "code_uid": "dd7b26219ace11b51b9320a8f280da8c",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"helloo\", \"woooooow\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "\"Template made by : https://codeforces.com/profile/c1729 , github repo : https://github.com/cheran-senthil/PyRival\"\nfrom __future__ import division, print_function\nimport bisect\nimport math\nimport itertools\nimport sys\nfrom atexit import register\n\nif sys.version_info[0] < 3:\n    from io import BytesIO as stream\nelse:\n    from io import StringIO as stream\n\n\nif sys.version_info[0] < 3:\n    class dict(dict):\n        \"\"\"dict() -> new empty dictionary\"\"\"\n        def items(self):\n            \"\"\"D.items() -> a set-like object providing a view on D's items\"\"\"\n            return dict.iteritems(self)\n\n        def keys(self):\n            \"\"\"D.keys() -> a set-like object providing a view on D's keys\"\"\"\n            return dict.iterkeys(self)\n\n        def values(self):\n            \"\"\"D.values() -> an object providing a view on D's values\"\"\"\n            return dict.itervalues(self)\n\n    input = raw_input\n    range = xrange\n\n    filter = itertools.ifilter\n    map = itertools.imap\n    zip = itertools.izip\n\n\ndef sync_with_stdio(sync=True):\n    \"\"\"Set whether the standard Python streams are allowed to buffer their I/O.\n\n    Args:\n        sync (bool, optional): The new synchronization setting.\n\n    \"\"\"\n    global input, flush\n\n    if sync:\n        flush = sys.stdout.flush\n    else:\n        sys.stdin = stream(sys.stdin.read())\n        input = lambda: sys.stdin.readline().rstrip('\\r\\n')\n\n        sys.stdout = stream()\n        register(lambda: sys.__stdout__.write(sys.stdout.getvalue()))\n\ndef main():\n    s=input()\n    x=0\n    l1=[]\n    c=0\n    for i in range(0,len(s)):\n        if i==0:\n            l1.append(s[i])\n            c=1\n            f=s[0]\n        else :\n            if c<2:\n                l1.append(s[i])\n                if s[i]==f:\n                    c+=1\n                else :\n                    f=s[i]\n                    c=1\n            else :\n                if s[i]==f:\n                    c+=1\n                else :\n                    l1.append(s[i])\n                    f=s[i]\n                    c=1\n    c=0\n    flag=0\n    l2=[]\n    for i in range(0,len(l1)):\n        if flag==0:\n            l2.append(l1[i])\n            if c==0:\n                c=1\n                f=l1[i]\n            elif l1[i]==f:\n                c=2\n                flag=1\n            else :\n                c=1\n                f=l1[i]\n        else :\n            if c==2:\n                x=l1[i]\n                c-=1\n                l2.append(l1[i])\n            else :\n                if l1[i]==x:\n                    c=0\n                    flag=0\n                else :\n                    l2.append(l1[i])\n                    f=l1[i]\n                    c=1\n                    flag=0\n    print(''.join(l2))\n                        \n                \n                \n            \nif __name__ == '__main__':\n    sync_with_stdio(False)\n    main()",
+    "prob_desc_created_at": "1384156800",
+    "tags": [
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

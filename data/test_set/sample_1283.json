@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"3\\n0 1\\n1 2\\n2 0\", \"4\\n0 3\\n2 1\\n3 0\\n4 2\"]",
+    "src_uid": "0e99f4a49b408cc8874a6d5ec4167acb",
+    "prob_desc_notes": "NoteConsider the first sample. The distance between points (0, 1) and (1, 2) equals , between (0, 1) and (2, 0) — , between (1, 2) and (2, 0) — . Thus, these points form a beautiful set. You cannot form a beautiful set with more than three points out of the given points. Note that this is not the only solution.",
+    "prob_desc_description": "Manao has invented a new mathematical term — a beautiful set of points. He calls a set of points on a plane beautiful if it meets the following conditions:  The coordinates of each point in the set are integers.  For any two points from the set, the distance between them is a non-integer. Consider all points (x, y) which satisfy the inequations: 0 ≤ x ≤ n; 0 ≤ y ≤ m; x + y &gt; 0. Choose their subset of maximum size such that it is also a beautiful set of points.",
+    "prob_desc_output_spec": "In the first line print a single integer — the size k of the found beautiful set. In each of the next k lines print a pair of space-separated integers — the x- and y- coordinates, respectively, of a point from the set. If there are several optimal solutions, you may print any of them.",
+    "prob_desc_input_spec": "The single line contains two space-separated integers n and m (1 ≤ n, m ≤ 100).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_007.jsonl",
+    "code_uid": "5743c5fd8d5f80246a6980b3a3f964ec",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2 2\", \"4 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "in_ = list(map(int,input().split()))\nn, m = in_[0], in_[1]\n\n\n\n#[[x_1,y_1],[x_2,y_2]] input\ndef perf_sq(list_):\n    dist_ = ((list_[0][0] - list_[1][0])**2 + (list_[0][1] - list_[1][1])**2)**(0.5)\n    return int(dist_) == dist_\n\n\n'''\npoints_ = [[i,j] for i in range(n+1) for j in range(m+1)]\n\ndist_ = list()\nfor i in range(n+m+2):\n    temp_list = list()\n    for j in range(n+m+2):\n        if j!= i :\n            temp_list.append(perf_sq([points_[i],points_[j]]))\n        else:\n            temp_list.append(False)\n    dist_.append(temp_list)\n'''\n\n\nx_true = n <= m\ncount_ = 1\nif x_true :\n    ans_ = [[n,0]]\n    count_  = 1\n    for i in range(n):\n        ans_.append([ans_[-1][0] -1,ans_[-1][1]+1])\n        count_ +=1\nelse:\n    ans_ = [[0,m]]\n    count_ = 1\n    for i in range(m):\n        ans_.append([ans_[-1][0] +1,ans_[-1][1]-1])\n        count_+=1\n\n\n\nprint(count_)\nfor i in range(count_):\n    print(str(ans_[i][0]) + ' ' + str(ans_[i][1]))\n",
+    "prob_desc_created_at": "1359387000",
+    "tags": [
+        "constructive algorithms",
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

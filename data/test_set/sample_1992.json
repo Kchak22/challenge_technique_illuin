@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"abc\", \"abdc\"]",
+    "src_uid": "e758ae072b8aed53038e4593a720276d",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Petya recieved a gift of a string s with length up to 105 characters for his birthday. He took two more empty strings t and u and decided to play a game. This game has two possible moves:  Extract the first character of s and append t with this character.  Extract the last character of t and append u with this character. Petya wants to get strings s and t empty and string u lexicographically minimal.You should write a program that will help Petya win the game.",
+    "prob_desc_output_spec": "Print resulting string u.",
+    "prob_desc_input_spec": "First line contains non-empty string s (1 ≤ |s| ≤ 105), consisting of lowercase English letters.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_015.jsonl",
+    "code_uid": "8bde194f031c0f296fa6a89cf3f64bbf",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"cab\", \"acdb\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#! /bin/python\n\ns = input()\nresultBase = \"\"\nresultRest = \"\"\nbest = len(s) - 1\nmini = [0] * len(s)\n\nfor i in range(len(s) - 1, -1, -1):\n    mini[i] = best\n    if s[best] >= s[i]:\n        best = i\n\nfor i in range(len(s)):\n    resultRest += s[i]\n    while len(resultRest) > 0 and resultRest[-1] <= s[mini[i]]:\n        resultBase += resultRest[-1]\n        resultRest = resultRest[:-1]\n    \n    #  print(resultRest[-1] if len(resultRest) > 0 else '-', s[mini[i]])\n    #  print(resultRest)\n    #  print(resultBase)\n    #  print()\n    \n\nprint(resultBase + resultRest[::-1])\n",
+    "prob_desc_created_at": "1492266900",
+    "tags": [
+        "data structures",
+        "greedy",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

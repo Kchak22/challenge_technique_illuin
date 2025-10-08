@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"9\", \"7\"]",
+    "src_uid": "4671380d70876044e0ec7a9cab5e25ae",
+    "prob_desc_notes": "NoteIn the first example, Sonya can give pairs ($$$1$$$, $$$1$$$), ($$$1$$$, $$$3$$$), ($$$1$$$, $$$4$$$), ($$$1$$$, $$$5$$$), ($$$4$$$, $$$1$$$), ($$$4$$$, $$$3$$$), ($$$5$$$, $$$1$$$), ($$$5$$$, $$$3$$$), and ($$$5$$$, $$$4$$$).In the second example, Sonya can give pairs ($$$1$$$, $$$1$$$), ($$$1$$$, $$$2$$$), ($$$1$$$, $$$3$$$), ($$$2$$$, $$$1$$$), ($$$2$$$, $$$2$$$), ($$$2$$$, $$$3$$$), and ($$$3$$$, $$$2$$$).",
+    "prob_desc_description": "Since Sonya is interested in robotics too, she decided to construct robots that will read and recognize numbers.Sonya has drawn $$$n$$$ numbers in a row, $$$a_i$$$ is located in the $$$i$$$-th position. She also has put a robot at each end of the row (to the left of the first number and to the right of the last number). Sonya will give a number to each robot (they can be either same or different) and run them. When a robot is running, it is moving toward to another robot, reading numbers in the row. When a robot is reading a number that is equal to the number that was given to that robot, it will turn off and stay in the same position.Sonya does not want robots to break, so she will give such numbers that robots will stop before they meet. That is, the girl wants them to stop at different positions so that the first robot is to the left of the second one.For example, if the numbers $$$[1, 5, 4, 1, 3]$$$ are written, and Sonya gives the number $$$1$$$ to the first robot and the number $$$4$$$ to the second one, the first robot will stop in the $$$1$$$-st position while the second one in the $$$3$$$-rd position. In that case, robots will not meet each other. As a result, robots will not be broken. But if Sonya gives the number $$$4$$$ to the first robot and the number $$$5$$$ to the second one, they will meet since the first robot will stop in the $$$3$$$-rd position while the second one is in the $$$2$$$-nd position.Sonya understands that it does not make sense to give a number that is not written in the row because a robot will not find this number and will meet the other robot.Sonya is now interested in finding the number of different pairs that she can give to robots so that they will not meet. In other words, she wants to know the number of pairs ($$$p$$$, $$$q$$$), where she will give $$$p$$$ to the first robot and $$$q$$$ to the second one. Pairs ($$$p_i$$$, $$$q_i$$$) and ($$$p_j$$$, $$$q_j$$$) are different if $$$p_i\\neq p_j$$$ or $$$q_i\\neq q_j$$$.Unfortunately, Sonya is busy fixing robots that broke after a failed launch. That is why she is asking you to find the number of pairs that she can give to robots so that they will not meet.",
+    "prob_desc_output_spec": "Print one number — the number of possible pairs that Sonya can give to robots so that they will not meet.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$1\\leq n\\leq 10^5$$$) — the number of numbers in a row. The second line contains $$$n$$$ integers $$$a_1, a_2, \\ldots, a_n$$$ ($$$1\\leq a_i\\leq 10^5$$$) — the numbers in a row.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_000.jsonl",
+    "code_uid": "7167ff943a169be46202be010a5465ff",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1 5 4 1 3\", \"7\\n1 2 1 1 1 3 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "cnt = int(input())\ndata = [int(x) for x in input().split()]\n#data = [13036,23902,71466,9482,98728,78471,22915,2470,5999,53211,25994,3996,11349,30511,56448,17277,78308,18316,42069,38636,63127,26256,63985,57249,58305,64366,17839,28518,18980,95945,36316,6076,69530,96509,6940,6039,56048,41847,82118,41054,49670,95896,45891,74636,90736,75413,27251,87730,68344,66202,71879,51666,8985,42722,49000,43845,44614,4961,64751,97655,79361,80091,12747,20934,9188,74058,93662,8454,79516,91323,42656,33567,44392,58833,93051,86157,10398,79297,33197,13472,59847,34005,84201,20634,9790,71913]\n#data = [1, 3, 5, 7, 3, 10,7,4]\n#print(data)\ntotalSolutions = 0\ntset1 = set([data[-1]])\ndata2 = []\naug = data[:]\naug[-1] = 1\nfor x in range(-2,-len(data)-1,-1):\n    if data[x] not in tset1:\n        tset1.add(data[x])\n        aug[x] = aug[x+1] +1\n    else:\n        aug[x] = aug[x+1]\n\n#print(aug)\ns = set(data[:])\ntset2 = set([])\nfor i in range(0,len(data)):\n    if (data[i] not in tset2):\n        if (i < len(data)-1):\n            totalSolutions += aug[i+1]\n            tset2.add(data[i])\n            #print(i,aug[j+1])\n\nprint(totalSolutions)",
+    "prob_desc_created_at": "1530808500",
+    "tags": [
+        "constructive algorithms",
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

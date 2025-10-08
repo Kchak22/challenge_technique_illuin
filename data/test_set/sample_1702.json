@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\\n([])\", \"0\"]",
+    "src_uid": "5ce8de80c6953cd1e6e6eefd9ad35f7e",
+    "prob_desc_notes": null,
+    "prob_desc_description": "A bracket sequence is a string, containing only characters \"(\", \")\", \"[\" and \"]\".A correct bracket sequence is a bracket sequence that can be transformed into a correct arithmetic expression by inserting characters \"1\" and \"+\" between the original characters of the sequence. For example, bracket sequences \"()[]\", \"([])\" are correct (the resulting expressions are: \"(1)+[1]\", \"([1+1]+1)\"), and \"](\" and \"[\" are not. The empty string is a correct bracket sequence by definition.A substring s[l... r] (1 ≤ l ≤ r ≤ |s|) of string s = s1s2... s|s| (where |s| is the length of string s) is the string slsl + 1... sr. The empty string is a substring of any string by definition.You are given a bracket sequence, not necessarily correct. Find its substring which is a correct bracket sequence and contains as many opening square brackets «[» as possible.",
+    "prob_desc_output_spec": "In the first line print a single integer — the number of brackets «[» in the required bracket sequence. In the second line print the optimal sequence. If there are more than one optimal solutions print any of them.",
+    "prob_desc_input_spec": "The first and the only line contains the bracket sequence as a string, consisting only of characters \"(\", \")\", \"[\" and \"]\". It is guaranteed that the string is non-empty and its length doesn't exceed 105 characters.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_012.jsonl",
+    "code_uid": "8ec971acaec22e29fc99a403256a0734",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"([])\", \"(((\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "s=raw_input()\nn=len(s)\nsta, top, match, ans,start, end=[0]*(n+1),1,[-1]*n, 0,0,-1\nsta[0] = (0,'x')\nfor i, c in enumerate(s):\n    if c == '(' or c == '[':\n        sta[top] = (i, c); top += 1\n    else:\n        if (c == ')' and sta[top-1][1] == '(') or(c == ']' and sta[top-1][1] == '['):\n            top -= 1; match[sta[top][0]] = i\n        else: top = 1\n\ni = 0\nwhile i < n:\n    if match[i] != -1:\n        j, k = i, match[i]\n        while 1:\n            if match[j] + 1 >= n or match[match[j] + 1] == -1: break\n            j = match[j] + 1\n            if match[j] > k: k = match[j]\n        cnt = 0\n        for j in range(i, k):\n            if s[j] == '[': cnt += 1\n        if ans < cnt:\n            ans, start, end = cnt, i, k\n        i = k + 2\n    else: i += 1\nprint ans\nif start < end:\n    print s[start:end+1]\n\n\n",
+    "prob_desc_created_at": "1347809400",
+    "tags": [
+        "data structures"
+    ],
+    "hidden_unit_tests": ""
+}

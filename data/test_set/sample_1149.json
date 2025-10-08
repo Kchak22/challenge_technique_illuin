@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"121\", \"0\"]",
+    "src_uid": "0ed34310c59e3946b1c55b2618218120",
+    "prob_desc_notes": "NotePicture corresponding to the first example: You can choose the vertex $$$3$$$ as a root, then the answer will be $$$2 \\cdot 9 + 1 \\cdot 4 + 0 \\cdot 1 + 3 \\cdot 7 + 3 \\cdot 10 + 4 \\cdot 1 + 4 \\cdot 6 + 4 \\cdot 5 = 18 + 4 + 0 + 21 + 30 + 4 + 24 + 20 = 121$$$.In the second example tree consists only of one vertex so the answer is always $$$0$$$.",
+    "prob_desc_description": "You are given a tree consisting exactly of $$$n$$$ vertices. Tree is a connected undirected graph with $$$n-1$$$ edges. Each vertex $$$v$$$ of this tree has a value $$$a_v$$$ assigned to it.Let $$$dist(x, y)$$$ be the distance between the vertices $$$x$$$ and $$$y$$$. The distance between the vertices is the number of edges on the simple path between them.Let's define the cost of the tree as the following value: firstly, let's fix some vertex of the tree. Let it be $$$v$$$. Then the cost of the tree is $$$\\sum\\limits_{i = 1}^{n} dist(i, v) \\cdot a_i$$$.Your task is to calculate the maximum possible cost of the tree if you can choose $$$v$$$ arbitrarily.",
+    "prob_desc_output_spec": "Print one integer — the maximum possible cost of the tree if you can choose any vertex as $$$v$$$.",
+    "prob_desc_input_spec": "The first line contains one integer $$$n$$$, the number of vertices in the tree ($$$1 \\le n \\le 2 \\cdot 10^5$$$). The second line of the input contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 2 \\cdot 10^5$$$), where $$$a_i$$$ is the value of the vertex $$$i$$$. Each of the next $$$n - 1$$$ lines describes an edge of the tree. Edge $$$i$$$ is denoted by two integers $$$u_i$$$ and $$$v_i$$$, the labels of vertices it connects ($$$1 \\le u_i, v_i \\le n$$$, $$$u_i \\ne v_i$$$). It is guaranteed that the given edges form a tree.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_006.jsonl",
+    "code_uid": "ad526519ee7dd2c5c078d828963b8442",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"8\\n9 4 1 7 10 1 6 5\\n1 2\\n2 3\\n1 4\\n1 5\\n5 6\\n5 7\\n5 8\", \"1\\n1337\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys,math\nfrom collections import defaultdict\nfrom io import BytesIO\n\nsys.stdin = BytesIO(sys.stdin.read())\nsys.setrecursionlimit(200200)\ninput = lambda: sys.stdin.readline().rstrip('\\r\\n')\nn = int(input())\narr = [0] + [int(x) for x in input().split(' ')]\ncnts = [0] * (n+1)\nsv = set()\n\ndn = defaultdict(set)\nfor _ in range(n-1):\n    s,f = map(int, input().split(' '))\n    dn[s].add(f)\n    dn[f].add(s)\n\nvisited = [False for i in range(n+1)]\ncost = [arr[i] for i in range(n+1)]\nparent = [0 for i in range(n+1)]\nval = 0\n\ndef dfs(s, depth):\n    global val\n    stack = [(s,depth)]\n    while stack:\n        s, depth = stack[-1]\n        if visited[s]:\n            stack.pop()\n            cost[parent[s]]+=cost[s]\n            continue\n        else:    \n            visited[s] = True\n            val += depth * arr[s]\n        for i in dn[s]:\n            if not visited[i]:   \n                parent[i] = s\n                stack.append((i, depth+1))\n\ndfs(1, 0)\n\nmax_cost = val\nvisited = [False for i in range(n+1)]\ncost[0] = sum(arr)\ndef trav(s, some_val):\n    global max_cost\n    stack = [(s,some_val)]\n    while stack:\n        s, some_val = stack.pop()\n        visited[s] = True\n        if some_val>max_cost:\n            max_cost = some_val\n\n        for i in dn[s]:\n            if not visited[i]:\n                stack.append((i, some_val+(cost[0]-cost[i])-cost[i] ))\n\n\ntrav(1, val)\nprint(max_cost)\n\n\n",
+    "prob_desc_created_at": "1545143700",
+    "tags": [
+        "dp",
+        "dfs and similar",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

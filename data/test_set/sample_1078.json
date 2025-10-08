@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"21\\n3 5\", \"12\\n1 3 5\", \"0\\n1\"]",
+    "src_uid": "e9cf68a68b55fe075099c384cb6a7e9e",
+    "prob_desc_notes": "NoteIn the first example, one of the optimal partitions is $$$[5, 2, 5]$$$, $$$[2, 4]$$$, $$$[1, 1, 3, 2]$$$.  The beauty of the subarray $$$[5, 2, 5]$$$ is $$$5 + 5 = 10$$$.  The beauty of the subarray $$$[2, 4]$$$ is $$$2 + 4 = 6$$$.  The beauty of the subarray $$$[1, 1, 3, 2]$$$ is $$$3 + 2 = 5$$$. The sum of their beauties is $$$10 + 6 + 5 = 21$$$.In the second example, one optimal partition is $$$[4]$$$, $$$[1, 3]$$$, $$$[2, 2]$$$, $$$[3]$$$.",
+    "prob_desc_description": "An array $$$b$$$ is called to be a subarray of $$$a$$$ if it forms a continuous subsequence of $$$a$$$, that is, if it is equal to $$$a_l$$$, $$$a_{l + 1}$$$, $$$\\ldots$$$, $$$a_r$$$ for some $$$l, r$$$.Suppose $$$m$$$ is some known constant. For any array, having $$$m$$$ or more elements, let's define it's beauty as the sum of $$$m$$$ largest elements of that array. For example:   For array $$$x = [4, 3, 1, 5, 2]$$$ and $$$m = 3$$$, the $$$3$$$ largest elements of $$$x$$$ are $$$5$$$, $$$4$$$ and $$$3$$$, so the beauty of $$$x$$$ is $$$5 + 4 + 3 = 12$$$. For array $$$x = [10, 10, 10]$$$ and $$$m = 2$$$, the beauty of $$$x$$$ is $$$10 + 10 = 20$$$.You are given an array $$$a_1, a_2, \\ldots, a_n$$$, the value of the said constant $$$m$$$ and an integer $$$k$$$. Your need to split the array $$$a$$$ into exactly $$$k$$$ subarrays such that:  Each element from $$$a$$$ belongs to exactly one subarray. Each subarray has at least $$$m$$$ elements. The sum of all beauties of $$$k$$$ subarrays is maximum possible.",
+    "prob_desc_output_spec": "In the first line, print the maximum possible sum of the beauties of the subarrays in the optimal partition. In the second line, print $$$k-1$$$ integers $$$p_1, p_2, \\ldots, p_{k-1}$$$ ($$$1 \\le p_1 &lt; p_2 &lt; \\ldots &lt; p_{k-1} &lt; n$$$) representing the partition of the array, in which:  All elements with indices from $$$1$$$ to $$$p_1$$$ belong to the first subarray. All elements with indices from $$$p_1 + 1$$$ to $$$p_2$$$ belong to the second subarray. $$$\\ldots$$$. All elements with indices from $$$p_{k-1} + 1$$$ to $$$n$$$ belong to the last, $$$k$$$-th subarray. If there are several optimal partitions, print any of them.",
+    "prob_desc_input_spec": "The first line contains three integers $$$n$$$, $$$m$$$ and $$$k$$$ ($$$2 \\le n \\le 2 \\cdot 10^5$$$, $$$1 \\le m$$$, $$$2 \\le k$$$, $$$m \\cdot k \\le n$$$) — the number of elements in $$$a$$$, the constant $$$m$$$ in the definition of beauty and the number of subarrays to split to. The second line contains $$$n$$$ integers $$$a_1, a_2, \\ldots, a_n$$$ ($$$-10^9 \\le a_i \\le 10^9$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_006.jsonl",
+    "code_uid": "08f8949f6268649896407f4517e3b388",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"9 2 3\\n5 2 5 2 4 1 1 3 2\", \"6 1 4\\n4 1 3 2 2 3\", \"2 1 2\\n-1000000000 1000000000\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "l=input().split()\nn=int(l[0])\nm=int(l[1])\nk=int(l[2])\nl=input().split()\nli=[int(i) for i in l]\nlfi=[]\nfor i in range(n):\n    lfi.append((int(l[i]),i))\nlfi.sort()\nlfi.reverse()\nhashi=dict()\nsummax=0\nfor i in range(m*k):\n    summax+=lfi[i][0]\n    hashi[lfi[i][1]]=1\nlpart=[]\ntillnow=0\nfor i in range(n):\n    if i in hashi:\n        tillnow+=1\n    if(tillnow==m):\n        lpart.append(i)\n        tillnow=0\nprint(summax)\nfor i in range(k-1):\n    print(lpart[i]+1,end=\" \")\nprint()\n",
+    "prob_desc_created_at": "1549807500",
+    "tags": [
+        "constructive algorithms",
+        "sortings",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

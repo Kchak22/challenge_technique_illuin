@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"5\", \"-1\", \"1\"]",
+    "src_uid": "cd6bc23ea61c43b38c537f9e04ad11a6",
+    "prob_desc_notes": "NoteIn the first example it is needed to paint 5 cells — (2, 2), (2, 3), (3, 2), (3, 3) and (4, 2). Then there will be a square with side equal to three, and the upper left corner in (2, 2).In the second example all the cells are painted black and form a rectangle, so it's impossible to get a square.In the third example all cells are colored white, so it's sufficient to color any cell black.",
+    "prob_desc_description": "Polycarp has a checkered sheet of paper of size n × m. Polycarp painted some of cells with black, the others remained white. Inspired by Malevich's \"Black Square\", Polycarp wants to paint minimum possible number of white cells with black so that all black cells form a square.You are to determine the minimum possible number of cells needed to be painted black so that the black cells form a black square with sides parallel to the painting's sides. All the cells that do not belong to the square should be white. The square's side should have positive length.",
+    "prob_desc_output_spec": "Print the minimum number of cells needed to be painted black so that the black cells form a black square with sides parallel to the painting's sides. All the cells that do not belong to the square should be white. If it is impossible, print -1.",
+    "prob_desc_input_spec": "The first line contains two integers n and m (1 ≤ n, m ≤ 100) — the sizes of the sheet. The next n lines contain m letters 'B' or 'W' each — the description of initial cells' colors. If a letter is 'B', then the corresponding cell is painted black, otherwise it is painted white.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1300,
+    "file_name": "train_005.jsonl",
+    "code_uid": "a815decba7bf44e3450e2938e132cec0",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 4\\nWWWW\\nWWWB\\nWWWB\\nWWBB\\nWWWW\", \"1 2\\nBB\", \"3 3\\nWWW\\nWWW\\nWWW\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin\n\nn, m = map(int, stdin.readline().strip().split())\nu = float('inf')\nd = -float('inf')\nl = float('inf')\nr = -float('inf')\nnum_blacks = 0\nfor i in xrange(n):\n    row = stdin.readline().strip()\n    for j in xrange(m):\n        if row[j] == 'B':\n            if i <= u:\n                u = i\n            if i >= d:\n                d = i\n            if j <= l:\n                l = j\n            if j >= r:\n                r = j\n            num_blacks += 1\n\nif num_blacks == 0:\n    print 1\nelse:    \n    s = max(d-u, r-l)+1\n    if s > m or s > n:\n        print -1\n    else:\n        print s*s - num_blacks\n",
+    "prob_desc_created_at": "1499791500",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"60\", \"105\"]",
+    "src_uid": "ea1bebf20f24a681f03082c92326db5e",
+    "prob_desc_notes": "NoteIn the first test the optimal bet is: in the 1-2 sections on biathlete 1, in section 3 on biathlete 3, in section 4 on biathlete 4. Total: profit of 5 rubles for 1 section, the profit of 5 rubles for 2 section, profit of 30 rubles for a 3 section, profit of 20 rubles for 4 section. Total profit 60 rubles.In the second test the optimal bet is: on 1 and 5 sections on biathlete 1, in the 2-4 sections on biathlete 2, in the 6-7 sections on athlete 4. There is no winner in the 8 section. Total: profit of 10 rubles for 1 section, the profit of 15 rubles for 2,3,4 section, profit of 10 rubles for a 5 section, profit of 20 rubles for 6, 7 section. Total profit 105 rubles.",
+    "prob_desc_description": "In Chelyabinsk lives a much respected businessman Nikita with a strange nickname \"Boss\". Once Nikita decided to go with his friend Alex to the Summer Biathlon World Cup. Nikita, as a very important person, received a token which allows to place bets on each section no more than on one competitor.To begin with friends learned the rules: in the race there are n sections of equal length and m participants. The participants numbered from 1 to m. About each participant the following is known: li — the number of the starting section,  ri — the number of the finishing section (li ≤ ri), ti — the time a biathlete needs to complete an section of the path, ci — the profit in roubles. If the i-th sportsman wins on one of the sections, the profit will be given to the man who had placed a bet on that sportsman. The i-th biathlete passes the sections from li to ri inclusive. The competitor runs the whole way in (ri - li + 1)·ti time units. It takes him exactly ti time units to pass each section. In case of the athlete's victory on k sections the man who has betted on him receives k·ci roubles.In each section the winner is determined independently as follows: if there is at least one biathlete running this in this section, then among all of them the winner is the one who has ran this section in minimum time (spent minimum time passing this section). In case of equality of times the athlete with the smaller index number wins. If there are no participants in this section, then the winner in this section in not determined. We have to say that in the summer biathlon all the participants are moving at a constant speed.We should also add that Nikita can bet on each section and on any contestant running in this section.Help the friends find the maximum possible profit.",
+    "prob_desc_output_spec": "Print a single integer, the maximal profit in roubles that the friends can get. In each of n sections it is not allowed to place bets on more than one sportsman.",
+    "prob_desc_input_spec": "The first line contains two integers n and m (1 ≤ n, m ≤ 100). Then follow m lines, each containing 4 integers li, ri, ti, ci (1 ≤ li ≤ ri ≤ n, 1 ≤ ti, ci ≤ 1000).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_006.jsonl",
+    "code_uid": "dc30e10da4dddd669f427f58feed2c9b",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 4\\n1 4 20 5\\n1 3 21 10\\n3 3 4 30\\n3 4 4 20\", \"8 4\\n1 5 24 10\\n2 4 6 15\\n4 6 30 50\\n6 7 4 20\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "\n\nn,m = map(int,input().split())\nl = []\nfor i in range(m):\n    la,r,t,c = map(int,input().split())\n    l.append([la,r,t,c])\ncost = 0\nfor i in range(n):\n    min_time = 10**12\n    for j in range(m):\n        if l[j][0]<=i+1<=l[j][1]:\n            if l[j][2]<min_time:\n                min_time = l[j][2]\n                ans = j\n    if min_time!=10**12:\n        cost+=l[ans][3]\n\nprint(cost)\n",
+    "prob_desc_created_at": "1300809600",
+    "tags": [
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

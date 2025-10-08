@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"0\", \"18 18 0\", \"128 180 148 160\"]",
+    "src_uid": "8f342e167e77088ce47f17e5cd475b17",
+    "prob_desc_notes": "NoteIf you do not know what is the \"bitwise AND\" operation please read: http://en.wikipedia.org/wiki/Bitwise_operation.",
+    "prob_desc_description": "Recently Polycarpus has learned the \"bitwise AND\" operation (which is also called \"AND\") of non-negative integers. Now he wants to demonstrate the school IT teacher his superb manipulation with the learned operation.For that Polycarpus came to school a little earlier and wrote on the board a sequence of non-negative integers a1, a2, ..., an. He also wrote a square matrix b of size n × n. The element of matrix b that sits in the i-th row in the j-th column (we'll denote it as bij) equals:  the \"bitwise AND\" of numbers ai and aj (that is, bij = ai &amp; aj), if i ≠ j;  -1, if i = j. Having written out matrix b, Polycarpus got very happy and wiped a off the blackboard. But the thing is, the teacher will want this sequence to check whether Polycarpus' calculations were correct. Polycarus urgently needs to restore the removed sequence of integers, or else he won't prove that he can count correctly.Help Polycarpus, given matrix b, restore the sequence of numbers a1, a2, ..., an, that he has removed from the board. Polycarpus doesn't like large numbers, so any number in the restored sequence mustn't exceed 109.",
+    "prob_desc_output_spec": "Print n non-negative integers a1, a2, ..., an (0 ≤ ai ≤ 109) — the sequence that Polycarpus wiped off the board. Separate the numbers by whitespaces.  It is guaranteed that there is sequence a that satisfies the problem conditions. If there are multiple such sequences, you are allowed to print any of them.",
+    "prob_desc_input_spec": "The first line contains a single integer n (1 ≤ n ≤ 100) — the size of square matrix b. Next n lines contain matrix b. The i-th of these lines contains n space-separated integers: the j-th number represents the element of matrix bij. It is guaranteed, that for all i (1 ≤ i ≤ n) the following condition fulfills: bii = -1. It is guaranteed that for all i, j (1 ≤ i, j ≤ n; i ≠ j) the following condition fulfills: 0 ≤ bij ≤ 109, bij = bji.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_007.jsonl",
+    "code_uid": "4f0359db92c2f03609b3ac81843ff4ff",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"1\\n-1\", \"3\\n-1 18 0\\n18 -1 0\\n0 0 -1\", \"4\\n-1 128 128 128\\n128 -1 148 160\\n128 148 -1 128\\n128 160 128 -1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(input())\nif (n == 1) :\n    print(0)\nelse :\n    m = [[0] * n] * n\n    a = [int(0)] * n\n    for i in range(0, n) :\n        m[i] = input().split()\n        a[i] = int(m[i][(i + 1) % n])\n        for j in range(0, n) :\n            if (j != i) :\n                a[i] = a[i] | int(m[i][j])\n    for i in range(0, n) :\n        print(a[i], end = ' ')",
+    "prob_desc_created_at": "1353339000",
+    "tags": [
+        "constructive algorithms",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

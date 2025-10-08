@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"YES\", \"NO\"]",
+    "src_uid": "5ce39a83d27253f039f0e26045249d99",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given n switches and m lamps. The i-th switch turns on some subset of the lamps. This information is given as the matrix a consisting of n rows and m columns where ai, j = 1 if the i-th switch turns on the j-th lamp and ai, j = 0 if the i-th switch is not connected to the j-th lamp.Initially all m lamps are turned off.Switches change state only from \"off\" to \"on\". It means that if you press two or more switches connected to the same lamp then the lamp will be turned on after any of this switches is pressed and will remain its state even if any switch connected to this lamp is pressed afterwards.It is guaranteed that if you push all n switches then all m lamps will be turned on.Your think that you have too many switches and you would like to ignore one of them. Your task is to say if there exists such a switch that if you will ignore (not use) it but press all the other n - 1 switches then all the m lamps will be turned on.",
+    "prob_desc_output_spec": "Print \"YES\" if there is a switch that if you will ignore it and press all the other n - 1 switches then all m lamps will be turned on. Print \"NO\" if there is no such switch.",
+    "prob_desc_input_spec": "The first line of the input contains two integers n and m (1 ≤ n, m ≤ 2000) — the number of the switches and the number of the lamps. The following n lines contain m characters each. The character ai, j is equal to '1' if the i-th switch turns on the j-th lamp and '0' otherwise. It is guaranteed that if you press all n switches all m lamps will be turned on.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_006.jsonl",
+    "code_uid": "a1c124fd063d50593e1f929c4560de24",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 5\\n10101\\n01000\\n00111\\n10000\", \"4 5\\n10100\\n01000\\n00110\\n00101\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def Fuk(f,n,m):\n    a = []\n    d = 0\n    for j in range(0,m):\n        s = 0\n        for i in range(0,n):\n            s = s + int(f[i][j])\n        a.append(s)\n    for i in range(0,n):\n        c = 0\n        for j in range(0,m):\n            if int(a[j])-int(f[i][j]) == 0:\n                break\n            else:\n                c = c + 1\n        if c == m:\n            print('YES')\n            break\n        d = d + 1\n    if d == n:\n        print('NO')\n[n,m] = [int(x) for x in input().split()]\nf = [input() for i in range(0,n)] \nFuk(f,n,m)",
+    "prob_desc_created_at": "1526913900",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

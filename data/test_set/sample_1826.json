@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"3\", \"2\"]",
+    "src_uid": "a628b6606c977059dca6d8dd05de99d4",
+    "prob_desc_notes": "NoteIn the first sample periodic numbers are 3, 7 and 10.In the second sample periodic numbers are 31 and 36.",
+    "prob_desc_description": "A non-empty string s is called binary, if it consists only of characters \"0\" and \"1\". Let's number the characters of binary string s from 1 to the string's length and let's denote the i-th character in string s as si.Binary string s with length n is periodical, if there is an integer 1 ≤ k &lt; n such that:   k is a divisor of number n  for all 1 ≤ i ≤ n - k, the following condition fulfills: si = si + k For example, binary strings \"101010\" and \"11\" are periodical and \"10\" and \"10010\" are not.A positive integer x is periodical, if its binary representation (without leading zeroes) is a periodic string.Your task is to calculate, how many periodic numbers are in the interval from l to r (both ends are included).",
+    "prob_desc_output_spec": "Print a single integer, showing how many periodic numbers are in the interval from l to r (both ends are included).",
+    "prob_desc_input_spec": "The single input line contains two integers l and r (1 ≤ l ≤ r ≤ 1018). The numbers are separated by a space. Please, do not use the %lld specifier to read or write 64-bit integers in С++. It is preferred to use the cin, cout streams or the %I64d specifier.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 2100,
+    "file_name": "train_013.jsonl",
+    "code_uid": "dd289908a5bdadfddea25262106c87ad",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"1 10\", \"25 38\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import math\n\ndef tree_search(l, u, x, a, b):\n    if u == l:\n        if check_upper(u, a, b, x):\n            return u\n        else:\n            return u-1\n    if u - l <= 1:\n        if check_upper(u, a, b, x):\n            return u\n        elif check_upper(l, a, b, x):\n            return l \n        else:\n            return l-1\n\n    m = (l+u)/2\n    if check_upper(m, a, b, x):\n        return tree_search(m, u, x, a, b)\n    else:\n        return tree_search(l, m, x, a, b)\n        \n\ndict_periodical = {}\ndef periodical(n):\n    if n == 1:\n        return 0\n    \n    if n in dict_periodical:\n        return dict_periodical[n]\n       \n    total = 0\n    for d in divisor(n):\n        total = total + pow(2, d-1) - periodical(d)\n\n    dict_periodical[n] = total\n    return total\n\ndef check_upper(p, a, b, upper):\n    mask = pow(2, a) - 1\n    for i in range(b-1, -1,-1):\n        converted = (upper >> i*a) & mask\n        if converted > p:\n            return True\n        elif converted < p:\n            return False\n        else:\n            continue\n    return True\n    \n#dict_periodical_upper_div = {}\ndef periodical_upper_div(a, upper, k):\n#    if a in dict_periodical_upper_div:\n#        return dict_periodical_upper_div[a]\n    \n    sum = 0\n    b = k/a\n#    for c in range(pow(2,a-1), pow(2,a)):\n#        if check_upper(c, a, b, upper):\n#            sum += 1\n#        else:\n#            break\n    l = pow(2,a-1)\n    u = pow(2,a)\n    sum = tree_search(l, u-1, upper, a, b) - l + 1    \n\n    for d in divisor(a):\n        sum -= periodical_upper_div(d, upper, k)\n        \n#    dict_periodical_upper_div[a] = sum\n    return sum\n            \ndef periodical_upper(upper, k):\n    sum = 0\n    for a in divisor(k):\n        sum += periodical_upper_div(a, upper, k)\n#    dict_periodical_upper_div.clear()\n    return sum\n\ndict_sigma = {}\ndef sigma(n, l):\n    if (n, l) in dict_sigma:\n        return dict_sigma[(n, l)]\n    k = pow(2,n)\n    result = (1 - pow(k, l))/(1-k)\n    dict_sigma[(n, l)] = result\n    return result\n\ndict_divisor = {}        \ndef divisor(n):\n    if n in dict_divisor:\n        return dict_divisor[n]\n    results = []\n    for i in range(1, n/2+1):\n        if n%i == 0:\n            results.append(i)\n    dict_sigma[n] = results\n    return results\n\ndef periodical_upper_total(m):\n    \n    if m == 0:\n        return 0\n    \n    k = int(math.floor(math.log(m, 2)))+1\n    num = 0\n    for i in range(1, k):\n        num += periodical(i)\n    \n    num += periodical_upper(m, k)\n    \n    return num\n\ndef count_periodical(n, m):\n    return periodical_upper_total(m) - periodical_upper_total(n-1)\n\n[l, r] = raw_input().split()\nprint count_periodical(long(l), long(r))\n#print count_periodical(1, 1000000000000000000)\n#print count_periodical(1, 10000000000000000000)\n#print periodical_upper_total(25)\n#print periodical_upper_total(38) #100100\n#print count_periodical(7, 9)\n#883 947\n#(891, 5, 2)1101111011\n#(924, 5, 2)1110011100\n",
+    "prob_desc_created_at": "1344267000",
+    "tags": [
+        "dp",
+        "combinatorics",
+        "number theory"
+    ],
+    "hidden_unit_tests": ""
+}

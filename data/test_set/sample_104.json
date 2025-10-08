@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1 5\", \"1 5\"]",
+    "src_uid": "77919677f562a6fd1af64bc8cbc79de5",
+    "prob_desc_notes": "NoteIn the first text sample all 5 participants earn 2 points each in any case. Depending on the jury's decision, Vasya can get the first (the best) as well as the last (the worst) fifth place.In the second test sample in the best case scenario Vasya wins again: he can win 12 points and become the absolute winner if the total results' table looks like that — {4:8, 6:4, 3:6, 4:4, 4:3, 5:0}.In this table all participants are sorted by decreasing points and we can see how much a participant earned in the first and in the second tour.In the worst case scenario Vasya can get the fifth place if the table looks like that — {4:8, 4:6, 6:4, 5:4, 4:3, 3:0}, and he earned 4 and 3 points in the first and second tours, correspondingly.",
+    "prob_desc_description": "A boy named Vasya has taken part in an Olympiad. His teacher knows that in total Vasya got at least x points for both tours of the Olympiad. The teacher has the results of the first and the second tour of the Olympiad but the problem is, the results have only points, no names. The teacher has to know Vasya's chances.Help Vasya's teacher, find two numbers — the best and the worst place Vasya could have won. Note that the total results' table sorts the participants by the sum of points for both tours (the first place has the participant who has got the most points). If two or more participants have got the same number of points, it's up to the jury to assign places to them according to their choice. It is guaranteed that each participant of the Olympiad participated in both tours of the Olympiad.",
+    "prob_desc_output_spec": "Print two space-separated integers — the best and the worst place Vasya could have got on the Olympiad.",
+    "prob_desc_input_spec": "The first line contains two space-separated integers n, x (1 ≤ n ≤ 105; 0 ≤ x ≤ 2·105) — the number of Olympiad participants and the minimum number of points Vasya earned. The second line contains n space-separated integers: a1, a2, ..., an (0 ≤ ai ≤ 105) — the participants' points in the first tour. The third line contains n space-separated integers: b1, b2, ..., bn (0 ≤ bi ≤ 105) — the participants' points in the second tour. The participants' points are given in the arbitrary order. It is guaranteed that Vasya was present in the Olympiad — there are two integers i, j (1 ≤ i, j ≤ n) such, that ai + bj ≥ x.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_000.jsonl",
+    "code_uid": "6f8e8ba5f7a06b176d5ae3d848febe27",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 2\\n1 1 1 1 1\\n1 1 1 1 1\", \"6 7\\n4 3 5 6 4 4\\n8 6 0 4 3 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, s = map(int, input().split())\na = sorted(map(int, input().split()), reverse = True)\nb = sorted(map(int, input().split()))\ni = j = 0\nwhile i < n and j < n:\n    if a[i] + b[j] < s: j += 1\n    else: \n        i += 1\n        j += 1\nprint(1, i)",
+    "prob_desc_created_at": "1347291900",
+    "tags": [
+        "two pointers",
+        "binary search",
+        "sortings",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"2\", \"-1\"]",
+    "src_uid": "7d5ecacc037c9b0e6de2e86b20638674",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Mitya has a rooted tree with $$$n$$$ vertices indexed from $$$1$$$ to $$$n$$$, where the root has index $$$1$$$. Each vertex $$$v$$$ initially had an integer number $$$a_v \\ge 0$$$ written on it. For every vertex $$$v$$$ Mitya has computed $$$s_v$$$: the sum of all values written on the vertices on the path from vertex $$$v$$$ to the root, as well as $$$h_v$$$ — the depth of vertex $$$v$$$, which denotes the number of vertices on the path from vertex $$$v$$$ to the root. Clearly, $$$s_1=a_1$$$ and $$$h_1=1$$$.Then Mitya erased all numbers $$$a_v$$$, and by accident he also erased all values $$$s_v$$$ for vertices with even depth (vertices with even $$$h_v$$$). Your task is to restore the values $$$a_v$$$ for every vertex, or determine that Mitya made a mistake. In case there are multiple ways to restore the values, you're required to find one which minimizes the total sum of values $$$a_v$$$ for all vertices in the tree.",
+    "prob_desc_output_spec": "Output one integer — the minimum total sum of all values $$$a_v$$$ in the original tree, or $$$-1$$$ if such tree does not exist.",
+    "prob_desc_input_spec": "The first line contains one integer $$$n$$$ — the number of vertices in the tree ($$$2 \\le n \\le 10^5$$$). The following line contains integers $$$p_2$$$, $$$p_3$$$, ... $$$p_n$$$, where $$$p_i$$$ stands for the parent of vertex with index $$$i$$$ in the tree ($$$1 \\le p_i &lt; i$$$). The last line contains integer values $$$s_1$$$, $$$s_2$$$, ..., $$$s_n$$$ ($$$-1 \\le s_v \\le 10^9$$$), where erased values are replaced by $$$-1$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_014.jsonl",
+    "code_uid": "dc867f40a1f0438d8891b6f1b53be219",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n1 1 1 1\\n1 -1 -1 -1 -1\", \"5\\n1 2 3 1\\n1 -1 2 -1 -1\", \"3\\n1 2\\n2 -1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(input().strip())\np = [0 for i in range(n)]\np[0] = -1\nindex = 1\nfor i in input().strip().split():\n    p[index] = int(i) - 1\n    index += 1\n\nmin_ = [100000000000 for i in range(n)]\ns = []\nfor i in input().strip().split():\n    val = int(i)\n    s.append(val)\n\nfor i in range(1,n):\n    if s[i] >= 0 and s[p[i]] < 0:\n        min_[p[i]] = min(min_[p[i]],s[i])\n\nfor i in range(1,n):\n    if s[i] < 0:\n        got = min_[i]\n        if got == 100000000000:\n            got = s[p[i]]\n        s[i] = got\nres = s[0]\nimpossible = False\nfor i in range(1,n):\n    if s[i] < s[p[i]]:\n        impossible = True\n        break\n    res += s[i] - s[p[i]]\nif impossible:\n    print(-1)\nelse:\n    print(res)\n",
+    "prob_desc_created_at": "1546706100",
+    "tags": [
+        "constructive algorithms",
+        "trees"
+    ],
+    "hidden_unit_tests": ""
+}

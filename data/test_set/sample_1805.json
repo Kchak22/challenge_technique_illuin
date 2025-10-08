@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"8\", \"6\", \"97\"]",
+    "src_uid": "2ca6c11715c158681323fb62a068a236",
+    "prob_desc_notes": "NoteIn the first example, the suitable pairs of indices are: $$$(1, 3)$$$, $$$(1, 4)$$$, $$$(1, 5)$$$, $$$(2, 2)$$$, $$$(2, 3)$$$, $$$(2, 5)$$$, $$$(4, 5)$$$ and $$$(5, 5)$$$.",
+    "prob_desc_description": "You are given an integer sequence $$$a_1, a_2, \\dots, a_n$$$.Find the number of pairs of indices $$$(l, r)$$$ ($$$1 \\le l \\le r \\le n$$$) such that the value of median of $$$a_l, a_{l+1}, \\dots, a_r$$$ is exactly the given number $$$m$$$.The median of a sequence is the value of an element which is in the middle of the sequence after sorting it in non-decreasing order. If the length of the sequence is even, the left of two middle elements is used.For example, if $$$a=[4, 2, 7, 5]$$$ then its median is $$$4$$$ since after sorting the sequence, it will look like $$$[2, 4, 5, 7]$$$ and the left of two middle elements is equal to $$$4$$$. The median of $$$[7, 1, 2, 9, 6]$$$ equals $$$6$$$ since after sorting, the value $$$6$$$ will be in the middle of the sequence.Write a program to find the number of pairs of indices $$$(l, r)$$$ ($$$1 \\le l \\le r \\le n$$$) such that the value of median of $$$a_l, a_{l+1}, \\dots, a_r$$$ is exactly the given number $$$m$$$.",
+    "prob_desc_output_spec": "Print the required number.",
+    "prob_desc_input_spec": "The first line contains integers $$$n$$$ and $$$m$$$ ($$$1 \\le n,m \\le 2\\cdot10^5$$$) — the length of the given sequence and the required value of the median. The second line contains an integer sequence $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 2\\cdot10^5$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2400,
+    "file_name": "train_013.jsonl",
+    "code_uid": "e6abfe689a1d8ae5abf9bf4992798d40",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 4\\n1 4 5 60 4\", \"3 1\\n1 1 1\", \"15 2\\n1 2 3 1 2 3 1 2 3 1 2 3 1 2 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def ask(x):\n    s={}\n    s[0]=1\n    sum,cnt,res=0,0,0\n    for i in range(n):\n        if(a[i]<x):\n            sum-=1\n            cnt-=s.get(sum,0)\n        else:\n            cnt+=s.get(sum,0)\n            sum+=1\n        s[sum]=s.get(sum,0)+1\n        res+=cnt\n    return res\n\nn,m=map(int,input().split())\na=list(map(int,input().split()))\nprint(ask(m)-ask(m+1))\n\n\n\n\n\n\n\n\n\n\n",
+    "prob_desc_created_at": "1531150500",
+    "tags": [
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

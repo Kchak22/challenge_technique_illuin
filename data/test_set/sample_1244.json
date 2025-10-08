@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"YES\\n1 3 5\\nNO\\nNO\"]",
+    "src_uid": "7f5269f3357827b9d8682d70befd3de1",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given an array $$$a$$$ consisting of $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$. You want to split it into exactly $$$k$$$ non-empty non-intersecting subsegments such that each subsegment has odd sum (i. e. for each subsegment, the sum of all elements that belong to this subsegment is odd). It is impossible to rearrange (shuffle) the elements of a given array. Each of the $$$n$$$ elements of the array $$$a$$$ must belong to exactly one of the $$$k$$$ subsegments.Let's see some examples of dividing the array of length $$$5$$$ into $$$3$$$ subsegments (not necessarily with odd sums): $$$[1, 2, 3, 4, 5]$$$ is the initial array, then all possible ways to divide it into $$$3$$$ non-empty non-intersecting subsegments are described below:  $$$[1], [2], [3, 4, 5]$$$;  $$$[1], [2, 3], [4, 5]$$$;  $$$[1], [2, 3, 4], [5]$$$;  $$$[1, 2], [3], [4, 5]$$$;  $$$[1, 2], [3, 4], [5]$$$;  $$$[1, 2, 3], [4], [5]$$$. Of course, it can be impossible to divide the initial array into exactly $$$k$$$ subsegments in such a way that each of them will have odd sum of elements. In this case print \"NO\". Otherwise, print \"YES\" and any possible division of the array. See the output format for the detailed explanation.You have to answer $$$q$$$ independent queries.",
+    "prob_desc_output_spec": "For each query, print the answer to it. If it is impossible to divide the initial array into exactly $$$k$$$ subsegments in such a way that each of them will have odd sum of elements, print \"NO\" in the first line. Otherwise, print \"YES\" in the first line and any possible division of the array in the second line. The division can be represented as $$$k$$$ integers $$$r_1$$$, $$$r_2$$$, ..., $$$r_k$$$ such that $$$1 \\le r_1 &lt; r_2 &lt; \\dots &lt; r_k = n$$$, where $$$r_j$$$ is the right border of the $$$j$$$-th segment (the index of the last element that belongs to the $$$j$$$-th segment), so the array is divided into subsegments $$$[1; r_1], [r_1 + 1; r_2], [r_2 + 1, r_3], \\dots, [r_{k - 1} + 1, n]$$$. Note that $$$r_k$$$ is always $$$n$$$ but you should print it anyway. ",
+    "prob_desc_input_spec": "The first line contains one integer $$$q$$$ ($$$1 \\le q \\le 2 \\cdot 10^5$$$) — the number of queries. Then $$$q$$$ queries follow. The first line of the query contains two integers $$$n$$$ and $$$k$$$ ($$$1 \\le k \\le n \\le 2 \\cdot 10^5$$$) — the number of elements in the array and the number of subsegments, respectively. The second line of the query contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 10^9$$$), where $$$a_i$$$ is the $$$i$$$-th element of $$$a$$$. It is guaranteed that the sum of $$$n$$$ over all queries does not exceed $$$2 \\cdot 10^5$$$ ($$$\\sum n \\le 2 \\cdot 10^5$$$).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_007.jsonl",
+    "code_uid": "8c040a7744f61d6ad7a8755fac6e80f0",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n5 3\\n7 18 3 14 1\\n5 4\\n1 2 3 4 5\\n6 2\\n1 2 8 4 10 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin,stdout\nt=int(stdin.readline())\nfor _ in range(t):\n        n,k=map(int,stdin.readline().split())\n        l=list(map(int,stdin.readline().strip().split()))\n        count=0\n        i,m=0,0\n        ans=[]\n        while i<n:\n            if l[i]%2==1:\n                ans.append(i+1)\n            i+=1\n        if len(ans)>=k and (len(ans)-k)%2==0:\n            ans=ans[:k]\n            ans[len(ans)-1]=n\n            print('YES')\n            print(*ans)\n        else:\n            print('NO')\n",
+    "prob_desc_created_at": "1563978900",
+    "tags": [
+        "constructive algorithms",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

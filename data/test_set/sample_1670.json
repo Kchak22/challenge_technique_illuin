@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"4\\n2 3\\n1 2\\n3 4\\n2 3\", \"0\"]",
+    "src_uid": "e554616ed3df169888acd3452a2f896f",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Vasya is a school PE teacher. Unlike other PE teachers, Vasya doesn't like it when the students stand in line according to their height. Instead, he demands that the children stand in the following order: a1, a2, ..., an, where ai is the height of the i-th student in the line and n is the number of students in the line. The children find it hard to keep in mind this strange arrangement, and today they formed the line in the following order: b1, b2, ..., bn, which upset Vasya immensely. Now Vasya wants to rearrange the children so that the resulting order is like this: a1, a2, ..., an. During each move Vasya can swap two people who stand next to each other in the line. Help Vasya, find the sequence of swaps leading to the arrangement Vasya needs. It is not required to minimize the number of moves.",
+    "prob_desc_output_spec": "In the first line print an integer k (0 ≤ k ≤ 106) which is the number of moves. It is not required to minimize k but it must not exceed 106. Then print k lines each containing two space-separated integers. Line pi, pi + 1 (1 ≤ pi ≤ n - 1) means that Vasya should swap students occupying places pi and pi + 1.",
+    "prob_desc_input_spec": "The first line contains an integer n (1 ≤ n ≤ 300) which is the number of students. The second line contains n space-separated integers ai (1 ≤ ai ≤ 109) which represent the height of the student occupying the i-th place must possess. The third line contains n space-separated integers bi (1 ≤ bi ≤ 109) which represent the height of the student occupying the i-th place in the initial arrangement. It is possible that some students possess similar heights. It is guaranteed that it is possible to arrange the children in the required order, i.e. a and b coincide as multisets.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_011.jsonl",
+    "code_uid": "506dbf204735603c5a51745f21f1dcc7",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1 2 3 2\\n3 2 1 2\", \"2\\n1 100500\\n1 100500\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\n\nn = int(sys.stdin.readline ())\na= [int (x) for x in sys.stdin.readline ().split ()]\nassert len(a) == n\n\nb = [int (x) for x in sys.stdin.readline ().split ()]\nassert len(b) == n\n\nans = []\n\nfor i in range (n):\n    j = i;\n    while b[j] != a[i] :\n        j += 1\n    while j > i:\n        ans += [(j, j + 1)]\n        b[j - 1], b[j] = b[j], b[j - 1]\n        j -= 1\nprint (len(ans))\nfor p, q in ans:\n    print (p, + q)\n",
+    "prob_desc_created_at": "1294329600",
+    "tags": [
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

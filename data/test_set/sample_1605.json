@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"rated\", \"unrated\", \"maybe\"]",
+    "src_uid": "88686e870bd3bfbf45a9b6b19e5ec68a",
+    "prob_desc_notes": "NoteIn the first example, the ratings of the participants in the third and fifth places have changed, therefore, the round was rated.In the second example, no one's rating has changed, but the participant in the second place has lower rating than the participant in the fourth place. Therefore, if the round was rated, someone's rating would've changed for sure.In the third example, no one's rating has changed, and the participants took places in non-increasing order of their rating. Therefore, it's impossible to determine whether the round is rated or not.",
+    "prob_desc_description": "Is it rated?Here it is. The Ultimate Question of Competitive Programming, Codeforces, and Everything. And you are here to answer it.Another Codeforces round has been conducted. No two participants have the same number of points. For each participant, from the top to the bottom of the standings, their rating before and after the round is known.It's known that if at least one participant's rating has changed, then the round was rated for sure.It's also known that if the round was rated and a participant with lower rating took a better place in the standings than a participant with higher rating, then at least one round participant's rating has changed.In this problem, you should not make any other assumptions about the rating system.Determine if the current round is rated, unrated, or it's impossible to determine whether it is rated of not.",
+    "prob_desc_output_spec": "If the round is rated for sure, print \"rated\". If the round is unrated for sure, print \"unrated\". If it's impossible to determine whether the round is rated or not, print \"maybe\".",
+    "prob_desc_input_spec": "The first line contains a single integer n (2 ≤ n ≤ 1000) — the number of round participants. Each of the next n lines contains two integers ai and bi (1 ≤ ai, bi ≤ 4126) — the rating of the i-th participant before and after the round, respectively. The participants are listed in order from the top to the bottom of the standings.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 900,
+    "file_name": "train_010.jsonl",
+    "code_uid": "2a844c7d4b63414687bd808458a73d99",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6\\n3060 3060\\n2194 2194\\n2876 2903\\n2624 2624\\n3007 2991\\n2884 2884\", \"4\\n1500 1500\\n1300 1300\\n1200 1200\\n1400 1400\", \"5\\n3123 3123\\n2777 2777\\n2246 2246\\n2246 2246\\n1699 1699\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(input())\narr1, arr2 = list(), list()\n\nfor i in range(n):\n    line = [int(i) for i in input().split()]\n    arr1.append(line[0])\n    arr2.append(line[1])\n\ncnt = 0\nfor i in range(n):\n    if not arr1[i] == arr2[i]:\n        cnt += 1\n        break\n\nif cnt == 0:\n    if arr1 == sorted(arr1, reverse=True):\n        print('maybe')\n    else:\n        print('unrated')\nelse:\n    print('rated')\n",
+    "prob_desc_created_at": "1494171900",
+    "tags": [
+        "implementation",
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

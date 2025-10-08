@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1.000000000000000\", \"2.000000000000000\", \"4.500000000000000\"]",
+    "src_uid": "14950fe682a063b1ae96332e273dea01",
+    "prob_desc_notes": "NoteFor the first case, the optimal value of x is 2 so the sequence becomes  - 1, 0, 1 and the max poorness occurs at the segment \"-1\" or segment \"1\". The poorness value (answer) equals to 1 in this case. For the second sample the optimal value of x is 2.5 so the sequence becomes  - 1.5,  - 0.5, 0.5, 1.5 and the max poorness occurs on segment \"-1.5 -0.5\" or \"0.5 1.5\". The poorness value (answer) equals to 2 in this case.",
+    "prob_desc_description": "You are given a sequence of n integers a1, a2, ..., an. Determine a real number x such that the weakness of the sequence a1 - x, a2 - x, ..., an - x is as small as possible.The weakness of a sequence is defined as the maximum value of the poorness over all segments (contiguous subsequences) of a sequence.The poorness of a segment is defined as the absolute value of sum of the elements of segment.",
+    "prob_desc_output_spec": "Output a real number denoting the minimum possible weakness of a1 - x, a2 - x, ..., an - x. Your answer will be considered correct if its relative or absolute error doesn't exceed 10 - 6.",
+    "prob_desc_input_spec": "The first line contains one integer n (1 ≤ n ≤ 200 000), the length of a sequence. The second line contains n integers a1, a2, ..., an (|ai| ≤ 10 000).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_011.jsonl",
+    "code_uid": "b53b66e50a0a93544ef4b88d5789a8bf",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n1 2 3\", \"4\\n1 2 3 4\", \"10\\n1 10 2 9 3 8 4 7 5 6\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n=input()\na=map(float,raw_input().split())\nl,r=-22222.,22222.\nfor i in xrange(55):\n  w=x=p=0\n  y=-22222\n  z=22222\n  mid=(l+r)/2\n  for t in a:\n    p+=t-mid\n    y=max(y,p-w)\n    z=min(z,p-x)\n    w=min(p,w)\n    x=max(p,x)\n  if y+z<0:\n    r=mid\n  else:\n    l=mid\nprint max(y,-z)\n",
+    "prob_desc_created_at": "1442416500",
+    "tags": [
+        "ternary search"
+    ],
+    "hidden_unit_tests": ""
+}

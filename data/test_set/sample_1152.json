@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"0 1\\n1 1\\n0 7\"]",
+    "src_uid": "09625e65e62fc1c618d12969932508de",
+    "prob_desc_notes": "NoteIn the first test case, Alice serves the ball and spends $$$1$$$ stamina. Then Bob returns the ball and also spends $$$1$$$ stamina. Alice can't return the ball since she has no stamina left and loses the play. Both of them ran out of stamina, so the game is over with $$$0$$$ Alice's wins and $$$1$$$ Bob's wins.In the second test case, Alice serves the ball and spends $$$1$$$ stamina. Bob decides not to return the ball — he loses the play but saves stamina. Alice, as the winner of the last play, serves the ball in the next play and spends $$$1$$$ more stamina. This time, Bob returns the ball and spends $$$1$$$ stamina. Alice doesn't have any stamina left, so she can't return the ball and loses the play. Both of them ran out of stamina, so the game is over with $$$1$$$ Alice's and $$$1$$$ Bob's win.In the third test case, Alice serves the ball and spends $$$1$$$ stamina. Bob returns the ball and spends $$$1$$$ stamina. Alice ran out of stamina, so she can't return the ball and loses the play. Bob, as a winner, serves the ball in the next $$$6$$$ plays. Each time Alice can't return the ball and loses each play. The game is over with $$$0$$$ Alice's and $$$7$$$ Bob's wins.",
+    "prob_desc_description": "Alice and Bob play ping-pong with simplified rules.During the game, the player serving the ball commences a play. The server strikes the ball then the receiver makes a return by hitting the ball back. Thereafter, the server and receiver must alternately make a return until one of them doesn't make a return.The one who doesn't make a return loses this play. The winner of the play commences the next play. Alice starts the first play.Alice has $$$x$$$ stamina and Bob has $$$y$$$. To hit the ball (while serving or returning) each player spends $$$1$$$ stamina, so if they don't have any stamina, they can't return the ball (and lose the play) or can't serve the ball (in this case, the other player serves the ball instead). If both players run out of stamina, the game is over.Sometimes, it's strategically optimal not to return the ball, lose the current play, but save the stamina. On the contrary, when the server commences a play, they have to hit the ball, if they have some stamina left.Both Alice and Bob play optimally and want to, firstly, maximize their number of wins and, secondly, minimize the number of wins of their opponent.Calculate the resulting number of Alice's and Bob's wins.",
+    "prob_desc_output_spec": "For each test case, print two integers — the resulting number of Alice's and Bob's wins, if both of them play optimally.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$t$$$ ($$$1 \\le t \\le 10^4$$$) — the number of test cases. The first and only line of each test case contains two integers $$$x$$$ and $$$y$$$ ($$$1 \\le x, y \\le 10^6$$$) — Alice's and Bob's initial stamina.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": null,
+    "file_name": "train_006.jsonl",
+    "code_uid": "057db5c181c20c60a13051da023f68b6",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n1 1\\n2 1\\n1 7\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from collections import Counter, defaultdict, deque\nimport bisect\nfrom sys import stdin, stdout\nfrom itertools import repeat\nimport math\n\n\ndef inp(force_list=False):\n    re = map(int, raw_input().split())\n    if len(re) == 1 and not force_list:\n        return re[0]\n    return re\n\ndef inst():\n    return raw_input().strip()\n\ndef gcd(x, y):\n   while(y):\n       x, y = y, x % y\n   return x\n\nmod = 1000000007\n\ndef my_main():\n    kase = inp()\n    ans = []\n    for i in range(kase):\n        x, y = inp()\n        if x==y:\n            ans.append(\"%s %s\" % (x-1, x))\n        elif x>y:\n            ans.append(\"%s %s\" % (x-1, y))\n        else:\n            ans.append(\"%s %s\" % (x-1, y))\n    print '\\n'.join(ans)\nmy_main()\n",
+    "prob_desc_created_at": "1606746900",
+    "tags": [
+        "constructive algorithms",
+        "games",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

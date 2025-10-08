@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"YES\\n1 1 2 2\", \"YES\\n2 1 1 2 1\", \"NO\"]",
+    "src_uid": "3d4df21eebf32ce15841179bb85e6f2f",
+    "prob_desc_notes": "NoteIn the first example the answer $$$2~ 1~ 2~ 1$$$ is also acceptable.In the second example the answer $$$1~ 1~ 1~ 2~ 2$$$ is also acceptable.There exist other acceptable answers for both examples.",
+    "prob_desc_description": "You are given an array $$$a$$$ consisting of $$$n$$$ integer numbers.You have to color this array in $$$k$$$ colors in such a way that:   Each element of the array should be colored in some color;  For each $$$i$$$ from $$$1$$$ to $$$k$$$ there should be at least one element colored in the $$$i$$$-th color in the array;  For each $$$i$$$ from $$$1$$$ to $$$k$$$ all elements colored in the $$$i$$$-th color should be distinct. Obviously, such coloring might be impossible. In this case, print \"NO\". Otherwise print \"YES\" and any coloring (i.e. numbers $$$c_1, c_2, \\dots c_n$$$, where $$$1 \\le c_i \\le k$$$ and $$$c_i$$$ is the color of the $$$i$$$-th element of the given array) satisfying the conditions above. If there are multiple answers, you can print any.",
+    "prob_desc_output_spec": "If there is no answer, print \"NO\". Otherwise print \"YES\" and any coloring (i.e. numbers $$$c_1, c_2, \\dots c_n$$$, where $$$1 \\le c_i \\le k$$$ and $$$c_i$$$ is the color of the $$$i$$$-th element of the given array) satisfying the conditions described in the problem statement. If there are multiple answers, you can print any.",
+    "prob_desc_input_spec": "The first line of the input contains two integers $$$n$$$ and $$$k$$$ ($$$1 \\le k \\le n \\le 5000$$$) — the length of the array $$$a$$$ and the number of colors, respectively. The second line of the input contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 5000$$$) — elements of the array $$$a$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_009.jsonl",
+    "code_uid": "d620e53a41af62e27be6c8028e5ab4ec",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 2\\n1 2 2 3\", \"5 2\\n3 2 1 2 3\", \"5 2\\n2 1 1 2 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from collections import defaultdict\n\nn, k = map(int,input().split())\n\na = [int(x) for x in input().split()]\n\nc = defaultdict(int)\n\nfor i in a:\n    c[i] += 1\n\nif k > n or any(i > k for i in c.values()):\n    print('NO')\nelse:\n    print('YES')\n    color = []\n    used = set()\n    for i in range(k):\n        color.append(i + 1)\n        used.add((i + 1, a[i]))\n    \n    for i in a[k:]:\n        while (c[i], i) in used:\n            c[i] -= 1\n        color.append(c[i])\n        c[i] -= 1\n        \n    print(*color)\n",
+    "prob_desc_created_at": "1547044500",
+    "tags": [
+        "sortings",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"12\", \"30\", \"156\"]",
+    "src_uid": "c8cdb9f6a44e1ce9ef81a981c9b334c2",
+    "prob_desc_notes": "NoteIn the first test, there are ten substrings. The list of them (we let $$$[l,r]$$$ be the substring $$$s_l s_{l+1} \\ldots s_r$$$):  $$$[1,1]$$$: 0  $$$[1,2]$$$: 01  $$$[1,3]$$$: 011  $$$[1,4]$$$: 0110  $$$[2,2]$$$: 1  $$$[2,3]$$$: 11  $$$[2,4]$$$: 110  $$$[3,3]$$$: 1  $$$[3,4]$$$: 10  $$$[4,4]$$$: 0 The lengths of the longest contiguous sequence of ones in each of these ten substrings are $$$0,1,2,2,1,2,2,1,1,0$$$ respectively. Hence, the answer is $$$0+1+2+2+1+2+2+1+1+0 = 12$$$.",
+    "prob_desc_description": "Zookeeper is buying a carton of fruit to feed his pet wabbit. The fruits are a sequence of apples and oranges, which is represented by a binary string $$$s_1s_2\\ldots s_n$$$ of length $$$n$$$. $$$1$$$ represents an apple and $$$0$$$ represents an orange.Since wabbit is allergic to eating oranges, Zookeeper would like to find the longest contiguous sequence of apples. Let $$$f(l,r)$$$ be the longest contiguous sequence of apples in the substring $$$s_{l}s_{l+1}\\ldots s_{r}$$$. Help Zookeeper find $$$\\sum_{l=1}^{n} \\sum_{r=l}^{n} f(l,r)$$$, or the sum of $$$f$$$ across all substrings.",
+    "prob_desc_output_spec": "Print a single integer: $$$\\sum_{l=1}^{n} \\sum_{r=l}^{n} f(l,r)$$$. ",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ $$$(1 \\leq n \\leq 5 \\cdot 10^5)$$$.  The next line contains a binary string $$$s$$$ of length $$$n$$$ $$$(s_i \\in \\{0,1\\})$$$ ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 2400,
+    "file_name": "train_007.jsonl",
+    "code_uid": "0ce09bb230e8b14e7f42d5bc6628643c",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n0110\", \"7\\n1101001\", \"12\\n011100011100\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nreadline = sys.stdin.readline\n\nN = int(readline())\nA = list(map(int, readline().strip()))\ndef calc(l, r):\n    m = (l+r)//2\n    if l+1 == r:\n        return A[l]\n    if l+2 == r:\n        return 2*(A[l]+A[l+1])\n    X = A[l:m][::-1]\n    Y = A[m:r]\n    LX = len(X)\n    LY = len(Y)\n    a1 = [0]*LX\n    a2 = [0]*LY\n    pre = 1\n    cnt = 0\n    b1 = 0\n    b2 = 0\n    for i in range(LX):\n        if X[i]:\n            cnt += 1\n            if pre:\n                a1[i] = cnt\n                b1 = cnt\n            else:\n                a1[i] = max(a1[i-1], cnt)\n        else:\n            pre = 0\n            cnt = 0\n            a1[i] = a1[i-1]\n    pre = 1\n    cnt = 0\n    for i in range(LY):\n        if Y[i]:\n            cnt += 1\n            if pre:\n                a2[i] = cnt\n                b2 = cnt\n            else:\n                a2[i] = max(a2[i-1], cnt)\n        else:\n            pre = 0\n            cnt = 0\n            a2[i] = a2[i-1]\n    \n    \n    ra = LX-1\n    rb = LY-1\n    i = ra\n    j = rb\n    res = 0\n    for _ in range(LX+LY):\n        if a1[i] >= a2[j]:\n            a = a1[i]\n            if b1+b2 <= a:\n                res += a*(j+1)\n            elif a == b1:\n                res += b1*b2 + b2*(b2+1)//2 + (b1+b2)*(j+1-b2)\n            else:\n                res += a*b2 + (b1+b2-a)*(b1+b2-a+1)//2+(b1+b2)*(j+1-b2)\n            i -= 1\n            b1 = min(b1, i+1)\n        else:\n            a = a2[j]\n            if b1+b2 <= a:\n                res += a*(i+1)\n            elif a == b2:\n                res += b1*b2 + b1*(b1+1)//2 + (b1+b2)*(i+1-b1)\n            else:\n                res += a*b1 + (b1+b2-a)*(b1+b2-a+1)//2+(b1+b2)*(i+1-b1)\n            j -= 1\n            b2 = min(b2, j+1)\n        if i == -1 or j == -1:\n            break\n    return res + calc(l, m) + calc(m, r)\n\nprint(calc(0, N))\n\n                \n            \n    ",
+    "prob_desc_created_at": "1602939900",
+    "tags": [
+        "dp",
+        "two pointers",
+        "divide and conquer",
+        "data structures",
+        "binary search"
+    ],
+    "hidden_unit_tests": ""
+}

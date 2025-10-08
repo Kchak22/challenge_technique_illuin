@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"YES\", \"NO\"]",
+    "src_uid": "a457e22fc8ff882c15ac57bca6960657",
+    "prob_desc_notes": "NoteA string s contains another string p as a subsequence if it is possible to delete some characters from s and obtain p.",
+    "prob_desc_description": "As it's the first of April, Heidi is suspecting that the news she reads today are fake, and she does not want to look silly in front of all the contestants. She knows that a newspiece is fake if it contains heidi as a subsequence. Help Heidi assess whether the given piece is true, but please be discreet about it...",
+    "prob_desc_output_spec": "Output YES if the string s contains heidi as a subsequence and NO otherwise.",
+    "prob_desc_input_spec": "The first and only line of input contains a single nonempty string s of length at most 1000 composed of lowercase letters (a-z).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 800,
+    "file_name": "train_008.jsonl",
+    "code_uid": "f4fd10e26098f40f8e48955a23fd8bcf",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"abcheaibcdi\", \"hiedi\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "x =[i for i in input()]\n\ndef charpos(c1,arr):\n\tfor i in range(len(arr)):\n\t\tif arr[i] ==c1:\n\t\t\treturn i\n\treturn -1\ntemp=0\nresult =True\nfor i in \"heidi\":\t\n\ttemp = charpos(i,x)\n\tx = x[temp:]\n\tif temp==-1:\n\t\tresult=False\n\t\tbreak\n\t\nif result:\n\tprint(\"YES\")\nelse:\n\tprint(\"NO\")\n",
+    "prob_desc_created_at": "1495958700",
+    "tags": [
+        "implementation",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

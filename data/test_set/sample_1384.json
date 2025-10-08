@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"22\", \"-1\"]",
+    "src_uid": "5b57e00d1e7417fececb9e4f0d354579",
+    "prob_desc_notes": "NoteIn the first sample, Johnny's truck holds 4 liters. He can drive 3 units to the first gas station, buy 2 liters of gas there (bringing the tank to 3 liters total), drive 3 more units to the third gas station, buy 4 liters there to fill up his tank, and then drive straight to the district center. His total cost is 2·5 + 4·3 = 22 dollars.In the second sample, there is no way for Johnny to make it to the district center, as his tank cannot hold enough gas to take him from the latest gas station to the district center.",
+    "prob_desc_description": "Johnny drives a truck and must deliver a package from his hometown to the district center. His hometown is located at point 0 on a number line, and the district center is located at the point d.Johnny's truck has a gas tank that holds exactly n liters, and his tank is initially full. As he drives, the truck consumes exactly one liter per unit distance traveled. Moreover, there are m gas stations located at various points along the way to the district center. The i-th station is located at the point xi on the number line and sells an unlimited amount of fuel at a price of pi dollars per liter. Find the minimum cost Johnny must pay for fuel to successfully complete the delivery.",
+    "prob_desc_output_spec": "Print a single integer — the minimum cost to complete the delivery. If there is no way to complete the delivery, print -1.",
+    "prob_desc_input_spec": "The first line of input contains three space separated integers d, n, and m (1 ≤ n ≤ d ≤ 109, 1 ≤ m ≤ 200 000) — the total distance to the district center, the volume of the gas tank, and the number of gas stations, respectively. Each of the next m lines contains two integers xi, pi (1 ≤ xi ≤ d - 1, 1 ≤ pi ≤ 106) — the position and cost of gas at the i-th gas station. It is guaranteed that the positions of the gas stations are distinct.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_008.jsonl",
+    "code_uid": "171d32e32d9b58955e1fbfe9edc44639",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"10 4 4\\n3 5\\n5 8\\n6 3\\n8 4\", \"16 5 2\\n8 2\\n5 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin\nfrom itertools import repeat\nfrom heapq import heappush, heappop\ndef main():\n    d, n, m = map(int, stdin.readline().split())\n    dat = map(int, stdin.read().split(), repeat(10, 2 * m))\n    a = [(d, 0)] + [(dat[i*2], dat[i*2+1]) for i in xrange(m)]\n    a.sort(reverse=True)\n    if a[-1][0] > n:\n        print -1\n        return\n    v = []\n    while a and a[-1][0] <= n:\n        t, x = a.pop()\n        heappush(v, (x, t))\n    ans = 0\n    p = n\n    for t, x in reversed(a):\n        if t - p > n:\n            print -1\n            return\n        while p < t:\n            y, s = v[0]\n            f = s + n - p\n            if f > 0:\n                if f > t - p:\n                    f = t - p\n                ans += y * f\n                p += f\n            else:\n                heappop(v)\n        heappush(v, (x, t))\n    print ans\nmain()\n",
+    "prob_desc_created_at": "1456683000",
+    "tags": [
+        "data structures",
+        "divide and conquer",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1 1\\n1 2\\n1 4\"]",
+    "src_uid": "a63cdbd1009a60c0f9b52e4ffbba252e",
+    "prob_desc_notes": "NoteFollowing image illustrates the example after placing all three tiles:    Then the first row is deleted:   ",
+    "prob_desc_description": "You are given a 4x4 grid. You play a game — there is a sequence of tiles, each of them is either 2x1 or 1x2. Your task is to consequently place all tiles from the given sequence in the grid. When tile is placed, each cell which is located in fully occupied row or column is deleted (cells are deleted at the same time independently). You can place tile in the grid at any position, the only condition is that tiles (and tile parts) should not overlap. Your goal is to proceed all given figures and avoid crossing at any time.",
+    "prob_desc_output_spec": "Output $$$|s|$$$ lines — for each tile you should output two positive integers $$$r,c$$$, not exceeding $$$4$$$, representing numbers of smallest row and column intersecting with it. If there exist multiple solutions, print any of them.",
+    "prob_desc_input_spec": "The only line contains a string $$$s$$$ consisting of zeroes and ones ($$$1 \\le |s| \\le 1000$$$). Zero describes vertical tile, one describes horizontal tile.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1400,
+    "file_name": "train_012.jsonl",
+    "code_uid": "4c1d92e5f1bcd0f7c59949cef9c780bb",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"010\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "s = raw_input()\nrv = 0\nrh = 0\nfor x in s:\n    if x == '0':\n        rv = (rv + 2) % 4\n        print rv + 1, 1\n    if x == '1':\n        rh = (rh + 1) % 4\n        print rh + 1, 3\n",
+    "prob_desc_created_at": "1548167700",
+    "tags": [
+        "constructive algorithms",
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

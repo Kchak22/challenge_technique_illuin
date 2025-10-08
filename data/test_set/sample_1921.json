@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"0.000000000000000\", \"3.000000000000000\", \"2.965517241379311\"]",
+    "src_uid": "ba4304e79d85d13c12233bcbcce6d0a6",
+    "prob_desc_notes": "NoteIn the first sample, you can only choose an empty subgraph, or the subgraph containing only node 1.In the second sample, choosing the whole graph is optimal.",
+    "prob_desc_description": "DZY loves Physics, and he enjoys calculating density.Almost everything has density, even a graph. We define the density of a non-directed graph (nodes and edges of the graph have some values) as follows:  where v is the sum of the values of the nodes, e is the sum of the values of the edges.Once DZY got a graph G, now he wants to find a connected induced subgraph G' of the graph, such that the density of G' is as large as possible.An induced subgraph G'(V', E') of a graph G(V, E) is a graph that satisfies:  ;  edge  if and only if , and edge ;  the value of an edge in G' is the same as the value of the corresponding edge in G, so as the value of a node. Help DZY to find the induced subgraph with maximum density. Note that the induced subgraph you choose must be connected.  ",
+    "prob_desc_output_spec": "Output a real number denoting the answer, with an absolute or relative error of at most 10 - 9.",
+    "prob_desc_input_spec": "The first line contains two space-separated integers n (1 ≤ n ≤ 500), . Integer n represents the number of nodes of the graph G, m represents the number of edges. The second line contains n space-separated integers xi (1 ≤ xi ≤ 106), where xi represents the value of the i-th node. Consider the graph nodes are numbered from 1 to n. Each of the next m lines contains three space-separated integers ai, bi, ci (1 ≤ ai &lt; bi ≤ n; 1 ≤ ci ≤ 103), denoting an edge between node ai and bi with value ci. The graph won't contain multiple edges.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_014.jsonl",
+    "code_uid": "52a295d0891d369535a1724175a9bfa6",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"1 0\\n1\", \"2 1\\n1 2\\n1 2 1\", \"5 6\\n13 56 73 98 17\\n1 2 56\\n1 3 29\\n1 4 42\\n2 3 95\\n2 4 88\\n3 4 63\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "R = lambda:map(int, input().split())\nans = 0\nn, m = R()\nF = list(R())\nfor i in range(m):\n\ta, b, x = R()\n\tans = max(ans, (F[a - 1]+ F[b - 1]) / x)\nprint(ans)",
+    "prob_desc_created_at": "1404651900",
+    "tags": [
+        "greedy",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "4 seconds",
+    "prob_desc_sample_outputs": "[\"1 4 1 2 3 4 5\\n1 4 2 3 4 5 1\\n1 4 3 4 5 1 2\\n1 4 4 5 1 2 3\\n1 4 5 1 2 3 4\\n-1 10\\n1 1 1 2\\n-1 99\"]",
+    "src_uid": "20e2cf707d39c22eaf111f12b2ae6d30",
+    "prob_desc_notes": "NoteIn the first example, the first tree looks as follows: In the first question, we have $$$p = {1}$$$, and $$$q = {2, 3, 4, 5}$$$. The maximum distance between a node in $$$p$$$ and a node in $$$q$$$ is $$$9$$$ (the distance between nodes $$$1$$$ and $$$5$$$).The second tree is a tree with two nodes with an edge with weight $$$99$$$ between them.",
+    "prob_desc_description": "There is a weighted tree with $$$n$$$ nodes and $$$n-1$$$ edges. The nodes are conveniently labeled from $$$1$$$ to $$$n$$$. The weights are positive integers at most $$$100$$$. Define the distance between two nodes to be the sum of edges on the unique path between the nodes. You would like to find the diameter of the tree. Diameter is the maximum distance between a pair of nodes.Unfortunately, the tree isn't given to you, but you can ask some questions about it. In one question, you can specify two nonempty disjoint sets of nodes $$$p$$$ and $$$q$$$, and the judge will return the maximum distance between a node in $$$p$$$ and a node in $$$q$$$. In the words, maximum distance between $$$x$$$ and $$$y$$$, where $$$x \\in p$$$ and $$$y \\in q$$$. After asking not more than $$$9$$$ questions, you must report the maximum distance between any pair of nodes.",
+    "prob_desc_output_spec": null,
+    "prob_desc_input_spec": null,
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_010.jsonl",
+    "code_uid": "b997eb7d0e97a25e7bb4be9c0a5be287",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2\\n5\\n9\\n6\\n10\\n9\\n10\\n2\\n99\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nt=int(input())\n\nfor _ in range(t):\n    n=int(input())\n    max_dist=0 \n    for bit in range(7):\n        a=[]\n        b=[]        \n        for i in range(1,n+1):\n            if (i>>bit)%2:\n                a.append(i)\n            else:\n                b.append(i)\n\n        if len(a)==0 or len(b)==0:\n            continue\n\n        l=[len(a),len(b)]+a+b\n        out=\" \".join(map(str,l))\n        print(out+\"\\n\")\n\n        #print(len(a), len(b), *(a+b))\n        sys.stdout.flush()\n        d=int(input())\n        if d>max_dist:\n            max_dist=d        \n    print(\"-1 \"+str(max_dist))",
+    "prob_desc_created_at": "1555783500",
+    "tags": [
+        "interactive",
+        "bitmasks",
+        "graphs"
+    ],
+    "hidden_unit_tests": ""
+}

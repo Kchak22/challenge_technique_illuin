@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"0.9230769231\\n0.6666666667\"]",
+    "src_uid": "c8a42b3dfa8c9ee031ab4efd4c90bd58",
+    "prob_desc_notes": "NoteDish from the first sample looks like this:Dish from the second sample looks like this:",
+    "prob_desc_description": "Have you ever tasted Martian food? Well, you should.Their signature dish is served on a completely black plate with the radius of R, flat as a pancake.First, they put a perfectly circular portion of the Golden Honduras on the plate. It has the radius of r and is located as close to the edge of the plate as possible staying entirely within the plate. I. e. Golden Honduras touches the edge of the plate from the inside. It is believed that the proximity of the portion of the Golden Honduras to the edge of a plate demonstrates the neatness and exactness of the Martians.Then a perfectly round portion of Pink Guadeloupe is put on the plate. The Guadeloupe should not overlap with Honduras, should not go beyond the border of the plate, but should have the maximum radius. I. e. Pink Guadeloupe should touch the edge of the plate from the inside, and touch Golden Honduras from the outside. For it is the size of the Rose Guadeloupe that shows the generosity and the hospitality of the Martians.Further, the first portion (of the same perfectly round shape) of Green Bull Terrier is put on the plate. It should come in contact with Honduras and Guadeloupe, should not go beyond the border of the plate and should have maximum radius.Each of the following portions of the Green Bull Terrier must necessarily touch the Golden Honduras, the previous portion of the Green Bull Terrier and touch the edge of a plate, but should not go beyond the border.To determine whether a stranger is worthy to touch the food, the Martians ask him to find the radius of the k-th portion of the Green Bull Terrier knowing the radii of a plate and a portion of the Golden Honduras. And are you worthy?",
+    "prob_desc_output_spec": "Print t lines — the radius of the k-th portion of the Green Bull Terrier for each test. The absolute or relative error of the answer should not exceed 10 - 6.",
+    "prob_desc_input_spec": "The first line contains integer t (1 ≤ t ≤ 104) — amount of testcases. Each of the following t lines contain three positive integers: the radii of the plate and a portion of the Golden Honduras R and r (1 ≤ r &lt; R ≤ 104) and the number k (1 ≤ k ≤ 104). In the pretests 1 ≤ k ≤ 2.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2800,
+    "file_name": "train_007.jsonl",
+    "code_uid": "4fea16271eab35b5a5bea72728e35584",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"2\\n4 3 1\\n4 2 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "#!/usr/bin/env python3\n\ndef solve(R,r,k):\n  # Thanks to Numberphile's \"Epic circles\" video\n  # Use the formula for radii of circles in Pappus chain\n  r = r / R\n  n = k\n  answer = ((1-r)*r)/(2*((n**2)*((1-r)**2)+r))\n  # Note that in a Pappus chain the diameter of the circle is 1, so we need to scale up:\n  answer = 2*R * answer\n  print(\"%.10f\" % answer)\n\nt = int(input())\nfor i in range(t):\n  R,r,k = map(int, input().split())\n  solve(R,r,k)",
+    "prob_desc_created_at": "1303226100",
+    "tags": [
+        "geometry"
+    ],
+    "hidden_unit_tests": ""
+}

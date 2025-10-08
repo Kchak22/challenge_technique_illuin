@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"a\\nabcdfdcba\\nxyzyx\\nc\\nabba\"]",
+    "src_uid": "042008e186c5a7265fbe382b0bdfc9bc",
+    "prob_desc_notes": "NoteIn the first test, the string $$$s = $$$\"a\" satisfies all conditions.In the second test, the string \"abcdfdcba\" satisfies all conditions, because:  Its length is $$$9$$$, which does not exceed the length of the string $$$s$$$, which equals $$$11$$$.  It is a palindrome.  \"abcdfdcba\" $$$=$$$ \"abcdfdc\" $$$+$$$ \"ba\", and \"abcdfdc\" is a prefix of $$$s$$$ while \"ba\" is a suffix of $$$s$$$. It can be proven that there does not exist a longer string which satisfies the conditions.In the fourth test, the string \"c\" is correct, because \"c\" $$$=$$$ \"c\" $$$+$$$ \"\" and $$$a$$$ or $$$b$$$ can be empty. The other possible solution for this test is \"s\".",
+    "prob_desc_description": "This is the easy version of the problem. The difference is the constraint on the sum of lengths of strings and the number of test cases. You can make hacks only if you solve all versions of this task.You are given a string $$$s$$$, consisting of lowercase English letters. Find the longest string, $$$t$$$, which satisfies the following conditions:   The length of $$$t$$$ does not exceed the length of $$$s$$$.  $$$t$$$ is a palindrome.  There exists two strings $$$a$$$ and $$$b$$$ (possibly empty), such that $$$t = a + b$$$ ( \"$$$+$$$\" represents concatenation), and $$$a$$$ is prefix of $$$s$$$ while $$$b$$$ is suffix of $$$s$$$. ",
+    "prob_desc_output_spec": "For each test case, print the longest string which satisfies the conditions described above. If there exists multiple possible solutions, print any of them.",
+    "prob_desc_input_spec": "The input consists of multiple test cases. The first line contains a single integer $$$t$$$ ($$$1 \\leq t \\leq 1000$$$), the number of test cases. The next $$$t$$$ lines each describe a test case. Each test case is a non-empty string $$$s$$$, consisting of lowercase English letters. It is guaranteed that the sum of lengths of strings over all test cases does not exceed $$$5000$$$.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_005.jsonl",
+    "code_uid": "13d6438ca59a651779ff99f96e465480",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\na\\nabcdfdcecba\\nabbaxyzyx\\ncodeforces\\nacbba\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys, heapq as h\ninput = sys.stdin.readline\n\ndef getInts():\n    return [int(s) for s in input().split()]\n\ndef getInt():\n    return int(input())\n\ndef getStrs():\n    return [s for s in input().split()]\n\ndef getStr():\n    return input().strip()\n\ndef listStr():\n    return list(input().strip())\n\nimport collections as col\nimport math\n\n\"\"\"\nLongest matching prefix and suffix\nThen for each start / end point, the longest palindrome going forwards and then longest palidrome going backwards\n\"\"\"\n\ndef longest_prefix_suffix_palindrome(S,N):\n    i = -1\n    while i+1 <= N-i-2 and S[i+1] == S[N-i-2]:\n        i += 1\n    return i\n\ndef longest_palindromic_prefix(S): \n    tmp = S + \"?\"\n    S = S[::-1] \n    tmp = tmp + S\n    N = len(tmp) \n    lps = [0] * N\n    for i in range(1, N): \n        #Length of longest prefix till less than i \n        L = lps[i - 1] \n        # Calculate length for i+1 \n        while (L > 0 and tmp[L] != tmp[i]): \n            L = lps[L - 1] \n  \n        #If character at current index and L are same then increment length by 1 \n        if (tmp[i] == tmp[L]): \n            L += 1\n        #Update the length at current index to L\n        lps[i] = L\n  \n    return tmp[:lps[N - 1]]\n\ndef solve():\n    S = getStr()\n    N = len(S)\n    i = longest_prefix_suffix_palindrome(S,N)\n    #so S[:i+1] and S[N-i-1:] are palindromic\n    if i >= N//2-1:\n        return S\n    #so there are least 2 elements between S[i] and S[N-i-1]\n    new_str = S[i+1:N-i-1]\n    longest_pref = longest_palindromic_prefix(new_str)\n    longest_suff = longest_palindromic_prefix(new_str[::-1])[::-1]\n    add_on = longest_pref if len(longest_pref) >= len(longest_suff) else longest_suff\n    return S[:i+1] + add_on + S[N-i-1:]\n    \nfor _ in range(getInt()):\n    print(solve())\n#print(solve())\n    ",
+    "prob_desc_created_at": "1584628500",
+    "tags": [
+        "hashing",
+        "string suffix structures",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

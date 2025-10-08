@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"YES\\n1 -1 2 -1\", \"YES\\n1 -1 2 -1 3 -1\", \"NO\"]",
+    "src_uid": "1112910988c9e7e2836a12c9f5a0b665",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Robot Bender decided to make Fray a birthday present. He drove n nails and numbered them from 1 to n in some order. Bender decided to make a picture using metal rods. The picture is a closed polyline, which vertices should be nails (in the given order). The segments of the polyline should be parallel to the coordinate axes. Polyline is allowed to have self-intersections. Bender can take a rod and fold it exactly once in any place to form an angle of 90 degrees. Then he can attach the place of the fold to some unoccupied nail and attach two ends of this rod to adjacent nails. A nail is considered unoccupied if there is no rod attached to it (neither by it's end nor the by the fold place). No rod could be used twice. It is not required to use all the rods.Help Bender to solve this difficult task.",
+    "prob_desc_output_spec": "If it is impossible to solve Bender's problem, output NO. Otherwise, output YES in the first line, and in the second line output n numbers — i-th of them should be the number of rod, which fold place is attached to the i-th nail, or -1, if there is no such rod. If there are multiple solutions, print any of them.",
+    "prob_desc_input_spec": "The first line contains two positive integers n and m (4 ≤ n ≤ 500, 2 ≤ m ≤ 500, n is even) — the amount of nails and the amount of rods. i-th of the following n lines contains a pair of integers, denoting the coordinates of the i-th nail. Nails should be connected in the same order as they are given in the input. The last line contains m integers — the lenghts of the rods. All coordinates do not exceed 104 by absolute value. Lengths of the rods are between 1 and 200 000. No rod can be used twice. It is guaranteed that all segments of the given polyline are parallel to coordinate axes. No three consecutive nails lie on the same line.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1600,
+    "file_name": "train_007.jsonl",
+    "code_uid": "15ebf23323b3e34eb6642c76e739647f",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 2\\n0 0\\n0 2\\n2 2\\n2 0\\n4 4\", \"6 3\\n0 0\\n1 0\\n1 1\\n2 1\\n2 2\\n0 2\\n3 2 3\", \"6 3\\n0 0\\n1 0\\n1 1\\n2 1\\n2 2\\n0 2\\n2 2 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n,m = map(int,input().split())\n \ns = []\nfor i in range(n):\n    a = map(int,input().split())\n    a = list(a)\n    s.append(a)\ns_chet = []\nfor i in range(1,n-1,2):            #Проход  по  четным  гвоздям\n    q = abs((s[i][0]-s[i-1][0])+(s[i][1]-s[i-1][1])) + abs((s[i][0]-s[i+1][0])+(s[i][1]-s[i+1][1]))\n    s_chet.append((i + 1, q))\nq = abs((s[-1][0]-s[-2][0])+(s[-1][1]-s[-2][1])) + abs((s[-1][0]-s[0][0])+(s[-1][1]-s[0][1]))\ns_chet.append((n, q))\n \ns_nechet = []\nfor i in range(2,n-1,2):            #Проход  по  нечетным  гвоздям\n    q = abs((s[i][0]-s[i-1][0])+(s[i][1]-s[i-1][1])) + abs((s[i][0]-s[i+1][0])+(s[i][1]-s[i+1][1]))\n    s_nechet.append((i + 1, q))\nq = abs((s[-1][0]-s[0][0])+(s[-1][1]-s[0][1])) + abs((s[1][0]-s[0][0])+(s[1][1]-s[0][1]))\ns_nechet.append((1, q))\n \nss = map(int, input().split())\nss = [[i + 1, ss_i] for i, ss_i in enumerate(ss)]\n\ns_chet.sort(key=lambda x: x[1])\ns_nechet.sort(key=lambda x: x[1])\nss.sort(key=lambda x: x[1])\n\nprut_chet = [-1] * n\nchet = True\nj = 0\nfor i in range(len(s_chet)):\n    while j < len(ss) and ss[j][1] < s_chet[i][1]:\n        j += 1\n    if j == len(ss) or ss[j][1] > s_chet[i][1]:\n        chet = False\n        break\n    if s_chet[i][1] == ss[j][1]:\n        prut_chet[s_chet[i][0] - 1] = ss[j][0]\n        j += 1\n        continue\nif chet:\n    print('YES')\n    print(\" \".join(map(str,prut_chet)))\n \nelse:\n    prut_nechet = [-1] * n\n    nechet = True\n    j = 0\n    for i in range(len(s_nechet)):\n        while j < len(ss) and ss[j][1] < s_nechet[i][1]:\n            j += 1\n        if j == len(ss) or ss[j][1] > s_nechet[i][1]:\n            nechet = False\n            break\n        if s_nechet[i][1] == ss[j][1]:\n            prut_nechet[s_nechet[i][0] - 1] = ss[j][0]\n            j += 1\n            continue\n    if nechet:\n        print('YES')\n        print(\" \".join(map(str, prut_nechet)))\n    else:\n        print('NO')\n",
+    "prob_desc_created_at": "1284735600",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

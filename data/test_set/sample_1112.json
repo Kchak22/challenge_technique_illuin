@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1\", \"2\", \"3\"]",
+    "src_uid": "1daa784c0eb1cde514e4319da07c8d00",
+    "prob_desc_notes": "NoteIn the first sample test function f(x) = f(1)(x) is already idempotent since f(f(1)) = f(1) = 1, f(f(2)) = f(2) = 2, f(f(3)) = f(3) = 2, f(f(4)) = f(4) = 4.In the second sample test:   function f(x) = f(1)(x) isn't idempotent because f(f(1)) = 3 but f(1) = 2;  function f(x) = f(2)(x) is idempotent since for any x it is true that f(2)(x) = 3, so it is also true that f(2)(f(2)(x)) = 3. In the third sample test:   function f(x) = f(1)(x) isn't idempotent because f(f(1)) = 3 but f(1) = 2;  function f(f(x)) = f(2)(x) isn't idempotent because f(2)(f(2)(1)) = 2 but f(2)(1) = 3;  function f(f(f(x))) = f(3)(x) is idempotent since it is identity function: f(3)(x) = x for any  meaning that the formula f(3)(f(3)(x)) = f(3)(x) also holds. ",
+    "prob_desc_description": "Some time ago Leonid have known about idempotent functions. Idempotent function defined on a set {1, 2, ..., n} is such function , that for any  the formula g(g(x)) = g(x) holds.Let's denote as f(k)(x) the function f applied k times to the value x. More formally, f(1)(x) = f(x), f(k)(x) = f(f(k - 1)(x)) for each k &gt; 1.You are given some function . Your task is to find minimum positive integer k such that function f(k)(x) is idempotent.",
+    "prob_desc_output_spec": "Output minimum k such that function f(k)(x) is idempotent.",
+    "prob_desc_input_spec": "In the first line of the input there is a single integer n (1 ≤ n ≤ 200) — the size of function f domain. In the second line follow f(1), f(2), ..., f(n) (1 ≤ f(i) ≤ n for each 1 ≤ i ≤ n), the values of a function.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_006.jsonl",
+    "code_uid": "4836b95b5e511e9161dfdbae494984df",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n1 2 2 4\", \"3\\n2 3 3\", \"3\\n2 3 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from random import randint\nfrom copy import deepcopy\n\nn = int(input())\na = list(map(int, input().split()))\nfor i in range(n):\n    a[i] -= 1\n\ndef gen(n):\n    a = []\n    for i in range(n):\n        a.append(randint(0, n - 1))\n    return a\n\ndef stupid(a, v=False):\n    n = len(a)\n    init = [a[i] for i in range(n)]\n        \n    k = 1\n    good = False\n    while not good:\n        good = True\n        if v:\n            print(a)\n        for i in range(n):\n            if a[a[i]] != a[i]:\n                good = False\n        if good:\n            break\n        k += 1\n        b = [0 for i in range(n)]\n        for i in range(n):\n            b[i] = init[a[i]]\n\n        a = [b[i] for i in range(n)]\n\n    return k\n\ndef gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\n\ndef get_lcm(a, b):\n    return a * b // gcd(a, b)\n\ndef solve(a, v=False):\n    n = len(a)\n    d = [0 for i in range(n)]\n    on_cycle = [False for i in range(n)]\n    cycle_length = [0 for i in range(n)]\n    until = [0 for i in range(n)]\n    to_len = [0 for i in range(n)]\n\n    for i in range(n):\n        if a[i] == i:\n            on_cycle[i] = True\n            cycle_length[i] = 1\n            continue\n        cur = i\n        cnt = 1\n        for j in range(3 * n):\n            cur = a[cur]\n            cnt += cur == i\n        on_cycle[i] = cnt > 1\n\n        if on_cycle[i]:\n            cur = i\n            steps = 0\n            for j in range(3 * n):\n                cur = a[cur]\n                steps += 1\n                if cur == i:\n                    break\n            cycle_length[i] = steps\n\n\n    for i in range(n):\n        if not on_cycle[i]:\n            cur = i\n            steps = 0\n            for j in range(n + 1):\n                cur = a[cur]\n                steps += 1\n                if on_cycle[cur]:\n                    break\n            until[i] = steps\n            to_len[i] = cycle_length[cur]\n\n    if v:\n        print('cycle', cycle_length)\n        print('until', until)\n    lcm = 1\n    low = 0\n    for i in range(n):\n        if on_cycle[i]:\n            lcm = get_lcm(lcm, cycle_length[i])\n        else:\n            low = max(low, until[i])\n            continue\n            to = to_len[i]\n            p = until[i]\n            \n            if p % to:\n                p = ((p // to) + 1) * to\n            low = max(low, p)\n            if v:\n                print(i, p, to)\n    ans = lcm\n    while ans < low:\n        ans += lcm\n    return ans\n\nprint(solve(a))\nwhile False:\n    a = gen(randint(1, 15))\n    print(a)\n    print(stupid(deepcopy(a)))\n    print(solve(deepcopy(a)))\n    assert(stupid(deepcopy(a)) == solve(deepcopy(a)))\n",
+    "prob_desc_created_at": "1430668800",
+    "tags": [
+        "constructive algorithms",
+        "graphs",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

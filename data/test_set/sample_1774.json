@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"0\", \"2\", \"1\"]",
+    "src_uid": "f8315dc903b0542c453cab4577bcb20d",
+    "prob_desc_notes": "NoteIn the first sample Anna and Maria won't kick out any group of students — in the initial position every student is tied to two other students and Anna won't be able to reprimand anyone.In the second sample four students are tied in a chain and two more are running by themselves. First Anna and Maria kick out the two students from both ends of the chain (1 and 4), then — two other students from the chain (2 and 3). At that the students who are running by themselves will stay in the club.In the third sample Anna and Maria will momentarily kick out all students except for the fourth one and the process stops at that point. The correct answer is one.",
+    "prob_desc_description": "Anna and Maria are in charge of the math club for junior students. When the club gathers together, the students behave badly. They've brought lots of shoe laces to the club and got tied with each other. Specifically, each string ties together two students. Besides, if two students are tied, then the lace connects the first student with the second one as well as the second student with the first one.To restore order, Anna and Maria do the following. First, for each student Anna finds out what other students he is tied to. If a student is tied to exactly one other student, Anna reprimands him. Then Maria gathers in a single group all the students who have been just reprimanded. She kicks them out from the club. This group of students immediately leaves the club. These students takes with them the laces that used to tie them. Then again for every student Anna finds out how many other students he is tied to and so on. And they do so until Anna can reprimand at least one student.Determine how many groups of students will be kicked out of the club.",
+    "prob_desc_output_spec": "Print the single number — the number of groups of students that will be kicked out from the club.",
+    "prob_desc_input_spec": "The first line contains two integers n and m — the initial number of students and laces (). The students are numbered from 1 to n, and the laces are numbered from 1 to m. Next m lines each contain two integers a and b — the numbers of students tied by the i-th lace (1 ≤ a, b ≤ n, a ≠ b). It is guaranteed that no two students are tied with more than one lace. No lace ties a student to himself.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_012.jsonl",
+    "code_uid": "b9995c62b01c0c0cd01443e59dba4849",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 3\\n1 2\\n2 3\\n3 1\", \"6 3\\n1 2\\n2 3\\n3 4\", \"6 5\\n1 4\\n2 4\\n3 4\\n5 4\\n6 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "r = lambda: raw_input().strip()\n\nn,m = map(int,r().split())\nties = [map(int,r().split()) for _ in xrange(m)]\ncount = 0\nwhile len(ties)>0:\n    all_ties = []\n    l1 = len(ties)\n    for t in ties:\n        all_ties.append(t[0])\n        all_ties.append(t[1])\n    for i in xrange(n):\n        if all_ties.count(i+1)==1:\n            for t in xrange(len(ties)):\n                if ties[t][0] == i+1 or ties[t][1] == i+1:\n                    ties.remove(ties[t])\n                    break\n    l2 = len(ties)\n    if l1==l2:\n        break\n    count += 1\nprint count\n",
+    "prob_desc_created_at": "1321337400",
+    "tags": [
+        "implementation",
+        "dfs and similar",
+        "brute force",
+        "graphs"
+    ],
+    "hidden_unit_tests": ""
+}

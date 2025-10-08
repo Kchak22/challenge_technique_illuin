@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"100\", \"111\"]",
+    "src_uid": "38fe0e19974a7bc60153793b9060369a",
+    "prob_desc_notes": "NoteIn the first sample test the most profitable strategy is to form a company from only the second friend. At all other variants the total degree of friendship will be worse.In the second sample test we can take all the friends.",
+    "prob_desc_description": "Kefa wants to celebrate his first big salary by going to restaurant. However, he needs company. Kefa has n friends, each friend will agree to go to the restaurant if Kefa asks. Each friend is characterized by the amount of money he has and the friendship factor in respect to Kefa. The parrot doesn't want any friend to feel poor compared to somebody else in the company (Kefa doesn't count). A friend feels poor if in the company there is someone who has at least d units of money more than he does. Also, Kefa wants the total friendship factor of the members of the company to be maximum. Help him invite an optimal company!",
+    "prob_desc_output_spec": "Print the maximum total friendship factir that can be reached.",
+    "prob_desc_input_spec": "The first line of the input contains two space-separated integers, n and d (1 ≤ n ≤ 105, ) — the number of Kefa's friends and the minimum difference between the amount of money in order to feel poor, respectively. Next n lines contain the descriptions of Kefa's friends, the (i + 1)-th line contains the description of the i-th friend of type mi, si (0 ≤ mi, si ≤ 109) — the amount of money and the friendship factor, respectively. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_013.jsonl",
+    "code_uid": "a03f3e02b5c80cb49311e2650990ab4f",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 5\\n75 5\\n0 100\\n150 20\\n75 1\", \"5 100\\n0 7\\n11 32\\n99 10\\n46 8\\n87 54\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "def getInts():\n    return [int(s) for s in input().split()]\n\ndef getInt():\n    return int(input())\n\ndef getStrs():\n    return [s for s in input().split()]\n\ndef getStr():\n    return input()\n\ndef listStr():\n    return list(input())\n\ndef solve():\n    N, D = getInts()\n    #get all the monies in order\n    #find out which starting friend allows for the max friendship factor\n    friends = []\n    prefix_sums = []\n    curr_sum = 0\n    for n in range(N):\n        money, friendship = getInts()\n        friends.append((money,friendship))\n    friends.sort()\n    prefix_sums = []\n    for n in range(N):\n        curr_sum += friends[n][1]\n        prefix_sums.append(curr_sum)\n    last_friend = 0\n    best = 0\n    for first_friend in range(N):\n        min_money = friends[first_friend][0]\n        last_friend = max(last_friend,first_friend)\n        while last_friend < N-1 and friends[last_friend+1][0] < min_money+D:\n            last_friend += 1\n        if first_friend == 0:\n            curr_val = prefix_sums[last_friend]\n        else:\n            curr_val = prefix_sums[last_friend]-prefix_sums[first_friend-1]\n        best = max(best,curr_val)\n        if last_friend == N-1:\n            return best\n\nans = solve()\nprint(ans)\n    \n    ",
+    "prob_desc_created_at": "1442939400",
+    "tags": [
+        "two pointers",
+        "binary search",
+        "sortings"
+    ],
+    "hidden_unit_tests": ""
+}

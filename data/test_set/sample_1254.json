@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"195\", \"390548434\"]",
+    "src_uid": "8c3d7fb43863822b921df89d2a347f5c",
+    "prob_desc_notes": "NoteThe first few values of S are 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 11, 12, 13, 14, 15, 16, 17, 18, 19, 2, 12. The sum of these values is 195. ",
+    "prob_desc_description": "Let S(n) denote the number that represents the digits of n in sorted order. For example, S(1) = 1, S(5) = 5, S(50394) = 3459, S(353535) = 333555.Given a number X, compute  modulo 109 + 7.",
+    "prob_desc_output_spec": "Print a single integer, the answer to the question.",
+    "prob_desc_input_spec": "The first line of input will contain the integer X (1 ≤ X ≤ 10700).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 2800,
+    "file_name": "train_007.jsonl",
+    "code_uid": "470c312c933b3b9bc4da91e2772c52a8",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"21\", \"345342\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = map(int, raw_input())\nmod = 10 ** 9 + 7\nl = len(n)\nf = [0] * (l + 1)\nfor i in xrange(l):\n    f[i+1] = (f[i] * 10 + 1) % mod\nt = [1] * (l + 1)\nfor i in xrange(l):\n    t[i+1] = t[i] * 10 % mod\nans = 0\nfor i in xrange(1, 10):\n    dp = [0] * (l + 1)\n    for j in xrange(l):\n        dp[j+1] = (dp[j] * i + (10 - i) * (dp[j] * 10 + t[j])) % mod\n    c = 0\n    for j, k in enumerate(n):\n        z = min(i, k)\n        o = k - z\n        ans += o * (dp[l-1-j] * t[c+1] + f[c+1] * t[l-1-j]) % mod\n        ans += z * (dp[l-1-j] * t[c] + f[c] * t[l-1-j]) % mod\n        ans %= mod\n        c += k >= i\n    ans += f[c]\n    if ans >= mod:\n        ans -= mod\nprint ans\n",
+    "prob_desc_created_at": "1514562000",
+    "tags": [
+        "dp",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

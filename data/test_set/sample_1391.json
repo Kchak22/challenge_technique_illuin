@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"1\\n3\\n7\"]",
+    "src_uid": "644b8f95b66b7e4cb39af552ec518b3f",
+    "prob_desc_notes": "NoteThe binary representations of numbers from 1 to 10 are listed below:110 = 12210 = 102310 = 112410 = 1002510 = 1012610 = 1102710 = 1112810 = 10002910 = 100121010 = 10102",
+    "prob_desc_description": "Let's denote as  the number of bits set ('1' bits) in the binary representation of the non-negative integer x.You are given multiple queries consisting of pairs of integers l and r. For each query, find the x, such that l ≤ x ≤ r, and  is maximum possible. If there are multiple such numbers find the smallest of them.",
+    "prob_desc_output_spec": "For each query print the answer in a separate line.",
+    "prob_desc_input_spec": "The first line contains integer n — the number of queries (1 ≤ n ≤ 10000). Each of the following n lines contain two integers li, ri — the arguments for the corresponding query (0 ≤ li ≤ ri ≤ 1018).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_008.jsonl",
+    "code_uid": "7771eebb89c8ec80001d90e1da43c51e",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3\\n1 2\\n2 4\\n1 10\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import math\nimport bisect\ndict = {}\n#print dir(bisect)\nList = []\ndef binary_search(l,r,a):\n    mid = (l+r)/2\n    if(l==r):\n        return mid+1\n    if r-l == 1 and List[r]<=a:\n        return r+1\n    if r-l == 1 and List[r]>a:\n        return l+1\n    if List[mid]==a:\n        return mid+1\n    if List[mid]>a:\n        return binary_search(l,mid-1,a)\n    if List[mid]<a:\n        return binary_search(mid,r,a)\ndef popcount1(a,b):\n    if(dict.has_key(a) > 0):\n        k1 = dict[a]\n    elif a <= 0:\n        k1 = 0\n    else:\n        k1 = bisect.bisect_right(List,a,0,len(List))\n        dict[a] = k1\n\n    if(dict.has_key(b) > 0):\n        k2 = dict[b]\n    elif b <= 0:\n        k2 = 0\n    else:\n        k2 = bisect.bisect_right(List,b,0,len(List))\n        dict[b] = k2\n    if(k1 == k2 and  k1 == 0):\n            return 0\n    sum = List[k1-1]\n    #print k1,k2\n    if(k1 == k2):\n        return sum+(popcount1((a-sum),(b-sum)))\n    elif(k1!=k2 and b == List[k2]-1):\n        return b\n    else:\n        return List[k2-1]-1\n\nT = input()\ns = 1\nwhile s<=pow(2,62):\n    List.append(s)\n    s*=2\n#print List[len(List)-1]\nwhile (T!=0):\n    T-=1\n    a,b=map(long,raw_input().split())\n    print long(popcount1(a,b))",
+    "prob_desc_created_at": "1415205000",
+    "tags": [
+        "implementation",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\", \"-1\"]",
+    "src_uid": "bcee233ddb1509a14f2bd9fd5ec58798",
+    "prob_desc_notes": "NoteIn the first test case after the first operation the blackboard will have sequence [1, 1, 1]. So, one operation is enough to make all numbers the same. Thus, the answer equals one.In the second test case the sequence will never consist of the same numbers. It will always contain at least two distinct numbers 3 and 1. Thus, the answer equals -1.",
+    "prob_desc_description": "One day shooshuns found a sequence of n integers, written on a blackboard. The shooshuns can perform one operation with it, the operation consists of two steps:  Find the number that goes k-th in the current sequence and add the same number to the end of the sequence;  Delete the first number of the current sequence. The shooshuns wonder after how many operations all numbers on the board will be the same and whether all numbers will ever be the same.",
+    "prob_desc_output_spec": "Print the minimum number of operations, required for all numbers on the blackboard to become the same. If it is impossible to achieve, print -1.",
+    "prob_desc_input_spec": "The first line contains two space-separated integers n and k (1 ≤ k ≤ n ≤ 105). The second line contains n space-separated integers: a1, a2, ..., an (1 ≤ ai ≤ 105) — the sequence that the shooshuns found.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 2",
+    "lang_cluster": "Python",
+    "difficulty": 1200,
+    "file_name": "train_011.jsonl",
+    "code_uid": "9eefe07cc0e77b556df9d68c9af0c961",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"3 2\\n3 1 1\", \"3 1\\n3 1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\n\nn, k = [int(x) for x in raw_input().split()]\n\nelems = [int(x) for x in raw_input().split()]\n\nk -= 1\n\nfor i in xrange(k, n):\n    if elems[i] != elems[k]:\n        print -1\n        sys.exit(0)\n\n# We are good. get the last element until k which is not equal.\nsteps = -1\nfor i in xrange(k):\n    if elems[i] != elems[k]:\n        steps = i\nprint steps + 1\n\n\n",
+    "prob_desc_created_at": "1347291900",
+    "tags": [
+        "implementation",
+        "brute force"
+    ],
+    "hidden_unit_tests": ""
+}

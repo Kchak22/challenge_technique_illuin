@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"6\\nabab\\nbaba\\nacac\", \"4\\naba\\nbab\\nzbz\"]",
+    "src_uid": "3d0f48efce839200f432d62ce1fe1881",
+    "prob_desc_notes": null,
+    "prob_desc_description": "According to a new ISO standard, a flag of every country should have, strangely enough, a chequered field n × m, each square should be wholly painted one of 26 colours. The following restrictions are set:   In each row at most two different colours can be used.  No two adjacent squares can be painted the same colour. Pay attention, please, that in one column more than two different colours can be used.Berland's government took a decision to introduce changes into their country's flag in accordance with the new standard, at the same time they want these changes to be minimal. By the given description of Berland's flag you should find out the minimum amount of squares that need to be painted different colour to make the flag meet the new ISO standard. You are as well to build one of the possible variants of the new Berland's flag.",
+    "prob_desc_output_spec": "In the first line output the minimum amount of squares that need to be repainted to make the flag meet the new ISO standard. The following n lines should contain one of the possible variants of the new flag. Don't forget that the variant of the flag, proposed by you, should be derived from the old flag with the minimum amount of repainted squares. If the answer isn't unique, output any.",
+    "prob_desc_input_spec": "The first input line contains 2 integers n and m (1 ≤ n, m ≤ 500) — amount of rows and columns in Berland's flag respectively. Then there follows the flag's description: each of the following n lines contains m characters. Each character is a letter from a to z, and it stands for the colour of the corresponding square.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 2",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_012.jsonl",
+    "code_uid": "c168a134f7892653f173168bb88b1538",
+    "prob_desc_memory_limit": "128 megabytes",
+    "prob_desc_sample_inputs": "[\"3 4\\naaaa\\nbbbb\\ncccc\", \"3 3\\naba\\naba\\nzzz\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import itertools\n\nn,m = map(int,raw_input().split())\nflag = [raw_input() for i in range(n)]\n\nalpha = \"abcdefghijklmnopqrstuvwxyz\"\ncol = [x[0]+x[1] for x in itertools.permutations(alpha,2)]\ncn = len(col)\n\npaint = [[0]*cn for i in range(n+1)]\nprev = [[0]*cn for i in range(n+1)]\n\nfor y in range(n):\n\n\ttmp = sorted([(paint[y][c],c) for c in range(cn)])\n\n\tpe = [(m+1)/2]*256\n\tpo = [m/2]*256\n\tfor x in range(m):\n\t\tif x%2 == 0:\n\t\t\tpe[ord(flag[y][x])] -= 1\n\t\telse:\n\t\t\tpo[ord(flag[y][x])] -= 1\n\n\tfor c in range(cn):\n\t\n\t\tp = pe[ord(col[c][0])]+po[ord(col[c][1])]\n\t\t\n\t\tfor t in tmp:\n\t\t\tif ( col[c][0] != col[t[1]][0] and\n\t\t\t\t col[c][1] != col[t[1]][1] ):\n\t\t\t\tpaint[y+1][c] = t[0]+p\n\t\t\t\tprev[y+1][c] = t[1]\n\t\t\t\tbreak\n\t\t\nmc = 0\nfor c in xrange(cn):\n\tif paint[n][c] < paint[n][mc]:\n\t\tmc = c\n\nprint paint[n][mc]\n\nf = []\nfor y in range(n,0,-1):\n\tf += [col[mc]]\n\tmc = prev[y][mc]\nf.reverse()\n\nfor y in range(n):\n\tprint (f[y]*(m/2+1))[:m]\n",
+    "prob_desc_created_at": "1276700400",
+    "tags": [
+        "dp"
+    ],
+    "hidden_unit_tests": ""
+}

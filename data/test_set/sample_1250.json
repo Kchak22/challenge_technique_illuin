@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"5 5\", \"7 6\"]",
+    "src_uid": "6dea4611ca210b34ae2da93ebfa9896c",
+    "prob_desc_notes": "NoteIn the first test sample the number of passengers is equal to the number of empty seats, so regardless of the way the planes are chosen, the administration will earn the same sum.In the second sample the sum is maximized if the 1-st person in the queue buys a ticket to the 1-st plane, the 2-nd person — to the 2-nd plane, the 3-rd person — to the 3-rd plane, the 4-th person — to the 1-st plane. The sum is minimized if the 1-st person in the queue buys a ticket to the 1-st plane, the 2-nd person — to the 1-st plane, the 3-rd person — to the 2-nd plane, the 4-th person — to the 2-nd plane.",
+    "prob_desc_description": "Lolek and Bolek are about to travel abroad by plane. The local airport has a special \"Choose Your Plane\" offer. The offer's conditions are as follows:  it is up to a passenger to choose a plane to fly on;  if the chosen plane has x (x &gt; 0) empty seats at the given moment, then the ticket for such a plane costs x zlotys (units of Polish currency). The only ticket office of the airport already has a queue of n passengers in front of it. Lolek and Bolek have not stood in the queue yet, but they are already wondering what is the maximum and the minimum number of zlotys the airport administration can earn if all n passengers buy tickets according to the conditions of this offer?The passengers buy tickets in turn, the first person in the queue goes first, then goes the second one, and so on up to n-th person.",
+    "prob_desc_output_spec": "Print two integers — the maximum and the minimum number of zlotys that the airport administration can earn, correspondingly.",
+    "prob_desc_input_spec": "The first line contains two integers n and m (1 ≤ n, m ≤ 1000) — the number of passengers in the queue and the number of planes in the airport, correspondingly. The next line contains m integers a1, a2, ..., am (1 ≤ ai ≤ 1000) — ai stands for the number of empty seats in the i-th plane before the ticket office starts selling tickets. The numbers in the lines are separated by a space. It is guaranteed that there are at least n empty seats in total.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1100,
+    "file_name": "train_007.jsonl",
+    "code_uid": "b983e54bed417846d74389a3c0dbdd82",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 3\\n2 1 1\", \"4 3\\n2 2 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n,m=list(map(int,input().split()))\na=list(map(int,input().split()))\na.sort()\nt=n\ni=0\nma=mi=0\nwhile i<m and n>0:\n    if a[i]>n:\n        mi+=(n*(2*a[i]-n+1)/2)\n    else:\n        mi+=(a[i]*(a[i]+1)/2)\n    n-=min(a[i],n)\n    i+=1\nn=t\ni=0\nwhile n>0:\n    ma+=max(a)\n    a[a.index(max(a))]-=1\n    n-=1\nprint(int(ma),int(mi))    \n    \n\n\n\n",
+    "prob_desc_created_at": "1345273500",
+    "tags": [
+        "implementation"
+    ],
+    "hidden_unit_tests": ""
+}

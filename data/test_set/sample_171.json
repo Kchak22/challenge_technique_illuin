@@ -1,0 +1,29 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"1\\n2\\n0\"]",
+    "src_uid": "0d8b5bd6c118f98d579da8c79482cfa7",
+    "prob_desc_notes": "NoteOn the first operation, a new string \"0110\" is created. For k = 1 the two possible binary strings of length k are \"0\" and \"1\", they are substrings of the new string. For k = 2 and greater there exist strings of length k that do not appear in this string (for k = 2 such string is \"00\"). So the answer is 1.On the second operation the string \"01100\" is created. Now all strings of length k = 2 are present.On the third operation the string \"1111111111\" is created. There is no zero, so the answer is 0.",
+    "prob_desc_description": "You are given n strings s1, s2, ..., sn consisting of characters 0 and 1. m operations are performed, on each of them you concatenate two existing strings into a new one. On the i-th operation the concatenation saisbi is saved into a new string sn + i (the operations are numbered starting from 1). After each operation you need to find the maximum positive integer k such that all possible strings consisting of 0 and 1 of length k (there are 2k such strings) are substrings of the new string. If there is no such k, print 0.",
+    "prob_desc_output_spec": "Print m lines, each should contain one integer — the answer to the question after the corresponding operation.",
+    "prob_desc_input_spec": "The first line contains single integer n (1 ≤ n ≤ 100) — the number of strings. The next n lines contain strings s1, s2, ..., sn (1 ≤ |si| ≤ 100), one per line. The total length of strings is not greater than 100. The next line contains single integer m (1 ≤ m ≤ 100) — the number of operations. m lines follow, each of them contains two integers ai abd bi (1 ≤ ai, bi ≤ n + i - 1) — the number of strings that are concatenated to form sn + i.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2200,
+    "file_name": "train_000.jsonl",
+    "code_uid": "9758856c8d15338d2e1bde5c057921ba",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5\\n01\\n10\\n101\\n11111\\n0\\n3\\n1 2\\n6 5\\n4 4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin, stdout\n\nK = 20\n\ndef findAllStrings(s):\n    n = len(s)\n    sDict = {}\n    for i in range(1,K+1):\n        sDict[i]=set()\n        for x in range(n-i+1):\n            sDict[i].add(s[x:x+i])\n    return sDict\n\nn = int(stdin.readline().rstrip())\nstringDicts = []\nstringEnd = []\nstringBegin = []\n\nfor i in range(n):\n    s = stdin.readline().rstrip()\n    stringDicts.append(findAllStrings(s))\n    if len(s)<K:\n        stringEnd.append(s)\n        stringBegin.append(s)\n    else:\n        stringEnd.append(s[-20:])\n        stringBegin.append(s[:20])\n\nm = int(stdin.readline().rstrip())\n\nfor _ in range(m):\n    a,b = map(int,stdin.readline().rstrip().split())\n    a-=1\n    b-=1\n    \n    sDict1 = findAllStrings(stringEnd[a]+stringBegin[b])\n    sDict2 = stringDicts[a]\n    sDict3 = stringDicts[b]\n    sDict={}\n    for i in range(1,K+1):\n        sDict[i] = sDict1[i]|sDict2[i]|sDict3[i]\n    stringDicts.append(sDict)\n    for i in range(1,K+1):\n        if len(sDict[i])!=2**i:\n            print(i-1)\n            break\n                \n    if len(stringBegin[a])<K and len(stringBegin[a])+len(stringBegin[b])<K:\n        stringBegin.append(stringBegin[a]+stringBegin[b])\n    elif len(stringBegin[a])<K:\n        s = stringBegin[a]+stringBegin[b]\n        stringBegin.append(s[:K])\n    else:\n        stringBegin.append(stringBegin[a])\n        \n    if len(stringEnd[b])<K and len(stringEnd[a])+len(stringEnd[b])<K:\n        stringEnd.append(stringEnd[a]+stringEnd[b])\n    elif len(stringEnd[b])<K:\n        s = stringEnd[a]+stringEnd[b]\n        stringEnd.append(s[-K:])\n    else:\n        stringEnd.append(stringEnd[b])\n\n",
+    "prob_desc_created_at": "1507187100",
+    "tags": [
+        "dp",
+        "bitmasks",
+        "implementation",
+        "brute force",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}

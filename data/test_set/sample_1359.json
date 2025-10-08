@@ -1,0 +1,25 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"YES\\n1 3 2 0\", \"NO\"]",
+    "src_uid": "ac21483a33e7bcb031b1f8f62e39d60f",
+    "prob_desc_notes": "NoteIn the first example it's easy to see that the sequence from output satisfies the given conditions:   $$$t_1 | t_2 = (01_2) | (11_2) = (11_2) = 3 = a_1$$$ and $$$t_1 \\&amp; t_2 = (01_2) \\&amp; (11_2) = (01_2) = 1 = b_1$$$;  $$$t_2 | t_3 = (11_2) | (10_2) = (11_2) = 3 = a_2$$$ and $$$t_2 \\&amp; t_3 = (11_2) \\&amp; (10_2) = (10_2) = 2 = b_2$$$;  $$$t_3 | t_4 = (10_2) | (00_2) = (10_2) = 2 = a_3$$$ and $$$t_3 \\&amp; t_4 = (10_2) \\&amp; (00_2) = (00_2) = 0 = b_3$$$. In the second example there is no such sequence.",
+    "prob_desc_description": "When Masha came to math classes today, she saw two integer sequences of length $$$n - 1$$$ on the blackboard. Let's denote the elements of the first sequence as $$$a_i$$$ ($$$0 \\le a_i \\le 3$$$), and the elements of the second sequence as $$$b_i$$$ ($$$0 \\le b_i \\le 3$$$).Masha became interested if or not there is an integer sequence of length $$$n$$$, which elements we will denote as $$$t_i$$$ ($$$0 \\le t_i \\le 3$$$), so that for every $$$i$$$ ($$$1 \\le i \\le n - 1$$$) the following is true:   $$$a_i = t_i | t_{i + 1}$$$ (where $$$|$$$ denotes the bitwise OR operation) and  $$$b_i = t_i \\&amp; t_{i + 1}$$$ (where $$$\\&amp;$$$ denotes the bitwise AND operation). The question appeared to be too difficult for Masha, so now she asked you to check whether such a sequence $$$t_i$$$ of length $$$n$$$ exists. If it exists, find such a sequence. If there are multiple such sequences, find any of them.",
+    "prob_desc_output_spec": "In the first line print \"YES\" (without quotes), if there is a sequence $$$t_i$$$ that satisfies the conditions from the statements, and \"NO\" (without quotes), if there is no such sequence. If there is such a sequence, on the second line print $$$n$$$ integers $$$t_1, t_2, \\ldots, t_n$$$ ($$$0 \\le t_i \\le 3$$$) — the sequence that satisfies the statements conditions. If there are multiple answers, print any of them.",
+    "prob_desc_input_spec": "The first line contains a single integer $$$n$$$ ($$$2 \\le n \\le 10^5$$$) — the length of the sequence $$$t_i$$$.  The second line contains $$$n - 1$$$ integers $$$a_1, a_2, \\ldots, a_{n-1}$$$ ($$$0 \\le a_i \\le 3$$$) — the first sequence on the blackboard. The third line contains $$$n - 1$$$ integers $$$b_1, b_2, \\ldots, b_{n-1}$$$ ($$$0 \\le b_i \\le 3$$$) — the second sequence on the blackboard.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1500,
+    "file_name": "train_008.jsonl",
+    "code_uid": "426834be922d11193b47874ae2a28b50",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\\n3 3 2\\n1 2 0\", \"3\\n1 3\\n3 2\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from sys import stdin, stdout\nn=0\nA=[]\nB=[]\nres=[]\nfA=[]\nfB=[]\nt=[]\nfor i in range(4):\n    nA=[]\n    nB=[]\n    for j in range(4):\n        nA.append((i | j))\n        nB.append((i & j))\n    fA.append(nA)\n    fB.append(nB)\n\nf=[]\nfor x in range(4):\n    fx=[]\n    for a in range(4):\n        fxa=[]\n        for b in range(4):\n            fxab=[]\n            for k in range(4):\n                if ((a==x|k) and (b==x&k)):\n                    fxab.append(k)\n            fxa.append(set(fxab))\n        fx.append(fxa)\n    f.append(fx)\n\ndef trace():\n    global t,res,n\n    t=n*[0]\n    t[n-1]=-1\n    for x in range(4):\n        if (len(res[n-2][x])>0):\n            for y in res[n-2][x]:\n                t[n-1]=y\n                t[n-2]=x\n                i=n-3\n                while(i>=0):\n                    for z in range(4):\n                        if (t[i+1] in res[i][z]):\n                            t[i]=z\n                            break\n                    i=i-1\n            return True    \n    return (t[n-1]>=0)\ndef main():\n    global n,A,B,res,t\n    n=int(stdin.readline())\n    A=[int(x) for x in stdin.readline().split()]\n    B=[int(x) for x in stdin.readline().split()]\n    res=[]\n    for i in range(n):\n        res.append([set(),set(),set(),set()])\n    s=set()\n    for i in range(n-1):\n        if (i==0):\n            for x in range(4):\n                res[0][x]=f[x][A[0]][B[0]]\n                s=s.union(res[0][x])\n        else:\n            nSet=set({})\n            for x in s:\n                res[i][x]=f[x][A[i]][B[i]]\n                nSet=nSet.union(res[i][x])\n            if (len(nSet)==0):\n                stdout.write(\"NO\")\n                return 0\n            s=nSet\n    \n    if (trace()==False):\n        stdout.write(\"NO\")\n        return 0\n    else:\n        sp=\" \"\n        stdout.write(\"YES\\n\"+(sp.join(str(x) for x in t)))\n    return 0\n\nif __name__ == \"__main__\":\n    main()",
+    "prob_desc_created_at": "1540109400",
+    "tags": [
+        "dp"
+    ],
+    "hidden_unit_tests": ""
+}

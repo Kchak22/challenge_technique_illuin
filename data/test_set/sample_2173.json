@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"20\\n0 2 1 4 3\"]",
+    "src_uid": "ab410ffc2bfe9360abf278328b9c3055",
+    "prob_desc_notes": null,
+    "prob_desc_description": "Little penguin Polo likes permutations. But most of all he likes permutations of integers from 0 to n, inclusive.For permutation p = p0, p1, ..., pn, Polo has defined its beauty — number .Expression  means applying the operation of bitwise excluding \"OR\" to numbers x and y. This operation exists in all modern programming languages, for example, in language C++ and Java it is represented as \"^\" and in Pascal — as \"xor\".Help him find among all permutations of integers from 0 to n the permutation with the maximum beauty.",
+    "prob_desc_output_spec": "In the first line print integer m the maximum possible beauty. In the second line print any permutation of integers from 0 to n with the beauty equal to m. If there are several suitable permutations, you are allowed to print any of them.",
+    "prob_desc_input_spec": "The single line contains a positive integer n (1 ≤ n ≤ 106).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_018.jsonl",
+    "code_uid": "bdac2e9cdf88e07a7df5cf5511f7aa84",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n = int(input())\np = [i for i in range(n + 1)]\n\nk = 1\nwhile(2 * k <= n):\n  k *= 2\nm = n + 1\nwhile m > 0:\n  while k >= m:\n    k //= 2\n  for i in range(m - k):\n    if k - i - 1 >= 0:\n      p[k + i], p[k - i - 1] = p[k - i - 1], p[k + i]\n  m = k - i - 1\n\nprint(n * (n + 1))\nprint(' '.join(map(str, p)))",
+    "prob_desc_created_at": "1364916600",
+    "tags": [
+        "data structures",
+        "implementation",
+        "greedy",
+        "math"
+    ],
+    "hidden_unit_tests": ""
+}

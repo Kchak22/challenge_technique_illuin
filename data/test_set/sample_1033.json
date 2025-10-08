@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "3 seconds",
+    "prob_desc_sample_outputs": "[\"3\\n3 2 0 7 10 14\", \"0\\n0 1 2 3\"]",
+    "src_uid": "4a7c2e32e29734476fa40bced7ddc4e8",
+    "prob_desc_notes": null,
+    "prob_desc_description": "You are given an array consisting of $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$, and a positive integer $$$m$$$. It is guaranteed that $$$m$$$ is a divisor of $$$n$$$.In a single move, you can choose any position $$$i$$$ between $$$1$$$ and $$$n$$$ and increase $$$a_i$$$ by $$$1$$$.Let's calculate $$$c_r$$$ ($$$0 \\le r \\le m-1)$$$ — the number of elements having remainder $$$r$$$ when divided by $$$m$$$. In other words, for each remainder, let's find the number of corresponding elements in $$$a$$$ with that remainder.Your task is to change the array in such a way that $$$c_0 = c_1 = \\dots = c_{m-1} = \\frac{n}{m}$$$.Find the minimum number of moves to satisfy the above requirement.",
+    "prob_desc_output_spec": "In the first line, print a single integer — the minimum number of moves required to satisfy the following condition: for each remainder from $$$0$$$ to $$$m - 1$$$, the number of elements of the array having this remainder equals $$$\\frac{n}{m}$$$. In the second line, print any array satisfying the condition and can be obtained from the given array with the minimum number of moves. The values of the elements of the resulting array must not exceed $$$10^{18}$$$.",
+    "prob_desc_input_spec": "The first line of input contains two integers $$$n$$$ and $$$m$$$ ($$$1 \\le n \\le 2 \\cdot 10^5, 1 \\le m \\le n$$$). It is guaranteed that $$$m$$$ is a divisor of $$$n$$$. The second line of input contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$0 \\le a_i \\le 10^9$$$), the elements of the array.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1900,
+    "file_name": "train_005.jsonl",
+    "code_uid": "2421a5afe63ddac132f6c4fe62d1ef82",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6 3\\n3 2 0 6 10 12\", \"4 2\\n0 1 2 3\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n,m=map(int,input().split())\nd=n//m\na=list(map(int,input().split()))\nb=[0]*m\nfor i in range(n):b[a[i]%m]+=1\nx=[[]for _ in range(m)]\nxx=[]\nans=0\nfor i in range(2*m-1,-1,-1):\n  if b[i%m]<=d:\n    xx+=[i%m]*(d-b[i%m])\n    b[i%m]=d\n  else:\n    y=b[i%m]-d\n    for _ in range(min(y,len(xx))):\n      b[i%m]-=1\n      v=xx.pop()\n      x[i%m].append((v-i)%m)\n      ans+=(v-i)%m\nfor i in range(n):\n  if x[a[i]%m]:\n    a[i]+=x[a[i]%m].pop()\nprint(ans)\nprint(*a)",
+    "prob_desc_created_at": "1529591700",
+    "tags": [
+        "data structures",
+        "implementation",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

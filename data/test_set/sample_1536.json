@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"6\\n2 1\\n1 2\\n2 1\\n1 3\\n1 2\\n3 1\", \"2\\n1 2\\n1 1\\n2 1\\n1 1\"]",
+    "src_uid": "636e9c125197b52c91998bf91ecd8ab1",
+    "prob_desc_notes": null,
+    "prob_desc_description": "A Christmas party in city S. had n children. All children came in mittens. The mittens can be of different colors, but each child had the left and the right mitten of the same color. Let's say that the colors of the mittens are numbered with integers from 1 to m, and the children are numbered from 1 to n. Then the i-th child has both mittens of color ci.The Party had Santa Claus ('Father Frost' in Russian), his granddaughter Snow Girl, the children danced around the richly decorated Christmas tree. In fact, everything was so bright and diverse that the children wanted to wear mittens of distinct colors. The children decided to swap the mittens so that each of them got one left and one right mitten in the end, and these two mittens were of distinct colors. All mittens are of the same size and fit all the children.The children started exchanging the mittens haphazardly, but they couldn't reach the situation when each child has a pair of mittens of distinct colors. Vasily Petrov, the dad of one of the children, noted that in the general case the children's idea may turn out impossible. Besides, he is a mathematician and he came up with such scheme of distributing mittens that the number of children that have distinct-colored mittens was maximum. You task is to repeat his discovery. Note that the left and right mittens are different: each child must end up with one left and one right mitten.",
+    "prob_desc_output_spec": "In the first line, print the maximum number of children who can end up with a distinct-colored pair of mittens. In the next n lines print the way the mittens can be distributed in this case. On the i-th of these lines print two space-separated integers: the color of the left and the color of the right mitten the i-th child will get. If there are multiple solutions, you can print any of them.",
+    "prob_desc_input_spec": "The first line contains two integers n and m — the number of the children and the number of possible mitten colors (1 ≤ n ≤ 5000, 1 ≤ m ≤ 100). The second line contains n integers c1, c2, ... cn, where ci is the color of the mittens of the i-th child (1 ≤ ci ≤ m).",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 1800,
+    "file_name": "train_010.jsonl",
+    "code_uid": "4e7720bc0e5491f47d3014d7601ce837",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"6 3\\n1 3 2 2 1 1\", \"4 2\\n1 2 1 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "n, m = [int(i) for i in input().split()]\nc1 = [int(i) for i in input().split()]\nc1.sort()\nms = 0\ni = 0\nwhile i < n - 1:\n    start = i\n    while i < n - 1 and c1[i] == c1[i + 1]:\n        i += 1\n    ms = max(ms, i - start)\n    i += 1\nms += 1\nc2 = c1[-ms:] + c1[:-ms]\ncnt = 0\nfor i in range(n):\n    if c1[i] != c2[i]:\n        cnt += 1\nprint(cnt)\nfor i in range(n):\n    print(c1[i], c2[i])\n",
+    "prob_desc_created_at": "1386399600",
+    "tags": [
+        "constructive algorithms",
+        "sortings",
+        "greedy"
+    ],
+    "hidden_unit_tests": ""
+}

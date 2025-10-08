@@ -1,0 +1,28 @@
+{
+    "prob_desc_time_limit": "2 seconds",
+    "prob_desc_sample_outputs": "[\"R\\nL\\nL\\nD\\nU\\nU\\nU\\nR\\nR\\nD\"]",
+    "src_uid": "79879630a9358ea152a6f1616ef9b630",
+    "prob_desc_notes": "NoteIn first test case all four directions swapped with their opposite directions. Protocol of interaction In more convenient form:This test could be presenter for hack in following way: 4 3 1 1...**.F*.... ",
+    "prob_desc_description": "This is an interactive problem.Vladik has favorite game, in which he plays all his free time.Game field could be represented as n × m matrix which consists of cells of three types:   «.» — normal cell, player can visit it.  «F» — finish cell, player has to finish his way there to win. There is exactly one cell of this type.  «*» — dangerous cell, if player comes to this cell, he loses. Initially player is located in the left top cell with coordinates (1, 1). Player has access to 4 buttons \"U\", \"D\", \"L\", \"R\", each of them move player up, down, left and right directions respectively.But it’s not that easy! Sometimes friends play game and change functions of buttons. Function of buttons \"L\" and \"R\" could have been swapped, also functions of buttons \"U\" and \"D\" could have been swapped. Note that functions of buttons can be changed only at the beginning of the game.Help Vladik win the game!",
+    "prob_desc_output_spec": null,
+    "prob_desc_input_spec": "First line contains two space-separated integers n and m (1 ≤ n, m ≤ 100) — number of rows and columns respectively. Each of next n lines contains m characters describing corresponding row of field. Set of characters in field is described above. Guaranteed that cell with coordinates (1, 1) is normal and there is at least one way from initial cell to finish cell without dangerous cells. ",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2100,
+    "file_name": "train_007.jsonl",
+    "code_uid": "4af6cf8adc7c898bcbbcb1ba62767f35",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"4 3\\n...\\n**.\\nF*.\\n...\\n1 1\\n1 2\\n1 3\\n1 3\\n2 3\\n3 3\\n4 3\\n4 2\\n4 1\\n3 1\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "import sys\nsys.setrecursionlimit(2*10**5)\nn, m=map(int, input().split())\ng=[input() for i in range(n)]\nvis=[[0]*m for i in range(n)]\nmp={}\nl=[]\ndef dfs(i, j):\n    vis[i][j]=1\n    l.append((i, j))\n    if g[i][j]=='F':\n        return 1\n    for d in [(-1, 0), (1, 0), (0, -1), (0, 1)]:\n        if not (i+d[0]<0 or i+d[0]>=n or j+d[1]<0 or j+d[1]>=m or g[i+d[0]][j+d[1]]=='*' or vis[i+d[0]][j+d[1]]) and dfs(i+d[0], j+d[1]):\n            return 1\n    l.pop()\n    return 0\ndfs(0, 0)\n#print(l)\nfor i in range(1, len(l)):\n    # i-1 to i\n    d=(l[i][0]-l[i-1][0], l[i][1]-l[i-1][1])\n    if not d in mp:\n        if d[0]==0:\n            print('R',flush=True)\n            a,b=map(int, input().split())\n            b-=1\n            if b==l[i][1]:\n                # actually right\n                mp[(0, 1)]='R'\n                mp[(0, -1)]='L'\n                continue\n            else:\n                mp[(0, 1)]='L'\n                mp[(0, -1)]='R'\n        else:\n            print('D',flush=True)\n            a,b=map(int, input().split())\n            a-=1\n            if a==l[i][0]:\n                # actually down\n                mp[(1, 0)]='D'\n                mp[(-1, 0)]='U'\n                continue\n            else:\n                mp[(1, 0)]='U'\n                mp[(-1, 0)]='D'\n    print(mp[d],flush=True)\n    input()\n",
+    "prob_desc_created_at": "1495877700",
+    "tags": [
+        "constructive algorithms",
+        "graphs",
+        "dfs and similar",
+        "interactive"
+    ],
+    "hidden_unit_tests": ""
+}

@@ -1,0 +1,27 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"4\", \"1\", \"6\"]",
+    "src_uid": "bd4b3bfa7511410c8e54658cc1dddb46",
+    "prob_desc_notes": "NoteIn the first sample test the answer is four, as any of the two 1s can be chosen as the first element, the second element can be any of the 2s, and the third element of the subsequence must be equal to 4.",
+    "prob_desc_description": "Polycarp loves geometric progressions very much. Since he was only three years old, he loves only the progressions of length three. He also has a favorite integer k and a sequence a, consisting of n integers.He wants to know how many subsequences of length three can be selected from a, so that they form a geometric progression with common ratio k.A subsequence of length three is a combination of three such indexes i1, i2, i3, that 1 ≤ i1 &lt; i2 &lt; i3 ≤ n. That is, a subsequence of length three are such groups of three elements that are not necessarily consecutive in the sequence, but their indexes are strictly increasing.A geometric progression with common ratio k is a sequence of numbers of the form b·k0, b·k1, ..., b·kr - 1.Polycarp is only three years old, so he can not calculate this number himself. Help him to do it.",
+    "prob_desc_output_spec": "Output a single number — the number of ways to choose a subsequence of length three, such that it forms a geometric progression with a common ratio k.",
+    "prob_desc_input_spec": "The first line of the input contains two integers, n and k (1 ≤ n, k ≤ 2·105), showing how many numbers Polycarp's sequence has and his favorite number. The second line contains n integers a1, a2, ..., an ( - 109 ≤ ai ≤ 109) — elements of the sequence.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "PyPy 3",
+    "lang_cluster": "Python",
+    "difficulty": 1700,
+    "file_name": "train_011.jsonl",
+    "code_uid": "7c37a623f3cc3e741aab2aca01de1743",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"5 2\\n1 1 2 2 4\", \"3 1\\n1 1 1\", \"10 3\\n1 2 6 2 3 6 9 18 3 9\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from collections import defaultdict\nfrom sys import stdin\n\n\ndef main():\n\tn, k = map(int, stdin.readline().split())\n\tar = list(map(int, stdin.readline().split()))\n\tans = 0\n\tpre = {}\n\tsuf = {}\n\tfor i in ar:\n\t\tif suf.__contains__(i):\n\t\t\tsuf[i] += 1\n\t\telse:\n\t\t\tsuf[i] = 1\n\tfor i in range(n):\n\t\tsuf[ar[i]]-=1\n\t\tif ar[i]%k==0:\n\t\t\tans+=pre.get(ar[i]//k,0)*suf.get(ar[i]*k,0)\n\t\tif pre.__contains__(ar[i]):\n\t\t\tpre[ar[i]] += 1\n\t\telse:\n\t\t\tpre[ar[i]] = 1\n\tprint(ans)\n\n\nif __name__ == \"__main__\":\n\tmain()\n",
+    "prob_desc_created_at": "1438790400",
+    "tags": [
+        "dp",
+        "binary search",
+        "data structures"
+    ],
+    "hidden_unit_tests": ""
+}

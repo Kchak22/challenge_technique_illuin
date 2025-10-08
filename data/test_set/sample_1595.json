@@ -1,0 +1,26 @@
+{
+    "prob_desc_time_limit": "1 second",
+    "prob_desc_sample_outputs": "[\"28.0000000\", \"5.8333333\", \"17.0500000\"]",
+    "src_uid": "2b37188c17b7cbc3e533e9ad341441b2",
+    "prob_desc_notes": "NoteIn the first sample all letters are vowels. The simple prettiness of each substring is 1. The word of length 7 has 28 substrings. So, the prettiness of the song equals to 28.",
+    "prob_desc_description": "When Sasha was studying in the seventh grade, he started listening to music a lot. In order to evaluate which songs he likes more, he introduced the notion of the song's prettiness. The title of the song is a word consisting of uppercase Latin letters. The prettiness of the song is the prettiness of its title.Let's define the simple prettiness of a word as the ratio of the number of vowels in the word to the number of all letters in the word.Let's define the prettiness of a word as the sum of simple prettiness of all the substrings of the word.More formally, let's define the function vowel(c) which is equal to 1, if c is a vowel, and to 0 otherwise. Let si be the i-th character of string s, and si..j be the substring of word s, staring at the i-th character and ending at the j-th character (sisi + 1... sj, i ≤ j).Then the simple prettiness of s is defined by the formula:The prettiness of s equals Find the prettiness of the given song title.We assume that the vowels are I, E, A, O, U, Y.",
+    "prob_desc_output_spec": "Print the prettiness of the song with the absolute or relative error of at most 10 - 6.",
+    "prob_desc_input_spec": "The input contains a single string s (1 ≤ |s| ≤ 5·105) — the title of the song.",
+    "prob_desc_output_to": "standard output",
+    "prob_desc_input_from": "standard input",
+    "lang": "Python 3",
+    "lang_cluster": "Python",
+    "difficulty": 2000,
+    "file_name": "train_010.jsonl",
+    "code_uid": "798599a39ef52d786e75b36d0d1de37e",
+    "prob_desc_memory_limit": "256 megabytes",
+    "prob_desc_sample_inputs": "[\"IEAIAIO\", \"BYOB\", \"YISVOWEL\"]",
+    "exec_outcome": "PASSED",
+    "source_code": "from itertools import accumulate\nvowels = set('AIUEOY')\ns = input()\nn = len(s)\nvs = list(accumulate(0 if i == 0 else 1 / i for i in range(n + 1)))\nr = 0\nv = 0\nfor i in range(n):\n    v += vs[n - i] - vs[i]\n    if s[i] in vowels:\n        r += v\nprint(r)",
+    "prob_desc_created_at": "1422705600",
+    "tags": [
+        "math",
+        "strings"
+    ],
+    "hidden_unit_tests": ""
+}
