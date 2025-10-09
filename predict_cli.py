@@ -125,35 +125,41 @@ def extract_codebert_embeddings(codes, device=None, batch_size=32):
     """Extract CodeBERT embeddings for source code"""
     if device is None:
         device = torch.device('cuda' if torch.cuda.is_available() else 'mps' if torch.backends.mps.is_available() else 'cpu')
-    
-    print(f"  Using device: {device}")
+    print(f"Using device: {device}")
     
     tokenizer = AutoTokenizer.from_pretrained(CODEBERT_MODEL)
     codebert = AutoModel.from_pretrained(CODEBERT_MODEL).to(device)
     codebert.eval()
     
     embeddings = []
+    
     for i in range(0, len(codes), batch_size):
         batch = codes[i:i+batch_size]
-        batch_emb = []
         
-        for code in batch:
-            if len(code.strip()) > 0:
-                inputs = tokenizer(code, max_length=MAX_CODE_LENGTH, truncation=True,
-                                 padding='max_length', return_tensors='pt').to(device)
-                with torch.no_grad():
-                    outputs = codebert(**inputs)
-                    emb = outputs.last_hidden_state[:, 0, :].cpu().numpy().squeeze()
-            else:
-                emb = np.zeros(768)
-            batch_emb.append(emb)
+        # Handle empty strings (replace with empty string for tokenizer)
+        batch_codes = [code if len(code.strip()) > 0 else "" for code in batch]
         
-        embeddings.extend(batch_emb)
+        # Tokenize entire batch at once
+        inputs = tokenizer(
+            batch_codes, 
+            max_length=MAX_CODE_LENGTH, 
+            truncation=True,
+            padding='max_length', 
+            return_tensors='pt'
+        ).to(device)
         
-        if (i + batch_size) % 100 == 0:
-            print(f"    Processed {min(i + batch_size, len(codes))}/{len(codes)} samples")
+        # Single forward pass for the whole batch
+        with torch.no_grad():
+            outputs = codebert(**inputs)
+            # Extract [CLS] token embeddings for all examples in batch
+            batch_emb = outputs.last_hidden_state[:, 0, :].cpu().numpy()
+        
+        embeddings.append(batch_emb)
+        
+        if (i + batch_size) % 100 == 0 or (i + batch_size) >= len(codes):
+            print(f"Processed {min(i + batch_size, len(codes))}/{len(codes)} samples")
     
-    return np.array(embeddings)
+    return np.vstack(embeddings)
 
 def train_model(train_data_path, output_model_path, model_type='text'):
     """Train a model (text-only or multimodal)"""
